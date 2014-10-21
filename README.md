@@ -1,10 +1,6 @@
 # OpenMaths
 
-====
-
 The way Mathematics should have been done.
-
-====
 
 ## The development bible:
 
