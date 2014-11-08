@@ -743,19 +743,20 @@ footer {
   text-align: center;
   padding: 3rem 1rem; }
 
-.page-home header {
-  padding: 8rem 1rem;
-  text-align: center;
-  width: 100%; }
-  .page-home header p {
-    font-size: 1.625rem;
-    height: 2rem;
-    line-height: 2rem;
-    display: block; }
-    .page-home header p strong {
-      color: #ff6961; }
-    .page-home header p small {
-      font-size: 1.25rem; }
+.page-home .content-center-center {
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
 
 .page-ooops {
   background: #ff784b;

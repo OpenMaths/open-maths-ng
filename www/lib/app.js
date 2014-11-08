@@ -15,10 +15,6 @@ var app = angular.module("openMathsApp", [
 				templateUrl: "views/sass.html",
 				controller: "SassController"
 			})
-			.when("/login", {
-				templateUrl: "views/login.html",
-				controller: "LoginController"
-			})
 			.otherwise({
 				redirectTo: "/ooops"
 			});

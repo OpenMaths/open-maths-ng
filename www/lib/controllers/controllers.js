@@ -1,11 +1,11 @@
-app.controller("GlobalController", function($scope, $location) {
+app.controller("GlobalController", function ($scope, $location) {
 
 	// This is a test function that will run on page load.
 	console.log("OpenMaths is now running");
 
 	// This watches changes in URL and therefore makes it possible to assign
 	// classes and all sorts of dependencies dynamically.
-	$scope.$watch(function(){
+	$scope.$watch(function () {
 		return $location.path();
 	}, returnPath);
 
@@ -18,38 +18,37 @@ app.controller("GlobalController", function($scope, $location) {
 	}
 });
 
-app.controller("HomeController", function($scope, $rootScope){
+app.controller("HomeController", function ($scope, $rootScope) {
 	$rootScope.title = "Home";
-});
 
-app.controller("OoopsController", function($scope, $rootScope){
-	$rootScope.title = "Ooops";
-});
+	$scope.requestUmi = function () {
+		// MQ== is the base_64 for 1
 
-app.controller("SassController", function($scope, $rootScope, $location){
-	$rootScope.title = "SASS Library";
-});
-
-app.controller("LoginController", function($scope, $rootScope, $location, $http){
-	$rootScope.title = "Log in";
-
-	$scope.submitLogin = function() {
 		var http = new XMLHttpRequest();
-		var url = appConfig.apiUrl + "/user/login"
-
-		var data = JSON.stringify([[$scope.email, $scope.password], 7, appConfig.appUrl]);
+		var url = appConfig.apiUrl + "/umi/" + $scope.requestId;
 
 		http.open("POST", url); // add third parameter for authentication / SSL?
 
-		http.onload = function() {
+		http.onload = function () {
 			console.log(http);
 		};
 
-		http.onerror = function() {
-			alert('Woops, there was an error making the request.');
+		http.onerror = function () {
+			alert("Woops, there was an error making the request.");
 		};
 
-		http.send(data);
-
+		http.send();
 	};
+});
+
+app.controller("OoopsController", function ($scope, $rootScope) {
+	$rootScope.title = "Ooops";
+});
+
+app.controller("SassController", function ($scope, $rootScope, $location) {
+	$rootScope.title = "SASS Library";
+});
+
+app.controller("LoginController", function ($scope, $rootScope, $location, $http) {
+	$rootScope.title = "Log in";
 });
