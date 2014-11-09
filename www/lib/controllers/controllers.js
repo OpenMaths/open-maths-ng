@@ -18,32 +18,19 @@ app.controller("GlobalController", function ($scope, $location) {
 	}
 });
 
-app.controller("HomeController", function ($scope, $rootScope) {
+app.controller("HomeController", function ($scope, $rootScope, $http) {
 	$rootScope.title = "Home";
 
 	$scope.requestUmi = function () {
 
-		var http = $.get(appConfig.apiUrl + "/umi/" + $scope.requestId, function (data) {
-			console.log(data);
-		});
+		$http.get(appConfig.apiUrl + "/umi/" + $scope.requestId).
+			success(function (data, status, headers, config) {
+				$scope.data = data;
+			}).
+			error(function (data, status, headers, config) {
+				$scope.data = "No data to display :-(";
+			});
 
-		console.log(http);
-
-
-		//var http = new XMLHttpRequest();
-		//var url = appConfig.apiUrl + "/umi/" + $scope.requestId;
-		//
-		//http.open("POST", url); // add third parameter for authentication / SSL?
-		//
-		//http.onload = function () {
-		//	console.log(http);
-		//};
-		//
-		//http.onerror = function () {
-		//	alert("Woops, there was an error making the request.");
-		//};
-		//
-		//http.send();
 	};
 });
 

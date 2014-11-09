@@ -4,6 +4,7 @@
 		display: flex
 		align-items: center
 		justify-content: center
+		flex-direction: column
 
 	// temporarily offset here as not sure what container will this be in
 	#form-search-umi
@@ -28,3 +29,14 @@
 			+border-radius(0 3px 3px 0)
 
 			flex: 1
+
+	// temporarily offset here as not sure what container will this be in
+	#mathjax
+		+border-radius(3px)
+
+		background: $color-grey-900
+		color: white
+		padding: $double-unit-layout
+		margin: $double-unit-layout
+		width: rem(900px)
+		overflow: scroll
