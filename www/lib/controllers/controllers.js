@@ -22,22 +22,28 @@ app.controller("HomeController", function ($scope, $rootScope) {
 	$rootScope.title = "Home";
 
 	$scope.requestUmi = function () {
-		// MQ== is the base_64 for 1
 
-		var http = new XMLHttpRequest();
-		var url = appConfig.apiUrl + "/umi/" + $scope.requestId;
+		var http = $.get(appConfig.apiUrl + "/umi/" + $scope.requestId, function (data) {
+			console.log(data);
+		});
 
-		http.open("POST", url); // add third parameter for authentication / SSL?
+		console.log(http);
 
-		http.onload = function () {
-			console.log(http);
-		};
 
-		http.onerror = function () {
-			alert("Woops, there was an error making the request.");
-		};
-
-		http.send();
+		//var http = new XMLHttpRequest();
+		//var url = appConfig.apiUrl + "/umi/" + $scope.requestId;
+		//
+		//http.open("POST", url); // add third parameter for authentication / SSL?
+		//
+		//http.onload = function () {
+		//	console.log(http);
+		//};
+		//
+		//http.onerror = function () {
+		//	alert("Woops, there was an error making the request.");
+		//};
+		//
+		//http.send();
 	};
 });
 

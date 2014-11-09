@@ -4,3 +4,27 @@
 		display: flex
 		align-items: center
 		justify-content: center
+
+	// temporarily offset here as not sure what container will this be in
+	#form-search-umi
+		display: flex
+		width: 8 * $quadruple-unit-layout
+
+		input,
+		button
+			@extend .wipe-margin
+
+			min-width: inherit
+			padding-top: $base-unit-layout
+			padding-bottom: $base-unit-layout
+
+		input
+			+border-radius(3px 0 0 3px)
+
+			flex: 3
+			border-right: 0
+
+		button
+			+border-radius(0 3px 3px 0)
+
+			flex: 1

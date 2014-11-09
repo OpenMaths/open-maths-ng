@@ -1,8 +1,27 @@
+<nav id="nav-main">
+	<a href="" id="logo-nav">
+		<h1>{{ siteName }}</h1>
+	</a>
+
+	<ul>
+		<li id="search" class="active"><a href="/"><small>Home</small></a></li>
+		<li id="add-umi"><a href="/"><small>Add a new UMI</small></a></li>
+		<li id="about-us"><a href="/"><small>About us</small></a></li>
+	</ul>
+
+	<!--Change this to a different structure?-->
+	<div id="toggle-full-size-nav">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+</nav>
+
 <div class="content-center-center">
-	<form ng-submit="requestUmi()">
+	<form ng-submit="requestUmi()" id="form-search-umi">
 		<div class="flash-message"></div>
 		<input type="text" placeholder="I want to learn more about..."
 			   ng-model="requestId" required/>
-		<button>Make Request</button>
+		<button class="button primary">Search</button>
 	</form>
 </div>
