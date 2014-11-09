@@ -7,6 +7,10 @@ var app = angular.module("openMathsApp", [
 				templateUrl: "views/home.html",
 				controller: "HomeController"
 			})
+			.when("/editor", {
+				templateUrl: "views/editor.html",
+				controller: "EditorController"
+			})
 			.when("/ooops", {
 				templateUrl: "views/ooops.html",
 				controller: "OoopsController"

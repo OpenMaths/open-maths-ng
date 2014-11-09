@@ -34,6 +34,11 @@ app.controller("HomeController", function ($scope, $rootScope, $http) {
 	};
 });
 
+app.controller("EditorController", function ($scope, $rootScope) {
+	$rootScope.title = "Editor";
+
+});
+
 app.controller("OoopsController", function ($scope, $rootScope) {
 	$rootScope.title = "Ooops";
 });

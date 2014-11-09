@@ -185,6 +185,7 @@ button,
   border-radius: 4px;
   -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
+  -webkit-appearance: none;
   border: 1px solid #d5e0e0;
   background: white;
   padding: 0.75rem;
@@ -848,12 +849,35 @@ footer {
 .page-home #mathjax {
   -o-border-radius: 3px;
   border-radius: 3px;
-  background: #1b2424;
+  background: #ec6470;
   color: white;
   padding: 2rem;
   margin: 2rem;
   width: 56.25rem;
   overflow: scroll; }
+
+.page-editor #editor {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  .page-editor #editor #editor-input {
+    -o-border-radius: 0;
+    border-radius: 0;
+    resize: none;
+    height: 100vh;
+    width: 50%;
+    background: #1b2424;
+    color: #7e9e9e;
+    border: 0;
+    padding: 1rem; }
+  .page-editor #editor #editor-preview {
+    height: 100vh;
+    width: 50%;
+    background: #1b2424;
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    color: #7e9e9e;
+    padding: 1rem; }
 
 .page-ooops {
   background: #ff784b;
