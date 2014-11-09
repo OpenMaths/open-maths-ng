@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ siteLanguage }}" ng-app="openMathsApp"
-	  ng-controller="GlobalController">
+<html lang="{{ siteLanguage }}" ng-app="openMathsApp" ng-controller="GlobalController">
 <head>
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta name="google-site-verification" content="DtHAfQWsZLZOEk31k1VdVPF2VkBGQk6L-cgjMMtcsG0"/>
 
 	<meta name="fragment" content="!">
 
@@ -23,9 +24,7 @@
 
 <noscript>
 	<div id="warning">
-		<p>To be able to experience {{ siteName }} with all its features, you
-			need a browser that supports JavaScript, and it <strong>needs to be
-				enabled.</strong></p>
+		<p>To be able to experience {{ siteName }} with all its features, you need a browser that supports JavaScript, and it <strong>needs to be enabled.</strong></p>
 	</div>
 </noscript>
 
@@ -37,30 +36,32 @@
 	<p>&copy; 2014, <a href="/">{{ siteName }}</a></p>
 </footer>
 
+<!--External Font Families-->
 <script>
 	WebFontConfig = {
 		google: {
-			families: ['Dosis:n3,n7']
+			families: ["Dosis:n3,n7"]
 		},
 		typekit: {
-			id: 'pbe5ncv'
+			id: "pbe5ncv"
 		}
 	};
 
 	(function () {
 		var wf = document.createElement('script');
-		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js';
-		wf.type = 'text/javascript';
-		wf.async = 'true';
+		wf.src = ("https:" == document.location.protocol ? "https" : "http") + "://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js";
+		wf.type = "text/javascript";
+		wf.async = "true";
 
-		var s = document.getElementsByTagName('script')[0];
+		var s = document.getElementsByTagName("script")[0];
 		s.parentNode.insertBefore(wf, s);
 	})();
 </script>
 
-<script src="https://code.jquery.com/jquery-latest.min.js"
-		type="text/javascript"></script>
+<!--jQuery library-->
+<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
+<!--LaTex parser library-->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     extensions: ["tex2jax.js"],
@@ -72,20 +73,24 @@
     },
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
+
 </script>
-<script type="text/javascript"
-		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
 </script>
 
+<!--Angular Vendor-->
 <script src="/lib/vendor/angular/angular.js" type="text/javascript"></script>
-<script src="/lib/vendor/angular/angular-route.js"
-		type="text/javascript"></script>
+<script src="/lib/vendor/angular/angular-route.js" type="text/javascript"></script>
 
+<!--Angular config, app, and controllers-->
 <script src="/lib/config.js" type="text/javascript"></script>
 <script src="/lib/app.js" type="text/javascript"></script>
 <script src="/lib/controllers/controllers.js" type="text/javascript"></script>
+
+<!--Angular Directives-->
 <script src="/lib/directives/mathjax-bind.js" type="text/javascript"></script>
 
+<!--Additional JavaScript functionality, such as radio buttons and checkboxes-->
 <script src="/assets/js/app.js" type="text/javascript"></script>
 
 </body>
