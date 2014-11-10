@@ -1,0 +1,17 @@
+{
+	"name": "open-maths",
+	"root": "www",
+	"clean_urls": true,
+	"prerender": true,
+	"error_page": "error.html",
+	"routes": {
+		"**": "index.html"
+	},
+	"exclude": [
+		"/node_modules",
+		"gulpfile.js",
+		"LICENSE",
+		"README.md",
+		".sass-cache"
+	]
+}

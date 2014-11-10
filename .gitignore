@@ -1,0 +1,10 @@
+.sass-cache
+.divshot-cache
+.idea
+
+/node_modules
+
+.DS_Store
+.Spotlight-V100
+.Trashes
+Thumbs.db
