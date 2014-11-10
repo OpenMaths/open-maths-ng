@@ -1,0 +1,45 @@
+.page-welcome
+	background:
+		image: url("#{$image-base}/bg/cover-welcome.jpg")
+		color: $color-grey-100
+		size: cover
+		repeat: no-repeat
+		position: center center
+
+	.hero
+		height: 100vh
+		display: flex
+		align-items: center
+		justify-content: center
+
+		h1
+			@extend .text-center
+
+			letter-spacing: 2px
+			padding: $double-unit-layout
+
+	footer
+		border-top: 1px solid rgba(255,255,255,.25)
+		position: fixed
+		bottom: 0
+		left: 0
+		width: 100%
+		height: $triple-unit-layout + $half-unit-layout
+		display: flex
+		color: rgba(255,255,255,.5)
+		text-align: center
+		align-items: center
+
+		small
+			font-size: rem(12px)
+			padding: 0 $base-unit-layout
+
+			a
+				color: rgba(255,255,255,.5)
+				text-decoration: none
+
+				+hover
+					color: white
+
+			span
+				padding: 0 $quarter-unit-layout
