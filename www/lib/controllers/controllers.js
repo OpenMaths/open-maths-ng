@@ -1,4 +1,4 @@
-app.controller("GlobalController", function ($scope, $location) {
+app.controller("GlobalController", function ($scope, $location, $window) {
 
 	// This is a test function that will run on page load.
 	console.log("OpenMaths is now running");
@@ -15,7 +15,10 @@ app.controller("GlobalController", function ($scope, $location) {
 	function returnPath() {
 		var splitUrl = $location.url().split("/");
 		$scope.path = splitUrl[1] == "" ? "home" : splitUrl[1];
+
+		$window.ga("send", "pageview", {page: $location.path()});
 	}
+
 });
 
 app.controller("HomeController", function ($scope, $rootScope, $http) {
