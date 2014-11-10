@@ -484,6 +484,9 @@ dl {
   height: 2px;
   opacity: 0.45; }
 
+#MathJax_Message {
+  display: none !important; }
+
 nav#nav-main {
   width: 5rem;
   height: 100vh;
