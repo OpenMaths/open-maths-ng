@@ -1,5 +1,6 @@
 var app = angular.module("openMathsApp", [
 		"ngRoute",
+		"angular-loading-bar"
 	]).config(function($routeProvider, $locationProvider) {
 
 		$routeProvider
