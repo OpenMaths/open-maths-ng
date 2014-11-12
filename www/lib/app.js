@@ -26,6 +26,7 @@ var app = angular.module("openMathsApp", [
 
 	$locationProvider.html5Mode(true);
 	$locationProvider.hashPrefix("!");
+
 }).config(["cfpLoadingBarProvider", function (cfpLoadingBarProvider) {
 	cfpLoadingBarProvider.includeSpinner = false;
 }]);
@@ -33,7 +34,5 @@ var app = angular.module("openMathsApp", [
 app.run(function ($rootScope) {
 	$rootScope.siteName = appConfig.siteName;
 	$rootScope.siteLanguage = appConfig.siteLanguage;
-	$rootScope.description = appConfig.description;
-	$rootScope.keywords = appConfig.keywords;
-	$rootScope.author = appConfig.author;
+	$rootScope.description = appConfig.description[appConfig.siteLanguage];
 });

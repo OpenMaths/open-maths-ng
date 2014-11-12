@@ -39,7 +39,6 @@ app.controller("HomeController", function ($scope, $rootScope, $http) {
 
 app.controller("EditorController", function ($scope, $rootScope) {
 	$rootScope.title = "Editor";
-
 });
 
 app.controller("OoopsController", function ($scope, $rootScope) {
@@ -48,8 +47,4 @@ app.controller("OoopsController", function ($scope, $rootScope) {
 
 app.controller("SassController", function ($scope, $rootScope, $location) {
 	$rootScope.title = "SASS Library";
-});
-
-app.controller("LoginController", function ($scope, $rootScope, $location, $http) {
-	$rootScope.title = "Log in";
 });
