@@ -22,7 +22,7 @@ time, mark, audio, video {
 html {
   font-size: 16px;
   color: #1b2424;
-  font-family: "aktiv-grotesk-std", Helvetica, Arial, sans-serif;
+  font-family: "Aktiv Grotesk", "aktiv-grotesk-std", Helvetica, Arial, sans-serif;
   min-height: 100%; }
 
 article, aside, footer, header, menu, nav, section {
@@ -189,7 +189,7 @@ button,
   border: 1px solid #d5e0e0;
   background: white;
   padding: 0.75rem;
-  font-family: "aktiv-grotesk-std", Helvetica, Arial, sans-serif !important;
+  font-family: "Aktiv Grotesk", "aktiv-grotesk-std", Helvetica, Arial, sans-serif !important;
   font-size: 0.875rem;
   outline: none;
   color: #648585;
@@ -400,6 +400,7 @@ textarea:invalid {
   display: none;
   margin: 0 0 1rem; }
 
+label,
 .label {
   -o-border-radius: 3px;
   border-radius: 3px;
@@ -407,12 +408,16 @@ textarea:invalid {
   padding: 0.25rem 0.5rem;
   border: 1px solid #b8caca;
   color: #b8caca; }
-  .label.primary {
+  label.primary, label.red,
+  .label.primary,
+  .label.red {
     border-color: #ec6470;
     color: #ec6470; }
-  .label.secondary {
+  label.blue,
+  .label.blue {
     border-color: #6eb3c9;
     color: #6eb3c9; }
+  label.numeric,
   .label.numeric {
     -o-border-radius: 1.25rem;
     border-radius: 1.25rem;
@@ -426,6 +431,10 @@ textarea:invalid {
     border: 0;
     color: white;
     background: #ff4040; }
+  label.theorem,
+  .label.theorem {
+    border-color: gold;
+    color: gold; }
 
 ul, ol {
   line-height: 1.5;
@@ -571,7 +580,7 @@ p {
     margin-top: 0; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "source-code-pro", Helvetica, Arial, sans-serif; }
+  font-family: "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
   h1:first-of-type, h2:first-of-type, h3:first-of-type, h4:first-of-type, h5:first-of-type, h6:first-of-type {
     margin-top: 0; }
   h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child {
@@ -798,7 +807,7 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .page-ooops .headline {
+.text-center, .close, .page-canvas .umi article em, .page-ooops .headline {
   text-align: center; }
 
 .text-right {
@@ -841,6 +850,110 @@ footer {
   font-size: 0.75rem;
   text-align: center;
   padding: 3rem 1rem; }
+
+.page-canvas .content-center-center {
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+.page-canvas .umi {
+  -webkit-transition: border 0.25s;
+  transition: border 0.25s;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #1b2424;
+  max-width: 33.33333%; }
+  .page-canvas .umi .title {
+    -o-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+    height: 3.5rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 0 1.25rem;
+    font-size: 1.125rem; }
+    .page-canvas .umi .title label {
+      margin-left: auto;
+      font-size: 0.6875rem; }
+  .page-canvas .umi article {
+    padding: 0 1.25rem 1.25rem;
+    font-size: 0.875rem;
+    font-family: "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
+    .page-canvas .umi article p {
+      line-height: 1.75; }
+      .page-canvas .umi article p strong {
+        color: #ec6470;
+        position: relative;
+        font-weight: 300;
+        cursor: pointer; }
+        .page-canvas .umi article p strong span {
+          -o-border-radius: 100%;
+          border-radius: 100%;
+          position: absolute;
+          width: 1.5rem;
+          height: 1.5rem;
+          border: 1px solid #ec6470;
+          background: white;
+          display: block;
+          cursor: pointer; }
+          .page-canvas .umi article p strong span.expand-down, .page-canvas .umi article p strong span.expand-up {
+            left: 50%;
+            margin-left: -0.75rem; }
+          .page-canvas .umi article p strong span.expand-down {
+            bottom: -1.75rem; }
+          .page-canvas .umi article p strong span.expand-up {
+            top: -1.75rem; }
+          .page-canvas .umi article p strong span.expand-left, .page-canvas .umi article p strong span.expand-right {
+            top: 50%;
+            margin-top: -0.75rem; }
+          .page-canvas .umi article p strong span.expand-left {
+            left: -2rem; }
+          .page-canvas .umi article p strong span.expand-right {
+            right: -2rem; }
+    .page-canvas .umi article em {
+      display: block;
+      color: #1b2424;
+      font-family: "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1rem; }
+  .page-canvas .umi .footer {
+    border-top: 1px solid #1b2424;
+    padding: 0.5rem;
+    font-size: 0.625rem;
+    color: #1b2424; }
+.page-canvas .dark {
+  background: #1b2424; }
+  .page-canvas .dark .umi {
+    border: 1px solid #7e9e9e; }
+    .page-canvas .dark .umi .title {
+      color: #7e9e9e; }
+    .page-canvas .dark .umi article {
+      color: #7e9e9e; }
+      .page-canvas .dark .umi article em {
+        color: #7e9e9e; }
+    .page-canvas .dark .umi .footer {
+      border-top: 1px solid #7e9e9e;
+      color: #7e9e9e; }
 
 .page-home .content-center-center {
   height: 100vh;

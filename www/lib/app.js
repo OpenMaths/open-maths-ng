@@ -12,6 +12,10 @@ var app = angular.module("openMathsApp", [
 			templateUrl: "views/editor.html",
 			controller: "EditorController"
 		})
+		.when("/canvas", {
+			templateUrl: "views/canvas.html",
+			controller: "CanvasController"
+		})
 		.when("/ooops", {
 			templateUrl: "views/ooops.html",
 			controller: "OoopsController"

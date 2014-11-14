@@ -41,6 +41,10 @@ app.controller("EditorController", function ($scope, $rootScope) {
 	$rootScope.title = "Editor";
 });
 
+app.controller("CanvasController", function ($scope, $rootScope) {
+	$rootScope.title = "Canvas";
+});
+
 app.controller("OoopsController", function ($scope, $rootScope) {
 	$rootScope.title = "Ooops";
 });

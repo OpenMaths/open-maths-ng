@@ -1,0 +1,126 @@
+.page-canvas
+	.content-center-center
+		height: 100vh
+		display: flex
+		align-items: center
+		justify-content: center
+		flex-direction: column
+
+	// Abstract to UMI module
+	.umi
+		$umi-side-padding: $base-unit-layout + $quarter-unit-layout
+
+		+transition(border .25s) //abstract to transition duration variable
+		+border-radius(4px) // abstract to $border-radius-small ??
+
+		border: 1px solid $color-grey-900
+		max-width: 33.3333333%
+
+		+hover
+			//border: 1px solid $color-grey-400
+
+		// TEMP name
+		.title
+			+border-radius(4px 4px 0 0)
+
+			height: $triple-unit-layout + $half-unit-layout
+			display: flex
+			align-items: center
+			padding: 0 $umi-side-padding
+			font-size: rem(18px)
+			//background: $color-grey-900
+			//color: $color-grey-600
+
+			strong
+				//font-weight: 300
+
+			label
+				margin-left: auto
+				font-size: rem(11px)
+
+		article
+			padding: 0 $umi-side-padding $umi-side-padding
+			//color: $color-grey-700
+			font:
+				size: rem(14px)
+				family: $font-family-secondary
+
+			p
+				line-height: 1.75
+
+				strong
+					color: $color-red
+					position: relative
+					font-weight: 300
+					cursor: pointer
+
+					span
+						+border-radius(100%)
+
+						position: absolute
+						width: $double-half-unit-layout
+						height: $double-half-unit-layout
+						border: 1px solid $color-red
+						background: white
+						display: block
+						cursor: pointer
+
+						&.expand-down,
+						&.expand-up
+							left: 50%
+							margin-left: -($double-half-unit-layout / 2)
+
+						&.expand-down
+							bottom: -($double-half-unit-layout + $quarter-unit-layout)
+
+
+						&.expand-up
+							top: -($double-half-unit-layout + $quarter-unit-layout)
+
+						&.expand-left,
+						&.expand-right
+							top: 50%
+							margin-top: -($double-half-unit-layout / 2)
+
+						&.expand-left
+							left: -($double-unit-layout)
+
+						&.expand-right
+							right: -($double-unit-layout)
+
+			em
+				@extend .text-center
+
+				display: block
+				color: $color-grey-900
+				font:
+					family: $font-family-secondary
+					style: normal
+					weight: 500
+					size: rem(16px)
+
+		// TEMP name
+		.footer
+			border-top: 1px solid $color-grey-900
+			padding: $half-unit-layout
+			font-size: rem(10px)
+			color: $color-grey-900
+
+	.dark
+		background: $color-grey-900
+
+		.umi
+			border: 1px solid $color-grey-500
+
+			.title
+				color: $color-grey-500
+
+			article
+				color: $color-grey-500
+
+				em
+					color: $color-grey-500
+
+			.footer
+				border-top: 1px solid $color-grey-500
+				color: $color-grey-500
