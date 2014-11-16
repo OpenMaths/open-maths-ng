@@ -41,8 +41,10 @@ app.controller("EditorController", function ($scope, $rootScope) {
 	$rootScope.title = "Editor";
 });
 
-app.controller("CanvasController", function ($scope, $rootScope) {
-	$rootScope.title = "Canvas";
+app.controller("BoardController", function ($scope, $rootScope) {
+	$rootScope.title = "Board";
+
+	$scope.data = ''; // This will be the json to populate certain umi
 });
 
 app.controller("OoopsController", function ($scope, $rootScope) {

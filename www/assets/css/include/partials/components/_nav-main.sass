@@ -1,37 +1,44 @@
+/// TODO: Abstract variables from this code
+
 nav#nav-main
-	width: rem(80px)
+	width: rem(70px)
 	height: 100vh
 	position: fixed
-	border-right: 1px solid rgba(0, 0, 0, .05)
-	//background: $color-grey-900
+	display: flex
+	flex-direction: column
+	//border-right: 1px solid darken($color-grey-900, 7.5%)
+	background: darken($color-grey-900, 2.5%)
 
 	#logo-nav
-		+transition()
-
-		width: rem(80px)
-		height: rem(80px)
+		width: rem(70px)
+		height: rem(70px)
 		overflow: hidden
 		display: block
-		//border-bottom: 1px solid rgba(0, 0, 0, .05)
+		//border-bottom: 1px solid darken($color-grey-900, 7.5%)
 		background:
-			image: url("#{$image-base}/logo/logo-glyph-white.svg")
+			image: url("#{$image-base}/logo/logo-glyph-grey.svg")
 			repeat: no-repeat
 			position: center center
 			size: 60% auto
-			color: $color-red
+			//color: $color-red
 
 		h1
 			opacity: 0
+
+		+hover
+			background:
+				image: url("#{$image-base}/logo/logo-glyph-white.svg")
 
 	ul
 		@extend .wipe-margin-padding
 
 		display: flex
+		flex: 1
 		flex-direction: column
 
 		li
-			width: rem(80px)
-			height: rem(80px)
+			width: rem(70px)
+			height: rem(70px)
 
 			a
 				width: 100%
@@ -51,6 +58,11 @@ nav#nav-main
 					background:
 						image: url("#{$image-base}/icons/grey/search.svg")
 
+				+hover
+					a
+						background:
+							image: url("#{$image-base}/icons/white/search.svg")
+
 				&.active
 					a
 						background:
@@ -60,6 +72,12 @@ nav#nav-main
 				a
 					background:
 						image: url("#{$image-base}/icons/grey/terminal.svg")
+
+				+hover
+					a
+						background:
+							image: url("#{$image-base}/icons/white/terminal.svg")
+
 
 				&.active
 					a
@@ -72,8 +90,37 @@ nav#nav-main
 						image: url("#{$image-base}/icons/grey/bulb.svg")
 						size: 30% auto
 
+				+hover
+					a
+						background:
+							image: url("#{$image-base}/icons/white/bulb.svg")
+
 				&.active
 					a
 						background:
 							image: url("#{$image-base}/icons/primary/bulb.svg")
 
+	#theme-switch
+		height: rem(70px)
+		width: rem(70px)
+		cursor: pointer
+		display: block
+		background:
+			image: url("#{$image-base}/icons/theme-switch/icon-moon-grey.svg")
+			repeat: no-repeat
+			position: center center
+			size: 40% auto
+
+		+hover
+			background:
+				image: url("#{$image-base}/icons/theme-switch/icon-moon-white.svg")
+
+.dark
+	nav#nav-main
+		#theme-switch
+			background:
+				image: url("#{$image-base}/icons/theme-switch/icon-sun-grey.svg")
+
+			+hover
+				background:
+					image: url("#{$image-base}/icons/theme-switch/icon-sun-white.svg")
