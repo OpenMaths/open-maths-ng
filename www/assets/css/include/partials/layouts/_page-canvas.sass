@@ -23,6 +23,8 @@
 				display: flex
 				flex-direction: column
 				width: 33.333333333%
+				border-right: 1px solid $color-grey-100
+				border-bottom: 1px solid $color-grey-100
 
 	// Abstract to UMI module
 	// Also, make this display: flex, flex-direction: column
@@ -36,7 +38,10 @@
 		flex: 1
 		display: flex
 		flex-direction: column
-		padding: $umi-side-padding $umi-side-padding $half-unit-layout
+		padding: $umi-side-padding // $umi-side-padding $half-unit-layout
+
+		// NOTE THAT THIS WILL PROBABLY BE ON PRODUCTION
+		border: 0 !important
 
 		&.closes-right
 			.expand-right
@@ -119,17 +124,14 @@
 				font-size: rem(11px)
 
 		article
-			display: flex
-			flex-direction: column
-			align-items: center
-			justify-content: center
 			font:
 				size: rem(14px)
 				family: $font-family-secondary
 
-			.content
-				> :last-child
-					margin-bottom: $base-unit-layout
+			// TEMPORARILY out
+			//.content
+			//	> :last-child
+			//		margin-bottom: $base-unit-layout
 
 			p
 				line-height: 1.75
@@ -226,6 +228,7 @@
 
 			@extend .text-center
 
+			display: none //TEMP SOLUTION
 			padding: $half-unit-layout 0 0
 			font-size: rem(10px)
 			color: $color-grey-900
@@ -251,6 +254,11 @@
 
 	&.dark
 		background: $color-grey-900
+
+		.row
+			.column
+				border-right: 1px solid $color-grey-800
+				border-bottom: 1px solid $color-grey-800
 
 		.umi
 			border: 1px solid $color-grey-400

@@ -1,0 +1,11 @@
+{
+"umiType": "Definition",
+"prerequisiteDefinitions": [3],
+"tags": [],
+"ts": 1416175926235,
+"titleSynonyms": [],
+"id": 4,
+"title": "Circle - Pointwise Pythagorean Definition",
+"seeAlso": [],
+"latex": "$C \in \mathbb{R}^2$ is a {\bf circle} if and only if $C$ is non-empty, $\exists p \in \mathbb{R}^2$ such that $\forall x, y \in C, (x_1 - p_1)^2 + (x_2 - p_2)^2 = (y_1 - p_1)^2 + (y_2 - p_2)^2$ and $\forall z \in \mathbb{R}^2$ if $\exists x \in C$ such that $(x_1 - p_1)^2 + (x_2 - p_2)^2 = (z_1 - p_1)^2 + (z_2 - p_2)^2$ then $z \in \mathbb{R}^2$."
+}

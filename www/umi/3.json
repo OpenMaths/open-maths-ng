@@ -1,0 +1,11 @@
+{
+"umiType": "Definition",
+"prerequisiteDefinitions": [],
+"tags": [],
+"ts": 1416175926235,
+"titleSynonyms": [],
+"id": 3,
+"title": "Non-empty Set",
+"seeAlso": [],
+"latex": "For any set $x$, $x$ is {\bf non-empty} if and only if $x \neq \emptyset$"
+}

@@ -1,0 +1,11 @@
+{
+"umiType": "Axiom",
+"prerequisiteDefinitions": [],
+"tags": [],
+"ts": 1416175926235,
+"titleSynonyms": [],
+"id": 0,
+"title": "Axiom of Extensionality",
+"seeAlso": [],
+"latex": "$\forall x \forall y [ \forall z (z \in x \Leftrightarrow z \in y) \Rightarrow x = y].$"
+}

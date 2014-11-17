@@ -1,0 +1,11 @@
+{
+"umiType": "Axiom",
+"prerequisiteDefinitions": [],
+"tags": [],
+"ts": 1416175926235,
+"titleSynonyms": ["Axiom of Regularity"],
+"id": 1,
+"title": "Axiom of Foundation",
+"seeAlso": [],
+"latex": "$\forall x [ \exists a ( a \in x) \Rightarrow \exists y ( y \in x \land \lnot \exists z (z \in y \land z \in x))].$"
+}

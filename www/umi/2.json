@@ -1,0 +1,11 @@
+{
+"umiType": "Axiom",
+"prerequisiteDefinitions": [],
+"tags": [],
+"ts": 1416175926235,
+"titleSynonyms": ["Axiom Scheme of Separation", "Axiom Scheme of Specification"],
+"id": 2,
+"title": "Axiom Schema of Restricted Comprehension",
+"seeAlso": [],
+"latex": "Let $\phi$ be any formula in the language of ZFC with all free variables amoung $x,z,w_1,\ldots,w_n$ then:\n\[ \forall z \forall w_1 \forall w_2\ldots \forall w_n \exists y \forall x [x \in y \Leftrightarrow ( x \in z \land \phi )]. \]"
+}
