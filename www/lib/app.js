@@ -1,6 +1,7 @@
 var app = angular.module("openMathsApp", [
 	"ngRoute",
-	"angular-loading-bar"
+	"angular-loading-bar",
+	"ngSanitize"
 ]).config(function ($routeProvider, $locationProvider) {
 
 	$routeProvider
