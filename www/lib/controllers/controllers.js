@@ -24,6 +24,21 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 app.controller("HomeController", function ($scope, $rootScope, $http) {
 	$rootScope.title = "Home";
 
+	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=50").
+		success(function (data) {
+			$scope.githubFeed = data;
+			// data.forEach(function(entry) {
+			// 	if (entry["type"] == "PushEvent") {
+			// 		var date = new Date(entry["created_at"]);
+
+			// 		console.log(date.getDay());
+			// 	}
+			// });
+		}).
+		error(function (data, status, headers, config) {
+			console.log(data);
+		});
+
 	$scope.requestUmi = function () {
 
 		$http.get(appConfig.apiUrl + "/umi/" + $scope.requestId).
