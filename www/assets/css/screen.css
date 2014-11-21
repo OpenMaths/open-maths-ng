@@ -925,7 +925,9 @@ footer {
       -webkit-flex-direction: column;
           -ms-flex-direction: column;
               flex-direction: column;
-      width: 33.33333%; }
+      width: 33.33333%;
+      border-right: 1px solid #f2f6f6;
+      border-bottom: 1px solid #f2f6f6; }
 .page-board .umi {
   -webkit-transition: border 0.25s;
   transition: border 0.25s;
@@ -945,7 +947,8 @@ footer {
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 1.25rem 1.25rem 0.5rem; }
+  padding: 1.25rem;
+  border: 0 !important; }
   .page-board .umi.closes-right .expand-right {
     display: none; }
   .page-board .umi.closes-left .expand-left {
@@ -1019,27 +1022,8 @@ footer {
       margin: 0 1rem 0 0;
       font-size: 0.6875rem; }
   .page-board .umi article {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
     font-size: 0.875rem;
     font-family: "Anonymous Pro", "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
-    .page-board .umi article .content > :last-child {
-      margin-bottom: 1rem; }
     .page-board .umi article p {
       line-height: 1.75; }
       .page-board .umi article p strong {
@@ -1106,6 +1090,7 @@ footer {
   .page-board .umi .footer {
     -webkit-transition: opacity 0.25s;
     transition: opacity 0.25s;
+    display: none;
     padding: 0.5rem 0 0;
     font-size: 0.625rem;
     color: #1b2424;
@@ -1118,6 +1103,9 @@ footer {
       opacity: 1; }
 .page-board.dark {
   background: #1b2424; }
+  .page-board.dark .row .column {
+    border-right: 1px solid #384b4b;
+    border-bottom: 1px solid #384b4b; }
   .page-board.dark .umi {
     border: 1px solid #9bb4b4; }
     .page-board.dark .umi:hover, .page-board.dark .umi:focus {
