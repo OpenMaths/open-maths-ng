@@ -47,7 +47,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 		$scope.grid.push(row);
 	}
 
-	$http.get(appConfig.apiUrl + "?umi=" + 5).
+	$http.get(appConfig.apiUrl + "?umi=" + 2).
 		success(function (data, status, headers, config) {
 			$scope.grid[1][1] = data;
 		}).
