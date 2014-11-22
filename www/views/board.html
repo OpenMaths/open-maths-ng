@@ -1,25 +1,6 @@
-<nav id="nav-main">
-	<a href="" id="logo-nav">
-		<h1>{{ siteName }}</h1>
-	</a>
+<div menu-top></div>
 
-	<ul>
-		<li id="search" class="active"><a href="/"><small>Home</small></a></li>
-		<li id="add-umi"><a href="/editor"><small>Add a new UMI</small></a></li>
-		<li id="about-us"><a href="/"><small>About us</small></a></li>
-	</ul>
-
-	<!--Change this to a different structure?-->
-	<div id="toggle-full-size-nav">
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>
-
-	<i id="theme-switch"></i>
-</nav>
-
-<div class="content-center-center">
+<div class="content-center-center" style="display: none">
 	<div class="row" ng-repeat="row in grid">
 		<div class="column" ng-repeat="data in row">
 			<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}">

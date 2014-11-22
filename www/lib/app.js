@@ -1,21 +1,16 @@
 var app = angular.module("openMathsApp", [
 	"ngRoute",
-	"angular-loading-bar",
-	"ngSanitize"
+	"angular-loading-bar"
 ]).config(function ($routeProvider, $locationProvider) {
 
 	$routeProvider
 		.when("/", {
-			templateUrl: "views/home.html",
-			controller: "HomeController"
-		})
-		.when("/editor", {
-			templateUrl: "views/editor.html",
-			controller: "EditorController"
-		})
-		.when("/board", {
 			templateUrl: "views/board.html",
 			controller: "BoardController"
+		})
+		.when("/contribute", {
+			templateUrl: "views/contribute.html",
+			controller: "ContributeController"
 		})
 		.when("/ooops", {
 			templateUrl: "views/ooops.html",

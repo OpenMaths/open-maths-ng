@@ -21,43 +21,14 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 
 });
 
-app.controller("HomeController", function ($scope, $rootScope, $http) {
-	$rootScope.title = "Home";
-
-	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=50").
-		success(function (data) {
-			$scope.githubFeed = data;
-			// data.forEach(function(entry) {
-			// 	if (entry["type"] == "PushEvent") {
-			// 		var date = new Date(entry["created_at"]);
-
-			// 		console.log(date.getDay());
-			// 	}
-			// });
-		}).
-		error(function (data, status, headers, config) {
-			console.log(data);
-		});
-
-	$scope.requestUmi = function () {
-
-		$http.get(appConfig.apiUrl + "/umi/" + $scope.requestId).
-			success(function (data, status, headers, config) {
-				$scope.data = data;
-			}).
-			error(function (data, status, headers, config) {
-				$scope.data = "No data to display :-(";
-			});
-
-	};
-});
-
-app.controller("EditorController", function ($scope, $rootScope) {
-	$rootScope.title = "Editor";
+app.controller("ContributeController", function ($scope, $rootScope) {
+	$rootScope.title = "Contribute";
+	$scope.navContribute = true;
 });
 
 app.controller("BoardController", function ($scope, $rootScope, $http) {
 	$rootScope.title = "Board";
+	$scope.navBoard = true;
 
 	$scope.grid = [];
 
@@ -78,7 +49,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 		error(function (data, status, headers, config) {
 
 			// TODO: change this to a more semantic system of displaying errors
-			alert("No data to display :-(");
+			console.log("No data to display :-(");
 
 			console.log(data + " | " + status + " | " + headers + " | " + config);
 		});
@@ -121,56 +92,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 
 	};
 
-});
-
-app.controller("UmiController", function ($scope, $http, $rootScope) {
-
-	// TODO: move templates to separate file
-	var templates = {};
-
-	templates.umi = function (id, data, position) {
-		return '<div class="umi {{ umiOpeningDirectionClass }}" ng-controller="UmiController" ng-init="position=[' + position[0] + ',' + position[1] + ']">' +
-		'<div class="content-holder">' +
-		'<div class="title">' +
-		'<label class="proof">' + data.umiType + '</label>' +
-		'<strong>{{ title }}' + data.title + '</strong>' +
-		'</div>' +
-		'<article>' + data.latex + '</article>' +
-		'</div>' +
-		'</div>';
-	};
-
-	$scope.expand = function (direction) {
-		var newUmiID = $scope.newUmiID;
-		var position = $scope.position;
-		var newUmiData;
-
-		if (direction == "up") {
-			position[0] = $scope.position[0] - 1;
-
-			$scope.umiOpeningDirectionClass = "opens-top";
-		}
-
-		$http.get(appConfig.apiUrl + "/umi/" + newUmiID + ".json").
-			success(function (data, status, headers, config) {
-
-				newUmiData = data;
-
-				$rootScope.row1col2 = templates.umi(newUmiID, newUmiData, position);
-
-				//$(".row[data-row=" + position[0] + "] .column[data-column=" + position[1] + "]").
-				//	html(templates.umi(newUmiID, newUmiData, position));
-
-			}).
-			error(function (data, status, headers, config) {
-
-				// TODO: change this to a more semantic system of displaying errors
-				alert("No data to display :-(");
-
-				console.log(data + " | " + status + " | " + headers + " | " + config);
-			});
-
-	};
 });
 
 app.controller("OoopsController", function ($scope, $rootScope) {
