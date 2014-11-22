@@ -62,7 +62,7 @@ $column-width: 100% / $column-numbers
 .flex
 	display: flex
 
-	&.columns
+	&.column
 		flex-direction: column
 
 	&.row
@@ -73,3 +73,7 @@ $column-width: 100% / $column-numbers
 
 	&.center-horizontally
 		justify-content: center
+
+@for $i from 1 through $column-numbers
+	.flex-#{$i}
+		flex: $i

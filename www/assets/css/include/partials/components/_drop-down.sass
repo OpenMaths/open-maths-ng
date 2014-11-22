@@ -2,14 +2,37 @@
 	position: relative
 
 	.contextual-menu
-		@extend .unstyled
+		+border-radius(0 0 $border-radius $border-radius)
 
 		position: absolute
 		top: 100%
-		background: red
 		width: rem(200px)
-		height: rem(100px)
+		border: 1px solid $color-grey-200
 
 		&.right
 			left: auto
 			right: 0
+
+		ul
+			@extend .unstyled
+
+			li
+				padding: $half-unit-layout $base-unit-layout
+				font:
+					size: rem(14px)
+
+				header
+					display: block
+					color: $color-grey-300
+					font:
+						size: rem(12px)
+
+.dark
+	.drop-down
+		.contextual-menu
+			border-color: $color-grey-800
+
+			ul
+				li
+					header
+						color: $color-grey-700

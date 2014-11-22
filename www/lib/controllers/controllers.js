@@ -3,21 +3,26 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 	// This is a test function that will run on page load.
 	console.log("OpenMaths is now running");
 
-	// This watches changes in URL and therefore makes it possible to assign
-	// classes and all sorts of dependencies dynamically.
 	$scope.$watch(function () {
 		return $location.path();
 	}, returnPath);
 
-	// This returns the current page name. It is basically the value after the
-	// forward slash in the URL, and it helps create custom body classes for
-	// specific styling.
 	function returnPath() {
 		var splitUrl = $location.url().split("/");
-		$scope.path = splitUrl[1] == "" ? "home" : splitUrl[1];
+		$scope.path = splitUrl[1] == "" ? "board" : splitUrl[1];
 
 		$window.ga("send", "pageview", {page: $location.path()});
 	}
+
+	$scope.themeClass = "dark";
+	$scope.setTheme = function(theme) {
+		$scope.themeClass = theme;
+	};
+
+	$scope.umiFontClass = "umi-font-modern";
+	$scope.setUmiFont = function(font) {
+		$scope.umiFontClass = font;
+	};
 
 });
 
@@ -42,7 +47,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 		$scope.grid.push(row);
 	}
 
-	$http.get(appConfig.apiUrl + "?umi=" + 2).
+	$http.get(appConfig.apiUrl + "?umi=" + 5).
 		success(function (data, status, headers, config) {
 			$scope.grid[1][1] = data;
 		}).

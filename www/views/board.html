@@ -1,17 +1,19 @@
-<div menu-top></div>
+<div class="flex column" style="height: 100vh">
+	<div menu-top></div>
 
-<div class="content-center-center" style="display: none">
-	<div class="row" ng-repeat="row in grid">
-		<div class="column" ng-repeat="data in row">
-			<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}">
-				<div class="content-holder" ng-hide="!data.latex">
-					<div class="title">
-						<label class="proof">{{ data.umiType }}</label>
-						<strong>{{ data.title }}</strong>
+	<div class="content-center-center flex-1">
+		<div class="row" ng-repeat="row in grid">
+			<div class="column" ng-repeat="data in row">
+				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}">
+					<div class="content-holder" ng-hide="!data.latex">
+						<div class="title">
+							<label class="proof">{{ data.umiType }}</label>
+							<strong>{{ data.title }}</strong>
+						</div>
+						<article>
+							<p om-bind="data.latex"></p>
+						</article>
 					</div>
-					<article>
-						<p om-bind="data.latex"></p>
-					</article>
 				</div>
 			</div>
 		</div>

@@ -12,6 +12,7 @@
 		"gulpfile.js",
 		"LICENSE",
 		"README.md",
+		".idea",
 		".sass-cache"
 	]
 }

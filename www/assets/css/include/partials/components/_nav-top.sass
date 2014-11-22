@@ -6,11 +6,11 @@
 
 	#logo-nav-top
 		position: absolute
-		left: 50%
-		top: 0
-		margin: 0 0 0 -$double-unit-layout
 		width: $quadruple-unit-layout
 		height: $quadruple-unit-layout
+		margin-left: -($quadruple-unit-layout / 2)
+		left: 50%
+		top: 0
 		overflow: hidden
 		background:
 			image: url("#{$image-base}/logo/logo-glyph-primary.svg")
@@ -28,13 +28,13 @@
 
 		height: 100%
 
-		li
+		> li
 			padding: 0 $half-unit-layout
 			height: 100%
 			font:
 				size: rem(15px)
 
-			a
+			> a
 				height: 100%
 				position: relative
 				padding: 0 0 0 ($double-unit-layout + $half-unit-layout)
@@ -113,6 +113,80 @@
 		&#controls
 			padding: 0 $half-unit-layout 0 0
 
-			li
-				a
-					padding: 0 0 0 $double-unit-layout
+			> li
+				strong
+					cursor: pointer
+					font:
+						weight: 400
+
+					&.selected
+						font:
+							weight: 700
+
+.dark
+	#nav-top
+		border-bottom: 1px solid $color-grey-800
+
+		#logo-nav-top
+			background:
+				image: url("#{$image-base}/logo/logo-glyph-primary-dark.svg")
+
+		#nav,
+		#controls
+			> li
+				> a
+					color: $color-grey-500
+
+					&.active
+						color: white
+
+					&#board
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_board-dark.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_board-white.svg")
+
+					&#contribute
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_contribute-dark.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_contribute-white.svg")
+
+					&#buzz
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_buzz-dark.svg")
+								size: 175%
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_buzz-white.svg")
+
+					&#features
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_features-dark.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_features-white.svg")
+
+					&#settings
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_settings-dark.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_settings-white.svg")
