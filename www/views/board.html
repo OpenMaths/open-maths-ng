@@ -1,14 +1,25 @@
 <div id="board-holder" class="flex column" ng-class="{'full-height' : showGrid}">
 	<div menu-top></div>
 
-	<form id="search-umi" class="search-form flex-1 flex center-vertically center-horizontally" ng-submit="getUmi()" ng-hide="showGrid">
-		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="backgroundScroll()" class="unstyled flex-1" autofocus />
+	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid">
+		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" class="unstyled" autofocus />
+		<article class="container-narrow search-umi-results">
+			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == 0}" ng-click="getUmi(result.id)">
+				<aside class="title flex-10">{{ result.title }}</aside>
+				<aside class="score flex-4">
+					Score: <strong>{{ result.score }}</strong>
+					<div class="bar">
+						<div class="progress" style="width: {{ result.score }}"></div>
+					</div>
+				</aside>
+			</div>
+		</article>
 	</form>
 
 	<div class="content-center-center flex-1" ng-show="showGrid">
 		<div class="row" ng-repeat="row in grid">
 			<div class="column" ng-repeat="data in row">
-				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}" ng-class="{'fade-in' : fadeInUmi}">
+				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}" ng-class="{'fade-in' : fadeInUmi}" ng-click="seeAlso(data.seeAlso, data.prerequisiteDefinitions)">
 					<div class="content-holder" ng-hide="!data.htmlContent">
 						<div class="title">
 							<label class="proof">{{ data.umiType }}</label>

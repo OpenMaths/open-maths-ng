@@ -110,6 +110,16 @@
 							background:
 								image: url("#{$image-base}/icons/icon-set/icon-set_settings.svg")
 
+				&#see-also
+					&:before
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_see-more-grey.svg")
+
+					&.active
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_see-more.svg")
+
 		&#controls
 			padding: 0 $half-unit-layout 0 0
 
@@ -191,6 +201,16 @@
 							&:before
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_settings-white.svg")
+
+					&#see-also
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_see-more-dark.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_see-more-white.svg")
 
 	&.nav-top-transparent
 		#nav-top
