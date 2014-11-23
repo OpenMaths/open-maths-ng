@@ -1,0 +1,19 @@
+body
+	&.dark
+		background: $color-grey-900
+		color: $color-grey-500
+
+.container-full-screen, .container-narrow
+	+clearfix
+	@extend .block-center
+
+	width: 100%
+
+.container-narrow
+	width: 80%
+	max-width: 800px
+
+footer
+	font-size: rem(12px)
+	text-align: center
+	padding: $triple-unit-layout $base-unit-layout

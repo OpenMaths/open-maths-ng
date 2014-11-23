@@ -1,0 +1,45 @@
+.drop-down
+	position: relative
+
+	.contextual-menu
+		+border-radius(0 0 $border-radius $border-radius)
+
+		position: absolute
+		top: 100%
+		width: rem(200px)
+		border: 1px solid $color-grey-200
+		background: white
+
+		&.right
+			left: auto
+			right: 0
+
+		ul
+			@extend .unstyled
+
+			li
+				padding: $half-unit-layout $base-unit-layout
+				font:
+					size: rem(14px)
+
+				header
+					display: block
+					color: $color-grey-300
+					font:
+						size: rem(12px)
+
+.dark
+	.drop-down
+		.contextual-menu
+			border-color: $color-grey-800
+			background: $color-grey-900
+
+			ul
+				li
+					header
+						color: $color-grey-700
+
+.nav-top-transparent
+	.drop-down
+		.contextual-menu
+			background: transparent

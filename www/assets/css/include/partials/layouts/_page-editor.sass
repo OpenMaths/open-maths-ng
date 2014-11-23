@@ -1,0 +1,22 @@
+.page-editor
+	#editor
+		display: flex
+
+		#editor-input,
+		#editor-preview
+			height: 100vh
+			width: 50%
+			padding: $base-unit-layout
+			background: $color-grey-900
+			color: $color-grey-500
+			font:
+				size: rem(14px)
+
+		#editor-input
+			+border-radius(0)
+
+			resize: none
+			border: 0
+
+		#editor-preview
+			border-left: 1px solid rgba(255,255,255,.25)
