@@ -1578,7 +1578,7 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .umi article em, .umi .footer, .page-board .timeline header, .page-ooops .headline {
+.text-center, .close, .umi article em, .umi .footer, .page-board .timeline header, .page-features .master-hero h2, .page-ooops .headline {
   text-align: center; }
 
 .text-right,
@@ -1634,7 +1634,7 @@ footer {
   background-color: #6eb3c9;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center center; }
+  background-position: center 0%; }
   .page-board #board-holder.full-height {
     height: 100vh;
     background: transparent; }
