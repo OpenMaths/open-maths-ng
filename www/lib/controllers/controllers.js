@@ -15,12 +15,12 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 	}
 
 	$scope.themeClass = "light";
-	$scope.setTheme = function(theme) {
+	$scope.setTheme = function (theme) {
 		$scope.themeClass = theme;
 	};
 
 	$scope.umiFontClass = "umi-font-modern";
-	$scope.setUmiFont = function(font) {
+	$scope.setUmiFont = function (font) {
 		$scope.umiFontClass = font;
 	};
 
@@ -31,7 +31,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 	$rootScope.navTopTransparentClass = true;
 	$scope.navBoard = true;
 
-	$scope.searchUmiKeyDown = function() {
+	$scope.searchUmiKeyDown = function () {
 		var termLength = $scope.searchUmiTerm.length;
 		var percentage = termLength * 2.5 + "%";
 
@@ -39,22 +39,27 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 			document.getElementById("board-holder").style.backgroundPositionY = percentage;
 		}
 
-		if (termLength > 2) {
-			var results = [
-				{"title" : "Pythagorean Theorem", "score" : "87%", "id" : 2}
-			];
+		if (termLength > 0) {
+			$http.get(appConfig.apiUrl + "/search/" + $scope.searchUmiTerm).
+				success(function (data, status) {
+					var scoreMetric = 100 / (data.length + 1);
+					var scoreMultiplier = 1;
 
-			if (termLength > 3) {
-				results.push({"title" : "Euclidian Space", "score" : "73%", "id" : 3});
-			} if (termLength > 4) {
-				results.push({"title" : "Circle", "score" : "69%", "id" : 4});
-			} if (termLength > 5) {
-				results.push({"title" : "Fermat's Last Theorem", "score" : "21%", "id" : 5});
-			} if (termLength > 6) {
-				results.push({"title" : "Arithmetic Progression", "score" : "18%", "id" : 6});
-			}
+					for (i = data.length; --i >= 0;) {
+						var scoreValue = Math.floor(scoreMetric * scoreMultiplier) + "%";
+		console.log(scoreValue);
 
-			$scope.searchUmiResults = results;
+						data[i].score = scoreValue;
+
+						scoreMultiplier = scoreMultiplier + 1;
+					}
+
+					$scope.searchUmiResults = data;
+				}).
+				error(function (data, status) {
+					console.log("No data to display :-(");
+					console.log(data + " | " + status);
+				});
 		}
 		else {
 			$scope.searchUmiResults = false;
@@ -81,7 +86,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		$scope.grid.push(row);
 	}
 
-	$scope.getUmi = function(id) {
+	$scope.getUmi = function (id) {
 		if (!id) {
 			if (!$scope.searchUmiResults) {
 				return false;
@@ -89,14 +94,14 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 
 			id = $scope.searchUmiResults[0]["id"];
 		}
-		$http.get(appConfig.apiUrl + "?umi=" + id).
+		$http.get(appConfig.apiUrl + "/id/" + id).
 			success(function (data, status) {
 				$rootScope.showGrid = true;
 				$rootScope.navTopTransparentClass = false;
 
 				$scope.grid[1][1] = data;
 
-				var fadeInUmi = function() {
+				var fadeInUmi = function () {
 					$scope.fadeInUmi = true;
 				};
 
@@ -111,7 +116,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 			});
 	};
 
-	$scope.position = function(row, column, direction, newUmiID) {
+	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
 
 		if (direction == "up") {
@@ -134,7 +139,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 			targetClasses.push("closes-right");
 		}
 
-		$http.get(appConfig.apiUrl + "?umi=" + newUmiID).
+		$http.get(appConfig.apiUrl + "/id/" + newUmiID).
 			success(function (data, status) {
 				data.closingClasses = targetClasses.join(" ");
 				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
@@ -151,7 +156,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 
 	$scope.navTopControls = {};
 
-	$scope.seeAlso = function(alsos, prerequisites) {
+	$scope.seeAlso = function (alsos, prerequisites) {
 		$scope.navTopControls.seeAlso = alsos;
 		$scope.navTopControls.prerequisiteDefinitions = prerequisites;
 	};
