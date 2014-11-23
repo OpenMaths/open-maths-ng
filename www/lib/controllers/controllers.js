@@ -42,6 +42,27 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		if (termLength < 40) {
 			document.getElementById("board-holder").style.backgroundPositionY = percentage;
 		}
+
+		if (termLength > 2) {
+			var results = [
+				{"title" : "Pythagorean Theorem", "score" : "87%"}
+			];
+
+			if (termLength > 3) {
+				results.push({"title" : "Euclidian Space", "score" : "73%"});
+			} if (termLength > 4) {
+				results.push({"title" : "Circle", "score" : "69%"});
+			} if (termLength > 5) {
+				results.push({"title" : "Fermat's Last Theorem", "score" : "21%"});
+			} if (termLength > 6) {
+				results.push({"title" : "Arithmetic Progression", "score" : "18%"});
+			}
+
+			$scope.searchUmiResults = results;
+		}
+		else {
+			$scope.searchUmiResults = false;
+		}
 	};
 
 	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=25").

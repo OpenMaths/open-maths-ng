@@ -1578,7 +1578,7 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .umi article em, .umi .footer, .page-board .timeline header, .page-features .master-hero h2, .page-ooops .headline {
+.text-center, .close, .umi article em, .umi .footer, .page-board #search-umi .search-umi-results .item .score, .page-board .timeline header, .page-features .master-hero h2, .page-ooops .headline {
   text-align: center; }
 
 .text-right,
@@ -1638,21 +1638,67 @@ footer {
   .page-board #board-holder.full-height {
     height: 100vh;
     background: transparent; }
-.page-board #search-umi {
-  padding: 12rem 0; }
-  .page-board #search-umi input {
-    padding: 1rem 2rem;
-    text-align: center;
-    color: white;
-    font-size: 3.75rem; }
-    .page-board #search-umi input::-webkit-input-placeholder {
-      color: rgba(255, 255, 255, 0.25); }
-    .page-board #search-umi input::-moz-placeholder {
-      color: rgba(255, 255, 255, 0.25); }
-    .page-board #search-umi input:-moz-placeholder {
-      color: rgba(255, 255, 255, 0.25); }
-    .page-board #search-umi input:-ms-input-placeholder {
-      color: rgba(255, 255, 255, 0.25); }
+.page-board #search-umi input {
+  padding: 1rem 2rem;
+  text-align: center;
+  color: white;
+  margin: 0;
+  width: 100%;
+  font-size: 3.75rem; }
+  .page-board #search-umi input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.25); }
+  .page-board #search-umi input::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.25); }
+  .page-board #search-umi input:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.25); }
+  .page-board #search-umi input:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.25); }
+.page-board #search-umi .search-umi-results {
+  -webkit-transition: height 0.25s;
+  transition: height 0.25s;
+  height: auto;
+  max-width: 37.5rem;
+  margin: 2rem 0;
+  max-height: 10rem;
+  overflow-y: scroll; }
+  .page-board #search-umi .search-umi-results .item {
+    -webkit-transition: color 0.25s;
+    transition: color 0.25s;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 1rem 0;
+    cursor: pointer;
+    font-size: 1.25rem; }
+    .page-board #search-umi .search-umi-results .item.selected, .page-board #search-umi .search-umi-results .item:hover, .page-board #search-umi .search-umi-results .item:focus {
+      color: white; }
+      .page-board #search-umi .search-umi-results .item.selected .score, .page-board #search-umi .search-umi-results .item:hover .score, .page-board #search-umi .search-umi-results .item:focus .score {
+        color: white; }
+        .page-board #search-umi .search-umi-results .item.selected .score .bar, .page-board #search-umi .search-umi-results .item:hover .score .bar, .page-board #search-umi .search-umi-results .item:focus .score .bar {
+          background: rgba(255, 255, 255, 0.5); }
+          .page-board #search-umi .search-umi-results .item.selected .score .bar .progress, .page-board #search-umi .search-umi-results .item:hover .score .bar .progress, .page-board #search-umi .search-umi-results .item:focus .score .bar .progress {
+            background: white; }
+    .page-board #search-umi .search-umi-results .item .title {
+      text-indent: 1px; }
+    .page-board #search-umi .search-umi-results .item .score {
+      -webkit-transition: color 0.25s;
+      transition: color 0.25s;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.75rem; }
+      .page-board #search-umi .search-umi-results .item .score .bar {
+        -webkit-transition: background 0.25s;
+        transition: background 0.25s;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        margin-top: 0.5rem;
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.25); }
+        .page-board #search-umi .search-umi-results .item .score .bar .progress {
+          -webkit-transition: background 0.25s;
+          transition: background 0.25s;
+          -o-border-radius: 4px;
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.25);
+          height: 100%; }
 .page-board .timeline {
   position: relative;
   border-top: 1px solid #d5e0e0; }
