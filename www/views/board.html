@@ -1,7 +1,11 @@
-<div class="flex column" style="height: 100vh">
+<div id="board-holder" class="flex column" ng-class="{'full-height' : showGrid}">
 	<div menu-top></div>
 
-	<div class="content-center-center flex-1">
+	<form id="search-umi" class="search-form flex center-vertically center-horizontally" ng-submit="getUmi()" ng-hide="showGrid">
+		<input type="text" placeholder="I want to learn more about..." name="searchUmiTerm" ng-model="searchUmiTerm" class="unstyled flex-1" autofocus />
+	</form>
+
+	<div class="content-center-center flex-1" ng-show="showGrid">
 		<div class="row" ng-repeat="row in grid">
 			<div class="column" ng-repeat="data in row">
 				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}">
@@ -17,5 +21,19 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<div class="timeline">
+	<header class="flex center-vertically center-horizontally">Our journey since {{ initDate }}</header>
+
+	<div class="container-narrow">
+		<article ng-repeat="entry in gitHubFeed">
+			<img src="{{ entry.actor.avatar_url }}" alt="{{ entry.actor.login }}" />
+			<aside>
+				<p>{{ entry.actor.login }} <strong>{{ entry.type }}</strong> at <strong>{{ entry.repo.name }}</strong></p>
+				<small>{{ entry.created_at }}</small>
+			</aside>
+		</article>
 	</div>
 </div>

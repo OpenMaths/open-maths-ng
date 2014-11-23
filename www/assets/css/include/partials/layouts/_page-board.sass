@@ -1,4 +1,63 @@
 .page-board
+	#board-holder
+		&.full-height
+			height: 100vh
+
+	#search-umi
+		padding: (3 * $quadruple-unit-layout) 0
+
+		input
+			padding: $base-unit-layout $double-unit-layout
+			text-align: center
+			font:
+				size: rem(50px)
+
+	.timeline
+		header
+			@extend .text-center
+
+			border-top: 1px solid $color-grey-200
+			padding: (.5 * $quadruple-unit-layout) 0 (1.5 * $quadruple-unit-layout)
+			font:
+				size: rem(30px)
+			// background:
+				image: url("#{$image-base}/bg/cover-welcome.jpg")
+				color: $color-grey-200
+				size: cover
+				repeat: no-repeat
+				position: center center
+
+		article
+			@extend .text-right
+
+			width: 50%
+			position: relative
+			padding: 0 $double-unit-layout 0 0
+			margin-bottom: $double-unit-layout
+
+			p
+				margin: 0 0 $half-unit-layout
+
+			small
+				color: $color-grey
+
+			img
+				+border-radius(100%)
+
+				width: $double-unit-layout
+				position: absolute
+				right: -($base-unit-layout)
+
+			&:nth-of-type(even)
+				@extend .text-left
+
+				padding: 0 0 0 $double-unit-layout
+				margin-left: 50%
+
+				img
+					right: auto
+					left: -($base-unit-layout)
+
 	.content-center-center
 		display: flex
 		align-items: center
@@ -33,3 +92,11 @@
 				.column
 					border-right: 1px solid $color-grey-800
 					border-bottom: 1px solid $color-grey-800
+
+		.timeline
+			header
+				border-top-color: $color-grey-800
+
+			article
+				small
+					color: $color-grey-700

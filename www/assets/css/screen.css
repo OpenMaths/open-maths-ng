@@ -187,12 +187,12 @@ button,
   transition: all 0.25s ease-in-out;
   -webkit-appearance: none;
   border: 1px solid #d5e0e0;
-  background: white;
+  background: transparent;
   padding: 0.75rem;
   font-family: "Anonymous Pro", "aktiv-grotesk-std", Helvetica, Arial, sans-serif !important;
   font-size: 0.875rem;
   outline: none;
-  color: #648585;
+  color: #1b2424;
   margin: 0 0 1rem;
   text-decoration: none;
   min-width: 20rem; }
@@ -224,6 +224,68 @@ button,
   .button:-ms-input-placeholder,
   .input:-ms-input-placeholder {
     color: #d5e0e0; }
+  input.unstyled, #nav-top input#nav,
+  #nav-top input#controls,
+  select.unstyled,
+  #nav-top select#nav,
+  #nav-top select#controls,
+  textarea.unstyled,
+  #nav-top textarea#nav,
+  #nav-top textarea#controls,
+  button.unstyled,
+  #nav-top button#nav,
+  #nav-top button#controls,
+  .button.unstyled,
+  .drop-down .contextual-menu ul.button,
+  #nav-top .button#nav,
+  #nav-top .button#controls,
+  .input.unstyled,
+  .drop-down .contextual-menu ul.input,
+  #nav-top .input#nav,
+  #nav-top .input#controls {
+    -o-border-radius: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: 0; }
+    input.unstyled:hover, #nav-top input#nav:hover,
+    #nav-top input#controls:hover, input.unstyled:focus, #nav-top input#nav:focus,
+    #nav-top input#controls:focus,
+    select.unstyled:hover,
+    #nav-top select#nav:hover,
+    #nav-top select#controls:hover,
+    select.unstyled:focus,
+    #nav-top select#nav:focus,
+    #nav-top select#controls:focus,
+    textarea.unstyled:hover,
+    #nav-top textarea#nav:hover,
+    #nav-top textarea#controls:hover,
+    textarea.unstyled:focus,
+    #nav-top textarea#nav:focus,
+    #nav-top textarea#controls:focus,
+    button.unstyled:hover,
+    #nav-top button#nav:hover,
+    #nav-top button#controls:hover,
+    button.unstyled:focus,
+    #nav-top button#nav:focus,
+    #nav-top button#controls:focus,
+    .button.unstyled:hover,
+    .drop-down .contextual-menu ul.button:hover,
+    #nav-top .button#nav:hover,
+    #nav-top .button#controls:hover,
+    .button.unstyled:focus,
+    .drop-down .contextual-menu ul.button:focus,
+    #nav-top .button#nav:focus,
+    #nav-top .button#controls:focus,
+    .input.unstyled:hover,
+    .drop-down .contextual-menu ul.input:hover,
+    #nav-top .input#nav:hover,
+    #nav-top .input#controls:hover,
+    .input.unstyled:focus,
+    .drop-down .contextual-menu ul.input:focus,
+    #nav-top .input#nav:focus,
+    #nav-top .input#controls:focus {
+      box-shadow: none;
+      border: 0; }
   input:last-child,
   select:last-child,
   textarea:last-child,
@@ -399,6 +461,55 @@ textarea:invalid {
   min-height: 2rem;
   display: none;
   margin: 0 0 1rem; }
+
+.dark input,
+.dark select,
+.dark textarea,
+.dark button,
+.dark .button,
+.dark .input {
+  border-color: #384b4b;
+  color: #7e9e9e; }
+  .dark input::-webkit-input-placeholder,
+  .dark select::-webkit-input-placeholder,
+  .dark textarea::-webkit-input-placeholder,
+  .dark button::-webkit-input-placeholder,
+  .dark .button::-webkit-input-placeholder,
+  .dark .input::-webkit-input-placeholder {
+    color: #384b4b; }
+  .dark input::-moz-placeholder,
+  .dark select::-moz-placeholder,
+  .dark textarea::-moz-placeholder,
+  .dark button::-moz-placeholder,
+  .dark .button::-moz-placeholder,
+  .dark .input::-moz-placeholder {
+    color: #384b4b; }
+  .dark input:-moz-placeholder,
+  .dark select:-moz-placeholder,
+  .dark textarea:-moz-placeholder,
+  .dark button:-moz-placeholder,
+  .dark .button:-moz-placeholder,
+  .dark .input:-moz-placeholder {
+    color: #384b4b; }
+  .dark input:-ms-input-placeholder,
+  .dark select:-ms-input-placeholder,
+  .dark textarea:-ms-input-placeholder,
+  .dark button:-ms-input-placeholder,
+  .dark .button:-ms-input-placeholder,
+  .dark .input:-ms-input-placeholder {
+    color: #384b4b; }
+  .dark input:hover, .dark input:focus,
+  .dark select:hover,
+  .dark select:focus,
+  .dark textarea:hover,
+  .dark textarea:focus,
+  .dark button:hover,
+  .dark button:focus,
+  .dark .button:hover,
+  .dark .button:focus,
+  .dark .input:hover,
+  .dark .input:focus {
+    border-color: #4e6868; }
 
 label,
 .label {
@@ -1419,13 +1530,13 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .umi article em, .umi .footer, .page-ooops .headline {
+.text-center, .close, .umi article em, .umi .footer, .page-board .timeline header, .page-ooops .headline {
   text-align: center; }
 
-.text-right {
+.text-right, .page-board .timeline article {
   text-align: right; }
 
-.text-left {
+.text-left, .page-board .timeline article:nth-of-type(even) {
   text-align: left; }
 
 .text-justify {
@@ -1466,6 +1577,39 @@ footer {
   text-align: center;
   padding: 3rem 1rem; }
 
+.page-board #board-holder.full-height {
+  height: 100vh; }
+.page-board #search-umi {
+  padding: 12rem 0; }
+  .page-board #search-umi input {
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 3.125rem; }
+.page-board .timeline header {
+  border-top: 1px solid #d5e0e0;
+  padding: 2rem 0 6rem;
+  font-size: 1.875rem; }
+.page-board .timeline article {
+  width: 50%;
+  position: relative;
+  padding: 0 2rem 0 0;
+  margin-bottom: 2rem; }
+  .page-board .timeline article p {
+    margin: 0 0 0.5rem; }
+  .page-board .timeline article small {
+    color: #b8caca; }
+  .page-board .timeline article img {
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    width: 2rem;
+    position: absolute;
+    right: -1rem; }
+  .page-board .timeline article:nth-of-type(even) {
+    padding: 0 0 0 2rem;
+    margin-left: 50%; }
+    .page-board .timeline article:nth-of-type(even) img {
+      right: auto;
+      left: -1rem; }
 .page-board .content-center-center {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1516,6 +1660,10 @@ footer {
 .page-board.dark .content-center-center .row .column {
   border-right: 1px solid #384b4b;
   border-bottom: 1px solid #384b4b; }
+.page-board.dark .timeline header {
+  border-top-color: #384b4b; }
+.page-board.dark .timeline article small {
+  color: #4e6868; }
 
 .page-home .content-center-center {
   height: 100vh;

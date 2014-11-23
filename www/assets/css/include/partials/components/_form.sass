@@ -13,15 +13,26 @@ button,
 
 	-webkit-appearance: none
 	border: 1px solid $color-grey-200
-	background: white
+	background: transparent
 	padding: rem(12px)
 	font-family: $font-family-primary !important
 	font-size: rem(14px)
 	outline: none
-	color: $color-grey-600
+	color: $color-black
 	margin: 0 0 $base-unit-layout
 	text-decoration: none
 	min-width: $double-unit-layout * 10
+
+	&.unstyled
+		+border-radius(0)
+		+box-shadow(none)
+
+		border: 0
+
+		+hover()
+			+box-shadow(none)
+
+			border: 0
 
 	&:last-child
 		margin-bottom: 0
@@ -210,3 +221,19 @@ textarea:invalid
 	min-height: $double-unit-layout
 	display: none
 	margin: 0 0 $base-unit-layout
+
+.dark
+	input,
+	select,
+	textarea,
+	button,
+	.button,
+	.input
+		border-color: $color-grey-800
+		color: $color-grey-500
+
+		+placeholder
+			color: $color-grey-800
+
+		+hover
+			border-color: $color-grey-700
