@@ -576,7 +576,8 @@ dl {
     position: absolute;
     top: 100%;
     width: 12.5rem;
-    border: 1px solid #d5e0e0; }
+    border: 1px solid #d5e0e0;
+    background: white; }
     .drop-down .contextual-menu.right {
       left: auto;
       right: 0; }
@@ -589,9 +590,13 @@ dl {
         font-size: 0.75rem; }
 
 .dark .drop-down .contextual-menu {
-  border-color: #384b4b; }
+  border-color: #384b4b;
+  background: #1b2424; }
   .dark .drop-down .contextual-menu ul li header {
     color: #4e6868; }
+
+.nav-top-transparent .drop-down .contextual-menu {
+  background: transparent; }
 
 #loading-bar {
   -webkit-transition: 350ms linear all;
@@ -812,6 +817,12 @@ nav#nav-main {
         #nav-top #nav > li > a#settings.active:before,
         #nav-top #controls > li > a#settings.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_settings.svg"); }
+        #nav-top #nav > li > a#see-also:before,
+        #nav-top #controls > li > a#see-also:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_see-more-grey.svg"); }
+        #nav-top #nav > li > a#see-also.active:before,
+        #nav-top #controls > li > a#see-also.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_see-more.svg"); }
     #nav-top #nav#controls,
     #nav-top #controls#controls {
       padding: 0 0.5rem 0 0; }
@@ -890,6 +901,16 @@ nav#nav-main {
     .nav-top-transparent #nav-top #nav > li > a#settings.active:before,
     .nav-top-transparent #nav-top #controls > li > a#settings.active:before {
       background-image: url("/assets/images/icons/icon-set/icon-set_settings-white.svg"); }
+    .dark #nav-top #nav > li > a#see-also:before,
+    .dark #nav-top #controls > li > a#see-also:before,
+    .nav-top-transparent #nav-top #nav > li > a#see-also:before,
+    .nav-top-transparent #nav-top #controls > li > a#see-also:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_see-more-dark.svg"); }
+    .dark #nav-top #nav > li > a#see-also.active:before,
+    .dark #nav-top #controls > li > a#see-also.active:before,
+    .nav-top-transparent #nav-top #nav > li > a#see-also.active:before,
+    .nav-top-transparent #nav-top #controls > li > a#see-also.active:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_see-more-white.svg"); }
 .dark.nav-top-transparent #nav-top,
 .nav-top-transparent.nav-top-transparent #nav-top {
   border-bottom: 0; }

@@ -11,6 +11,15 @@
 	</a>
 
 	<ul id="controls" class="flex center-vertically align-right">
+		<li class="drop-down" ng-click="dropDownSeeAlso = !dropDownSeeAlso" ng-show="navTopControls.seeAlso && navTopControls.prerequisiteDefinitions">
+			<a id="see-also" class="flex center-vertically" href="#" ng-class="{active : dropDownSeeAlso}"></a>
+			<nav class="contextual-menu right" ng-show="dropDownSeeAlso">
+				<ul class="flex column" stop-event>
+					<li><header>See Also</header>{{ navTopControls.seeAlso }}</li>
+					<li><header>Prerequisites</header>{{ navTopControls.prerequisiteDefinitions }}</li>
+				</ul>
+			</nav>
+		</li>
 		<li class="drop-down" ng-click="dropDownSettings = !dropDownSettings">
 			<a id="settings" class="flex center-vertically" href="#" ng-class="{active : dropDownSettings}"></a>
 			<nav class="contextual-menu right" ng-show="dropDownSettings">
