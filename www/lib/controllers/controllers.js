@@ -35,6 +35,15 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 	$scope.navBoard = true;
 	$scope.initDate = initDate.getDay() + " " + initDate.getMonth() + " " + initDate.getFullYear();
 
+	$scope.backgroundScroll = function() {
+		var termLength = $scope.searchUmiTerm.length;
+		var percentage = termLength * 2.5 + "%";
+
+		if (termLength < 40) {
+			document.getElementById("board-holder").style.backgroundPositionY = percentage;
+		}
+	};
+
 	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=25").
 		success(function (data) {
 			$scope.gitHubFeed = data;
