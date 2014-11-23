@@ -808,3 +808,9 @@ a,
         color: white; }
     .page-welcome footer span {
       padding: 0 0.5rem; }
+  @media all and (max-width: 1280px) {
+    .page-welcome {
+      background-size: cover !important;
+      background-position: center center !important; }
+      .page-welcome .hero {
+        height: 65vh; } }
