@@ -31,6 +31,14 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 	$rootScope.navTopTransparentClass = true;
 	$scope.navBoard = true;
 
+	// TODO: implement arrow navigation in results (highlighting and selection)
+	$scope.searchUmiResultsNavigate = function(e) {
+		if (e.keyCode == 38)
+			alert("up arrow");
+		else if (e.keyCode == 40)
+			alert("down arrow");
+	};
+
 	$scope.searchUmiKeyDown = function () {
 		var termLength = $scope.searchUmiTerm.length;
 		var percentage = termLength * 2.5 + "%";
@@ -47,7 +55,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 
 					for (i = data.length; --i >= 0;) {
 						var scoreValue = Math.floor(scoreMetric * scoreMultiplier) + "%";
-		console.log(scoreValue);
 
 						data[i].score = scoreValue;
 

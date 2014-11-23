@@ -1,7 +1,7 @@
 <div id="board-holder" class="flex column" ng-class="{'full-height' : showGrid}">
 	<div menu-top></div>
 
-	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid">
+	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid" ng-keydown="searchUmiResultsNavigate($event)">
 		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" class="unstyled" autofocus />
 		<article class="container-narrow search-umi-results">
 			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == 0}" ng-click="getUmi(result.id)">
