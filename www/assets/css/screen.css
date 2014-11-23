@@ -759,6 +759,7 @@ a,
         -ms-flex-pack: center;
             justify-content: center; }
     .page-welcome .hero h1 {
+      text-transform: none;
       color: white;
       letter-spacing: 2px;
       padding: 2rem; }
