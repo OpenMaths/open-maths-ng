@@ -123,7 +123,8 @@
 						font:
 							weight: 700
 
-.dark
+.dark,
+.nav-top-transparent
 	#nav-top
 		border-bottom: 1px solid $color-grey-800
 
@@ -190,3 +191,24 @@
 							&:before
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_settings-white.svg")
+
+	&.nav-top-transparent
+		#nav-top
+			border-bottom: 0
+
+			#logo-nav-top
+				background:
+					image: url("#{$image-base}/logo/logo-glyph-white.svg")
+
+		.drop-down
+			.contextual-menu
+				@extend .text-right
+
+				border: 0
+
+				ul
+					li
+						color: white
+
+						header
+							color: $color-grey-500

@@ -14,7 +14,7 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 		$window.ga("send", "pageview", {page: $location.path()});
 	}
 
-	$scope.themeClass = "dark";
+	$scope.themeClass = "light";
 	$scope.setTheme = function(theme) {
 		$scope.themeClass = theme;
 	};
@@ -26,14 +26,24 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 
 });
 
-app.controller("ContributeController", function ($scope, $rootScope) {
-	$rootScope.title = "Contribute";
-	$scope.navContribute = true;
-});
+app.controller("BoardController", function ($scope, $rootScope, $http, $timeout) {
+	// Abstract this as a config var
+	var initDate = new Date("2014-11-22");
 
-app.controller("BoardController", function ($scope, $rootScope, $http) {
 	$rootScope.title = "Board";
+	$rootScope.navTopTransparentClass = true;
 	$scope.navBoard = true;
+	$scope.initDate = initDate.getDay() + " " + initDate.getMonth() + " " + initDate.getFullYear();
+
+	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=25").
+		success(function (data) {
+			$scope.gitHubFeed = data;
+
+			console.log(data);
+		}).
+		error(function (data) {
+			console.log(data);
+		});
 
 	$scope.grid = [];
 
@@ -47,17 +57,28 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 		$scope.grid.push(row);
 	}
 
-	$http.get(appConfig.apiUrl + "?umi=" + 2).
-		success(function (data, status, headers, config) {
-			$scope.grid[1][1] = data;
-		}).
-		error(function (data, status, headers, config) {
+	$scope.getUmi = function() {
+		$http.get(appConfig.apiUrl + "?umi=" + $scope.searchUmiTerm).
+			success(function (data, status) {
+				$rootScope.showGrid = true;
+				$rootScope.navTopTransparentClass = false;
 
-			// TODO: change this to a more semantic system of displaying errors
-			console.log("No data to display :-(");
+				$scope.grid[1][1] = data;
 
-			console.log(data + " | " + status + " | " + headers + " | " + config);
-		});
+				var fadeInUmi = function() {
+					$scope.fadeInUmi = true;
+				};
+
+				$timeout(fadeInUmi, 250);
+			}).
+			error(function (data, status) {
+
+				// TODO: change this to a more semantic system of displaying errors
+				console.log("No data to display :-(");
+
+				console.log(data + " | " + status);
+			});
+	};
 
 	$scope.position = function(row, column, direction, newUmiID) {
 		var targetClasses = [];
@@ -83,20 +104,33 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 		}
 
 		$http.get(appConfig.apiUrl + "?umi=" + newUmiID).
-			success(function (data, status, headers, config) {
+			success(function (data, status) {
 				data.closingClasses = targetClasses.join(" ");
 				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
 			}).
-			error(function (data, status, headers, config) {
+			error(function (data, status) {
 
 				// TODO: change this to a more semantic system of displaying errors
-				alert("No data to display :-(");
+				console.log("No data to display :-(");
 
-				console.log(data + " | " + status + " | " + headers + " | " + config);
+				console.log(data + " | " + status);
 			});
 
 	};
+});
 
+app.controller("ContributeController", function ($scope, $rootScope) {
+	$rootScope.title = "Contribute";
+	$rootScope.navTopTransparentClass = false;
+
+	$scope.navContribute = true;
+});
+
+app.controller("FeaturesController", function ($scope, $rootScope) {
+	$rootScope.title = "Features";
+	$rootScope.navTopTransparentClass = true;
+
+	$scope.navFeatures = true;
 });
 
 app.controller("OoopsController", function ($scope, $rootScope) {
