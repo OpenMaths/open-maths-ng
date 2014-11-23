@@ -1,22 +1,39 @@
 .page-board
 	#board-holder
+		+transition(all .25s)
+
+		height: 80vh
+		background:
+			image: url("#{$image-base}/bg/cover-dive.jpg")
+			color: $color-blue
+			size: cover
+			repeat: no-repeat
+			position: center center
+
 		&.full-height
 			height: 100vh
+			background: transparent
 
 	#search-umi
 		padding: (3 * $quadruple-unit-layout) 0
 
 		input
+			+placeholder
+				color: rgba(255,255,255,.25)
+
 			padding: $base-unit-layout $double-unit-layout
 			text-align: center
+			color: white
 			font:
-				size: rem(50px)
+				size: rem(60px)
 
 	.timeline
+		position: relative
+		border-top: 1px solid $color-grey-200
+
 		header
 			@extend .text-center
 
-			border-top: 1px solid $color-grey-200
 			padding: (.5 * $quadruple-unit-layout) 0 (1.5 * $quadruple-unit-layout)
 			font:
 				size: rem(30px)
@@ -26,6 +43,18 @@
 				size: cover
 				repeat: no-repeat
 				position: center center
+
+		&:before
+			+border-radius($border-radius $border-radius 0 0)
+
+			content: ""
+			position: absolute
+			left: 50%
+			top: 2 * $quadruple-unit-layout
+			width: 4px
+			margin: 0 0 0 -2px
+			height: 100%
+			background: $color-grey-100
 
 		article
 			@extend .text-right
@@ -44,9 +73,11 @@
 			img
 				+border-radius(100%)
 
-				width: $double-unit-layout
+				width: $double-unit-layout + $half-unit-layout
 				position: absolute
-				right: -($base-unit-layout)
+				top: -($half-unit-layout)
+				right: -($base-unit-layout + $quarter-unit-layout)
+				border: $half-unit-layout solid white
 
 			&:nth-of-type(even)
 				@extend .text-left
@@ -56,7 +87,7 @@
 
 				img
 					right: auto
-					left: -($base-unit-layout)
+					left: -($base-unit-layout + $quarter-unit-layout)
 
 	.content-center-center
 		display: flex
@@ -94,9 +125,14 @@
 					border-bottom: 1px solid $color-grey-800
 
 		.timeline
-			header
-				border-top-color: $color-grey-800
+			border-top: 1px solid $color-grey-800
+
+			&:before
+				background: $color-grey-800
 
 			article
+				img
+					border-color: $color-black
+
 				small
 					color: $color-grey-700
