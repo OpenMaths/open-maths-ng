@@ -757,7 +757,23 @@ a,
     -webkit-box-pack: center;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
-            justify-content: center; }
+            justify-content: center;
+    position: relative; }
+    .page-welcome .hero #logo {
+      position: absolute;
+      width: 4rem;
+      height: 4rem;
+      margin-left: -2rem;
+      left: 50%;
+      top: 2rem;
+      overflow: hidden;
+      background-image: url("/assets/images/logo/logo-glyph-white.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-color: transparent; }
+      .page-welcome .hero #logo strong {
+        opacity: 0; }
     .page-welcome .hero h1 {
       text-transform: none;
       color: white;

@@ -11,6 +11,25 @@
 		display: flex
 		align-items: center
 		justify-content: center
+		position: relative
+
+		#logo
+			position: absolute
+			width: $quadruple-unit-layout
+			height: $quadruple-unit-layout
+			margin-left: -($quadruple-unit-layout / 2)
+			left: 50%
+			top: $double-unit-layout
+			overflow: hidden
+			background:
+				image: url("#{$image-base}/logo/logo-glyph-white.svg")
+				size: contain
+				repeat: no-repeat
+				position: center center
+				color: transparent
+
+			strong
+				opacity: 0
 
 		h1
 			@extend .text-center
