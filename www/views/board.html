@@ -18,8 +18,13 @@
 
 	<div class="content-center-center flex-1" ng-show="showGrid">
 		<div class="row" ng-repeat="row in grid">
-			<div class="column" ng-repeat="data in row">
-				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}" ng-class="{'fade-in' : fadeInUmi}" ng-click="seeAlso(data.seeAlso, data.prerequisiteDefinitions)">
+			<div class="column" ng-repeat="data in row" ng-class="data.classes">
+				<i class="arrow-opens-top"></i>
+				<i class="arrow-opens-right"></i>
+				<i class="arrow-opens-bottom"></i>
+				<i class="arrow-opens-left"></i>
+
+				<div class="umi {{ data.closingClasses }}" ng-class="{'fade-in' : fadeInUmi}" ng-click="seeAlso(data.seeAlso, data.prerequisiteDefinitions)">
 					<div class="content-holder" ng-hide="!data.htmlContent">
 						<div class="title">
 							<label class="proof">{{ data.umiType }}</label>

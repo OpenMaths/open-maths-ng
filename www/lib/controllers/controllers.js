@@ -32,7 +32,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 	$scope.navBoard = true;
 
 	// TODO: implement arrow navigation in results (highlighting and selection)
-	$scope.searchUmiResultsNavigate = function(e) {
+	$scope.searchUmiResultsNavigate = function (e) {
 		if (e.keyCode == 38)
 			alert("up arrow");
 		else if (e.keyCode == 40)
@@ -49,7 +49,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 
 		if (termLength > 0) {
 			$http.get(appConfig.apiUrl + "/search/" + $scope.searchUmiTerm).
-				success(function (data, status) {
+				success(function (data) {
 					var scoreMetric = 100 / (data.length + 1);
 					var scoreMultiplier = 1;
 
@@ -106,6 +106,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 				$rootScope.showGrid = true;
 				$rootScope.navTopTransparentClass = false;
 
+				data.classes = [];
 				$scope.grid[1][1] = data;
 
 				var fadeInUmi = function () {
@@ -126,14 +127,19 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
 
+		// TODO: resolve add unique classes only once!
 		if (direction == "up") {
 			var targetPosition = [row - 1, column];
+			$scope.grid[row][column].classes.push("opens-top");
 		} else if (direction == "down") {
 			var targetPosition = [row + 1, column];
+			$scope.grid[row][column].classes.push("opens-bottom");
 		} else if (direction == "left") {
 			var targetPosition = [row, column - 1];
+			$scope.grid[row][column].classes.push("opens-left");
 		} else if (direction == "right") {
 			var targetPosition = [row, column + 1];
+			$scope.grid[row][column].classes.push("opens-right");
 		}
 
 		if (targetPosition[0] == 0) {
@@ -147,15 +153,13 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		}
 
 		$http.get(appConfig.apiUrl + "/id/" + newUmiID).
-			success(function (data, status) {
+			success(function (data) {
+				data.classes = [];
 				data.closingClasses = targetClasses.join(" ");
 				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
 			}).
 			error(function (data, status) {
-
-				// TODO: change this to a more semantic system of displaying errors
 				console.log("No data to display :-(");
-
 				console.log(data + " | " + status);
 			});
 
