@@ -741,7 +741,7 @@ a,
 .page-welcome {
   background-image: url("/assets/images/bg/cover-dive.jpg");
   background-color: #002e43;
-  background-size: cover;
+  background-size: 120%;
   background-repeat: no-repeat;
   background-position: center center; }
   .page-welcome .hero {
