@@ -26,16 +26,12 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 
 });
 
-app.controller("ContributeController", function ($scope, $rootScope) {
-	$rootScope.title = "Contribute";
-	$scope.navContribute = true;
-});
-
-app.controller("BoardController", function ($scope, $rootScope, $http) {
+app.controller("BoardController", function ($scope, $rootScope, $http, $timeout) {
 	// Abstract this as a config var
 	var initDate = new Date("2014-11-22");
 
 	$rootScope.title = "Board";
+	$rootScope.navTopTransparentClass = true;
 	$scope.navBoard = true;
 	$scope.initDate = initDate.getDay() + " " + initDate.getMonth() + " " + initDate.getFullYear();
 
@@ -45,7 +41,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 
 			console.log(data);
 		}).
-		error(function (data, status, headers, config) {
+		error(function (data) {
 			console.log(data);
 		});
 
@@ -64,8 +60,16 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 	$scope.getUmi = function() {
 		$http.get(appConfig.apiUrl + "?umi=" + $scope.searchUmiTerm).
 			success(function (data, status) {
-				$scope.showGrid = true;
+				$rootScope.showGrid = true;
+				$rootScope.navTopTransparentClass = false;
+
 				$scope.grid[1][1] = data;
+
+				var fadeInUmi = function() {
+					$scope.fadeInUmi = true;
+				};
+
+				$timeout(fadeInUmi, 250);
 			}).
 			error(function (data, status) {
 
@@ -113,7 +117,20 @@ app.controller("BoardController", function ($scope, $rootScope, $http) {
 			});
 
 	};
+});
 
+app.controller("ContributeController", function ($scope, $rootScope) {
+	$rootScope.title = "Contribute";
+	$rootScope.navTopTransparentClass = false;
+
+	$scope.navContribute = true;
+});
+
+app.controller("FeaturesController", function ($scope, $rootScope) {
+	$rootScope.title = "Features";
+	$rootScope.navTopTransparentClass = true;
+
+	$scope.navFeatures = true;
 });
 
 app.controller("OoopsController", function ($scope, $rootScope) {

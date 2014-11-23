@@ -1,14 +1,14 @@
 <div id="board-holder" class="flex column" ng-class="{'full-height' : showGrid}">
 	<div menu-top></div>
 
-	<form id="search-umi" class="search-form flex center-vertically center-horizontally" ng-submit="getUmi()" ng-hide="showGrid">
+	<form id="search-umi" class="search-form flex-1 flex center-vertically center-horizontally" ng-submit="getUmi()" ng-hide="showGrid">
 		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" class="unstyled flex-1" autofocus />
 	</form>
 
 	<div class="content-center-center flex-1" ng-show="showGrid">
 		<div class="row" ng-repeat="row in grid">
 			<div class="column" ng-repeat="data in row">
-				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}">
+				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}" ng-class="{'fade-in' : fadeInUmi}">
 					<div class="content-holder" ng-hide="!data.htmlContent">
 						<div class="title">
 							<label class="proof">{{ data.umiType }}</label>
@@ -27,11 +27,11 @@
 <div class="timeline">
 	<header class="flex center-vertically center-horizontally">Our journey since {{ initDate }}</header>
 
-	<div class="container-narrow">
+	<div class="container-wide">
 		<article ng-repeat="entry in gitHubFeed">
 			<img src="{{ entry.actor.avatar_url }}" alt="{{ entry.actor.login }}" />
 			<aside>
-				<p>{{ entry.actor.login }} <strong>{{ entry.type }}</strong> at <strong>{{ entry.repo.name }}</strong></p>
+				<p><a href="https://github.com/{{ entry.actor.login }}" target="_blank">{{ entry.actor.login }}</a> <strong>{{ entry.type }}</strong> at <a href="https://github.com/{{ entry.repo.name }}" target="_blank">{{ entry.repo.name }}</a></p>
 				<small>{{ entry.created_at }}</small>
 			</aside>
 		</article>
