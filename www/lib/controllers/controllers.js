@@ -27,15 +27,11 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 });
 
 app.controller("BoardController", function ($scope, $rootScope, $http, $timeout) {
-	// Abstract this as a config var
-	var initDate = new Date("2014-11-22");
-
 	$rootScope.title = "Board";
 	$rootScope.navTopTransparentClass = true;
 	$scope.navBoard = true;
-	$scope.initDate = initDate.getDay() + " " + initDate.getMonth() + " " + initDate.getFullYear();
 
-	$scope.backgroundScroll = function() {
+	$scope.searchUmiKeyDown = function() {
 		var termLength = $scope.searchUmiTerm.length;
 		var percentage = termLength * 2.5 + "%";
 
@@ -45,17 +41,17 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 
 		if (termLength > 2) {
 			var results = [
-				{"title" : "Pythagorean Theorem", "score" : "87%"}
+				{"title" : "Pythagorean Theorem", "score" : "87%", "id" : 2}
 			];
 
 			if (termLength > 3) {
-				results.push({"title" : "Euclidian Space", "score" : "73%"});
+				results.push({"title" : "Euclidian Space", "score" : "73%", "id" : 3});
 			} if (termLength > 4) {
-				results.push({"title" : "Circle", "score" : "69%"});
+				results.push({"title" : "Circle", "score" : "69%", "id" : 4});
 			} if (termLength > 5) {
-				results.push({"title" : "Fermat's Last Theorem", "score" : "21%"});
+				results.push({"title" : "Fermat's Last Theorem", "score" : "21%", "id" : 5});
 			} if (termLength > 6) {
-				results.push({"title" : "Arithmetic Progression", "score" : "18%"});
+				results.push({"title" : "Arithmetic Progression", "score" : "18%", "id" : 6});
 			}
 
 			$scope.searchUmiResults = results;
@@ -68,8 +64,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=25").
 		success(function (data) {
 			$scope.gitHubFeed = data;
-
-			console.log(data);
 		}).
 		error(function (data) {
 			console.log(data);
@@ -87,8 +81,15 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		$scope.grid.push(row);
 	}
 
-	$scope.getUmi = function() {
-		$http.get(appConfig.apiUrl + "?umi=" + $scope.searchUmiTerm).
+	$scope.getUmi = function(id) {
+		if (!id) {
+			if (!$scope.searchUmiResults) {
+				return false;
+			}
+
+			id = $scope.searchUmiResults[0]["id"];
+		}
+		$http.get(appConfig.apiUrl + "?umi=" + id).
 			success(function (data, status) {
 				$rootScope.showGrid = true;
 				$rootScope.navTopTransparentClass = false;
@@ -146,6 +147,13 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 				console.log(data + " | " + status);
 			});
 
+	};
+
+	$scope.navTopControls = {};
+
+	$scope.seeAlso = function(alsos, prerequisites) {
+		$scope.navTopControls.seeAlso = alsos;
+		$scope.navTopControls.prerequisiteDefinitions = prerequisites;
 	};
 });
 
