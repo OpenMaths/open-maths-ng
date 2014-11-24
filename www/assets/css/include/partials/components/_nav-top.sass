@@ -44,7 +44,8 @@
 				&.active
 					color: $color-black
 
-				&:before
+				&:before,
+				> span
 					content: ""
 					width: $double-unit-layout
 					height: $double-unit-layout
@@ -79,16 +80,16 @@
 							background:
 								image: url("#{$image-base}/icons/icon-set/icon-set_contribute.svg")
 
-				&#buzz
+				&#dive
 					&:before
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_buzz-grey.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_dive-grey.svg")
 							size: 175%
 
 					&.active
 						&:before
 							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_buzz.svg")
+								image: url("#{$image-base}/icons/icon-set/icon-set_dive.svg")
 
 				&#features
 					&:before
@@ -109,6 +110,26 @@
 						&:before
 							background:
 								image: url("#{$image-base}/icons/icon-set/icon-set_settings.svg")
+
+				&#user
+					&:before
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_user-grey.svg")
+
+					&.active
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_user.svg")
+
+					&.logged
+						&:before
+							display: none
+
+						span
+							+border-radius(100%)
+
+							background:
+								size: cover
 
 				&#see-also
 					&:before
@@ -171,16 +192,16 @@
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_contribute-white.svg")
 
-					&#buzz
+					&#dive
 						&:before
 							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_buzz-dark.svg")
+								image: url("#{$image-base}/icons/icon-set/icon-set_dive-dark.svg")
 								size: 175%
 
 						&.active
 							&:before
 								background:
-									image: url("#{$image-base}/icons/icon-set/icon-set_buzz-white.svg")
+									image: url("#{$image-base}/icons/icon-set/icon-set_dive-white.svg")
 
 					&#features
 						&:before
@@ -201,6 +222,16 @@
 							&:before
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_settings-white.svg")
+
+					&#user
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_user-dark.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_user-white.svg")
 
 					&#see-also
 						&:before
