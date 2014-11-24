@@ -1,4 +1,4 @@
-app.controller("GlobalController", function ($scope, $location, $window) {
+app.controller("GlobalController", function ($scope, $location, $window, $http) {
 
 	// This is a test function that will run on page load.
 	console.log("OpenMaths is now running");
@@ -9,7 +9,7 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 
 	function returnPath() {
 		var splitUrl = $location.url().split("/");
-		$scope.path = splitUrl[1] == "" ? "board" : splitUrl[1];
+		$scope.path = splitUrl[1] == "" ? "dive-into" : splitUrl[1];
 
 		$window.ga("send", "pageview", {page: $location.path()});
 	}
@@ -24,53 +24,95 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 		$scope.umiFontClass = font;
 	};
 
+	if (sessionStorage.getItem("omUser")) {
+		var omUserString = sessionStorage.getItem("omUser");
+		$scope.omUser = JSON.parse(omUserString);
+	}
+
+	$scope.googleSignOut = function () {
+		gapi.auth.signOut();
+
+		$scope.omUser = false;
+		sessionStorage.removeItem("omUser");
+
+		$location.path("/");
+	};
+
+	$scope.googleSignIn = function () {
+		if ($scope.omUser) {
+			return false;
+		}
+
+		gapi.auth.signIn({
+			"callback": function (authResult) {
+				if (authResult["status"]["signed_in"]) {
+					var token = gapi.auth.getToken();
+
+					$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
+						success(function (data) {
+							$scope.omUser = data;
+							sessionStorage.setItem("omUser", JSON.stringify(data));
+						}).error(function (data , status) {
+							alert("No data to display :-(");
+							console.log(data + " | " + status);
+						});
+				} else {
+					alert(authResult["error"]);
+					console.log("Sign-in state: " + authResult["error"]);
+				}
+			}
+		});
+	};
+
 });
 
-app.controller("BoardController", function ($scope, $rootScope, $http, $timeout) {
-	$rootScope.title = "Board";
+app.controller("DiveIntoController", function($scope, $rootScope, $http, $location) {
+	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
-	$scope.navBoard = true;
-
-	// TODO: implement arrow navigation in results (highlighting and selection)
-	$scope.searchUmiResultsNavigate = function(e) {
-		if (e.keyCode == 38)
-			alert("up arrow");
-		else if (e.keyCode == 40)
-			alert("down arrow");
-	};
+	$scope.navDive = true;
 
 	$scope.searchUmiKeyDown = function () {
 		var termLength = $scope.searchUmiTerm.length;
 		var percentage = termLength * 2.5 + "%";
 
 		if (termLength < 40) {
-			document.getElementById("board-holder").style.backgroundPositionY = percentage;
+			document.getElementById("masthead").style.backgroundPositionY = percentage;
 		}
 
 		if (termLength > 0) {
 			$http.get(appConfig.apiUrl + "/search/" + $scope.searchUmiTerm).
-				success(function (data, status) {
+				success(function (data) {
 					var scoreMetric = 100 / (data.length + 1);
 					var scoreMultiplier = 1;
 
 					for (i = data.length; --i >= 0;) {
 						var scoreValue = Math.floor(scoreMetric * scoreMultiplier) + "%";
-
 						data[i].score = scoreValue;
-
 						scoreMultiplier = scoreMultiplier + 1;
 					}
 
 					$scope.searchUmiResults = data;
 				}).
 				error(function (data, status) {
-					console.log("No data to display :-(");
+					alert("No data to display :-(");
 					console.log(data + " | " + status);
 				});
 		}
 		else {
 			$scope.searchUmiResults = false;
 		}
+	};
+
+	$scope.getUmi = function (id) {
+		if (!id) {
+			if (!$scope.searchUmiResults) {
+				return false;
+			}
+
+			id = $scope.searchUmiResults[0]["id"];
+		}
+
+		$location.path("/board/" + id);
 	};
 
 	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=25").
@@ -80,6 +122,20 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		error(function (data) {
 			console.log(data);
 		});
+
+	// TODO: implement arrow navigation in results (highlighting and selection)
+	$scope.searchUmiResultsNavigate = function (e) {
+		if (e.keyCode == 38)
+			alert("up arrow");
+		else if (e.keyCode == 40)
+			alert("down arrow");
+	};
+});
+
+app.controller("BoardController", function ($scope, $rootScope, $http, $timeout, $routeParams) {
+	$rootScope.title = "Board";
+	$rootScope.navTopTransparentClass = false;
+	$scope.navBoard = true;
 
 	$scope.grid = [];
 
@@ -93,47 +149,40 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		$scope.grid.push(row);
 	}
 
-	$scope.getUmi = function (id) {
-		if (!id) {
-			if (!$scope.searchUmiResults) {
-				return false;
-			}
+	var initId = $routeParams.id;
 
-			id = $scope.searchUmiResults[0]["id"];
-		}
-		$http.get(appConfig.apiUrl + "/id/" + id).
-			success(function (data, status) {
-				$rootScope.showGrid = true;
-				$rootScope.navTopTransparentClass = false;
+	$http.get(appConfig.apiUrl + "/id/" + initId).
+		success(function (data, status) {
+			data.classes = [];
+			$scope.grid[1][1] = data;
 
-				$scope.grid[1][1] = data;
+			var fadeInUmi = function () {
+				$scope.fadeInUmi = true;
+			};
 
-				var fadeInUmi = function () {
-					$scope.fadeInUmi = true;
-				};
-
-				$timeout(fadeInUmi, 250);
-			}).
-			error(function (data, status) {
-
-				// TODO: change this to a more semantic system of displaying errors
-				console.log("No data to display :-(");
-
-				console.log(data + " | " + status);
-			});
-	};
+			$timeout(fadeInUmi, 250);
+		}).
+		error(function (data, status) {
+			alert("No data to display :-(");
+			console.log(data + " | " + status);
+		});
 
 	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
 
+		// TODO: resolve add unique classes only once!
 		if (direction == "up") {
 			var targetPosition = [row - 1, column];
+			$scope.grid[row][column].classes.push("opens-top");
 		} else if (direction == "down") {
 			var targetPosition = [row + 1, column];
+			$scope.grid[row][column].classes.push("opens-bottom");
 		} else if (direction == "left") {
 			var targetPosition = [row, column - 1];
+			$scope.grid[row][column].classes.push("opens-left");
 		} else if (direction == "right") {
 			var targetPosition = [row, column + 1];
+			$scope.grid[row][column].classes.push("opens-right");
 		}
 
 		if (targetPosition[0] == 0) {
@@ -147,15 +196,13 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout)
 		}
 
 		$http.get(appConfig.apiUrl + "/id/" + newUmiID).
-			success(function (data, status) {
+			success(function (data) {
+				data.classes = [];
 				data.closingClasses = targetClasses.join(" ");
 				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
 			}).
 			error(function (data, status) {
-
-				// TODO: change this to a more semantic system of displaying errors
-				console.log("No data to display :-(");
-
+				alert("No data to display :-(");
 				console.log(data + " | " + status);
 			});
 

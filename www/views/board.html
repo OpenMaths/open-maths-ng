@@ -1,25 +1,16 @@
-<div id="board-holder" class="flex column" ng-class="{'full-height' : showGrid}">
+<section class="flex column" id="board">
 	<div menu-top></div>
-
-	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid" ng-keydown="searchUmiResultsNavigate($event)">
-		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" class="unstyled" autofocus />
-		<article class="container-narrow search-umi-results">
-			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == 0}" ng-click="getUmi(result.id)">
-				<aside class="title">{{ result.title }}</aside>
-				<aside class="score">
-					<!--Score: <strong>{{ result.score }}</strong>-->
-					<div class="bar">
-						<div class="progress" style="width: {{ result.score }}"></div>
-					</div>
-				</aside>
-			</div>
-		</article>
-	</form>
-
-	<div class="content-center-center flex-1" ng-show="showGrid">
+	<div class="flex-1 flex column center-horizontally center-vertically">
 		<div class="row" ng-repeat="row in grid">
-			<div class="column" ng-repeat="data in row">
-				<div class="umi {{ data.umiOpeningDirectionClass }} {{ data.closingClasses }}" ng-class="{'fade-in' : fadeInUmi}" ng-click="seeAlso(data.seeAlso, data.prerequisiteDefinitions)">
+			<div class="column" ng-repeat="data in row" ng-class="data.classes">
+				<i class="arrow-opens-top"></i>
+				<i class="arrow-opens-right"></i>
+				<i class="arrow-opens-bottom"></i>
+				<i class="arrow-opens-left"></i>
+
+				<div class="umi {{ data.closingClasses }}"
+					 ng-class="{'fade-in' : fadeInUmi}"
+					 ng-click="seeAlso(data.seeAlso, data.prerequisiteDefinitions)">
 					<div class="content-holder" ng-hide="!data.htmlContent">
 						<div class="title">
 							<label class="proof">{{ data.umiType }}</label>
@@ -33,18 +24,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="timeline">
-	<header class="flex center-vertically center-horizontally">Recent activity</header>
-
-	<div class="container-wide">
-		<article ng-repeat="entry in gitHubFeed">
-			<img src="{{ entry.actor.avatar_url }}" alt="{{ entry.actor.login }}" />
-			<aside>
-				<p><a href="https://github.com/{{ entry.actor.login }}" target="_blank">{{ entry.actor.login }}</a> <strong>{{ entry.type }}</strong> at <a href="https://github.com/{{ entry.repo.name }}" target="_blank">{{ entry.repo.name }}</a></p>
-				<small>{{ entry.created_at }}</small>
-			</aside>
-		</article>
-	</div>
-</div>
+</section>

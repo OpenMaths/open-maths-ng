@@ -4,6 +4,7 @@
 	+transition(opacity .25s) //abstract to transition duration variable
 	+border-radius($border-radius) // abstract to $border-radius-small ??
 
+	position: relative
 	opacity: 0
 	flex: 1
 	display: flex
@@ -29,30 +30,6 @@
 		.expand-down
 			display: none
 
-	&.opens-right,
-	&.closes-right
-		border-top-right-radius: 0
-		border-bottom-right-radius: 0
-		border-right: 0 !important
-
-	&.opens-left,
-	&.closes-left
-		border-top-left-radius: 0
-		border-bottom-left-radius: 0
-		border-left: 0 !important
-
-	&.opens-bottom,
-	&.closes-bottom
-		border-bottom-left-radius: 0
-		border-bottom-right-radius: 0
-		border-bottom: 0 !important
-
-	&.opens-top,
-	&.closes-top
-		border-top-left-radius: 0
-		border-top-right-radius: 0
-		border-top: 0 !important
-
 	.content-holder
 		flex: 1
 		display: flex
@@ -71,12 +48,10 @@
 		min-height: $double-unit-layout
 		margin-bottom: $base-unit-layout
 		font-size: rem(18px)
-		//background: $color-grey-900
-		//color: $color-grey-600
+
 		strong
 			font:
 				family: $font-family-secondary
-		//weight: 300
 
 		label
 			opacity: 1
@@ -88,17 +63,13 @@
 			font-size: rem(11px)
 
 	article
-		font:
-			size: rem(14px)
-			family: $font-family-secondary
-
-		// TEMPORARILY out
-		//.content
-		//	> :last-child
-		//		margin-bottom: $base-unit-layout
+		width: 100%
 
 		p
 			line-height: 1.75
+			font:
+				size: rem(14px)
+				family: $font-family-secondary
 
 			strong
 				+transition(color .25s)
@@ -176,17 +147,6 @@
 						background:
 							image: url("#{$image-base}/icons/expand-arrows/arrow-right-black.svg")
 
-		em
-			@extend .text-center
-
-			display: block
-			color: $color-grey-900
-			font:
-				family: $font-family-secondary
-				style: normal
-				weight: 500
-				size: rem(16px)
-
 	// TEMP name
 	.footer
 		+transition(opacity .25s)
@@ -247,5 +207,6 @@
 .umi-font-traditional
 	.umi
 		article
-			font:
-				family: "Times New Roman", Georgia, serif
+			p
+				font:
+					family: "Times New Roman", Georgia, serif

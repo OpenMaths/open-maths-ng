@@ -1,8 +1,8 @@
 <nav id="nav-top" class="flex center-horizontally">
 	<ul id="nav" class="flex center-vertically align-left">
-		<li><a id="board" class="flex center-vertically" ng-class="{active : navBoard}" href="/">Board</a></li>
+		<li><a id="dive" class="flex center-vertically" ng-class="{active : navDive}" href="/">Dive</a></li>
+		<li><a id="board" class="flex center-vertically" ng-class="{active : navBoard}" href="/board">Board</a></li>
 		<li><a id="contribute" class="flex center-vertically" ng-class="{active : navContribute}" href="/contribute">Contribute</a></li>
-		<li><a id="buzz" class="flex center-vertically" ng-class="{active : navBuzz}" href="/buzz">Buzz</a></li>
 		<li><a id="features" class="flex center-vertically" ng-class="{active : navFeatures}" href="/features">Features</a></li>
 	</ul>
 
@@ -26,6 +26,17 @@
 				<ul class="flex column" stop-event>
 					<li><header>Theme</header><strong ng-click="setTheme('light')" ng-class="{selected : themeClass == 'light'}">Light</strong> &bull; <strong ng-click="setTheme('dark')" ng-class="{selected : themeClass == 'dark'}">Dark</strong></li>
 					<li><header class="item-heading">Definition Font</header><strong ng-click="setUmiFont('umi-font-modern')" ng-class="{selected : umiFontClass == 'umi-font-modern'}">Modern</strong> &bull; <strong ng-click="setUmiFont('umi-font-traditional')" ng-class="{selected : umiFontClass == 'umi-font-traditional'}">Traditional</strong></li>
+				</ul>
+			</nav>
+		</li>
+		<li class="drop-down" ng-click="googleSignIn()">
+			<a id="user" class="flex center-vertically" href="#" ng-class="{logged : omUser}">
+				<span ng-show="omUser" class="om-user-image" style="background-image: url('{{ omUser.picture }}')" ng-click="dropDownUser = !dropDownUser"></span>
+			</a>
+
+			<nav class="contextual-menu right" ng-show="dropDownUser">
+				<ul class="flex column" stop-event>
+					<li><header class="item-heading">Account Actions</header><strong ng-click="googleSignOut(); dropDownUser = false;">Sign Out</strong></li>
 				</ul>
 			</nav>
 		</li>
