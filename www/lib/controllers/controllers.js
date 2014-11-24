@@ -1,4 +1,4 @@
-app.controller("GlobalController", function ($scope, $location, $window) {
+app.controller("GlobalController", function ($scope, $location, $window, $http) {
 
 	// This is a test function that will run on page load.
 	console.log("OpenMaths is now running");
@@ -22,6 +22,33 @@ app.controller("GlobalController", function ($scope, $location, $window) {
 	$scope.umiFontClass = "umi-font-modern";
 	$scope.setUmiFont = function (font) {
 		$scope.umiFontClass = font;
+	};
+
+	if (sessionStorage.getItem("omUser")) {
+		var omUserString = sessionStorage.getItem("omUser");
+		$scope.omUser = JSON.parse(omUserString);
+	}
+
+
+	$scope.googleSignIn = function () {
+		gapi.auth.signIn({
+			"callback": function (authResult) {
+				if (authResult["status"]["signed_in"]) {
+					var token = gapi.auth.getToken();
+
+					$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
+						success(function (data) {
+							$scope.omUser = data;
+							sessionStorage.setItem("omUser", JSON.stringify(data));
+						}).error(function (data , status) {
+							console.log("No data to display :-(");
+							console.log(data + " | " + status);
+						});
+				} else {
+					console.log("Sign-in state: " + authResult["error"]);
+				}
+			}
+		});
 	};
 
 });
