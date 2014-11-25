@@ -13,7 +13,7 @@ select yn in "Yes" "No"; do
         Yes )
 		git add -A
 		git commit -m "${1}"
-		git push origin branch_name
+		git push origin ${branch_name}
 		
 		break;;
         No )
