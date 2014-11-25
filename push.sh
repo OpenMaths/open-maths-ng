@@ -11,6 +11,13 @@ printf "\nDo you wish to commit and push to branch ${branch_name}?\nThe commit m
 select yn in "Yes" "No"; do
     case $yn in
         Yes )
+		# Removes all ._ and .DS_Store files
+
+		find . -name ".DS_Store" -print0 | xargs -0 rm -rf
+		find . -name "._*" -print0 | xargs -0 rm -rf
+		
+		# Runs all the git commands
+
 		git add -A
 		git commit -m "${1}"
 		git push origin ${branch_name}
