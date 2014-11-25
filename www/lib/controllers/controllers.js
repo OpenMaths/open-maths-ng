@@ -14,14 +14,16 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 		$window.ga("send", "pageview", {page: $location.path()});
 	}
 
-	$scope.themeClass = "light";
+	$scope.themeClass = localStorage.getItem("themeClass") ? localStorage.getItem("themeClass") : "light";
 	$scope.setTheme = function (theme) {
 		$scope.themeClass = theme;
+		localStorage.setItem("themeClass", theme);
 	};
 
-	$scope.umiFontClass = "umi-font-modern";
+	$scope.umiFontClass = localStorage.getItem("umiFontClass") ? localStorage.getItem("umiFontClass") : "umi-font-modern";
 	$scope.setUmiFont = function (font) {
 		$scope.umiFontClass = font;
+		localStorage.setItem("umiFontClass", font);
 	};
 
 	if (sessionStorage.getItem("omUser")) {
