@@ -1,0 +1,5 @@
+#!/bin/bash
+# Removes all ._ and .DS_Store files
+
+find . -name ".DS_Store" -print0 | xargs -0 rm -rf
+find . -name "._*" -print0 | xargs -0 rm -rf
