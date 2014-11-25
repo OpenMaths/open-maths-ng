@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Edit
-
 # Setup gulp
 sudo npm install gulp -g
 sudo npm install gulp
