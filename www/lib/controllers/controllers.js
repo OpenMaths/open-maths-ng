@@ -54,7 +54,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 						success(function (data) {
 							$scope.omUser = data;
 							sessionStorage.setItem("omUser", JSON.stringify(data));
-						}).error(function (data , status) {
+						}).error(function (data, status) {
 							alert("No data to display :-(");
 							console.log(data + " | " + status);
 						});
@@ -68,7 +68,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 
 });
 
-app.controller("DiveIntoController", function($scope, $rootScope, $http, $location) {
+app.controller("DiveIntoController", function ($scope, $rootScope, $http, $location) {
 	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
 	$scope.navDive = true;
@@ -127,10 +127,20 @@ app.controller("DiveIntoController", function($scope, $rootScope, $http, $locati
 
 	// TODO: implement arrow navigation in results (highlighting and selection)
 	$scope.searchUmiResultsNavigate = function (e) {
-		if (e.keyCode == 38)
-			alert("up arrow");
-		else if (e.keyCode == 40)
-			alert("down arrow");
+		var resultsCount = Object.keys($scope.searchUmiResults).length;
+
+		var searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection ? $scope.searchUmiResultsCurrentSelection : 0;
+		var moveTo;
+
+		if (e.keyCode == 38 && searchUmiResultsCurrentSelection > 0) {
+			moveTo = searchUmiResultsCurrentSelection - 1;
+		} else if (e.keyCode == 40 && searchUmiResultsCurrentSelection <= resultsCount) {
+			moveTo = searchUmiResultsCurrentSelection + 1;
+		}
+
+		$scope.searchUmiResultsCurrentSelection = moveTo;
+
+		console.log($scope.searchUmiResultsCurrentSelection);
 	};
 });
 
@@ -155,7 +165,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 	$http.get(appConfig.apiUrl + "/id/" + initId).
 		success(function (data, status) {
-			data.classes = [];
 			$scope.grid[1][1] = data;
 
 			var fadeInUmi = function () {
@@ -172,19 +181,14 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
 
-		// TODO: resolve add unique classes only once!
 		if (direction == "up") {
 			var targetPosition = [row - 1, column];
-			$scope.grid[row][column].classes.push("opens-top");
 		} else if (direction == "down") {
 			var targetPosition = [row + 1, column];
-			$scope.grid[row][column].classes.push("opens-bottom");
 		} else if (direction == "left") {
 			var targetPosition = [row, column - 1];
-			$scope.grid[row][column].classes.push("opens-left");
 		} else if (direction == "right") {
 			var targetPosition = [row, column + 1];
-			$scope.grid[row][column].classes.push("opens-right");
 		}
 
 		if (targetPosition[0] == 0) {
@@ -199,7 +203,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 		$http.get(appConfig.apiUrl + "/id/" + newUmiID).
 			success(function (data) {
-				data.classes = [];
 				data.closingClasses = targetClasses.join(" ");
 				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
 			}).
@@ -208,13 +211,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 				console.log(data + " | " + status);
 			});
 
-	};
-
-	$scope.navTopControls = {};
-
-	$scope.seeAlso = function (alsos, prerequisites) {
-		$scope.navTopControls.seeAlso = alsos;
-		$scope.navTopControls.prerequisiteDefinitions = prerequisites;
 	};
 });
 

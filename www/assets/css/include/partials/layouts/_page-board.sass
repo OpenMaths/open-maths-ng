@@ -17,69 +17,6 @@
 				//border-right: 1px solid $color-grey-200
 				//border-bottom: 1px solid $color-grey-200
 
-				.arrow-opens-top,
-				.arrow-opens-bottom,
-				.arrow-opens-left,
-				.arrow-opens-right
-					+border-radius(100%)
-					+transition(opacity .25s)
-
-					opacity: 0
-					position: absolute
-					width: $double-unit-layout
-					height: $double-unit-layout
-					background:
-						color: white
-						repeat: no-repeat
-						position: center center
-						size: 75%
-
-				.arrow-opens-top,
-				.arrow-opens-bottom
-					left: 50%
-					margin-left: -($double-unit-layout / 2)
-
-				.arrow-opens-bottom
-					bottom: -($double-unit-layout / 2)
-					background:
-						image: url("#{$image-base}/icons/expand-arrows/arrow-down-black.svg")
-
-				.arrow-opens-top
-					top: -($double-unit-layout / 2)
-					background:
-						image: url("#{$image-base}/icons/expand-arrows/arrow-up-black.svg")
-
-				.arrow-opens-left,
-				.arrow-opens-right
-					top: 50%
-					margin-top: -($double-unit-layout / 2)
-
-				.arrow-opens-left
-					left: -($double-unit-layout / 2)
-					background:
-						image: url("#{$image-base}/icons/expand-arrows/arrow-left-black.svg")
-
-				.arrow-opens-right
-					right: -($double-unit-layout / 2)
-					background:
-						image: url("#{$image-base}/icons/expand-arrows/arrow-right-black.svg")
-
-				&.opens-right
-					.arrow-opens-right
-						opacity: .15
-
-				&.opens-left
-					.arrow-opens-left
-						opacity: .15
-
-				&.opens-bottom
-					.arrow-opens-bottom
-						opacity: .15
-
-				&.opens-top
-					.arrow-opens-top
-						opacity: .15
-
 				&:last-of-type
 					border-right: 0 !important
 
@@ -96,29 +33,6 @@
 				.column
 					//border-right: 1px solid $color-grey-800
 					//border-bottom: 1px solid $color-grey-800
-
-					.arrow-opens-top,
-					.arrow-opens-bottom,
-					.arrow-opens-left,
-					.arrow-opens-right
-						background:
-							color: $color-grey-900
-
-					.arrow-opens-bottom
-						background:
-							image: url("#{$image-base}/icons/expand-arrows/arrow-down.svg")
-
-					.arrow-opens-top
-						background:
-							image: url("#{$image-base}/icons/expand-arrows/arrow-up.svg")
-
-					.arrow-opens-left
-						background:
-							image: url("#{$image-base}/icons/expand-arrows/arrow-left.svg")
-
-					.arrow-opens-right
-						background:
-							image: url("#{$image-base}/icons/expand-arrows/arrow-right.svg")
 
 		.timeline
 			border-top: 1px solid $color-grey-800
