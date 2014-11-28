@@ -134,15 +134,14 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 		var resultsCount = Object.keys($scope.searchUmiResults).length;
 
 		var searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection ? $scope.searchUmiResultsCurrentSelection : 0;
-		var moveTo = searchUmiResultsCurrentSelection;
-		
+
 		if (e.keyCode == 38 && searchUmiResultsCurrentSelection > 0) {
-			moveTo = searchUmiResultsCurrentSelection - 1;
+			searchUmiResultsCurrentSelection = searchUmiResultsCurrentSelection - 1;
 		} else if (e.keyCode == 40 && searchUmiResultsCurrentSelection < (resultsCount - 1)) {
-			moveTo = searchUmiResultsCurrentSelection + 1;
+			searchUmiResultsCurrentSelection = searchUmiResultsCurrentSelection + 1;
 		}
 
-		$scope.searchUmiResultsCurrentSelection = moveTo;
+		$scope.searchUmiResultsCurrentSelection = searchUmiResultsCurrentSelection;
 
 		console.log($scope.searchUmiResultsCurrentSelection);
 	};
