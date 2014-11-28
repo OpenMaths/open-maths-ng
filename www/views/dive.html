@@ -7,7 +7,6 @@
 			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == searchUmiResultsCurrentSelection}" ng-click="getUmi(result.id)">
 				<aside class="title">{{ result.title }}</aside>
 				<aside class="score">
-					<!--Score: <strong>{{ result.score }}</strong>-->
 					<div class="bar">
 						<div class="progress" style="width: {{ result.score }}"></div>
 					</div>

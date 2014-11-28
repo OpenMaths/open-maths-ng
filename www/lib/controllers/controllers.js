@@ -74,6 +74,16 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 	$scope.navDive = true;
 	$scope.searchUmiResultsCurrentSelection = 0;
 
+	if (sessionStorage.getItem("umiLastSearch")) {
+		var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
+		$scope.searchUmiTerm = umiLastSearchTitle;
+
+		if (sessionStorage.getItem("umiLastSearch")) {
+			var umiLastSearchResults = sessionStorage.getItem("umiLastSearchResults");
+			$scope.searchUmiResults = JSON.parse(umiLastSearchResults);
+		}
+	}
+
 	$scope.searchUmiKeyDown = function () {
 		var termLength = $scope.searchUmiTerm.length;
 		var percentage = termLength * 2.5 + "%";
@@ -114,6 +124,9 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 
 			id = $scope.searchUmiResults[$scope.searchUmiResultsCurrentSelection]["id"];
 		}
+
+		sessionStorage.setItem("umiLastSearchTitle", $scope.searchUmiTerm);
+		sessionStorage.setItem("umiLastSearchResults", JSON.stringify($scope.searchUmiResults));
 
 		$location.path("/board/" + id);
 	};
