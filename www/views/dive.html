@@ -4,7 +4,7 @@
 	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid">
 		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchUmiResultsNavigate($event)" class="unstyled" autofocus />
 		<article class="container-narrow search-umi-results">
-			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == 0}" ng-click="getUmi(result.id)">
+			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == searchUmiResultsCurrentSelection}" ng-click="getUmi(result.id)">
 				<aside class="title">{{ result.title }}</aside>
 				<aside class="score">
 					<!--Score: <strong>{{ result.score }}</strong>-->

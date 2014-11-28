@@ -72,6 +72,7 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
 	$scope.navDive = true;
+	$scope.searchUmiResultsCurrentSelection = 0;
 
 	$scope.searchUmiKeyDown = function () {
 		var termLength = $scope.searchUmiTerm.length;
@@ -111,7 +112,7 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 				return false;
 			}
 
-			id = $scope.searchUmiResults[0]["id"];
+			id = $scope.searchUmiResults[$scope.searchUmiResultsCurrentSelection]["id"];
 		}
 
 		$location.path("/board/" + id);
@@ -125,7 +126,7 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 			console.log(data);
 		});
 
-	// TODO: implement arrow navigation in results (highlighting and selection)
+
 	$scope.searchUmiResultsNavigate = function (e) {
 		if (!$scope.searchUmiResults) {
 			return false;
@@ -133,17 +134,11 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 
 		var resultsCount = Object.keys($scope.searchUmiResults).length;
 
-		var searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection ? $scope.searchUmiResultsCurrentSelection : 0;
-
-		if (e.keyCode == 38 && searchUmiResultsCurrentSelection > 0) {
-			searchUmiResultsCurrentSelection = searchUmiResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && searchUmiResultsCurrentSelection < (resultsCount - 1)) {
-			searchUmiResultsCurrentSelection = searchUmiResultsCurrentSelection + 1;
+		if (e.keyCode == 38 && $scope.searchUmiResultsCurrentSelection > 0) {
+			$scope.searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection - 1;
+		} else if (e.keyCode == 40 && $scope.searchUmiResultsCurrentSelection < (resultsCount - 1)) {
+			$scope.searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection + 1;
 		}
-
-		$scope.searchUmiResultsCurrentSelection = searchUmiResultsCurrentSelection;
-
-		console.log($scope.searchUmiResultsCurrentSelection);
 	};
 });
 
