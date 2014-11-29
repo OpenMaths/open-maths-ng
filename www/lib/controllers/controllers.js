@@ -162,8 +162,8 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 	$scope.grid = [];
 
-	$scope.rows = 3;
-	$scope.columns = 3;
+	$scope.rows = localStorage.getItem("gridRows") ? localStorage.getItem("gridRows") : 3;
+	$scope.columns = localStorage.getItem("gridColumns") ? localStorage.getItem("gridColumns") : 3;
 
 	for (i = 0; i < $scope.rows; i++) {
 		var row = [];
@@ -177,6 +177,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 	$scope.addRow = function() {
 		$scope.rows = $scope.rows + 1;
+		localStorage.setItem("gridRows", $scope.rows);
 
 		var row = [];
 
@@ -193,6 +194,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		}
 
 		$scope.rows = $scope.rows - 1;
+		localStorage.setItem("gridRows", $scope.rows);
 
 		var row = [];
 
@@ -208,6 +210,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		}
 
 		$scope.columns = $scope.columns + 1;
+		localStorage.setItem("gridColumns", $scope.columns);
 	};
 	$scope.removeColumn = function() {
 		if ($scope.columns < 3) {
@@ -219,6 +222,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		}
 
 		$scope.columns = $scope.columns - 1;
+		localStorage.setItem("gridColumns", $scope.columns);
 	};
 
 	var initId = $routeParams.id;
