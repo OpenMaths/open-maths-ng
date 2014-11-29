@@ -3,6 +3,73 @@
 	#board-container
 		min-height: 100vh
 
+		#grid
+			position: relative
+
+			#manage-column,
+			#manage-row
+				+transition(all .25s)
+
+				position: absolute
+				z-index: 3
+				opacity: 0
+
+				a
+					//+transition(background .25s)
+
+					width: $triple-unit-layout
+					height: $triple-unit-layout
+					display: block
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_add-dark.svg")
+						size: $triple-unit-layout + $half-unit-layout
+						position: center center
+						repeat: no-repeat
+						color: black
+
+					// Not using +hover on purpose
+					&:hover
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_add-white.svg")
+
+					&.remove
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_remove-dark.svg")
+
+						// Not using +hover on purpose
+						&:hover
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_remove-white.svg")
+
+				+hover
+					opacity: 1
+
+			#manage-column
+				//border-left: 1px solid $color-black
+				width: $triple-unit-layout
+				height: 100%
+				right: -($base-unit-layout)
+				top: 0
+
+				a:first-of-type
+					border-bottom: 1px solid $color-grey-700
+
+				+hover
+					right: 0
+
+			#manage-row
+				//border-top: 1px solid $color-black
+				height: $triple-unit-layout
+				width: 100%
+				left: 0
+				bottom: -($base-unit-layout)
+
+				a:first-of-type
+					border-right: 1px solid $color-grey-700
+
+				+hover
+					bottom: 0
+
 		.row
 			width: 100%
 			flex: 1
@@ -22,7 +89,6 @@
 				position: relative
 				display: flex
 				flex-direction: column
-				width: 33.333333333%
 				z-index: 1 // abstract as a module
 				border-right: 1px solid $color-grey-200
 				border-bottom: 1px solid $color-grey-200
@@ -38,7 +104,7 @@
 		display: none
 
 	&.dark
-		#board
+		#board-container
 			.row
 				.column
 					border-right: 1px solid $color-grey-800

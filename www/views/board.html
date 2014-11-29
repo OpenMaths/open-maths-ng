@@ -1,9 +1,21 @@
 <section class="flex column" id="board-container">
 	<div menu-top></div>
-	<div class="flex-1 flex column center-horizontally center-vertically">
+	<div class="flex-1 flex column center-horizontally center-vertically" id="grid">
+		<!--Column and Row management-->
+		<nav id="manage-column" class="flex column">
+			<a class="flex-1 add" href="#" ng-click="addColumn()"></a>
+			<a class="flex-1 remove" href="#" ng-click="removeColumn()"></a>
+		</nav>
+		<nav id="manage-row" class="flex">
+			<a class="flex-1 add" href="#" ng-click="addRow()"></a>
+			<a class="flex-1 center-vertically remove" href="#" ng-click="removeRow()"></a>
+		</nav>
+
 		<div class="row" ng-repeat="row in grid">
 			<div class="resize-row"></div>
-			<div class="column" ng-repeat="data in row" ng-class="data.classes">
+			<div class="column flex-1" ng-repeat="data in row" ng-class="data.classes">
+
+				<!--Unit of Mathematical Information-->
 				<div class="umi {{ data.closingClasses }}"
 					 ng-class="{'fade-in' : fadeInUmi}"
 					 ng-hide="!data.htmlContent">
@@ -18,6 +30,7 @@
 						</article>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

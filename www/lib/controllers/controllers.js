@@ -175,6 +175,52 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		$scope.grid.push(row);
 	}
 
+	$scope.addRow = function() {
+		$scope.rows = $scope.rows + 1;
+
+		var row = [];
+
+		for (c = 0; c < $scope.columns; c++) {
+			row.push(c);
+		}
+
+		$scope.grid.push(row);
+	};
+	$scope.removeRow = function() {
+
+		if ($scope.rows < 3) {
+			return false;
+		}
+
+		$scope.rows = $scope.rows - 1;
+
+		var row = [];
+
+		for (c = 0; c < $scope.columns; c++) {
+			row.push(c);
+		}
+
+		$scope.grid.pop();
+	};
+	$scope.addColumn = function() {
+		for (i = 0; i < $scope.rows; i++) {
+			$scope.grid[i].push($scope.columns);
+		}
+
+		$scope.columns = $scope.columns + 1;
+	};
+	$scope.removeColumn = function() {
+		if ($scope.columns < 3) {
+			return false;
+		}
+
+		for (i = 0; i < $scope.rows; i++) {
+			$scope.grid[i].pop();
+		}
+
+		$scope.columns = $scope.columns - 1;
+	};
+
 	var initId = $routeParams.id;
 
 	$http.get(appConfig.apiUrl + "/id/" + initId).
