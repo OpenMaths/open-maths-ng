@@ -1705,13 +1705,18 @@ footer {
           -ms-flex-direction: column;
               flex-direction: column;
       width: 33.33333%;
-      z-index: 1; }
+      z-index: 1;
+      border-right: 1px solid #d5e0e0;
+      border-bottom: 1px solid #d5e0e0; }
       .page-board #board .row .column:last-of-type {
         border-right: 0 !important; }
     .page-board #board .row:last-of-type .column {
       border-bottom: 0 !important; }
 .page-board footer {
   display: none; }
+.page-board.dark #board .row .column {
+  border-right: 1px solid #384b4b;
+  border-bottom: 1px solid #384b4b; }
 .page-board.dark .timeline {
   border-top: 1px solid #384b4b; }
   .page-board.dark .timeline:before {
