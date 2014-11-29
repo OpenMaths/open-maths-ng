@@ -162,8 +162,8 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 	$scope.grid = [];
 
-	$scope.rows = localStorage.getItem("gridRows") ? localStorage.getItem("gridRows") : 3;
-	$scope.columns = localStorage.getItem("gridColumns") ? localStorage.getItem("gridColumns") : 3;
+	$scope.rows = sessionStorage.getItem("gridRows") ? parseInt(sessionStorage.getItem("gridRows")) : 3;
+	$scope.columns = sessionStorage.getItem("gridColumns") ? parseInt(sessionStorage.getItem("gridColumns")) : 3;
 
 	for (i = 0; i < $scope.rows; i++) {
 		var row = [];
@@ -176,8 +176,12 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 	}
 
 	$scope.addRow = function() {
+		if ($scope.rows > 5) {
+			return false;
+		}
+
 		$scope.rows = $scope.rows + 1;
-		localStorage.setItem("gridRows", $scope.rows);
+		sessionStorage.setItem("gridRows", $scope.rows);
 
 		var row = [];
 
@@ -188,13 +192,12 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		$scope.grid.push(row);
 	};
 	$scope.removeRow = function() {
-
 		if ($scope.rows < 3) {
 			return false;
 		}
 
 		$scope.rows = $scope.rows - 1;
-		localStorage.setItem("gridRows", $scope.rows);
+		sessionStorage.setItem("gridRows", $scope.rows);
 
 		var row = [];
 
@@ -205,12 +208,16 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		$scope.grid.pop();
 	};
 	$scope.addColumn = function() {
+		if ($scope.columns > 5) {
+			return false;
+		}
+
 		for (i = 0; i < $scope.rows; i++) {
 			$scope.grid[i].push($scope.columns);
 		}
 
 		$scope.columns = $scope.columns + 1;
-		localStorage.setItem("gridColumns", $scope.columns);
+		sessionStorage.setItem("gridColumns", $scope.columns);
 	};
 	$scope.removeColumn = function() {
 		if ($scope.columns < 3) {
@@ -222,7 +229,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		}
 
 		$scope.columns = $scope.columns - 1;
-		localStorage.setItem("gridColumns", $scope.columns);
+		sessionStorage.setItem("gridColumns", $scope.columns);
 	};
 
 	var initId = $routeParams.id;
