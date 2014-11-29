@@ -1,12 +1,22 @@
 .page-board
 	//Needs major refactoring
-	#board
-		height: 100vh
+	#board-container
+		min-height: 100vh
 
 		.row
 			width: 100%
 			flex: 1
 			display: flex
+			position: relative
+
+			.resize-row
+				z-index: 2
+				position: absolute
+				left: 0
+				bottom: 0
+				width: 100%
+				height: rem(8px)
+				cursor: row-resize !important
 
 			.column
 				position: relative

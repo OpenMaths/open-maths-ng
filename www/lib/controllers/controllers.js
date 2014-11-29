@@ -162,12 +162,15 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 	$scope.grid = [];
 
-	for (i = 0; i < 3; i++) {
+	$scope.rows = 3;
+	$scope.columns = 3;
+
+	for (i = 0; i < $scope.rows; i++) {
 		var row = [];
 
-		row.push(1);
-		row.push(2);
-		row.push(3);
+		for (c = 0; c < $scope.columns; c++) {
+			row.push(c);
+		}
 
 		$scope.grid.push(row);
 	}
