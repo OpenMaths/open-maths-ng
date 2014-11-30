@@ -1,9 +1,13 @@
 <div menu-top></div>
 <div class="flex">
 	<aside class="flex-1">
-		<form name="umiContributeForm" class="flex-1 flex column" ng-submit="createUmi()">
-			<h4>Contributing as {{ omUser.email }}</h4>
+		<h4>Contributing as {{ omUser.email }}</h4>
 
+		<p>Please note that our editor features an automatic checker, as well as
+			interactive guidance throughout the whole process of filling out
+			this form.</p>
+
+		<form name="umiContributeForm" class="flex-1 flex column" ng-submit="createUmi()">
 			<!--Type-->
 			<label for="type" class="flex">
 				<p class="flex-3">
@@ -166,19 +170,14 @@
 	<aside class="flex-1 flex column">
 		<h4>Live preview</h4>
 
-		<p>Please note that our editor features an automatic checker, as well as
-			interactive guidance throughout the whole process of filling out
-			this form.</p>
-
 		<div class="umi-preview-holder flex-1 flex center-vertically center-horizontally">
 			<div class="umi fade-in">
 				<div class="content-holder">
 					<div class="title flex center-vertically">
-						<i class="full-screen"></i>
-						<label class="proof" ng-bind="createUmiForm.type.label"></label>
-						<strong class="flex-1" ng-bind="createUmiForm.title"></strong>
+						<label class="proof" ng-bind="createUmiForm.type.label || 'Contribution type'"></label>
+						<strong class="flex-1" ng-bind="createUmiForm.title || 'Contribution Title'"></strong>
 					</div>
-					<article><p om-bind="createUmiForm.latexContent"></p></article>
+					<article><p om-bind="createUmiForm.latexContent">LaTeX Contents</p></article>
 				</div>
 			</div>
 		</div>
