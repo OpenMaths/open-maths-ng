@@ -11,109 +11,103 @@
 		<label for="type" class="flex">
 			<p class="flex-3">
 				Type
-				<small>Type Instructions</small>
+				<small ng-class="{active : showInstructions == 'type'}">Type Instructions</small>
 			</p>
-			<select ng-model="umi.type" name="type" class="flex-6" required>
-				<option value="">Choose Type:</option>
-				<option value="Definition">Definition</option>
-				<option value="Axiom">Axiom</option>
-				<option value="Theorem">Theorem</option>
-				<option value="Lemma">Lemma</option>
-				<option value="Corollary">Corollary</option>
-				<option value="Conjecture">Conjecture</option>
-				<option value="Proof">Proof</option>
-				<option value="HistoricalNote">Historical Note</option>
-				<option value="PhilosophicalJustification">Philosophical
-					Justification
-				</option>
-				<option value="Diagram">Diagram</option>
-				<option value="Example">Example</option>
+			<select ng-focus="showInstructions = 'type'" ng-options="type as type.label for type in umiTypes" ng-model="umi.type"
+					name="type" class="flex-6" required>
+				<option value="">Select Type</option>
 			</select>
 
-			<!--Error messages-->
-			<strong
-				ng-show="umiContributeForm.type.$error.required">Required!</strong>
+			<!--Error messages for Type-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.type.$error.required" title="{{ errorMessages.required }}">&times;</small>
+			</div>
 		</label>
 
 		<!--Title-->
 		<label for="title" class="flex">
 			<p class="flex-3">
 				Title
-				<small>Users will be able to search your contribution by this
+				<small ng-class="{active : showInstructions == 'title'}">Users will be able to search your contribution by this
 					title.
 				</small>
 			</p>
-			<input ng-pattern="/^(?=.*[^\W_-])[\w -]*$/" ng-model="umi.title"
+			<input ng-focus="showInstructions = 'title'" ng-pattern="/^(?=.*[^\W_-])[\w -]*$/" ng-model="umi.title"
 				   ng-maxlength="128" class="flex-6" type="text" name="title"
 				   placeholder="Title"
 				   required>
 
-			<!--Error messages-->
-			<strong
-				ng-show="umiContributeForm.title.$error.required">Required!</strong>
-			<strong ng-show="umiContributeForm.title.$error.maxlength">Too
-				long!</strong>
-			<strong ng-show="umiContributeForm.title.$error.pattern">Invalid title
-				structure!</strong>
+			<!--Error messages for Title-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.title.$error.required" title="{{ errorMessages.required }}">&times;</small>
+				<small ng-show="umiContributeForm.title.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
+				<small ng-show="umiContributeForm.title.$error.pattern" title="{{ errorMessages.umiTitle }}">&times;</small>
+			</div>
 		</label>
 
 		<!--Title Synonyms-->
 		<label for="titleSynonyms" class="flex">
 			<p class="flex-3">
 				Title Synonyms
-				<small>Comma separated synonyms</small>
+				<small ng-class="{active : showInstructions == 'titleSynonyms'}">Comma separated synonyms</small>
 			</p>
-			<input ng-model="umi.titleSynonyms" ng-maxlength="128" class="flex-6" type="text"
+			<input ng-focus="showInstructions = 'titleSynonyms'" ng-model="umi.titleSynonyms" ng-maxlength="128" class="flex-6" type="text"
 				   name="titleSynonyms"
 				   placeholder="Title Synonyms"/>
 
-			<!--Error messages-->
-			<strong ng-show="umiContributeForm.titleSynonyms.$error.maxlength">Too
-				long!</strong>
+			<!--Error messages for Synonyms-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.titleSynonyms.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
+			</div>
 		</label>
 
 		<!--LaTeX Content-->
 		<label for="latexContent" class="flex">
 			<p class="flex-3">
 				LaTeX content
-				<small>This is the actual content</small>
+				<small ng-class="{active : showInstructions == 'latexContent'}">This is the actual content</small>
 			</p>
-			<textarea ng-model="umi.latexContent" class="flex-6" name="latexContent"
+			<textarea ng-focus="showInstructions = 'latexContent'" ng-model="umi.latexContent" class="flex-6" name="latexContent"
 					  placeholder="LaTeX content" required></textarea>
 
-			<!--Error messages-->
-			<strong
-				ng-show="umiContributeForm.latexContent.$error.required">Required!</strong>
+			<!--Error messages for LaTeX Content-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.latexContent.$error.required" title="{{ errorMessages.required }}">&times;</small>
+			</div>
 		</label>
 
 		<!--Tags-->
 		<label for="tags" class="flex">
 			<p class="flex-3">
 				Tags
-				<small>Comma separated tags</small>
+				<small ng-class="{active : showInstructions == 'tags'}">Comma separated tags</small>
 			</p>
-			<input ng-model="umi.tags" ng-maxlength="128" class="flex-6" type="text" name="tags" placeholder="Tags"/>
+			<input ng-focus="showInstructions = 'tags'" ng-model="umi.tags" ng-maxlength="128" class="flex-6" type="text" name="tags"
+				   placeholder="Tags"/>
 
-			<!--Error messages-->
-			<strong ng-show="umiContributeForm.tags.$error.maxlength">Too
-				long!</strong>
+			<!--Error messages for Tags-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.tags.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
+			</div>
 		</label>
 
 		<!--See also-->
 		<label for="seeAlso" class="flex">
 			<p class="flex-3">
 				See also
-				<small>Comma separated values</small>
+				<small ng-class="{active : showInstructions == 'seeAlso'}">Comma separated values</small>
 			</p>
-			<input ng-model="umi.seeAlso" ng-maxlength="128" class="flex-6" type="text" name="seeAlso"
+			<input ng-focus="showInstructions = 'seeAlso'" ng-model="umi.seeAlso" ng-maxlength="128" class="flex-6" type="text"
+				   name="seeAlso"
 				   placeholder="See also"/>
 
-			<!--Error messages-->
-			<strong ng-show="umiContributeForm.seeAlso.$error.maxlength">Too
-				long!</strong>
+			<!--Error messages for See also-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.seeAlso.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
+			</div>
 		</label>
 
-		<button class="button primary">Submit</button>
+		<button ng-focus="showInstructions = false" class="button primary">Submit</button>
 	</form>
 	<aside class="flex-1"></aside>
 </div>

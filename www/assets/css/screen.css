@@ -200,8 +200,7 @@ button,
   outline: none;
   color: #1b2424;
   margin: 0 0 1rem;
-  text-decoration: none;
-  min-width: 20rem; }
+  text-decoration: none; }
   input::-webkit-input-placeholder,
   select::-webkit-input-placeholder,
   textarea::-webkit-input-placeholder,
@@ -1638,7 +1637,7 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .umi .footer, footer nav, .page-dive-into #masthead #search-umi .search-umi-results .item .score, .page-dive-into .timeline header, .page-features .master-hero h2, .page-ooops .headline {
+.text-center, .close, .umi .footer, footer nav, form label .error-message small, .page-dive-into #masthead #search-umi .search-umi-results .item .score, .page-dive-into .timeline header, .page-features .master-hero h2, .page-ooops .headline {
   text-align: center; }
 
 .text-right,
@@ -1828,8 +1827,27 @@ footer {
 form {
   padding: 2rem; }
   form label {
-    margin: 0.5rem 0 1rem; }
-    form label input {
+    margin: 0.5rem 0 1rem;
+    position: relative; }
+    form label .error-message {
+      cursor: help;
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      top: 50%;
+      right: -1.5rem;
+      margin: -0.5rem 0 0; }
+      form label .error-message small {
+        -o-border-radius: 100%;
+        border-radius: 100%;
+        line-height: 1rem;
+        background: #ff784b;
+        width: 1rem;
+        height: 1rem;
+        display: block;
+        overflow: hidden;
+        color: white; }
+    form label input, form label select, form label textarea {
       margin: 0; }
     form label p {
       margin: 0;
@@ -1837,6 +1855,9 @@ form {
       position: relative;
       margin-right: 0.5rem; }
       form label p small {
+        -webkit-transition: opacity 0.25s;
+        transition: opacity 0.25s;
+        opacity: 0;
         width: 100%;
         height: 100%;
         position: absolute;
@@ -1844,6 +1865,8 @@ form {
         left: 0;
         background: rgba(255, 255, 255, 0.9);
         font-weight: 500; }
+        form label p small.active {
+          opacity: 1; }
 
 .page-dive-into #masthead {
   height: 100vh;

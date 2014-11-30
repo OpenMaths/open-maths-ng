@@ -167,7 +167,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		$scope.grid.push(row);
 	}
 
-	$scope.addRow = function() {
+	$scope.addRow = function () {
 		if ($scope.rows > 5) {
 			return false;
 		}
@@ -183,7 +183,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 		$scope.grid.push(row);
 	};
-	$scope.removeRow = function() {
+	$scope.removeRow = function () {
 		if ($scope.rows < 3) {
 			return false;
 		}
@@ -199,7 +199,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 		$scope.grid.pop();
 	};
-	$scope.addColumn = function() {
+	$scope.addColumn = function () {
 		if ($scope.columns > 5) {
 			return false;
 		}
@@ -211,7 +211,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		$scope.columns = $scope.columns + 1;
 		sessionStorage.setItem("gridColumns", $scope.columns);
 	};
-	$scope.removeColumn = function() {
+	$scope.removeColumn = function () {
 		if ($scope.columns < 3) {
 			return false;
 		}
@@ -282,6 +282,27 @@ app.controller("ContributeController", function ($scope, $rootScope) {
 	$rootScope.navTopTransparentClass = false;
 
 	$scope.navContribute = true;
+
+	$scope.errorMessages = {
+		required: "This field is required.",
+		maxLength: "This field is exceeding the maximum length of 128 characters.",
+		umiTitle: "The title should only consist of letters, spaces, or hyphens"
+	};
+
+
+	$scope.umiTypes = [
+		{id: "Definition", label: "Definition"},
+		{id: "Axiom", label: "Axiom"},
+		{id: "Theorem", label: "Theorem"},
+		{id: "Lemma", label: "Lemma"},
+		{id: "Corollary", label: "Corollary"},
+		{id: "Conjecture", label: "Conjecture"},
+		{id: "Proof", label: "Proof"},
+		{id: "HistoricalNote", label: "Historical Note"},
+		{id: "PhilosophicalJustification", label: "Philosophical Justification"},
+		{id: "Diagram", label: "Diagram"},
+		{id: "Example", label: "Example"}
+	];
 });
 
 app.controller("FeaturesController", function ($scope, $rootScope) {
