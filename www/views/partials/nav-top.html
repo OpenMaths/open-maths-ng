@@ -2,7 +2,7 @@
 	<ul id="nav" class="flex center-vertically align-left">
 		<li><a id="dive" class="flex center-vertically" ng-class="{active : navDive}" href="/">Dive</a></li>
 		<li><a id="board" class="flex center-vertically" ng-class="{active : navBoard}" href="/board">Board</a></li>
-		<li><a id="contribute" class="flex center-vertically" ng-class="{active : navContribute}" href="/contribute">Contribute</a></li>
+		<li ng-click="accessUrlUser('contribute')"><a id="contribute" class="flex center-vertically" ng-class="{active : navContribute}">Contribute</a></li>
 		<li><a id="features" class="flex center-vertically" ng-class="{active : navFeatures}" href="/features">Features</a></li>
 	</ul>
 
@@ -11,15 +11,15 @@
 	</a>
 
 	<ul id="controls" class="flex center-vertically align-right">
-		<li class="drop-down" ng-click="dropDownSeeAlso = !dropDownSeeAlso" ng-show="navTopControls.seeAlso && navTopControls.prerequisiteDefinitions">
-			<a id="see-also" class="flex center-vertically" href="#" ng-class="{active : dropDownSeeAlso}"></a>
-			<nav class="contextual-menu right" ng-show="dropDownSeeAlso">
-				<ul class="flex column" stop-event>
-					<li><header>See Also</header>{{ navTopControls.seeAlso }}</li>
-					<li><header>Prerequisites</header>{{ navTopControls.prerequisiteDefinitions }}</li>
-				</ul>
-			</nav>
-		</li>
+		<!--<li class="drop-down" ng-click="dropDownSeeAlso = !dropDownSeeAlso" ng-show="navTopControls.seeAlso && navTopControls.prerequisiteDefinitions">-->
+			<!--<a id="see-also" class="flex center-vertically" href="#" ng-class="{active : dropDownSeeAlso}"></a>-->
+			<!--<nav class="contextual-menu right" ng-show="dropDownSeeAlso">-->
+				<!--<ul class="flex column" stop-event>-->
+					<!--<li><header>See Also</header>{{ navTopControls.seeAlso }}</li>-->
+					<!--<li><header>Prerequisites</header>{{ navTopControls.prerequisiteDefinitions }}</li>-->
+				<!--</ul>-->
+			<!--</nav>-->
+		<!--</li>-->
 		<li class="drop-down" ng-click="dropDownSettings = !dropDownSettings">
 			<a id="settings" class="flex center-vertically" href="#" ng-class="{active : dropDownSettings}"></a>
 			<nav class="contextual-menu right" ng-show="dropDownSettings">

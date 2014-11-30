@@ -1,6 +1,6 @@
 .page-dive-into
 	#masthead
-		height: 90vh
+		height: 100vh
 		background:
 			image: url("#{$image-base}/bg/cover-dive.jpg")
 			color: #002e43
@@ -27,7 +27,7 @@
 				height: auto
 				max-width: rem(600px)
 				margin: $double-unit-layout 0
-				max-height: $double-unit-layout * 5
+				max-height: $double-unit-layout * 10
 				overflow-y: scroll
 
 				.item
@@ -142,16 +142,17 @@
 					right: auto
 					left: -($base-unit-layout + $quarter-unit-layout)
 
-	&.dark
-		.timeline
-			border-top: 1px solid $color-grey-800
+	footer
+		border-top: 1px solid rgba(255,255,255,.2)
+		color: rgba(255,255,255,.4)
+		background: transparent
 
-			&:before
-				background: $color-grey-800
+		+hover
+			background: transparent
 
-			article
-				img
-					border-color: $color-black
+		a
+			color: rgba(255,255,255,.4)
+			text-decoration: none
 
-				small
-					color: $color-grey-700
+			+hover
+				color: white

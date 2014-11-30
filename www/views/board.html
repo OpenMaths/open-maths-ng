@@ -1,26 +1,36 @@
-<section class="flex column" id="board">
+<section class="flex column" id="board-container">
 	<div menu-top></div>
-	<div class="flex-1 flex column center-horizontally center-vertically">
-		<div class="row" ng-repeat="row in grid">
-			<div class="column" ng-repeat="data in row" ng-class="data.classes">
-				<i class="arrow-opens-top"></i>
-				<i class="arrow-opens-right"></i>
-				<i class="arrow-opens-bottom"></i>
-				<i class="arrow-opens-left"></i>
+	<div class="flex-1 flex column center-horizontally center-vertically" id="grid">
+		<!--Column and Row management-->
+		<nav id="manage-column" class="flex column">
+			<a class="flex-1 add" href="#" ng-click="addColumn()"></a>
+			<a class="flex-1 remove" href="#" ng-click="removeColumn()"></a>
+		</nav>
+		<nav id="manage-row" class="flex">
+			<a class="flex-1 add" href="#" ng-click="addRow()"></a>
+			<a class="flex-1 center-vertically remove" href="#" ng-click="removeRow()"></a>
+		</nav>
 
+		<div class="row" ng-repeat="row in grid">
+			<div class="resize-row"></div>
+			<div class="column flex-1" ng-repeat="data in row" ng-class="data.classes">
+
+				<!--Unit of Mathematical Information-->
 				<div class="umi {{ data.closingClasses }}"
 					 ng-class="{'fade-in' : fadeInUmi}"
-					 ng-click="seeAlso(data.seeAlso, data.prerequisiteDefinitions)">
-					<div class="content-holder" ng-hide="!data.htmlContent">
-						<div class="title">
+					 ng-hide="!data.htmlContent">
+					<div class="content-holder">
+						<div class="title flex center-vertically">
+							<i class="full-screen"></i>
 							<label class="proof">{{ data.umiType }}</label>
-							<strong>{{ data.title }}</strong>
+							<strong class="flex-1">{{ data.title }}</strong>
 						</div>
-						<article>
+						<article stop-event>
 							<p om-bind="data.htmlContent"></p>
 						</article>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

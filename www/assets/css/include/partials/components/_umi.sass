@@ -2,7 +2,7 @@
 	$umi-side-padding: $base-unit-layout + $quarter-unit-layout
 
 	+transition(opacity .25s) //abstract to transition duration variable
-	+border-radius($border-radius) // abstract to $border-radius-small ??
+	+border-radius($border-radius)
 
 	position: relative
 	opacity: 0
@@ -15,20 +15,33 @@
 		opacity: 1
 
 	&.closes-right
+		border-right-color: white
+
 		.expand-right
 			display: none
 
 	&.closes-left
+		border-left-color: white
+
 		.expand-left
 			display: none
 
 	&.closes-top
+		border-top-color: white
+
 		.expand-up
 			display: none
 
 	&.closes-bottom
+		border-bottom-color: white
+
 		.expand-down
 			display: none
+
+	+hover
+		.title
+			.full-screen
+				opacity: 1
 
 	.content-holder
 		flex: 1
@@ -43,24 +56,42 @@
 		+border-radius(4px 4px 0 0)
 
 		width: 100%
-		display: flex
-		align-items: center
 		min-height: $double-unit-layout
 		margin-bottom: $base-unit-layout
 		font-size: rem(18px)
+		position: relative
 
 		strong
+			+ellipsis()
+
+			text-indent: 1px // overflow: hidden hack
 			font:
 				family: $font-family-secondary
 
 		label
-			opacity: 1
 			color: $color-black
 			border-color: $color-black
 
 			// TODO: explain why we offset the labels
-			margin: 0 $base-unit-layout 0 0
+			margin: 0 ($base-unit-layout - $quarter-unit-layout) 0 0
 			font-size: rem(11px)
+
+		.full-screen
+			+transition(opacity .25s)
+
+			cursor: pointer
+			opacity: 0
+			top: 0
+			right: 0
+			position: absolute
+			width: $double-unit-layout
+			height: $double-unit-layout
+			background:
+				image: url("#{$image-base}/icons/icon-set/icon-set_expand.svg")
+				size: 150%
+				position: center center
+				repeat: no-repeat
+				color: white
 
 	article
 		width: 100%
@@ -167,6 +198,11 @@
 	.umi
 		.title
 			color: $color-grey-500
+
+			.full-screen
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_expand-dark.svg")
+					color: $color-black
 
 			label
 				color: $color-grey-500

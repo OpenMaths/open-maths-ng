@@ -1,13 +1,12 @@
 <section id="masthead" class="flex column">
 	<div menu-top></div>
 
-	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid" ng-keydown="searchUmiResultsNavigate($event)">
-		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" class="unstyled" autofocus />
+	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid">
+		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchUmiResultsNavigate($event)" class="unstyled" autofocus />
 		<article class="container-narrow search-umi-results">
-			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == 0}" ng-click="getUmi(result.id)">
+			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == searchUmiResultsCurrentSelection}" ng-click="getUmi(result.id)">
 				<aside class="title">{{ result.title }}</aside>
 				<aside class="score">
-					<!--Score: <strong>{{ result.score }}</strong>-->
 					<div class="bar">
 						<div class="progress" style="width: {{ result.score }}"></div>
 					</div>
@@ -16,17 +15,3 @@
 		</article>
 	</form>
 </section>
-
-<div class="timeline">
-	<header class="flex center-vertically center-horizontally">Recent activity</header>
-
-	<div class="container-wide">
-		<article ng-repeat="entry in gitHubFeed">
-			<img src="{{ entry.actor.avatar_url }}" alt="{{ entry.actor.login }}" />
-			<aside>
-				<p><a href="https://github.com/{{ entry.actor.login }}" target="_blank">{{ entry.actor.login }}</a> <strong>{{ entry.type }}</strong> at <a href="https://github.com/{{ entry.repo.name }}" target="_blank">{{ entry.repo.name }}</a></p>
-				<small>{{ entry.created_at }}</small>
-			</aside>
-		</article>
-	</div>
-</div>

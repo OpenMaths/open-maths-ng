@@ -1,0 +1,85 @@
+.page-contribute
+	footer
+		margin-top: $double-unit-layout
+		position: relative
+
+	aside
+		padding: $double-unit-layout
+
+		.umi-preview-holder
+			.umi
+				max-width: 90%
+				height: rem(220px)
+
+		header
+			padding: 0 0 $double-unit-layout
+
+			h2
+				font-size: rem(20px)
+
+			p
+				font-size: rem(14px)
+				color: $color-grey-700
+
+		form
+			label
+				margin: $half-unit-layout 0 $base-unit-layout
+				position: relative
+
+				&.button-holder
+					margin: $base-unit-layout 0
+
+				.error-message
+					cursor: help
+					position: absolute
+					width: $half-unit-layout
+					height: $half-unit-layout
+					top: 50%
+					right: -($base-unit-layout)
+					margin: -($quarter-unit-layout) 0 0
+
+					small
+						+border-radius(100%)
+
+						background: $color-alert-error
+						width: $half-unit-layout
+						height: $half-unit-layout
+						display: block
+						overflow: hidden
+						color: white
+
+				input, select, textarea
+					margin: 0
+
+				p
+					@extend .flex
+					@extend .center-vertically
+
+					margin: 0
+					position: relative
+					margin-right: $base-unit-layout
+
+					small
+						+transition(opacity .25s)
+
+						@extend .flex
+						@extend .center-vertically
+
+						opacity: 0
+						width: 100%
+						height: 100%
+						position: absolute
+						top: 0
+						left: 0
+						background: rgba(255,255,255,.9)
+
+						&.active
+							opacity: 1
+
+	&.dark
+		aside
+			form
+				label
+					p
+						small
+							background: $color-black
