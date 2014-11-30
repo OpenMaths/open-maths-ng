@@ -142,16 +142,13 @@
 					right: auto
 					left: -($base-unit-layout + $quarter-unit-layout)
 
-	&.dark
-		.timeline
-			border-top: 1px solid $color-grey-800
+	footer
+		border-top: 1px solid rgba(255,255,255,.2)
+		color: rgba(255,255,255,.4)
 
-			&:before
-				background: $color-grey-800
+		a
+			color: rgba(255,255,255,.4)
+			text-decoration: none
 
-			article
-				img
-					border-color: $color-black
-
-				small
-					color: $color-grey-700
+			+hover
+				color: white

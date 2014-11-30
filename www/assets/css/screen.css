@@ -1442,15 +1442,9 @@ h6 {
               flex: 1; }
 
 .align-right {
-  -webkit-align-self: flex-end;
-      -ms-flex-item-align: end;
-          align-self: flex-end;
   margin-left: auto !important; }
 
 .align-left {
-  -webkit-align-self: flex-start;
-      -ms-flex-item-align: start;
-          align-self: flex-start;
   margin-right: auto !important; }
 
 .flex {
@@ -1649,14 +1643,14 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .umi .footer, .page-dive-into #masthead #search-umi .search-umi-results .item .score, .page-dive-into .timeline header, .page-features .master-hero h2, .page-ooops .headline {
+.text-center, .close, .umi .footer, footer nav, .page-dive-into #masthead #search-umi .search-umi-results .item .score, .page-dive-into .timeline header, .page-features .master-hero h2, .page-ooops .headline {
   text-align: center; }
 
 .text-right,
-.nav-top-transparent.nav-top-transparent .drop-down .contextual-menu, .page-dive-into .timeline article {
+.nav-top-transparent.nav-top-transparent .drop-down .contextual-menu, footer strong, .page-dive-into .timeline article {
   text-align: right; }
 
-.text-left, .page-dive-into .timeline article:nth-of-type(even) {
+.text-left, footer, .page-dive-into .timeline article:nth-of-type(even) {
   text-align: left; }
 
 .text-justify {
@@ -1693,9 +1687,28 @@ body.dark {
   max-width: 800px; }
 
 footer {
-  font-size: 0.75rem;
-  text-align: center;
-  padding: 3rem 1rem; }
+  -webkit-transition: background 0.25s;
+  transition: background 0.25s;
+  width: 100%;
+  height: 3.5rem;
+  border-top: 1px solid #d5e0e0;
+  color: #b8caca;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.95); }
+  footer:hover, footer:focus {
+    background: white; }
+  footer a {
+    color: #b8caca;
+    text-decoration: none; }
+    footer a:hover, footer a:focus {
+      color: #1b2424; }
+  footer small, footer nav, footer strong {
+    font-size: 0.6875rem; }
+  footer small, footer strong {
+    padding: 0 1rem; }
 
 .page-board #board-container {
   min-height: 100vh; }
@@ -1788,6 +1801,23 @@ footer {
       border-bottom: 0 !important; }
 .page-board footer {
   display: none; }
+.page-board.dark #board-container #grid #manage-column a,
+.page-board.dark #board-container #grid #manage-row a {
+  background-image: url("/assets/images/icons/icon-set/icon-set_add-grey.svg");
+  background-color: white; }
+  .page-board.dark #board-container #grid #manage-column a:hover,
+  .page-board.dark #board-container #grid #manage-row a:hover {
+    background-image: url("/assets/images/icons/icon-set/icon-set_add.svg"); }
+  .page-board.dark #board-container #grid #manage-column a.remove,
+  .page-board.dark #board-container #grid #manage-row a.remove {
+    background-image: url("/assets/images/icons/icon-set/icon-set_remove-grey.svg"); }
+    .page-board.dark #board-container #grid #manage-column a.remove:hover,
+    .page-board.dark #board-container #grid #manage-row a.remove:hover {
+      background-image: url("/assets/images/icons/icon-set/icon-set_remove.svg"); }
+.page-board.dark #board-container #grid #manage-column a:first-of-type {
+  border-bottom: 1px solid #b8caca; }
+.page-board.dark #board-container #grid #manage-row a:first-of-type {
+  border-right: 1px solid #b8caca; }
 .page-board.dark #board-container .row .column {
   border-right: 1px solid #384b4b;
   border-bottom: 1px solid #384b4b; }
@@ -1914,14 +1944,14 @@ footer {
       .page-dive-into .timeline article:nth-of-type(even) img {
         right: auto;
         left: -1.25rem; }
-.page-dive-into.dark .timeline {
-  border-top: 1px solid #384b4b; }
-  .page-dive-into.dark .timeline:before {
-    background: #384b4b; }
-  .page-dive-into.dark .timeline article img {
-    border-color: #1b2424; }
-  .page-dive-into.dark .timeline article small {
-    color: #4e6868; }
+.page-dive-into footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.4); }
+  .page-dive-into footer a {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none; }
+    .page-dive-into footer a:hover, .page-dive-into footer a:focus {
+      color: white; }
 
 .page-editor #editor {
   display: -webkit-box;

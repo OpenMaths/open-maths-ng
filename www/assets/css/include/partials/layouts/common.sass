@@ -14,6 +14,38 @@ body
 	max-width: 800px
 
 footer
-	font-size: rem(12px)
-	text-align: center
-	padding: $triple-unit-layout $base-unit-layout
+	+transition(background .25s)
+	@extend .text-left
+
+	width: 100%
+	height: $triple-unit-layout + $half-unit-layout
+	border-top: 1px solid $color-grey-200
+	color: $color-grey-300
+	position: fixed
+	bottom: 0
+	left: 0
+	padding: 0
+	background: rgba(255,255,255,.95)
+
+	+hover
+		background: white
+
+	a
+		color: $color-grey-300
+		text-decoration: none
+
+		+hover
+			color: $color-black
+
+	small, nav, strong
+		font:
+			size: rem(11px)
+
+	small, strong
+		padding: 0 $base-unit-layout
+
+	nav
+		@extend .text-center
+
+	strong
+		@extend .text-right
