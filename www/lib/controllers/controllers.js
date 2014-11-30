@@ -84,6 +84,7 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 		}
 	}
 
+	// Percentage is merely fictional now
 	$scope.searchUmiKeyDown = function () {
 		var termLength = $scope.searchUmiTerm.length;
 		var percentage = termLength * 2.5 + "%";
@@ -130,15 +131,6 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 
 		$location.path("/board/" + id);
 	};
-
-	$http.get("https://api.github.com/orgs/OpenMaths/events?per_page=25").
-		success(function (data) {
-			$scope.gitHubFeed = data;
-		}).
-		error(function (data) {
-			console.log(data);
-		});
-
 
 	$scope.searchUmiResultsNavigate = function (e) {
 		if (!$scope.searchUmiResults) {

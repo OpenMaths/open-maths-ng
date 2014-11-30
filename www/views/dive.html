@@ -15,17 +15,3 @@
 		</article>
 	</form>
 </section>
-
-<div class="timeline">
-	<header class="flex center-vertically center-horizontally">Recent activity</header>
-
-	<div class="container-wide">
-		<article ng-repeat="entry in gitHubFeed">
-			<img src="{{ entry.actor.avatar_url }}" alt="{{ entry.actor.login }}" />
-			<aside>
-				<p><a href="https://github.com/{{ entry.actor.login }}" target="_blank">{{ entry.actor.login }}</a> <strong>{{ entry.type }}</strong> at <a href="https://github.com/{{ entry.repo.name }}" target="_blank">{{ entry.repo.name }}</a></p>
-				<small>{{ entry.created_at }}</small>
-			</aside>
-		</article>
-	</div>
-</div>

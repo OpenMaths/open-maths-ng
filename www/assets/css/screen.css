@@ -1828,7 +1828,7 @@ footer {
     height: auto;
     max-width: 37.5rem;
     margin: 2rem 0;
-    max-height: 10rem;
+    max-height: 20rem;
     overflow-y: scroll; }
     .page-dive-into #masthead #search-umi .search-umi-results .item {
       -webkit-transition: color 0.25s;
