@@ -1,1 +1,119 @@
 <div menu-top></div>
+<div class="flex">
+	<form name="umiContributeForm" class="flex-1 flex column">
+		<h4>Contributing as {{ omUser.email }}</h4>
+
+		<p>Please note that our editor features an automatic checker, as well as
+			interactive guidance throughout the whole process of filling out
+			this form.</p>
+
+		<!--Type-->
+		<label for="type" class="flex">
+			<p class="flex-3">
+				Type
+				<small>Type Instructions</small>
+			</p>
+			<select ng-model="umi.type" name="type" class="flex-6" required>
+				<option value="">Choose Type:</option>
+				<option value="Definition">Definition</option>
+				<option value="Axiom">Axiom</option>
+				<option value="Theorem">Theorem</option>
+				<option value="Lemma">Lemma</option>
+				<option value="Corollary">Corollary</option>
+				<option value="Conjecture">Conjecture</option>
+				<option value="Proof">Proof</option>
+				<option value="HistoricalNote">Historical Note</option>
+				<option value="PhilosophicalJustification">Philosophical
+					Justification
+				</option>
+				<option value="Diagram">Diagram</option>
+				<option value="Example">Example</option>
+			</select>
+
+			<!--Error messages-->
+			<strong
+				ng-show="umiContributeForm.type.$error.required">Required!</strong>
+		</label>
+
+		<!--Title-->
+		<label for="title" class="flex">
+			<p class="flex-3">
+				Title
+				<small>Users will be able to search your contribution by this
+					title.
+				</small>
+			</p>
+			<input ng-pattern="/^(?=.*[^\W_-])[\w -]*$/" ng-model="umi.title"
+				   ng-maxlength="128" class="flex-6" type="text" name="title"
+				   placeholder="Title"
+				   required>
+
+			<!--Error messages-->
+			<strong
+				ng-show="umiContributeForm.title.$error.required">Required!</strong>
+			<strong ng-show="umiContributeForm.title.$error.maxlength">Too
+				long!</strong>
+			<strong ng-show="umiContributeForm.title.$error.pattern">Invalid title
+				structure!</strong>
+		</label>
+
+		<!--Title Synonyms-->
+		<label for="titleSynonyms" class="flex">
+			<p class="flex-3">
+				Title Synonyms
+				<small>Comma separated synonyms</small>
+			</p>
+			<input ng-model="umi.titleSynonyms" ng-maxlength="128" class="flex-6" type="text"
+				   name="titleSynonyms"
+				   placeholder="Title Synonyms"/>
+
+			<!--Error messages-->
+			<strong ng-show="umiContributeForm.titleSynonyms.$error.maxlength">Too
+				long!</strong>
+		</label>
+
+		<!--LaTeX Content-->
+		<label for="latexContent" class="flex">
+			<p class="flex-3">
+				LaTeX content
+				<small>This is the actual content</small>
+			</p>
+			<textarea ng-model="umi.latexContent" class="flex-6" name="latexContent"
+					  placeholder="LaTeX content" required></textarea>
+
+			<!--Error messages-->
+			<strong
+				ng-show="umiContributeForm.latexContent.$error.required">Required!</strong>
+		</label>
+
+		<!--Tags-->
+		<label for="tags" class="flex">
+			<p class="flex-3">
+				Tags
+				<small>Comma separated tags</small>
+			</p>
+			<input ng-model="umi.tags" ng-maxlength="128" class="flex-6" type="text" name="tags" placeholder="Tags"/>
+
+			<!--Error messages-->
+			<strong ng-show="umiContributeForm.tags.$error.maxlength">Too
+				long!</strong>
+		</label>
+
+		<!--See also-->
+		<label for="seeAlso" class="flex">
+			<p class="flex-3">
+				See also
+				<small>Comma separated values</small>
+			</p>
+			<input ng-model="umi.seeAlso" ng-maxlength="128" class="flex-6" type="text" name="seeAlso"
+				   placeholder="See also"/>
+
+			<!--Error messages-->
+			<strong ng-show="umiContributeForm.seeAlso.$error.maxlength">Too
+				long!</strong>
+		</label>
+
+		<button class="button primary">Submit</button>
+	</form>
+	<aside class="flex-1"></aside>
+</div>
