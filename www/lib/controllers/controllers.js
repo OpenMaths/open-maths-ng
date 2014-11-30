@@ -74,11 +74,11 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 	$scope.navDive = true;
 	$scope.searchUmiResultsCurrentSelection = 0;
 
-	if (sessionStorage.getItem("umiLastSearch")) {
+	if (sessionStorage.getItem("umiLastSearchTitle")) {
 		var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
 		$scope.searchUmiTerm = umiLastSearchTitle;
 
-		if (sessionStorage.getItem("umiLastSearch")) {
+		if (sessionStorage.getItem("umiLastSearchResults")) {
 			var umiLastSearchResults = sessionStorage.getItem("umiLastSearchResults");
 			$scope.searchUmiResults = JSON.parse(umiLastSearchResults);
 		}
