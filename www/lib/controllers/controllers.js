@@ -289,6 +289,16 @@ app.controller("ContributeController", function ($scope, $rootScope) {
 		umiTitle: "The title should only consist of letters, spaces, or hyphens"
 	};
 
+	$scope.instructions = {
+		type : "What category of information?",
+		title : "Users will be able to search your contribution.",
+		titleSynonyms : "Comma-separated list of alternative names.",
+		latexContent : "The actual content. You are free to use LaTeX (including text-mode macros!!).",
+		prerequisiteDefinitions : "Comma-separated list of valid Titles upon which your contribution depends.",
+		seeAlso : "Comma-separated list of valid Titles which may be related.",
+		tags : "Comma-separated list of tags to help users find your contribution.",
+		dispatch: "Submitting your contribution will create a request to pull the content into our database."
+	};
 
 	$scope.umiTypes = [
 		{id: "Definition", label: "Definition"},
@@ -303,6 +313,24 @@ app.controller("ContributeController", function ($scope, $rootScope) {
 		{id: "Diagram", label: "Diagram"},
 		{id: "Example", label: "Example"}
 	];
+
+	$scope.createUmi = function() {
+		var createUmiForm = $scope.createUmiForm;
+
+		var dispatchCreateUmi = {
+			author : $scope.omUser.email,
+			message : "Initialise UMI",
+			content : createUmiForm.latexContent,
+			title : createUmiForm.title,
+			titleSynonyms : createUmiForm.titleSynonyms ? createUmiForm.titleSynonyms : [],
+			prerequisiteDefinitionIds : createUmiForm.prerequisiteDefinitions ? createUmiForm.prerequisiteDefinitions : [],
+			seeAlsoIds : createUmiForm.seeAlso ? createUmiForm.seeAlso : [],
+			tags : createUmiForm.tags ? createUmiForm.tags : [],
+			umiType : createUmiForm.type.id
+		};
+
+		$scope.dispatchCreateUmi = dispatchCreateUmi;
+	};
 });
 
 app.controller("FeaturesController", function ($scope, $rootScope) {

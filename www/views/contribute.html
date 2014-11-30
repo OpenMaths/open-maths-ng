@@ -1,6 +1,6 @@
 <div menu-top></div>
 <div class="flex">
-	<form name="umiContributeForm" class="flex-1 flex column">
+	<form name="umiContributeForm" class="flex-1 flex column" ng-submit="createUmi()">
 		<h4>Contributing as {{ omUser.email }}</h4>
 
 		<p>Please note that our editor features an automatic checker, as well as
@@ -11,9 +11,9 @@
 		<label for="type" class="flex">
 			<p class="flex-3">
 				Type
-				<small ng-class="{active : showInstructions == 'type'}">Type Instructions</small>
+				<small ng-class="{active : showInstructions == 'type'}">{{ instructions.type }}</small>
 			</p>
-			<select ng-focus="showInstructions = 'type'" ng-options="type as type.label for type in umiTypes" ng-model="umi.type"
+			<select ng-focus="showInstructions = 'type'" ng-options="type as type.label for type in umiTypes" ng-model="createUmiForm.type"
 					name="type" class="flex-6" required>
 				<option value="">Select Type</option>
 			</select>
@@ -28,11 +28,9 @@
 		<label for="title" class="flex">
 			<p class="flex-3">
 				Title
-				<small ng-class="{active : showInstructions == 'title'}">Users will be able to search your contribution by this
-					title.
-				</small>
+				<small ng-class="{active : showInstructions == 'title'}">{{ instructions.title }}</small>
 			</p>
-			<input ng-focus="showInstructions = 'title'" ng-pattern="/^(?=.*[^\W_-])[\w -]*$/" ng-model="umi.title"
+			<input ng-focus="showInstructions = 'title'" ng-pattern="/^(?=.*[^\W\'_-])[\w\' -]*$/" ng-model="createUmiForm.title"
 				   ng-maxlength="128" class="flex-6" type="text" name="title"
 				   placeholder="Title"
 				   required>
@@ -49,9 +47,9 @@
 		<label for="titleSynonyms" class="flex">
 			<p class="flex-3">
 				Title Synonyms
-				<small ng-class="{active : showInstructions == 'titleSynonyms'}">Comma separated synonyms</small>
+				<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ instructions.titleSynonyms }}</small>
 			</p>
-			<input ng-focus="showInstructions = 'titleSynonyms'" ng-model="umi.titleSynonyms" ng-maxlength="128" class="flex-6" type="text"
+			<input ng-focus="showInstructions = 'titleSynonyms'" ng-model="createUmiForm.titleSynonyms" ng-maxlength="128" class="flex-6" type="text"
 				   name="titleSynonyms"
 				   placeholder="Title Synonyms"/>
 
@@ -65,9 +63,9 @@
 		<label for="latexContent" class="flex">
 			<p class="flex-3">
 				LaTeX content
-				<small ng-class="{active : showInstructions == 'latexContent'}">This is the actual content</small>
+				<small ng-class="{active : showInstructions == 'latexContent'}">{{ instructions.latexContent }}</small>
 			</p>
-			<textarea ng-focus="showInstructions = 'latexContent'" ng-model="umi.latexContent" class="flex-6" name="latexContent"
+			<textarea ng-focus="showInstructions = 'latexContent'" ng-model="createUmiForm.latexContent" class="flex-6" name="latexContent"
 					  placeholder="LaTeX content" required></textarea>
 
 			<!--Error messages for LaTeX Content-->
@@ -76,18 +74,19 @@
 			</div>
 		</label>
 
-		<!--Tags-->
-		<label for="tags" class="flex">
+		<!--Prerequisite definitions-->
+		<label for="prerequisiteDefinitions" class="flex">
 			<p class="flex-3">
-				Tags
-				<small ng-class="{active : showInstructions == 'tags'}">Comma separated tags</small>
+				Prerequisite definitions
+				<small ng-class="{active : showInstructions == 'prerequisiteDefinitions'}">{{ instructions.prerequisiteDefinitions }}</small>
 			</p>
-			<input ng-focus="showInstructions = 'tags'" ng-model="umi.tags" ng-maxlength="128" class="flex-6" type="text" name="tags"
-				   placeholder="Tags"/>
+			<input ng-focus="showInstructions = 'prerequisiteDefinitions'" ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128" class="flex-6" type="text"
+				   name="prerequisiteDefinitions"
+				   placeholder="Prerequisite definitions"/>
 
-			<!--Error messages for Tags-->
+			<!--Error messages for Prerequisite definitions-->
 			<div class="error-message">
-				<small ng-show="umiContributeForm.tags.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
+				<small ng-show="umiContributeForm.prerequisiteDefinitions.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
 			</div>
 		</label>
 
@@ -95,9 +94,9 @@
 		<label for="seeAlso" class="flex">
 			<p class="flex-3">
 				See also
-				<small ng-class="{active : showInstructions == 'seeAlso'}">Comma separated values</small>
+				<small ng-class="{active : showInstructions == 'seeAlso'}">{{ instructions.seeAlso }}</small>
 			</p>
-			<input ng-focus="showInstructions = 'seeAlso'" ng-model="umi.seeAlso" ng-maxlength="128" class="flex-6" type="text"
+			<input ng-focus="showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso" ng-maxlength="128" class="flex-6" type="text"
 				   name="seeAlso"
 				   placeholder="See also"/>
 
@@ -107,7 +106,32 @@
 			</div>
 		</label>
 
-		<button ng-focus="showInstructions = false" class="button primary">Submit</button>
+		<!--Tags-->
+		<label for="tags" class="flex">
+			<p class="flex-3">
+				Tags
+				<small ng-class="{active : showInstructions == 'tags'}">{{ instructions.tags }}</small>
+			</p>
+			<input ng-focus="showInstructions = 'tags'" ng-model="createUmiForm.tags" ng-maxlength="128" class="flex-6" type="text" name="tags"
+				   placeholder="Tags"/>
+
+			<!--Error messages for Tags-->
+			<div class="error-message">
+				<small ng-show="umiContributeForm.tags.$error.maxlength" title="{{ errorMessages.maxLength }}">&times;</small>
+			</div>
+		</label>
+
+		<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">
+			<p class="flex-3">
+				<!--<small class="active">{{ instructions.dispatch }}</small>-->
+			</p>
+			<button name="dispatchCreateUmi" ng-focus="showInstructions = false" class="button primary flex-6">Submit</button>
+		</label>
 	</form>
-	<aside class="flex-1"></aside>
+
+	<aside class="flex-1">
+		<pre>
+			{{ dispatchCreateUmi }}
+		</pre>
+	</aside>
 </div>

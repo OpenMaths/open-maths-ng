@@ -1824,11 +1824,17 @@ footer {
   .page-board.dark .timeline article small {
     color: #4e6868; }
 
+.page-contribute footer {
+  position: relative;
+  margin-top: 2rem; }
+
 form {
   padding: 2rem; }
   form label {
     margin: 0.5rem 0 1rem;
     position: relative; }
+    form label.button-holder {
+      margin: 1rem 0; }
     form label .error-message {
       cursor: help;
       position: absolute;
