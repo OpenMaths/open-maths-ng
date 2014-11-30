@@ -2012,6 +2012,8 @@ body.dark {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.4);
   background: transparent; }
+  .page-dive-into footer:hover, .page-dive-into footer:focus {
+    background: transparent; }
   .page-dive-into footer a {
     color: rgba(255, 255, 255, 0.4);
     text-decoration: none; }
