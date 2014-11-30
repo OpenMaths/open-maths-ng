@@ -177,15 +177,15 @@ form label {
   -o-border-radius: 0;
   border-radius: 0;
   color: inherit;
+  font-size: 0.875rem;
   padding: 0;
   border: 0; }
-
-input,
-select,
-textarea,
-button,
-.button,
-.input {
+form input,
+form select,
+form textarea,
+form button,
+form .button,
+form .input {
   box-shadow: none;
   -o-border-radius: 0;
   border-radius: 0;
@@ -201,143 +201,166 @@ button,
   color: #1b2424;
   margin: 0 0 1rem;
   text-decoration: none; }
-  input::-webkit-input-placeholder,
-  select::-webkit-input-placeholder,
-  textarea::-webkit-input-placeholder,
-  button::-webkit-input-placeholder,
-  .button::-webkit-input-placeholder,
-  .input::-webkit-input-placeholder {
+  form input::-webkit-input-placeholder,
+  form select::-webkit-input-placeholder,
+  form textarea::-webkit-input-placeholder,
+  form button::-webkit-input-placeholder,
+  form .button::-webkit-input-placeholder,
+  form .input::-webkit-input-placeholder {
     color: #d5e0e0; }
-  input::-moz-placeholder,
-  select::-moz-placeholder,
-  textarea::-moz-placeholder,
-  button::-moz-placeholder,
-  .button::-moz-placeholder,
-  .input::-moz-placeholder {
+  form input::-moz-placeholder,
+  form select::-moz-placeholder,
+  form textarea::-moz-placeholder,
+  form button::-moz-placeholder,
+  form .button::-moz-placeholder,
+  form .input::-moz-placeholder {
     color: #d5e0e0; }
-  input:-moz-placeholder,
-  select:-moz-placeholder,
-  textarea:-moz-placeholder,
-  button:-moz-placeholder,
-  .button:-moz-placeholder,
-  .input:-moz-placeholder {
+  form input:-moz-placeholder,
+  form select:-moz-placeholder,
+  form textarea:-moz-placeholder,
+  form button:-moz-placeholder,
+  form .button:-moz-placeholder,
+  form .input:-moz-placeholder {
     color: #d5e0e0; }
-  input:-ms-input-placeholder,
-  select:-ms-input-placeholder,
-  textarea:-ms-input-placeholder,
-  button:-ms-input-placeholder,
-  .button:-ms-input-placeholder,
-  .input:-ms-input-placeholder {
+  form input:-ms-input-placeholder,
+  form select:-ms-input-placeholder,
+  form textarea:-ms-input-placeholder,
+  form button:-ms-input-placeholder,
+  form .button:-ms-input-placeholder,
+  form .input:-ms-input-placeholder {
     color: #d5e0e0; }
-  input.unstyled, #nav-top input#nav,
-  #nav-top input#controls,
-  select.unstyled,
-  #nav-top select#nav,
-  #nav-top select#controls,
-  textarea.unstyled,
-  #nav-top textarea#nav,
-  #nav-top textarea#controls,
-  button.unstyled,
-  #nav-top button#nav,
-  #nav-top button#controls,
-  .button.unstyled,
-  .drop-down .contextual-menu ul.button,
-  #nav-top .button#nav,
-  #nav-top .button#controls,
-  .input.unstyled,
-  .drop-down .contextual-menu ul.input,
-  #nav-top .input#nav,
-  #nav-top .input#controls {
+  form input.unstyled, form #nav-top input#nav, #nav-top form input#nav,
+  form #nav-top input#controls,
+  #nav-top form input#controls,
+  form select.unstyled,
+  form #nav-top select#nav,
+  #nav-top form select#nav,
+  form #nav-top select#controls,
+  #nav-top form select#controls,
+  form textarea.unstyled,
+  form #nav-top textarea#nav,
+  #nav-top form textarea#nav,
+  form #nav-top textarea#controls,
+  #nav-top form textarea#controls,
+  form button.unstyled,
+  form #nav-top button#nav,
+  #nav-top form button#nav,
+  form #nav-top button#controls,
+  #nav-top form button#controls,
+  form .button.unstyled,
+  form .drop-down .contextual-menu ul.button,
+  .drop-down .contextual-menu form ul.button,
+  form #nav-top .button#nav,
+  #nav-top form .button#nav,
+  form #nav-top .button#controls,
+  #nav-top form .button#controls,
+  form .input.unstyled,
+  form .drop-down .contextual-menu ul.input,
+  .drop-down .contextual-menu form ul.input,
+  form #nav-top .input#nav,
+  #nav-top form .input#nav,
+  form #nav-top .input#controls,
+  #nav-top form .input#controls {
     border: 0; }
-    input.unstyled:hover, #nav-top input#nav:hover,
-    #nav-top input#controls:hover, input.unstyled:focus, #nav-top input#nav:focus,
-    #nav-top input#controls:focus,
-    select.unstyled:hover,
-    #nav-top select#nav:hover,
-    #nav-top select#controls:hover,
-    select.unstyled:focus,
-    #nav-top select#nav:focus,
-    #nav-top select#controls:focus,
-    textarea.unstyled:hover,
-    #nav-top textarea#nav:hover,
-    #nav-top textarea#controls:hover,
-    textarea.unstyled:focus,
-    #nav-top textarea#nav:focus,
-    #nav-top textarea#controls:focus,
-    button.unstyled:hover,
-    #nav-top button#nav:hover,
-    #nav-top button#controls:hover,
-    button.unstyled:focus,
-    #nav-top button#nav:focus,
-    #nav-top button#controls:focus,
-    .button.unstyled:hover,
-    .drop-down .contextual-menu ul.button:hover,
-    #nav-top .button#nav:hover,
-    #nav-top .button#controls:hover,
-    .button.unstyled:focus,
-    .drop-down .contextual-menu ul.button:focus,
-    #nav-top .button#nav:focus,
-    #nav-top .button#controls:focus,
-    .input.unstyled:hover,
-    .drop-down .contextual-menu ul.input:hover,
-    #nav-top .input#nav:hover,
-    #nav-top .input#controls:hover,
-    .input.unstyled:focus,
-    .drop-down .contextual-menu ul.input:focus,
-    #nav-top .input#nav:focus,
-    #nav-top .input#controls:focus {
+    form input.unstyled:hover, form #nav-top input#nav:hover, #nav-top form input#nav:hover,
+    form #nav-top input#controls:hover,
+    #nav-top form input#controls:hover, form input.unstyled:focus, form #nav-top input#nav:focus, #nav-top form input#nav:focus,
+    form #nav-top input#controls:focus,
+    #nav-top form input#controls:focus,
+    form select.unstyled:hover,
+    form #nav-top select#nav:hover,
+    #nav-top form select#nav:hover,
+    form #nav-top select#controls:hover,
+    #nav-top form select#controls:hover,
+    form select.unstyled:focus,
+    form #nav-top select#nav:focus,
+    #nav-top form select#nav:focus,
+    form #nav-top select#controls:focus,
+    #nav-top form select#controls:focus,
+    form textarea.unstyled:hover,
+    form #nav-top textarea#nav:hover,
+    #nav-top form textarea#nav:hover,
+    form #nav-top textarea#controls:hover,
+    #nav-top form textarea#controls:hover,
+    form textarea.unstyled:focus,
+    form #nav-top textarea#nav:focus,
+    #nav-top form textarea#nav:focus,
+    form #nav-top textarea#controls:focus,
+    #nav-top form textarea#controls:focus,
+    form button.unstyled:hover,
+    form #nav-top button#nav:hover,
+    #nav-top form button#nav:hover,
+    form #nav-top button#controls:hover,
+    #nav-top form button#controls:hover,
+    form button.unstyled:focus,
+    form #nav-top button#nav:focus,
+    #nav-top form button#nav:focus,
+    form #nav-top button#controls:focus,
+    #nav-top form button#controls:focus,
+    form .button.unstyled:hover,
+    form .drop-down .contextual-menu ul.button:hover,
+    .drop-down .contextual-menu form ul.button:hover,
+    form #nav-top .button#nav:hover,
+    #nav-top form .button#nav:hover,
+    form #nav-top .button#controls:hover,
+    #nav-top form .button#controls:hover,
+    form .button.unstyled:focus,
+    form .drop-down .contextual-menu ul.button:focus,
+    .drop-down .contextual-menu form ul.button:focus,
+    form #nav-top .button#nav:focus,
+    #nav-top form .button#nav:focus,
+    form #nav-top .button#controls:focus,
+    #nav-top form .button#controls:focus,
+    form .input.unstyled:hover,
+    form .drop-down .contextual-menu ul.input:hover,
+    .drop-down .contextual-menu form ul.input:hover,
+    form #nav-top .input#nav:hover,
+    #nav-top form .input#nav:hover,
+    form #nav-top .input#controls:hover,
+    #nav-top form .input#controls:hover,
+    form .input.unstyled:focus,
+    form .drop-down .contextual-menu ul.input:focus,
+    .drop-down .contextual-menu form ul.input:focus,
+    form #nav-top .input#nav:focus,
+    #nav-top form .input#nav:focus,
+    form #nav-top .input#controls:focus,
+    #nav-top form .input#controls:focus {
       box-shadow: none;
       border: 0; }
-  input:last-child,
-  select:last-child,
-  textarea:last-child,
-  button:last-child,
-  .button:last-child,
-  .input:last-child {
+  form input:last-child,
+  form select:last-child,
+  form textarea:last-child,
+  form button:last-child,
+  form .button:last-child,
+  form .input:last-child {
     margin-bottom: 0; }
-  input:hover, input:focus,
-  select:hover,
-  select:focus,
-  textarea:hover,
-  textarea:focus,
-  button:hover,
-  button:focus,
-  .button:hover,
-  .button:focus,
-  .input:hover,
-  .input:focus {
+  form input:hover, form input:focus,
+  form select:hover,
+  form select:focus,
+  form textarea:hover,
+  form textarea:focus,
+  form button:hover,
+  form button:focus,
+  form .button:hover,
+  form .button:focus,
+  form .input:hover,
+  form .input:focus {
     border-color: #b8caca; }
-    input:hover:focus, input:focus:focus,
-    select:hover:focus,
-    select:focus:focus,
-    textarea:hover:focus,
-    textarea:focus:focus,
-    button:hover:focus,
-    button:focus:focus,
-    .button:hover:focus,
-    .button:focus:focus,
-    .input:hover:focus,
-    .input:focus:focus {
-      border-color: #7e9e9e; }
-
-select {
+form select {
   -webkit-appearance: none;
   background: url("/assets/images/icons/grey/arrow-bottom.svg") no-repeat right 1rem top 50%;
   background-size: 0.5rem; }
-
-textarea {
+form textarea {
   min-height: 6rem;
   resize: vertical; }
-
-input:invalid,
-textarea:invalid {
+form input:invalid,
+form textarea:invalid {
   color: #ff784b; }
-
-.file-button {
+form .file-button {
   position: relative;
   overflow: hidden;
   margin: 0 0 1rem; }
-  .file-button input[type="file"] {
+  form .file-button input[type="file"] {
     position: absolute;
     left: 0;
     top: 0;
@@ -346,22 +369,21 @@ textarea:invalid {
     opacity: 0;
     z-index: 2;
     cursor: pointer !important; }
-  .file-button .button {
+  form .file-button .button {
     margin: 0; }
-
-.checkbox-holder input, .radio-button-holder input {
+form .checkbox-holder input, form .radio-button-holder input {
   display: none; }
-.checkbox-holder .checkbox, .checkbox-holder .radio-button, .radio-button-holder .checkbox, .radio-button-holder .radio-button {
+form .checkbox-holder .checkbox, form .checkbox-holder .radio-button, form .radio-button-holder .checkbox, form .radio-button-holder .radio-button {
   zoom: 1;
   height: 1.5rem;
   position: relative;
   cursor: pointer; }
-  .checkbox-holder .checkbox:before, .checkbox-holder .checkbox:after, .checkbox-holder .radio-button:before, .checkbox-holder .radio-button:after, .radio-button-holder .checkbox:before, .radio-button-holder .checkbox:after, .radio-button-holder .radio-button:before, .radio-button-holder .radio-button:after {
+  form .checkbox-holder .checkbox:before, form .checkbox-holder .checkbox:after, form .checkbox-holder .radio-button:before, form .checkbox-holder .radio-button:after, form .radio-button-holder .checkbox:before, form .radio-button-holder .checkbox:after, form .radio-button-holder .radio-button:before, form .radio-button-holder .radio-button:after {
     content: "";
     display: table; }
-  .checkbox-holder .checkbox:after, .checkbox-holder .radio-button:after, .radio-button-holder .checkbox:after, .radio-button-holder .radio-button:after {
+  form .checkbox-holder .checkbox:after, form .checkbox-holder .radio-button:after, form .radio-button-holder .checkbox:after, form .radio-button-holder .radio-button:after {
     clear: both; }
-  .checkbox-holder .checkbox .indicator, .checkbox-holder .radio-button .indicator, .radio-button-holder .checkbox .indicator, .radio-button-holder .radio-button .indicator {
+  form .checkbox-holder .checkbox .indicator, form .checkbox-holder .radio-button .indicator, form .radio-button-holder .checkbox .indicator, form .radio-button-holder .radio-button .indicator {
     -o-border-radius: 3px;
     border-radius: 3px;
     -webkit-transition: all 0.25s;
@@ -375,7 +397,7 @@ textarea:invalid {
     left: 0;
     margin: -0.4375rem 0 0;
     cursor: pointer; }
-    .checkbox-holder .checkbox .indicator:after, .checkbox-holder .radio-button .indicator:after, .radio-button-holder .checkbox .indicator:after, .radio-button-holder .radio-button .indicator:after {
+    form .checkbox-holder .checkbox .indicator:after, form .checkbox-holder .radio-button .indicator:after, form .radio-button-holder .checkbox .indicator:after, form .radio-button-holder .radio-button .indicator:after {
       -o-border-radius: 2px;
       border-radius: 2px;
       -webkit-transition: background 0.25s;
@@ -391,118 +413,103 @@ textarea:invalid {
       background: #d5e0e0;
       margin-top: -0.25rem;
       margin-left: -0.25rem; }
-  .checkbox-holder .checkbox label, .checkbox-holder .radio-button label, .radio-button-holder .checkbox label, .radio-button-holder .radio-button label {
+  form .checkbox-holder .checkbox label, form .checkbox-holder .radio-button label, form .radio-button-holder .checkbox label, form .radio-button-holder .radio-button label {
     padding: 0 0 0 1.5rem;
     height: 1.5rem;
     line-height: 1.5rem;
     font-size: 0.875rem;
     cursor: pointer; }
-  .checkbox-holder .checkbox:hover .indicator, .checkbox-holder .checkbox:focus .indicator, .checkbox-holder .radio-button:hover .indicator, .checkbox-holder .radio-button:focus .indicator, .radio-button-holder .checkbox:hover .indicator, .radio-button-holder .checkbox:focus .indicator, .radio-button-holder .radio-button:hover .indicator, .radio-button-holder .radio-button:focus .indicator {
+  form .checkbox-holder .checkbox:hover .indicator, form .checkbox-holder .checkbox:focus .indicator, form .checkbox-holder .radio-button:hover .indicator, form .checkbox-holder .radio-button:focus .indicator, form .radio-button-holder .checkbox:hover .indicator, form .radio-button-holder .checkbox:focus .indicator, form .radio-button-holder .radio-button:hover .indicator, form .radio-button-holder .radio-button:focus .indicator {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.075);
     border-color: #b8caca; }
-    .checkbox-holder .checkbox:hover .indicator:after, .checkbox-holder .checkbox:focus .indicator:after, .checkbox-holder .radio-button:hover .indicator:after, .checkbox-holder .radio-button:focus .indicator:after, .radio-button-holder .checkbox:hover .indicator:after, .radio-button-holder .checkbox:focus .indicator:after, .radio-button-holder .radio-button:hover .indicator:after, .radio-button-holder .radio-button:focus .indicator:after {
+    form .checkbox-holder .checkbox:hover .indicator:after, form .checkbox-holder .checkbox:focus .indicator:after, form .checkbox-holder .radio-button:hover .indicator:after, form .checkbox-holder .radio-button:focus .indicator:after, form .radio-button-holder .checkbox:hover .indicator:after, form .radio-button-holder .checkbox:focus .indicator:after, form .radio-button-holder .radio-button:hover .indicator:after, form .radio-button-holder .radio-button:focus .indicator:after {
       opacity: 1;
       background: #d5e0e0; }
-  .checkbox-holder .checkbox:focus .indicator, .checkbox-holder .checkbox:active .indicator, .checkbox-holder .radio-button:focus .indicator, .checkbox-holder .radio-button:active .indicator, .radio-button-holder .checkbox:focus .indicator, .radio-button-holder .checkbox:active .indicator, .radio-button-holder .radio-button:focus .indicator, .radio-button-holder .radio-button:active .indicator {
+  form .checkbox-holder .checkbox:focus .indicator, form .checkbox-holder .checkbox:active .indicator, form .checkbox-holder .radio-button:focus .indicator, form .checkbox-holder .radio-button:active .indicator, form .radio-button-holder .checkbox:focus .indicator, form .radio-button-holder .checkbox:active .indicator, form .radio-button-holder .radio-button:focus .indicator, form .radio-button-holder .radio-button:active .indicator {
     border-color: #7e9e9e; }
-    .checkbox-holder .checkbox:focus .indicator:after, .checkbox-holder .checkbox:active .indicator:after, .checkbox-holder .radio-button:focus .indicator:after, .checkbox-holder .radio-button:active .indicator:after, .radio-button-holder .checkbox:focus .indicator:after, .radio-button-holder .checkbox:active .indicator:after, .radio-button-holder .radio-button:focus .indicator:after, .radio-button-holder .radio-button:active .indicator:after {
+    form .checkbox-holder .checkbox:focus .indicator:after, form .checkbox-holder .checkbox:active .indicator:after, form .checkbox-holder .radio-button:focus .indicator:after, form .checkbox-holder .radio-button:active .indicator:after, form .radio-button-holder .checkbox:focus .indicator:after, form .radio-button-holder .checkbox:active .indicator:after, form .radio-button-holder .radio-button:focus .indicator:after, form .radio-button-holder .radio-button:active .indicator:after {
       background: #7e9e9e; }
-  .checkbox-holder .checkbox.selected .indicator, .checkbox-holder .radio-button.selected .indicator, .radio-button-holder .checkbox.selected .indicator, .radio-button-holder .radio-button.selected .indicator {
+  form .checkbox-holder .checkbox.selected .indicator, form .checkbox-holder .radio-button.selected .indicator, form .radio-button-holder .checkbox.selected .indicator, form .radio-button-holder .radio-button.selected .indicator {
     border-color: #b8caca; }
-    .checkbox-holder .checkbox.selected .indicator:after, .checkbox-holder .radio-button.selected .indicator:after, .radio-button-holder .checkbox.selected .indicator:after, .radio-button-holder .radio-button.selected .indicator:after {
+    form .checkbox-holder .checkbox.selected .indicator:after, form .checkbox-holder .radio-button.selected .indicator:after, form .radio-button-holder .checkbox.selected .indicator:after, form .radio-button-holder .radio-button.selected .indicator:after {
       opacity: 1;
       background: #6eb3c9; }
-  .checkbox-holder .checkbox.selected:hover .indicator, .checkbox-holder .checkbox.selected:focus .indicator, .checkbox-holder .radio-button.selected:hover .indicator, .checkbox-holder .radio-button.selected:focus .indicator, .radio-button-holder .checkbox.selected:hover .indicator, .radio-button-holder .checkbox.selected:focus .indicator, .radio-button-holder .radio-button.selected:hover .indicator, .radio-button-holder .radio-button.selected:focus .indicator {
+  form .checkbox-holder .checkbox.selected:hover .indicator, form .checkbox-holder .checkbox.selected:focus .indicator, form .checkbox-holder .radio-button.selected:hover .indicator, form .checkbox-holder .radio-button.selected:focus .indicator, form .radio-button-holder .checkbox.selected:hover .indicator, form .radio-button-holder .checkbox.selected:focus .indicator, form .radio-button-holder .radio-button.selected:hover .indicator, form .radio-button-holder .radio-button.selected:focus .indicator {
     border-color: #6eb3c9; }
-  .checkbox-holder .checkbox.selected:focus .indicator, .checkbox-holder .checkbox.selected:active .indicator, .checkbox-holder .radio-button.selected:focus .indicator, .checkbox-holder .radio-button.selected:active .indicator, .radio-button-holder .checkbox.selected:focus .indicator, .radio-button-holder .checkbox.selected:active .indicator, .radio-button-holder .radio-button.selected:focus .indicator, .radio-button-holder .radio-button.selected:active .indicator {
+  form .checkbox-holder .checkbox.selected:focus .indicator, form .checkbox-holder .checkbox.selected:active .indicator, form .checkbox-holder .radio-button.selected:focus .indicator, form .checkbox-holder .radio-button.selected:active .indicator, form .radio-button-holder .checkbox.selected:focus .indicator, form .radio-button-holder .checkbox.selected:active .indicator, form .radio-button-holder .radio-button.selected:focus .indicator, form .radio-button-holder .radio-button.selected:active .indicator {
     border-color: #56a6c0; }
-    .checkbox-holder .checkbox.selected:focus .indicator:after, .checkbox-holder .checkbox.selected:active .indicator:after, .checkbox-holder .radio-button.selected:focus .indicator:after, .checkbox-holder .radio-button.selected:active .indicator:after, .radio-button-holder .checkbox.selected:focus .indicator:after, .radio-button-holder .checkbox.selected:active .indicator:after, .radio-button-holder .radio-button.selected:focus .indicator:after, .radio-button-holder .radio-button.selected:active .indicator:after {
+    form .checkbox-holder .checkbox.selected:focus .indicator:after, form .checkbox-holder .checkbox.selected:active .indicator:after, form .checkbox-holder .radio-button.selected:focus .indicator:after, form .checkbox-holder .radio-button.selected:active .indicator:after, form .radio-button-holder .checkbox.selected:focus .indicator:after, form .radio-button-holder .checkbox.selected:active .indicator:after, form .radio-button-holder .radio-button.selected:focus .indicator:after, form .radio-button-holder .radio-button.selected:active .indicator:after {
       background: #56a6c0; }
-  .checkbox-holder .checkbox.selected.disabled .indicator, .checkbox-holder .radio-button.selected.disabled .indicator, .radio-button-holder .checkbox.selected.disabled .indicator, .radio-button-holder .radio-button.selected.disabled .indicator {
+  form .checkbox-holder .checkbox.selected.disabled .indicator, form .checkbox-holder .radio-button.selected.disabled .indicator, form .radio-button-holder .checkbox.selected.disabled .indicator, form .radio-button-holder .radio-button.selected.disabled .indicator {
     border-color: #f2f6f6; }
-  .checkbox-holder .checkbox.disabled, .checkbox-holder .radio-button.disabled, .radio-button-holder .checkbox.disabled, .radio-button-holder .radio-button.disabled {
+  form .checkbox-holder .checkbox.disabled, form .checkbox-holder .radio-button.disabled, form .radio-button-holder .checkbox.disabled, form .radio-button-holder .radio-button.disabled {
     cursor: not-allowed; }
-    .checkbox-holder .checkbox.disabled .indicator, .checkbox-holder .radio-button.disabled .indicator, .radio-button-holder .checkbox.disabled .indicator, .radio-button-holder .radio-button.disabled .indicator {
+    form .checkbox-holder .checkbox.disabled .indicator, form .checkbox-holder .radio-button.disabled .indicator, form .radio-button-holder .checkbox.disabled .indicator, form .radio-button-holder .radio-button.disabled .indicator {
       background: #f2f6f6;
       border-color: #f2f6f6;
       cursor: not-allowed; }
-    .checkbox-holder .checkbox.disabled label, .checkbox-holder .radio-button.disabled label, .radio-button-holder .checkbox.disabled label, .radio-button-holder .radio-button.disabled label {
+    form .checkbox-holder .checkbox.disabled label, form .checkbox-holder .radio-button.disabled label, form .radio-button-holder .checkbox.disabled label, form .radio-button-holder .radio-button.disabled label {
       color: #d5e0e0;
       cursor: not-allowed; }
-    .checkbox-holder .checkbox.disabled:hover .indicator, .checkbox-holder .checkbox.disabled:focus .indicator, .checkbox-holder .radio-button.disabled:hover .indicator, .checkbox-holder .radio-button.disabled:focus .indicator, .radio-button-holder .checkbox.disabled:hover .indicator, .radio-button-holder .checkbox.disabled:focus .indicator, .radio-button-holder .radio-button.disabled:hover .indicator, .radio-button-holder .radio-button.disabled:focus .indicator {
+    form .checkbox-holder .checkbox.disabled:hover .indicator, form .checkbox-holder .checkbox.disabled:focus .indicator, form .checkbox-holder .radio-button.disabled:hover .indicator, form .checkbox-holder .radio-button.disabled:focus .indicator, form .radio-button-holder .checkbox.disabled:hover .indicator, form .radio-button-holder .checkbox.disabled:focus .indicator, form .radio-button-holder .radio-button.disabled:hover .indicator, form .radio-button-holder .radio-button.disabled:focus .indicator {
       box-shadow: none; }
-      .checkbox-holder .checkbox.disabled:hover .indicator:after, .checkbox-holder .checkbox.disabled:focus .indicator:after, .checkbox-holder .radio-button.disabled:hover .indicator:after, .checkbox-holder .radio-button.disabled:focus .indicator:after, .radio-button-holder .checkbox.disabled:hover .indicator:after, .radio-button-holder .checkbox.disabled:focus .indicator:after, .radio-button-holder .radio-button.disabled:hover .indicator:after, .radio-button-holder .radio-button.disabled:focus .indicator:after {
+      form .checkbox-holder .checkbox.disabled:hover .indicator:after, form .checkbox-holder .checkbox.disabled:focus .indicator:after, form .checkbox-holder .radio-button.disabled:hover .indicator:after, form .checkbox-holder .radio-button.disabled:focus .indicator:after, form .radio-button-holder .checkbox.disabled:hover .indicator:after, form .radio-button-holder .checkbox.disabled:focus .indicator:after, form .radio-button-holder .radio-button.disabled:hover .indicator:after, form .radio-button-holder .radio-button.disabled:focus .indicator:after {
         opacity: 0; }
-    .checkbox-holder .checkbox.disabled:focus .indicator, .checkbox-holder .checkbox.disabled:active .indicator, .checkbox-holder .radio-button.disabled:focus .indicator, .checkbox-holder .radio-button.disabled:active .indicator, .radio-button-holder .checkbox.disabled:focus .indicator, .radio-button-holder .checkbox.disabled:active .indicator, .radio-button-holder .radio-button.disabled:focus .indicator, .radio-button-holder .radio-button.disabled:active .indicator {
+    form .checkbox-holder .checkbox.disabled:focus .indicator, form .checkbox-holder .checkbox.disabled:active .indicator, form .checkbox-holder .radio-button.disabled:focus .indicator, form .checkbox-holder .radio-button.disabled:active .indicator, form .radio-button-holder .checkbox.disabled:focus .indicator, form .radio-button-holder .checkbox.disabled:active .indicator, form .radio-button-holder .radio-button.disabled:focus .indicator, form .radio-button-holder .radio-button.disabled:active .indicator {
       border-color: #f2f6f6; }
-      .checkbox-holder .checkbox.disabled:focus .indicator:after, .checkbox-holder .checkbox.disabled:active .indicator:after, .checkbox-holder .radio-button.disabled:focus .indicator:after, .checkbox-holder .radio-button.disabled:active .indicator:after, .radio-button-holder .checkbox.disabled:focus .indicator:after, .radio-button-holder .checkbox.disabled:active .indicator:after, .radio-button-holder .radio-button.disabled:focus .indicator:after, .radio-button-holder .radio-button.disabled:active .indicator:after {
+      form .checkbox-holder .checkbox.disabled:focus .indicator:after, form .checkbox-holder .checkbox.disabled:active .indicator:after, form .checkbox-holder .radio-button.disabled:focus .indicator:after, form .checkbox-holder .radio-button.disabled:active .indicator:after, form .radio-button-holder .checkbox.disabled:focus .indicator:after, form .radio-button-holder .checkbox.disabled:active .indicator:after, form .radio-button-holder .radio-button.disabled:focus .indicator:after, form .radio-button-holder .radio-button.disabled:active .indicator:after {
         opacity: 0; }
-    .checkbox-holder .checkbox.disabled.selected .indicator:after, .checkbox-holder .radio-button.disabled.selected .indicator:after, .radio-button-holder .checkbox.disabled.selected .indicator:after, .radio-button-holder .radio-button.disabled.selected .indicator:after {
+    form .checkbox-holder .checkbox.disabled.selected .indicator:after, form .checkbox-holder .radio-button.disabled.selected .indicator:after, form .radio-button-holder .checkbox.disabled.selected .indicator:after, form .radio-button-holder .radio-button.disabled.selected .indicator:after {
       background: #d5e0e0; }
-    .checkbox-holder .checkbox.disabled.selected:hover .indicator:after, .checkbox-holder .checkbox.disabled.selected:focus .indicator:after, .checkbox-holder .checkbox.disabled.selected:active .indicator:after, .checkbox-holder .radio-button.disabled.selected:hover .indicator:after, .checkbox-holder .radio-button.disabled.selected:focus .indicator:after, .checkbox-holder .radio-button.disabled.selected:active .indicator:after, .radio-button-holder .checkbox.disabled.selected:hover .indicator:after, .radio-button-holder .checkbox.disabled.selected:focus .indicator:after, .radio-button-holder .checkbox.disabled.selected:active .indicator:after, .radio-button-holder .radio-button.disabled.selected:hover .indicator:after, .radio-button-holder .radio-button.disabled.selected:focus .indicator:after, .radio-button-holder .radio-button.disabled.selected:active .indicator:after {
+    form .checkbox-holder .checkbox.disabled.selected:hover .indicator:after, form .checkbox-holder .checkbox.disabled.selected:focus .indicator:after, form .checkbox-holder .checkbox.disabled.selected:active .indicator:after, form .checkbox-holder .radio-button.disabled.selected:hover .indicator:after, form .checkbox-holder .radio-button.disabled.selected:focus .indicator:after, form .checkbox-holder .radio-button.disabled.selected:active .indicator:after, form .radio-button-holder .checkbox.disabled.selected:hover .indicator:after, form .radio-button-holder .checkbox.disabled.selected:focus .indicator:after, form .radio-button-holder .checkbox.disabled.selected:active .indicator:after, form .radio-button-holder .radio-button.disabled.selected:hover .indicator:after, form .radio-button-holder .radio-button.disabled.selected:focus .indicator:after, form .radio-button-holder .radio-button.disabled.selected:active .indicator:after {
       opacity: 1;
       background: #d5e0e0; }
-.checkbox-holder .radio-button .indicator, .radio-button-holder .radio-button .indicator {
+form .checkbox-holder .radio-button .indicator, form .radio-button-holder .radio-button .indicator {
   -o-border-radius: 100%;
   border-radius: 100%; }
-  .checkbox-holder .radio-button .indicator:after, .radio-button-holder .radio-button .indicator:after {
+  form .checkbox-holder .radio-button .indicator:after, form .radio-button-holder .radio-button .indicator:after {
     -o-border-radius: 100%;
     border-radius: 100%; }
-
-.flash-message {
+form .flash-message {
   background: url("/assets/images/other/loading.gif") no-repeat center center transparent;
   background-size: 22px 22px;
   min-height: 2rem;
   display: none;
   margin: 0 0 1rem; }
 
-.dark input,
-.dark select,
-.dark textarea,
-.dark button,
-.dark .button,
-.dark .input {
+.dark form input,
+.dark form select,
+.dark form textarea,
+.dark form .input {
   border-color: #384b4b;
   color: #7e9e9e; }
-  .dark input::-webkit-input-placeholder,
-  .dark select::-webkit-input-placeholder,
-  .dark textarea::-webkit-input-placeholder,
-  .dark button::-webkit-input-placeholder,
-  .dark .button::-webkit-input-placeholder,
-  .dark .input::-webkit-input-placeholder {
+  .dark form input::-webkit-input-placeholder,
+  .dark form select::-webkit-input-placeholder,
+  .dark form textarea::-webkit-input-placeholder,
+  .dark form .input::-webkit-input-placeholder {
     color: #384b4b; }
-  .dark input::-moz-placeholder,
-  .dark select::-moz-placeholder,
-  .dark textarea::-moz-placeholder,
-  .dark button::-moz-placeholder,
-  .dark .button::-moz-placeholder,
-  .dark .input::-moz-placeholder {
+  .dark form input::-moz-placeholder,
+  .dark form select::-moz-placeholder,
+  .dark form textarea::-moz-placeholder,
+  .dark form .input::-moz-placeholder {
     color: #384b4b; }
-  .dark input:-moz-placeholder,
-  .dark select:-moz-placeholder,
-  .dark textarea:-moz-placeholder,
-  .dark button:-moz-placeholder,
-  .dark .button:-moz-placeholder,
-  .dark .input:-moz-placeholder {
+  .dark form input:-moz-placeholder,
+  .dark form select:-moz-placeholder,
+  .dark form textarea:-moz-placeholder,
+  .dark form .input:-moz-placeholder {
     color: #384b4b; }
-  .dark input:-ms-input-placeholder,
-  .dark select:-ms-input-placeholder,
-  .dark textarea:-ms-input-placeholder,
-  .dark button:-ms-input-placeholder,
-  .dark .button:-ms-input-placeholder,
-  .dark .input:-ms-input-placeholder {
+  .dark form input:-ms-input-placeholder,
+  .dark form select:-ms-input-placeholder,
+  .dark form textarea:-ms-input-placeholder,
+  .dark form .input:-ms-input-placeholder {
     color: #384b4b; }
-  .dark input:hover, .dark input:focus,
-  .dark select:hover,
-  .dark select:focus,
-  .dark textarea:hover,
-  .dark textarea:focus,
-  .dark button:hover,
-  .dark button:focus,
-  .dark .button:hover,
-  .dark .button:focus,
-  .dark .input:hover,
-  .dark .input:focus {
+  .dark form input:hover, .dark form input:focus,
+  .dark form select:hover,
+  .dark form select:focus,
+  .dark form textarea:hover,
+  .dark form textarea:focus,
+  .dark form .input:hover,
+  .dark form .input:focus {
     border-color: #4e6868; }
 
 label,
@@ -1604,7 +1611,7 @@ a,
 .wipe-padding, .no-padding {
   padding: 0 !important; }
 
-.wipe-margin-padding, .file-button input[type="file"], nav#nav-main ul,
+.wipe-margin-padding, form .file-button input[type="file"], nav#nav-main ul,
 .wipe-padding-margin {
   margin: 0;
   padding: 0; }
@@ -1637,7 +1644,7 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
-.text-center, .close, .umi .footer, body footer nav, .page-contribute aside form label .error-message small, .page-dive-into #masthead #search-umi .search-umi-results .item .score, .page-dive-into .timeline header, .page-features .master-hero h2, .page-ooops .headline {
+.text-center, .close, .umi .footer, body footer nav, .page-dive-into #masthead #search-umi .search-umi-results .item .score, .page-dive-into .timeline header, .page-features .master-hero h2, .page-ooops .headline {
   text-align: center; }
 
 .text-right,
@@ -1701,8 +1708,9 @@ body.dark {
   background: #1b2424;
   color: #7e9e9e; }
   body.dark footer {
-    border-top: 1px solid #4e6868;
-    background: transparent; }
+    border-top: 1px solid #384b4b;
+    background: transparent;
+    color: #4e6868; }
     body.dark footer a {
       color: #4e6868; }
       body.dark footer a:hover, body.dark footer a:focus {
@@ -1836,6 +1844,13 @@ body.dark {
   .page-contribute aside .umi-preview-holder .umi {
     max-width: 90%;
     height: 13.75rem; }
+  .page-contribute aside header {
+    padding: 0 0 2rem; }
+    .page-contribute aside header h2 {
+      font-size: 1.25rem; }
+    .page-contribute aside header p {
+      font-size: 0.875rem;
+      color: #4e6868; }
   .page-contribute aside form label {
     margin: 0.5rem 0 1rem;
     position: relative; }
@@ -1844,18 +1859,17 @@ body.dark {
     .page-contribute aside form label .error-message {
       cursor: help;
       position: absolute;
-      width: 1rem;
-      height: 1rem;
+      width: 0.5rem;
+      height: 0.5rem;
       top: 50%;
-      right: -1.5rem;
-      margin: -0.5rem 0 0; }
+      right: -1rem;
+      margin: -0.25rem 0 0; }
       .page-contribute aside form label .error-message small {
         -o-border-radius: 100%;
         border-radius: 100%;
-        line-height: 1rem;
         background: #ff784b;
-        width: 1rem;
-        height: 1rem;
+        width: 0.5rem;
+        height: 0.5rem;
         display: block;
         overflow: hidden;
         color: white; }

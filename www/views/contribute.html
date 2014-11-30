@@ -1,11 +1,13 @@
 <div menu-top></div>
 <div class="flex">
 	<aside class="flex-1">
-		<h4>Contributing as {{ omUser.email }}</h4>
+		<header>
+			<h2>Contributing as {{ omUser.email }}</h2>
 
-		<p>Please note that our editor features an automatic checker, as well as
-			interactive guidance throughout the whole process of filling out
-			this form.</p>
+			<p>Please note that our editor features an automatic checker, as well as
+				interactive guidance throughout the whole process of filling out
+				this form.</p>
+		</header>
 
 		<form name="umiContributeForm" class="flex-1 flex column" ng-submit="createUmi()">
 			<!--Type-->
@@ -26,7 +28,7 @@
 				<!--Error messages for Type-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.type.$error.required"
-						   title="{{ errorMessages.required }}">&times;</small>
+						   title="{{ errorMessages.required }}"></small>
 				</div>
 			</label>
 
@@ -47,11 +49,11 @@
 				<!--Error messages for Title-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.title.$error.required"
-						   title="{{ errorMessages.required }}">&times;</small>
+						   title="{{ errorMessages.required }}"></small>
 					<small ng-show="umiContributeForm.title.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}">&times;</small>
+						   title="{{ errorMessages.maxLength }}"></small>
 					<small ng-show="umiContributeForm.title.$error.pattern"
-						   title="{{ errorMessages.umiTitle }}">&times;</small>
+						   title="{{ errorMessages.umiTitle }}"></small>
 				</div>
 			</label>
 
@@ -72,7 +74,7 @@
 				<!--Error messages for Synonyms-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.titleSynonyms.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}">&times;</small>
+						   title="{{ errorMessages.maxLength }}"></small>
 				</div>
 			</label>
 
@@ -91,7 +93,7 @@
 				<!--Error messages for LaTeX Content-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.latexContent.$error.required"
-						   title="{{ errorMessages.required }}">&times;</small>
+						   title="{{ errorMessages.required }}"></small>
 				</div>
 			</label>
 
@@ -112,7 +114,7 @@
 				<!--Error messages for Prerequisite definitions-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.prerequisiteDefinitions.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}">&times;</small>
+						   title="{{ errorMessages.maxLength }}"></small>
 				</div>
 			</label>
 
@@ -132,7 +134,7 @@
 				<!--Error messages for See also-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.seeAlso.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}">&times;</small>
+						   title="{{ errorMessages.maxLength }}"></small>
 				</div>
 			</label>
 
@@ -151,7 +153,7 @@
 				<!--Error messages for Tags-->
 				<div class="error-message">
 					<small ng-show="umiContributeForm.tags.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}">&times;</small>
+						   title="{{ errorMessages.maxLength }}"></small>
 				</div>
 			</label>
 
@@ -168,16 +170,21 @@
 	</aside>
 
 	<aside class="flex-1 flex column">
-		<h4>Live preview</h4>
+		<header>
+			<h2>Live preview</h2>
+		</header>
 
 		<div class="umi-preview-holder flex-1 flex center-vertically center-horizontally">
 			<div class="umi fade-in">
 				<div class="content-holder">
 					<div class="title flex center-vertically">
-						<label class="proof" ng-bind="createUmiForm.type.label || 'Contribution type'"></label>
-						<strong class="flex-1" ng-bind="createUmiForm.title || 'Contribution Title'"></strong>
+						<label class="proof"
+							   ng-bind="createUmiForm.type.label || 'Contribution type'"></label>
+						<strong class="flex-1"
+								ng-bind="createUmiForm.title || 'Contribution Title'"></strong>
 					</div>
-					<article><p om-bind="createUmiForm.latexContent">LaTeX Contents</p></article>
+					<article><p om-bind="createUmiForm.latexContent">LaTeX Content will be displayed
+						here.</p></article>
 				</div>
 			</div>
 		</div>

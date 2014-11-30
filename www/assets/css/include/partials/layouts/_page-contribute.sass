@@ -11,6 +11,16 @@
 				max-width: 90%
 				height: rem(220px)
 
+		header
+			padding: 0 0 $double-unit-layout
+
+			h2
+				font-size: rem(20px)
+
+			p
+				font-size: rem(14px)
+				color: $color-grey-700
+
 		form
 			label
 				margin: $half-unit-layout 0 $base-unit-layout
@@ -22,20 +32,18 @@
 				.error-message
 					cursor: help
 					position: absolute
-					width: $base-unit-layout
-					height: $base-unit-layout
+					width: $half-unit-layout
+					height: $half-unit-layout
 					top: 50%
-					right: -($double-half-unit-layout)
-					margin: -($half-unit-layout) 0 0
+					right: -($base-unit-layout)
+					margin: -($quarter-unit-layout) 0 0
 
 					small
 						+border-radius(100%)
-						@extend .text-center
 
-						line-height: $base-unit-layout
 						background: $color-alert-error
-						width: $base-unit-layout
-						height: $base-unit-layout
+						width: $half-unit-layout
+						height: $half-unit-layout
 						display: block
 						overflow: hidden
 						color: white
