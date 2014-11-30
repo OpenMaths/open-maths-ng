@@ -66,6 +66,16 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 		});
 	};
 
+	$scope.accessUrlUser = function(url) {
+		if (!$scope.omUser) {
+			alert("You must be logged in to Contribute to OpenMaths!");
+			return false;
+		}
+		else {
+			$location.url("/" + url);
+		}
+	};
+
 });
 
 app.controller("DiveIntoController", function ($scope, $rootScope, $http, $location) {
@@ -277,7 +287,12 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 	};
 });
 
-app.controller("ContributeController", function ($scope, $rootScope) {
+app.controller("ContributeController", function ($scope, $rootScope, $location) {
+	if (!$scope.omUser) {
+		alert("You must be logged in to Contribute to OpenMaths!");
+		$location.path("/");
+	}
+
 	$rootScope.title = "Contribute";
 	$rootScope.navTopTransparentClass = false;
 
