@@ -287,7 +287,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 	};
 });
 
-app.controller("ContributeController", function ($scope, $rootScope, $location) {
+app.controller("ContributeController", function ($scope, $rootScope, $http, $location) {
 	if (!$scope.omUser) {
 		alert("You must be logged in to Contribute to OpenMaths!");
 		$location.path("/");
@@ -344,7 +344,38 @@ app.controller("ContributeController", function ($scope, $rootScope, $location) 
 			umiType : createUmiForm.type.id
 		};
 
-		$scope.dispatchCreateUmi = dispatchCreateUmi;
+		console.log(dispatchCreateUmi);
+
+		// TODO: Abstract this as a function to make POST requests
+		// TODO: Look into JSONP
+
+		//http.onreadystatechange = function() {
+		//	if(http.readyState == 4 && http.status == 200) {
+		//		alert(http.responseText);
+		//	}
+		//};
+		//
+		//http.send(JSON.stringify(dispatchCreateUmi));
+
+		var http = new XMLHttpRequest();
+		var url = "http://127.0.0.1:8080/add"; //appConfig.apiUrl + "/add";
+		var data = JSON.stringify(dispatchCreateUmi);
+
+		http.open("POST", url, true);
+
+		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+		//http.setRequestHeader("Accept", "application/json;charset=UTF-8");
+
+		http.onload = function() {
+			console.log(http);
+		};
+
+		http.onerror = function() {
+			alert('Woops, there was an error making the request.');
+			console.log(http);
+		};
+
+		http.send(data);
 	};
 });
 
