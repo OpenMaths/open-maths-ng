@@ -16,8 +16,14 @@
 	</form>
 </section>
 
-<nav class="search-results" ng-keydown="searchResultsNavigate($event)" tabindex="0">
+<nav class="search-results" ng-keydown="searchResultsNavigate(searchResults1, $event)" tabindex="0">
 	<ul>
-		<li ng-repeat="result in searchResults" ng-class="{active : $index == searchResultsCurrentSelection}">{{ result }}</li>
+		<li ng-repeat="result in searchResults1.data" ng-class="{active : $index == searchResults1.currentSelection}">{{ result }}</li>
+	</ul>
+</nav>
+
+<nav class="search-results" ng-keydown="searchResultsNavigate(searchResults2, $event)" tabindex="0">
+	<ul>
+		<li ng-repeat="result in searchResults2.data" ng-class="{active : $index == searchResults2.currentSelection}">{{ result }}</li>
 	</ul>
 </nav>

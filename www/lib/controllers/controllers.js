@@ -85,24 +85,41 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 	$scope.searchUmiResultsCurrentSelection = 0;
 
 	//BEGIN SEARCH
-	$scope.searchResults = [
-		{title: "Title1"},
-		{title: "Title2"}
-	];
+	$scope.searchResults1 = {
+		currentSelection: 0,
+		data: [
+			{title: "Title1"},
+			{title: "Title2"}
+		]
+	};
+	$scope.searchResults2 = {
+		currentSelection: 0,
+		data: [
+			{title: "Title3"},
+			{title: "Title4"},
+			{title: "Title5"}
+		]
+	};
 
-	$scope.searchResultsCurrentSelection = 0;
-
-	$scope.searchResultsNavigate = function (e) {
-		if (!$scope.searchResults) {
+	$scope.searchResultsNavigate = function (res, e) {
+		if (!res) {
 			return false;
 		}
 
-		var searchResultsCount = Object.keys($scope.searchResults).length;
+		console.log(res);
 
-		if (e.keyCode == 38 && $scope.searchResultsCurrentSelection > 0) {
-			$scope.searchResultsCurrentSelection = $scope.searchResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && $scope.searchResultsCurrentSelection < (searchResultsCount - 1)) {
-			$scope.searchResultsCurrentSelection = $scope.searchResultsCurrentSelection + 1;
+		var searchResultsCount = Object.keys(res.data).length;
+		var searchResultsCurrentSelection = res.currentSelection;
+
+		//if (e.keyCode == 13) {
+		//	// Dispatch event
+		//	alert(res[$scope.searchResultsCurrentSelection]);
+		//}
+
+		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
+			res.currentSelection = searchResultsCurrentSelection - 1;
+		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
+			res.currentSelection = searchResultsCurrentSelection + 1;
 		}
 	};
 	//END SEARCH
