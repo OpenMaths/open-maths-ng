@@ -84,6 +84,29 @@ app.controller("DiveIntoController", function ($scope, $rootScope, $http, $locat
 	$scope.navDive = true;
 	$scope.searchUmiResultsCurrentSelection = 0;
 
+	//BEGIN SEARCH
+	$scope.searchResults = [
+		{title: "Title1"},
+		{title: "Title2"}
+	];
+
+	$scope.searchResultsCurrentSelection = 0;
+
+	$scope.searchResultsNavigate = function (e) {
+		if (!$scope.searchResults) {
+			return false;
+		}
+
+		var searchResultsCount = Object.keys($scope.searchResults).length;
+
+		if (e.keyCode == 38 && $scope.searchResultsCurrentSelection > 0) {
+			$scope.searchResultsCurrentSelection = $scope.searchResultsCurrentSelection - 1;
+		} else if (e.keyCode == 40 && $scope.searchResultsCurrentSelection < (searchResultsCount - 1)) {
+			$scope.searchResultsCurrentSelection = $scope.searchResultsCurrentSelection + 1;
+		}
+	};
+	//END SEARCH
+
 	if (sessionStorage.getItem("umiLastSearchTitle")) {
 		var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
 		$scope.searchUmiTerm = umiLastSearchTitle;

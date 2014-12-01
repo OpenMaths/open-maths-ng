@@ -980,6 +980,13 @@ noscript #warning {
   left: 0;
   width: 100%; }
 
+.search-results > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  .search-results > ul > li.active {
+    font-weight: 700; }
+
 table {
   max-width: 100%; }
   table tr td {

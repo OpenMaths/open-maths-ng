@@ -1,4 +1,4 @@
-<section id="masthead" class="flex column">
+<section id="masthead" class="flex column" style="display:none">
 	<div menu-top></div>
 
 	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid">
@@ -15,3 +15,9 @@
 		</article>
 	</form>
 </section>
+
+<nav class="search-results" ng-keydown="searchResultsNavigate($event)" tabindex="0">
+	<ul>
+		<li ng-repeat="result in searchResults" ng-class="{active : $index == searchResultsCurrentSelection}">{{ result }}</li>
+	</ul>
+</nav>
