@@ -1,5 +1,4 @@
 app.directive("omBind", function ($compile) {
-
 	return {
 		restrict: "A",
 		replace: true,
@@ -12,5 +11,4 @@ app.directive("omBind", function ($compile) {
 			});
 		}
 	};
-
 });
