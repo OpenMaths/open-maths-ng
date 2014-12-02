@@ -1785,7 +1785,8 @@ body.dark {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    position: relative; }
+    position: relative;
+    min-height: 11.25rem; }
     .page-board #board-container .row .resize-row {
       z-index: 2;
       position: absolute;

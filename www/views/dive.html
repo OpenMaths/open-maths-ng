@@ -1,7 +1,7 @@
 <section id="masthead" class="flex column">
 	<div menu-top></div>
 
-	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(searchUmiResults.currentSelection)" tabindex="0">
+	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(searchUmiResults.data[searchUmiResults.currentSelection].id)" tabindex="0">
 		<input type="text" placeholder="Dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchResultsNavigate(searchUmiResults, $event)" class="unstyled" autofocus />
 		<article class="container-narrow search-umi-results">
 			Active selection: {{ searchUmiResults.currentSelection }}
