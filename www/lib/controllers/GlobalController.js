@@ -73,13 +73,34 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 						success(function (data) {
 							$scope.omUser = data;
 							sessionStorage.setItem("omUser", JSON.stringify(data));
+
+							$scope.notification = {
+								"message": "You are now signed in as " + data.email +  ".",
+								"type": "success",
+								"act": true
+							};
+							$timeout(function () {
+								$scope.notification.act = false;
+							}, 2500);
 						}).error(function (data, status) {
-							alert("No data to display :-(");
-							console.log(data + " | " + status);
+							$scope.notification = {
+								"message": "There was an error during the sign in process.",
+								"type": "error",
+								"act": true
+							};
+							$timeout(function () {
+								$scope.notification.act = false;
+							}, 2500);
 						});
 				} else {
-					alert(authResult["error"]);
-					console.log("Sign-in state: " + authResult["error"]);
+					$scope.notification = {
+						"message": "There was an error (" + authResult["error"] + ") during the sign in process.",
+						"type": "error",
+						"act": true
+					};
+					$timeout(function () {
+						$scope.notification.act = false;
+					}, 2500);
 				}
 			}
 		});
@@ -96,7 +117,16 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		$scope.omUser = false;
 		sessionStorage.removeItem("omUser");
 
-		$location.path("/");
+		$scope.notification = {
+			"message": "You have been successfully signed out.",
+			"type": "info",
+			"act": true
+		};
+		$timeout(function () {
+			$scope.notification.act = false;
+		}, 2500);
+
+		//$location.path("/");
 	};
 
 	/**
@@ -109,15 +139,11 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 *
 	 * @TODO: Implement UX-friendly notifications
 	 */
-	$scope.accessUrlUser = function(url, message, type) {
+	$scope.accessUrlUser = function (url, message, type) {
 		if (!$scope.omUser) {
-			$scope.notification = {
-				"message": message,
-				"type": type,
-				"act": true
-			};
 
-			$timeout(function() {
+			$scope.notification = {"message": message, "type": type, "act": true};
+			$timeout(function () {
 				$scope.notification.act = false;
 			}, 2500);
 

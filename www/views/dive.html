@@ -1,5 +1,12 @@
+<!--Notification-->
+<div notification></div>
+<!--Notification-->
+
 <section id="masthead" class="flex column">
+
+	<!--Top navigation-->
 	<div nav-top></div>
+	<!--Top navigation-->
 
 	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(searchUmiResults.data[searchUmiResults.currentSelection].id)" tabindex="0">
 		<input type="text" placeholder="Dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchResultsNavigate(searchUmiResults, $event)" class="unstyled" autofocus />
