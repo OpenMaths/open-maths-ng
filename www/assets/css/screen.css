@@ -1938,13 +1938,13 @@ body.dark {
       padding: 1rem 0;
       cursor: pointer;
       font-size: 1.25rem; }
-      .page-dive-into #masthead #search-umi .search-umi-results .item.selected, .page-dive-into #masthead #search-umi .search-umi-results .item:hover, .page-dive-into #masthead #search-umi .search-umi-results .item:focus {
+      .page-dive-into #masthead #search-umi .search-umi-results .item.active, .page-dive-into #masthead #search-umi .search-umi-results .item:hover, .page-dive-into #masthead #search-umi .search-umi-results .item:focus {
         color: white; }
-        .page-dive-into #masthead #search-umi .search-umi-results .item.selected .score, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score {
+        .page-dive-into #masthead #search-umi .search-umi-results .item.active .score, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score {
           color: white; }
-          .page-dive-into #masthead #search-umi .search-umi-results .item.selected .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar {
+          .page-dive-into #masthead #search-umi .search-umi-results .item.active .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar {
             background: rgba(255, 255, 255, 0.5); }
-            .page-dive-into #masthead #search-umi .search-umi-results .item.selected .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar .progress {
+            .page-dive-into #masthead #search-umi .search-umi-results .item.active .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar .progress {
               background: white; }
       .page-dive-into #masthead #search-umi .search-umi-results .item .title {
         max-width: 70%;

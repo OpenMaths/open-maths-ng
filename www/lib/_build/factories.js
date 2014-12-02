@@ -1,0 +1,1 @@
+app.factory("searchResultsNavigate",["res","e",function(){var e=function(e,r){if(!e)return!1;var t=Object.keys(e.data).length,n=e.currentSelection;return 38==r.keyCode&&n>0?e.currentSelection=n-1:40==r.keyCode&&t-1>n&&(e.currentSelection=n+1),e};return e}]);

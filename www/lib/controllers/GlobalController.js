@@ -1,5 +1,3 @@
-// http://www.sitepoint.com/tidy-angular-controllers-factories-services/
-
 app.controller("GlobalController", function ($scope, $location, $window, $http) {
 
 	/**
@@ -23,7 +21,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 	$scope.$watch(function () {
 		return $location.path();
 	}, returnPath);
-
 
 	/**
 	 * Sets custom theme
@@ -127,7 +124,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 	 * @param e {object} $event
 	 * @returns {boolean}
 	 *
-	 * @TODO: Turn into a directive?
+	 * @TODO: Turn into a factory?
 	 * @TODO: Dispatch event on Return?
 	 */
 	$scope.searchResultsNavigate = function (res, e) {

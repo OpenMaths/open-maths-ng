@@ -35,7 +35,7 @@ gulp.task("concat-controllers", function() {
 		.pipe(concat("controllers.js"))
 		.pipe(ngAnnotate())
 		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/controllers/_build"))
+		.pipe(gulp.dest("www/lib/_build"))
 		.pipe(notify("Controllers successfully concatenated!"));
 });
 
@@ -45,15 +45,25 @@ gulp.task("concat-directives", function() {
 		.pipe(concat("directives.js"))
 		.pipe(ngAnnotate())
 		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/directives/_build"))
+		.pipe(gulp.dest("www/lib/_build"))
 		.pipe(notify("Directives successfully concatenated!"));
+});
+
+// Concatenate Factories
+gulp.task("concat-factories", function() {
+	gulp.src("www/lib/factories/*.js")
+		.pipe(concat("factories.js"))
+		.pipe(ngAnnotate())
+		.pipe(uglify())
+		.pipe(gulp.dest("www/lib/_build"))
+		.pipe(notify("Factories successfully concatenated!"));
 });
 
 // Concatenate Vendor
 gulp.task("concat-vendor", function() {
 	gulp.src("www/lib/vendor/*.js")
 		.pipe(concat("vendor.js"))
-		.pipe(gulp.dest("www/lib/vendor/_build"))
+		.pipe(gulp.dest("www/lib/_build"))
 		.pipe(notify("Vendors successfully concatenated!"));
 });
 
@@ -61,6 +71,7 @@ gulp.task("concat-vendor", function() {
 gulp.task("watch", function() {
 	gulp.watch("www/lib/controllers/*.js", ["concat-controllers"]);
 	gulp.watch("www/lib/directives/*.js", ["concat-directives"]);
+	gulp.watch("www/lib/factories/*.js", ["concat-factories"]);
 	gulp.watch("www/lib/vendor/*.js", ["concat-vendor"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
