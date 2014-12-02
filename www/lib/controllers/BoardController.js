@@ -3,8 +3,11 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 	$rootScope.navTopTransparentClass = false;
 	$scope.navBoard = true;
 	$scope.grid = [];
+
 	$scope.rows = sessionStorage.getItem("gridRows") ? parseInt(sessionStorage.getItem("gridRows")) : 3;
 	$scope.columns = sessionStorage.getItem("gridColumns") ? parseInt(sessionStorage.getItem("gridColumns")) : 3;
+
+	var initId = $routeParams.id;
 
 	for (i = 0; i < $scope.rows; i++) {
 		var row = [];
@@ -16,64 +19,68 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		$scope.grid.push(row);
 	}
 
-	$scope.addRow = function () {
-		if ($scope.rows > 5) {
-			return false;
+	/**
+	 * Manages the grid layout
+	 *
+	 * @param method {string} add | remove
+	 * @param type {string} row | column
+	 * @returns {boolean}
+	 */
+	$scope.manageGrid = function(method, type) {
+		if (type == "row") {
+			var row = [];
+
+			for (i = 0; i < $scope.columns; i++) {
+				row.push(i);
+			}
+
+			switch (method) {
+				case "add":
+					if ($scope.rows > 5) {
+						return false;
+					}
+
+					$scope.rows = $scope.rows + 1;
+					$scope.grid.push(row);
+					break;
+				case "remove":
+					if ($scope.rows < 3) {
+						return false;
+					}
+
+					$scope.rows = $scope.rows - 1;
+					$scope.grid.pop();
+					break;
+			}
+
+			sessionStorage.setItem("gridRows", $scope.rows);
+		} else if (type == "column") {
+			switch (method) {
+				case "add":
+					if ($scope.columns > 5) {
+						return false;
+					}
+
+					for (i = 0; i < $scope.rows; i++) {
+						$scope.grid[i].push($scope.columns);
+					}
+					$scope.columns = $scope.columns + 1;
+					break;
+				case "remove":
+					if ($scope.columns < 3) {
+						return false;
+					}
+
+					for (i = 0; i < $scope.rows; i++) {
+						$scope.grid[i].pop();
+					}
+					$scope.columns = $scope.columns - 1;
+					break;
+			}
+
+			sessionStorage.setItem("gridColumns", $scope.columns);
 		}
-
-		$scope.rows = $scope.rows + 1;
-		sessionStorage.setItem("gridRows", $scope.rows);
-
-		var row = [];
-
-		for (c = 0; c < $scope.columns; c++) {
-			row.push(c);
-		}
-
-		$scope.grid.push(row);
 	};
-	$scope.removeRow = function () {
-		if ($scope.rows < 3) {
-			return false;
-		}
-
-		$scope.rows = $scope.rows - 1;
-		sessionStorage.setItem("gridRows", $scope.rows);
-
-		var row = [];
-
-		for (c = 0; c < $scope.columns; c++) {
-			row.push(c);
-		}
-
-		$scope.grid.pop();
-	};
-	$scope.addColumn = function () {
-		if ($scope.columns > 5) {
-			return false;
-		}
-
-		for (i = 0; i < $scope.rows; i++) {
-			$scope.grid[i].push($scope.columns);
-		}
-
-		$scope.columns = $scope.columns + 1;
-		sessionStorage.setItem("gridColumns", $scope.columns);
-	};
-	$scope.removeColumn = function () {
-		if ($scope.columns < 3) {
-			return false;
-		}
-
-		for (i = 0; i < $scope.rows; i++) {
-			$scope.grid[i].pop();
-		}
-
-		$scope.columns = $scope.columns - 1;
-		sessionStorage.setItem("gridColumns", $scope.columns);
-	};
-
-	var initId = $routeParams.id;
 
 	$http.get(appConfig.apiUrl + "/id/" + initId).
 		success(function (data, status) {
@@ -86,8 +93,14 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 			$timeout(fadeInUmi, 250);
 		}).
 		error(function (data, status) {
-			alert("No data to display :-(");
-			console.log(data + " | " + status);
+			$scope.notification = {
+				"message": "There was an error loading the requested contribution.",
+				"type": "error",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.notification.act = false;
+			}, 2500);
 		});
 
 	$scope.position = function (row, column, direction, newUmiID) {
@@ -103,6 +116,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 			var targetPosition = [row, column + 1];
 		}
 
+		// @TODO: replace the boundary number by an extract from user-defined settings
 		if (targetPosition[0] == 0) {
 			targetClasses.push("closes-top");
 		} else if (targetPosition[0] == 2) {
@@ -119,8 +133,14 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
 			}).
 			error(function (data, status) {
-				alert("No data to display :-(");
-				console.log(data + " | " + status);
+				$scope.notification = {
+					"message": "There was an error loading the requested contribution.",
+					"type": "error",
+					"act": true
+				};
+				$timeout(function () {
+					$scope.notification.act = false;
+				}, 2500);
 			});
 
 	};

@@ -1,3 +1,5 @@
+// @TODO: investigate factories -> would be nice to have notifications reqistered as factories / services
+
 app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
 	/**
@@ -12,6 +14,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		var splitUrl = $location.url().split("/");
 		$scope.path = splitUrl[1] == "" ? "dive-into" : splitUrl[1];
 
+		// @TODO: check if this works properly
 		$window.ga("send", "pageview", {page: $location.path()});
 	}
 
@@ -58,6 +61,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @returns {boolean}
 	 *
 	 * @TODO: Implement UX-friendly notifications
+	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignIn = function () {
 		if ($scope.omUser) {
@@ -110,6 +114,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * Google Sign Out functionality
 	 *
 	 * @TODO: Implement UX-friendly notifications
+	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignOut = function () {
 		gapi.auth.signOut();
@@ -138,6 +143,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @returns {boolean}
 	 *
 	 * @TODO: Implement UX-friendly notifications
+	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.accessUrlUser = function (url, message, type) {
 		if (!$scope.omUser) {
