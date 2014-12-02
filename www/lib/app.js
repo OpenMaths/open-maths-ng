@@ -6,7 +6,7 @@ var app = angular.module("openMathsApp", [
 	$routeProvider
 		.when("/", {
 			templateUrl: "views/dive.html",
-			controller: "DiveIntoController"
+			controller: "DiveController"
 		})
 		.when("/board/:id", {
 			templateUrl: "views/board.html",
