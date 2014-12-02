@@ -1,10 +1,11 @@
-<section id="masthead" class="flex column" style="display:none">
+<section id="masthead" class="flex column">
 	<div menu-top></div>
 
-	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(false)" ng-hide="showGrid">
-		<input type="text" placeholder="I want to dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchUmiResultsNavigate($event)" class="unstyled" autofocus />
+	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(searchUmiResults.currentSelection)" ng-hide="showGrid" tabindex="0">
+		<input type="text" placeholder="Dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchResultsNavigate(searchUmiResults, $event)" class="unstyled" autofocus />
 		<article class="container-narrow search-umi-results">
-			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults" ng-class="{selected : $index == searchUmiResultsCurrentSelection}" ng-click="getUmi(result.id)">
+			{{searchUmiResults}}
+			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults.data" ng-class="{active : $index == searchUmiResults.currentSelection}" ng-click="getUmi(result.id)">
 				<aside class="title">{{ result.title }}</aside>
 				<aside class="score">
 					<div class="bar">
@@ -15,15 +16,3 @@
 		</article>
 	</form>
 </section>
-
-<nav class="search-results" ng-keydown="searchResultsNavigate(searchResults1, $event)" tabindex="0">
-	<ul>
-		<li ng-repeat="result in searchResults1.data" ng-class="{active : $index == searchResults1.currentSelection}">{{ result }}</li>
-	</ul>
-</nav>
-
-<nav class="search-results" ng-keydown="searchResultsNavigate(searchResults2, $event)" tabindex="0">
-	<ul>
-		<li ng-repeat="result in searchResults2.data" ng-class="{active : $index == searchResults2.currentSelection}">{{ result }}</li>
-	</ul>
-</nav>

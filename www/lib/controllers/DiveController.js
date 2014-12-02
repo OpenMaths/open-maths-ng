@@ -2,57 +2,16 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
 	$scope.navDive = true;
-	$scope.searchUmiResultsCurrentSelection = 0;
 
-	//BEGIN SEARCH
-	$scope.searchResults1 = {
-		currentSelection: 0,
-		data: [
-			{title: "Title1"},
-			{title: "Title2"}
-		]
-	};
-	$scope.searchResults2 = {
-		currentSelection: 0,
-		data: [
-			{title: "Title3"},
-			{title: "Title4"},
-			{title: "Title5"}
-		]
-	};
-
-	$scope.searchResultsNavigate = function (res, e) {
-		if (!res) {
-			return false;
-		}
-
-		console.log(res);
-
-		var searchResultsCount = Object.keys(res.data).length;
-		var searchResultsCurrentSelection = res.currentSelection;
-
-		//if (e.keyCode == 13) {
-		//	// Dispatch event
-		//	alert(res[$scope.searchResultsCurrentSelection]);
-		//}
-
-		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
-			res.currentSelection = searchResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
-			res.currentSelection = searchResultsCurrentSelection + 1;
-		}
-	};
-	//END SEARCH
-
-	if (sessionStorage.getItem("umiLastSearchTitle")) {
-		var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
-		$scope.searchUmiTerm = umiLastSearchTitle;
-
-		if (sessionStorage.getItem("umiLastSearchResults")) {
-			var umiLastSearchResults = sessionStorage.getItem("umiLastSearchResults");
-			$scope.searchUmiResults = JSON.parse(umiLastSearchResults);
-		}
-	}
+	//if (sessionStorage.getItem("umiLastSearchTitle")) {
+	//	var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
+	//	$scope.searchUmiTerm = umiLastSearchTitle;
+	//
+	//	if (sessionStorage.getItem("umiLastSearchResults")) {
+	//		var umiLastSearchResults = sessionStorage.getItem("umiLastSearchResults");
+	//		$scope.searchUmiResults = JSON.parse(umiLastSearchResults);
+	//	}
+	//}
 
 	// Percentage is merely fictional now
 	$scope.searchUmiKeyDown = function () {
@@ -75,7 +34,10 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 						scoreMultiplier = scoreMultiplier + 1;
 					}
 
-					$scope.searchUmiResults = data;
+					$scope.searchUmiResults = {
+						"currentSelection": 0,
+						"data": data
+					};
 				}).
 				error(function (data, status) {
 					alert("No data to display :-(");
@@ -93,26 +55,15 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 				return false;
 			}
 
-			id = $scope.searchUmiResults[$scope.searchUmiResultsCurrentSelection]["id"];
+			//console.log($scope.searchUmiResults);
+			//console.log($scope.searchUmiResults.data);
+
+			//id = $scope.searchUmiResults[data][$scope.searchUmiResults[currentSelection]]["id"];
 		}
 
 		sessionStorage.setItem("umiLastSearchTitle", $scope.searchUmiTerm);
 		sessionStorage.setItem("umiLastSearchResults", JSON.stringify($scope.searchUmiResults));
 
 		$location.path("/board/" + id);
-	};
-
-	$scope.searchUmiResultsNavigate = function (e) {
-		if (!$scope.searchUmiResults) {
-			return false;
-		}
-
-		var resultsCount = Object.keys($scope.searchUmiResults).length;
-
-		if (e.keyCode == 38 && $scope.searchUmiResultsCurrentSelection > 0) {
-			$scope.searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && $scope.searchUmiResultsCurrentSelection < (resultsCount - 1)) {
-			$scope.searchUmiResultsCurrentSelection = $scope.searchUmiResultsCurrentSelection + 1;
-		}
 	};
 });
