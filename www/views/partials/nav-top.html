@@ -2,7 +2,7 @@
 	<ul id="nav" class="flex center-vertically align-left">
 		<li><a id="dive" class="flex center-vertically" ng-class="{active : navDive}" href="/">Dive</a></li>
 		<li><a id="board" class="flex center-vertically" ng-class="{active : navBoard}" href="/board">Board</a></li>
-		<li ng-click="accessUrlUser('contribute')"><a id="contribute" class="flex center-vertically" ng-class="{active : navContribute}">Contribute</a></li>
+		<li ng-click="accessUrlUser('contribute', 'You need to be signed in to access this feature.', 'warning')"><a id="contribute" class="flex center-vertically" ng-class="{active : navContribute}">Contribute</a></li>
 		<li><a id="features" class="flex center-vertically" ng-class="{active : navFeatures}" href="/features">Features</a></li>
 	</ul>
 

@@ -1,4 +1,4 @@
-app.controller("GlobalController", function ($scope, $location, $window, $http) {
+app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
 	/**
 	 * Test function that will run on page load.
@@ -103,13 +103,24 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 	 * Makes URL inaccessible if a user is not authenticated
 	 *
 	 * @param url {string}
+	 * @param message {string}
+	 * @param type {string} info | warning | error | success
 	 * @returns {boolean}
 	 *
 	 * @TODO: Implement UX-friendly notifications
 	 */
-	$scope.accessUrlUser = function(url) {
+	$scope.accessUrlUser = function(url, message, type) {
 		if (!$scope.omUser) {
-			alert("You must be logged in to Contribute to OpenMaths!");
+			$scope.notification = {
+				"message": message,
+				"type": type,
+				"act": true
+			};
+
+			$timeout(function() {
+				$scope.notification.act = false;
+			}, 2500);
+
 			return false;
 		}
 		else {
