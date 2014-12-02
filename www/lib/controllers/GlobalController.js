@@ -1,4 +1,4 @@
-app.controller("GlobalController", function ($scope, $location, $window, $http) {
+app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
 	/**
 	 * Test function that will run on page load.
@@ -21,7 +21,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 	$scope.$watch(function () {
 		return $location.path();
 	}, returnPath);
-
 
 	/**
 	 * Sets custom theme
@@ -74,13 +73,34 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 						success(function (data) {
 							$scope.omUser = data;
 							sessionStorage.setItem("omUser", JSON.stringify(data));
+
+							$scope.notification = {
+								"message": "You are now signed in as " + data.email +  ".",
+								"type": "success",
+								"act": true
+							};
+							$timeout(function () {
+								$scope.notification.act = false;
+							}, 2500);
 						}).error(function (data, status) {
-							alert("No data to display :-(");
-							console.log(data + " | " + status);
+							$scope.notification = {
+								"message": "There was an error during the sign in process.",
+								"type": "error",
+								"act": true
+							};
+							$timeout(function () {
+								$scope.notification.act = false;
+							}, 2500);
 						});
 				} else {
-					alert(authResult["error"]);
-					console.log("Sign-in state: " + authResult["error"]);
+					$scope.notification = {
+						"message": "There was an error (" + authResult["error"] + ") during the sign in process.",
+						"type": "error",
+						"act": true
+					};
+					$timeout(function () {
+						$scope.notification.act = false;
+					}, 2500);
 				}
 			}
 		});
@@ -97,20 +117,36 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 		$scope.omUser = false;
 		sessionStorage.removeItem("omUser");
 
-		$location.path("/");
+		$scope.notification = {
+			"message": "You have been successfully signed out.",
+			"type": "info",
+			"act": true
+		};
+		$timeout(function () {
+			$scope.notification.act = false;
+		}, 2500);
+
+		//$location.path("/");
 	};
 
 	/**
 	 * Makes URL inaccessible if a user is not authenticated
 	 *
 	 * @param url {string}
+	 * @param message {string}
+	 * @param type {string} info | warning | error | success
 	 * @returns {boolean}
 	 *
 	 * @TODO: Implement UX-friendly notifications
 	 */
-	$scope.accessUrlUser = function(url) {
+	$scope.accessUrlUser = function (url, message, type) {
 		if (!$scope.omUser) {
-			alert("You must be logged in to Contribute to OpenMaths!");
+
+			$scope.notification = {"message": message, "type": type, "act": true};
+			$timeout(function () {
+				$scope.notification.act = false;
+			}, 2500);
+
 			return false;
 		}
 		else {
@@ -125,7 +161,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http) 
 	 * @param e {object} $event
 	 * @returns {boolean}
 	 *
-	 * @TODO: Turn into a directive?
+	 * @TODO: Turn into a factory?
 	 * @TODO: Dispatch event on Return?
 	 */
 	$scope.searchResultsNavigate = function (res, e) {

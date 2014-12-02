@@ -980,6 +980,32 @@ noscript #warning {
   left: 0;
   width: 100%; }
 
+.notification {
+  -webkit-transition: top 0.25s;
+  transition: top 0.25s;
+  position: fixed;
+  left: 0;
+  top: -4rem;
+  width: 100%;
+  height: 4rem;
+  background: #6eb3c9;
+  color: #327186;
+  z-index: 9; }
+  .notification.info {
+    background: #6eb3c9;
+    color: #327186; }
+  .notification.warning {
+    background: #dcc100;
+    color: #5d5100; }
+  .notification.error {
+    background: #ff784b;
+    color: #cb3300; }
+  .notification.success {
+    background: #a9ce03;
+    color: #425001; }
+  .notification.active {
+    top: 0; }
+
 .search-results > ul {
   list-style-type: none;
   margin: 0;
@@ -1785,7 +1811,8 @@ body.dark {
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    position: relative; }
+    position: relative;
+    min-height: 11.25rem; }
     .page-board #board-container .row .resize-row {
       z-index: 2;
       position: absolute;
@@ -1938,13 +1965,13 @@ body.dark {
       padding: 1rem 0;
       cursor: pointer;
       font-size: 1.25rem; }
-      .page-dive-into #masthead #search-umi .search-umi-results .item.selected, .page-dive-into #masthead #search-umi .search-umi-results .item:hover, .page-dive-into #masthead #search-umi .search-umi-results .item:focus {
+      .page-dive-into #masthead #search-umi .search-umi-results .item.active, .page-dive-into #masthead #search-umi .search-umi-results .item:hover, .page-dive-into #masthead #search-umi .search-umi-results .item:focus {
         color: white; }
-        .page-dive-into #masthead #search-umi .search-umi-results .item.selected .score, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score {
+        .page-dive-into #masthead #search-umi .search-umi-results .item.active .score, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score {
           color: white; }
-          .page-dive-into #masthead #search-umi .search-umi-results .item.selected .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar {
+          .page-dive-into #masthead #search-umi .search-umi-results .item.active .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar {
             background: rgba(255, 255, 255, 0.5); }
-            .page-dive-into #masthead #search-umi .search-umi-results .item.selected .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar .progress {
+            .page-dive-into #masthead #search-umi .search-umi-results .item.active .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:hover .score .bar .progress, .page-dive-into #masthead #search-umi .search-umi-results .item:focus .score .bar .progress {
               background: white; }
       .page-dive-into #masthead #search-umi .search-umi-results .item .title {
         max-width: 70%;

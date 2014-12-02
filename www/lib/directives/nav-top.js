@@ -1,4 +1,4 @@
-app.directive("menuTop", function() {
+app.directive("navTop", function() {
 	return {
 		restrict: "A",
 		templateUrl: "views/partials/nav-top.html",
