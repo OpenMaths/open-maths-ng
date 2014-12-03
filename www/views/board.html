@@ -11,12 +11,12 @@
 	<div class="flex-1 flex column center-horizontally center-vertically" id="grid">
 		<!--Column and Row management-->
 		<nav id="manage-column" class="flex column">
-			<a class="flex-1 add" href="#" ng-click="addColumn()"></a>
-			<a class="flex-1 remove" href="#" ng-click="removeColumn()"></a>
+			<a class="flex-1 add" href="#" ng-click="manageGrid('add', 'column')"></a>
+			<a class="flex-1 remove" href="#" ng-click="manageGrid('remove', 'column')"></a>
 		</nav>
 		<nav id="manage-row" class="flex">
-			<a class="flex-1 add" href="#" ng-click="addRow()"></a>
-			<a class="flex-1 center-vertically remove" href="#" ng-click="removeRow()"></a>
+			<a class="flex-1 add" href="#" ng-click="manageGrid('add', 'row')"></a>
+			<a class="flex-1 center-vertically remove" href="#" ng-click="manageGrid('remove', 'row')"></a>
 		</nav>
 
 		<div class="row" ng-repeat="row in grid">
