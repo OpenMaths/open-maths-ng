@@ -25,6 +25,8 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 	 * @param method {string} add | remove
 	 * @param type {string} row | column
 	 * @returns {boolean}
+	 *
+	 * @TODO: abstract max rows and columns into config?
 	 */
 	$scope.manageGrid = function(method, type) {
 		if (type == "row") {
@@ -82,26 +84,33 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		}
 	};
 
-	$http.get(appConfig.apiUrl + "/id/" + initId).
-		success(function (data, status) {
-			$scope.grid[1][1] = data;
+	var getUmi = function(getBy, param, where, classes) {
+		var fadeInUmi = function () {
+			$scope.fadeInUmi = true;
+		};
 
-			var fadeInUmi = function () {
-				$scope.fadeInUmi = true;
-			};
+		$http.get(appConfig.apiUrl + "/" + getBy + "/" + param).
+			success(function (data) {
+				if (classes) {
+					data.targetClasses = classes;
+				}
 
-			$timeout(fadeInUmi, 250);
-		}).
-		error(function (data, status) {
-			$scope.notification = {
-				"message": "There was an error loading the requested contribution.",
-				"type": "error",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.notification.act = false;
-			}, 2500);
-		});
+				$scope.grid[where[0]][where[1]] = data;
+				$timeout(fadeInUmi, 250);
+			}).
+			error(function () {
+				$scope.notification = {
+					"message": "There was an error loading the requested contribution.",
+					"type": "error",
+					"act": true
+				};
+				$timeout(function () {
+					$scope.notification.act = false;
+				}, 2500);
+			});
+	};
+
+	getUmi("id", initId, [1,1]);
 
 	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
@@ -127,21 +136,6 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 			targetClasses.push("closes-right");
 		}
 
-		$http.get(appConfig.apiUrl + "/id/" + newUmiID).
-			success(function (data) {
-				data.closingClasses = targetClasses.join(" ");
-				$scope.grid[targetPosition[0]][targetPosition[1]] = data;
-			}).
-			error(function (data, status) {
-				$scope.notification = {
-					"message": "There was an error loading the requested contribution.",
-					"type": "error",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.notification.act = false;
-				}, 2500);
-			});
-
+		getUmi("id", newUmiID, [targetPosition[0],targetPosition[1]], targetClasses.join(" "));
 	};
 });
