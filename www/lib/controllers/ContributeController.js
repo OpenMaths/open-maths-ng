@@ -1,4 +1,4 @@
-app.controller("ContributeController", function ($scope, $rootScope, $http, $location) {
+app.controller("ContributeController", function ($scope, $rootScope, $http, $location, $timeout) {
 	if (!$scope.omUser) {
 		alert("You must be logged in to Contribute to OpenMaths!");
 		$location.path("/");
@@ -55,19 +55,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			umiType : createUmiForm.type.id
 		};
 
-		console.log(dispatchCreateUmi);
-
 		// TODO: Abstract this as a function to make POST requests
 		// TODO: Look into JSONP
-
-		//http.onreadystatechange = function() {
-		//	if(http.readyState == 4 && http.status == 200) {
-		//		alert(http.responseText);
-		//	}
-		//};
-		//
-		//http.send(JSON.stringify(dispatchCreateUmi));
-
 		var http = new XMLHttpRequest();
 		var url = "http://127.0.0.1:8080/add"; //appConfig.apiUrl + "/add";
 		var data = JSON.stringify(dispatchCreateUmi);
@@ -78,12 +67,25 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		//http.setRequestHeader("Accept", "application/json;charset=UTF-8");
 
 		http.onload = function() {
-			console.log(http);
+			$scope.notification = {
+				"message": "Your contribution was successfully posted!",
+				"type": "success",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.notification.act = false;
+			}, 2500);
 		};
 
-		http.onerror = function() {
-			alert('Woops, there was an error making the request.');
-			console.log(http);
+		http.onerror = function(e) {
+			$scope.notification = {
+				"message": "There was an error making the request. Please check your contribution again before posting",
+				"type": "error",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.notification.act = false;
+			}, 2500);
 		};
 
 		http.send(data);

@@ -7,7 +7,7 @@
 <!--Top navigation-->
 
 <div class="flex">
-	<aside class="flex-1">
+	<aside class="flex-7">
 		<header>
 			<h2>Contributing as {{ omUser.email }}</h2>
 
@@ -28,7 +28,7 @@
 				<select ng-focus="showInstructions = 'type'"
 						ng-options="type as type.label for type in umiTypes"
 						ng-model="createUmiForm.type"
-						name="type" class="flex-6" required>
+						name="type" class="flex-7" required>
 					<option value="">Select Type</option>
 				</select>
 
@@ -49,7 +49,7 @@
 				</p>
 				<input ng-focus="showInstructions = 'title'"
 					   ng-pattern="/^(?=.*[^\W\'_-])[\w\' -]*$/" ng-model="createUmiForm.title"
-					   ng-maxlength="128" class="flex-6" type="text" name="title"
+					   ng-maxlength="128" class="flex-7" type="text" name="title"
 					   placeholder="Title"
 					   required>
 
@@ -73,7 +73,7 @@
 					</small>
 				</p>
 				<input ng-focus="showInstructions = 'titleSynonyms'"
-					   ng-model="createUmiForm.titleSynonyms" ng-maxlength="128" class="flex-6"
+					   ng-model="createUmiForm.titleSynonyms" ng-maxlength="128" class="flex-7"
 					   type="text"
 					   name="titleSynonyms"
 					   placeholder="Title Synonyms"/>
@@ -94,7 +94,7 @@
 					</small>
 				</p>
 				<textarea ng-focus="showInstructions = 'latexContent'"
-						  ng-model="createUmiForm.latexContent" class="flex-6" name="latexContent"
+						  ng-model="createUmiForm.latexContent" class="flex-7" name="latexContent"
 						  placeholder="LaTeX content" required></textarea>
 
 				<!--Error messages for LaTeX Content-->
@@ -114,7 +114,7 @@
 				</p>
 				<input ng-focus="showInstructions = 'prerequisiteDefinitions'"
 					   ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128"
-					   class="flex-6" type="text"
+					   class="flex-7" type="text"
 					   name="prerequisiteDefinitions"
 					   placeholder="Prerequisite definitions"/>
 
@@ -134,7 +134,7 @@
 					</small>
 				</p>
 				<input ng-focus="showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
-					   ng-maxlength="128" class="flex-6" type="text"
+					   ng-maxlength="128" class="flex-7" type="text"
 					   name="seeAlso"
 					   placeholder="See also"/>
 
@@ -154,7 +154,7 @@
 					</small>
 				</p>
 				<input ng-focus="showInstructions = 'tags'" ng-model="createUmiForm.tags"
-					   ng-maxlength="128" class="flex-6" type="text" name="tags"
+					   ng-maxlength="128" class="flex-7" type="text" name="tags"
 					   placeholder="Tags"/>
 
 				<!--Error messages for Tags-->
@@ -170,13 +170,13 @@
 					<!--<small class="active">{{ instructions.dispatch }}</small>-->
 				</p>
 				<button name="dispatchCreateUmi" ng-focus="showInstructions = false"
-						class="button primary flex-6">Submit
+						class="button primary flex-7">Submit
 				</button>
 			</label>
 		</form>
 	</aside>
 
-	<aside class="flex-1 flex column">
+	<aside class="flex-6 flex column">
 		<header>
 			<h2>Live preview</h2>
 		</header>

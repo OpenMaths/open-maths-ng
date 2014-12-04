@@ -1908,7 +1908,11 @@ body.dark {
         overflow: hidden;
         color: white; }
     .page-contribute aside form label input, .page-contribute aside form label select, .page-contribute aside form label textarea {
-      margin: 0; }
+      margin: 0;
+      font-size: 0.9375rem; }
+    .page-contribute aside form label textarea {
+      line-height: 1.65;
+      min-height: 9.375rem; }
     .page-contribute aside form label p {
       margin: 0;
       position: relative;
