@@ -38,6 +38,8 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 						"currentSelection": 0,
 						"data": data
 					};
+
+					console.log($scope.searchUmiResults);
 				}).
 				error(function (data, status) {
 					alert("No data to display :-(");

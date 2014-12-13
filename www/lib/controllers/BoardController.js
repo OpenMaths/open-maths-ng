@@ -88,7 +88,9 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 			$scope.fadeInUmi = true;
 		};
 
-		$http.get(appConfig.apiUrl + "/" + getBy + "/" + param).
+		var url = (getBy == "uriFriendlyTitle") ? appConfig.apiUrl + "/" + param : appConfig.apiUrl + "/" + getBy + "/" + param
+
+		$http.get(url).
 			success(function (data) {
 				if (classes) {
 					data.targetClasses = classes;
@@ -109,7 +111,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 			});
 	};
 
-	getUmi("id", initId, [1,1]);
+	getUmi("uriFriendlyTitle", initId, [1,1]);
 
 	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
