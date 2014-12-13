@@ -1,7 +1,6 @@
 app.controller("BoardController", function ($scope, $rootScope, $http, $timeout, $routeParams) {
 	$rootScope.title = "Board";
 	$rootScope.navTopTransparentClass = false;
-	$scope.navBoard = true;
 	$scope.grid = [];
 
 	$scope.rows = sessionStorage.getItem("gridRows") ? parseInt(sessionStorage.getItem("gridRows")) : 3;

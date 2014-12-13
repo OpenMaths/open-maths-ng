@@ -7,8 +7,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	$rootScope.title = "Contribute";
 	$rootScope.navTopTransparentClass = false;
 
-	$scope.navContribute = true;
-
 	$scope.errorMessages = {
 		required: "This field is required.",
 		maxLength: "This field is exceeding the maximum length of 128 characters.",

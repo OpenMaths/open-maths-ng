@@ -1,7 +1,6 @@
 app.controller("DiveController", function ($scope, $rootScope, $http, $location) {
 	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
-	$scope.navDive = true;
 
 	//if (sessionStorage.getItem("umiLastSearchTitle")) {
 	//	var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");

@@ -12,7 +12,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 */
 	function returnPath() {
 		var splitUrl = $location.url().split("/");
-		$scope.path = splitUrl[1] == "" ? "dive-into" : splitUrl[1];
+		$scope.path = splitUrl[1] == "" ? "dive" : splitUrl[1];
 
 		// @TODO: check if this works properly
 		$window.ga("send", "pageview", {page: $location.path()});
