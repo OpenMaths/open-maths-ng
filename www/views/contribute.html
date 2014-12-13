@@ -16,7 +16,7 @@
 		<form name="umiContributeForm" class="flex-1 flex column" ng-submit="createUmi()">
 			<!--Type-->
 			<label for="type" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					Type
 					<small ng-class="{active : showInstructions == 'type'}">{{ instructions.type
 						}}
@@ -38,7 +38,7 @@
 
 			<!--Title-->
 			<label for="title" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					Title
 					<small ng-class="{active : showInstructions == 'title'}">{{ instructions.title
 						}}
@@ -63,7 +63,7 @@
 
 			<!--Title Synonyms-->
 			<label for="titleSynonyms" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					Title Synonyms
 					<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{
 						instructions.titleSynonyms }}
@@ -84,7 +84,7 @@
 
 			<!--LaTeX Content-->
 			<label for="latexContent" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					LaTeX content
 					<small ng-class="{active : showInstructions == 'latexContent'}">{{
 						instructions.latexContent }}
@@ -103,7 +103,7 @@
 
 			<!--Prerequisite definitions-->
 			<label for="prerequisiteDefinitions" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					Prerequisite definitions
 					<small ng-class="{active : showInstructions == 'prerequisiteDefinitions'}">{{
 						instructions.prerequisiteDefinitions }}
@@ -130,7 +130,7 @@
 
 			<!--See also-->
 			<label for="seeAlso" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					See also
 					<small ng-class="{active : showInstructions == 'seeAlso'}">{{
 						instructions.seeAlso }}
@@ -150,7 +150,7 @@
 
 			<!--Tags-->
 			<label for="tags" class="flex">
-				<p class="flex-3">
+				<p class="flex-2">
 					Tags
 					<small ng-class="{active : showInstructions == 'tags'}">{{ instructions.tags
 						}}
@@ -169,7 +169,7 @@
 
 			<label for="dispatchCreateUmi" class="flex button-holder"
 				   ng-show="umiContributeForm.$valid">
-				<p class="flex-3">
+				<p class="flex-2">
 					<!--<small class="active">{{ instructions.dispatch }}</small>-->
 				</p>
 				<button name="dispatchCreateUmi" ng-focus="showInstructions = false"

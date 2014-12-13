@@ -1055,7 +1055,7 @@ dl {
     font-size: 0.875rem; }
 
 .drop-down {
-  z-index: 6;
+  z-index: 7;
   position: relative; }
   .drop-down .contextual-menu {
     -o-border-radius: 0 0 4px 4px;
@@ -1102,7 +1102,7 @@ dl {
 #loading-bar .bar {
   -webkit-transition: width 350ms;
   transition: width 350ms;
-  z-index: 8;
+  z-index: 9;
   background: #1b2424;
   position: fixed;
   top: 0;
@@ -1468,7 +1468,7 @@ noscript #warning {
 .notification {
   -webkit-transition: top 0.25s;
   transition: top 0.25s;
-  z-index: 7;
+  z-index: 8;
   position: fixed;
   left: 0;
   top: -4rem;
@@ -1898,12 +1898,17 @@ body.dark {
     .page-contribute aside form label.button-holder {
       margin: 1rem 0; }
     .page-contribute aside form label .search-results {
+      -o-border-radius: 0 0 4px 4px;
+      border-radius: 0 0 4px 4px;
+      z-index: 6;
+      border: 1px solid #d5e0e0;
+      border-top: 0;
       position: absolute;
       width: 100%;
       top: 100%;
       left: 0;
-      background: #1b2424;
-      color: white; }
+      background: white;
+      padding: 1rem; }
       .page-contribute aside form label .search-results span {
         display: block; }
         .page-contribute aside form label .search-results span.active {

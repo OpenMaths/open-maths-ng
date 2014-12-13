@@ -31,12 +31,18 @@
 					margin: $base-unit-layout 0
 
 				.search-results
+					+border-radius(0 0 4px 4px)
+					+z-index(search-results-contribute)
+
+					border: 1px solid $color-grey-200
+					border-top: 0
 					position: absolute
 					width: 100%
 					top: 100%
 					left: 0
-					background: $color-black
-					color: white
+					background: white
+					//color: white
+					padding: $base-unit-layout
 
 					span
 						display: block

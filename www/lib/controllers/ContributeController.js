@@ -50,7 +50,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		title : "Users will be able to search your contribution.",
 		titleSynonyms : "Comma-separated list of alternative names.",
 		latexContent : "The actual content. You are free to use LaTeX (including text-mode macros!!).",
-		prerequisiteDefinitions : "Comma-separated list of valid Titles upon which your contribution depends.",
+		prerequisiteDefinitions : "Comma-separated list of valid dependency Titles.",
 		seeAlso : "Comma-separated list of valid Titles which may be related.",
 		tags : "Comma-separated list of tags to help users find your contribution.",
 		dispatch: "Submitting your contribution will create a request to pull the content into our database."
@@ -78,21 +78,36 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			message : "Initialise UMI",
 			content : createUmiForm.latexContent,
 			title : createUmiForm.title,
-			titleSynonyms : createUmiForm.titleSynonyms ? createUmiForm.titleSynonyms : [],
-			prerequisiteDefinitionIds : createUmiForm.prerequisiteDefinitions ? createUmiForm.prerequisiteDefinitions : [],
-			seeAlsoIds : createUmiForm.seeAlso ? createUmiForm.seeAlso : [],
+			titleSynonyms : createUmiForm.titleSynonyms ? [createUmiForm.titleSynonyms] : [],
+			prerequisiteDefinitionIds : createUmiForm.prerequisiteDefinitions ? [createUmiForm.prerequisiteDefinitions] : [],
+			seeAlsoIds : createUmiForm.seeAlso ? [createUmiForm.seeAlso] : [],
 			tags : createUmiForm.tags ? [createUmiForm.tags] : [],
 			umiType : createUmiForm.type.id
 		};
 
-		console.log(dispatchCreateUmi);
+		if ($scope.editUmiData) {
+			var updateUmi = {
+				umiId: $scope.editUmiData.id,
+				author: $scope.omUser.email,
+				message: "Update UMI",
+				newLatex: createUmiForm.latexContent
+			};
+		}
+
+		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
+
+		console.log(dispatchData);
+
+		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
 		// TODO: Abstract this as a function to make POST requests
 		var http = new XMLHttpRequest();
-		var url = "http://127.0.0.1:8080/add"; //appConfig.apiUrl + "/add";
-		var data = JSON.stringify(dispatchCreateUmi);
+		var url = "http://127.0.0.1:8080/" + method[1]; //appConfig.apiUrl + "/add";
+		var data = JSON.stringify(dispatchData);
 
-		http.open("POST", url, true);
+		http.open(method[0], url, true);
+
+		console.log(method);
 
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
