@@ -1887,6 +1887,7 @@ body.dark {
   .page-contribute aside header {
     padding: 0 0 2rem; }
     .page-contribute aside header h2 {
+      margin-top: 0;
       font-size: 1.25rem; }
     .page-contribute aside header p {
       font-size: 0.875rem;
@@ -1896,6 +1897,17 @@ body.dark {
     position: relative; }
     .page-contribute aside form label.button-holder {
       margin: 1rem 0; }
+    .page-contribute aside form label .search-results {
+      position: absolute;
+      width: 100%;
+      top: 100%;
+      left: 0;
+      background: #1b2424;
+      color: white; }
+      .page-contribute aside form label .search-results span {
+        display: block; }
+        .page-contribute aside form label .search-results span.active {
+          font-weight: 700; }
     .page-contribute aside form label .error-message {
       cursor: help;
       position: absolute;

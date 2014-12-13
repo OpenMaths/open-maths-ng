@@ -113,7 +113,13 @@
 					   ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128"
 					   class="flex-7" type="text"
 					   name="prerequisiteDefinitions"
+					   ng-change="search('prerequisiteDefinitions')"
+					   ng-keydown="searchResultsNavigate(searchResults['prerequisiteDefinitions'], $event)"
 					   placeholder="Prerequisite definitions"/>
+
+				<div class="search-results">
+					<span ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}}</span>
+				</div>
 
 				<!--Error messages for Prerequisite definitions-->
 				<div class="error-message">

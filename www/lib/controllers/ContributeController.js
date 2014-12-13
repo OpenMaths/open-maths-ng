@@ -121,4 +121,33 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		http.send(data);
 	};
+
+	$scope.search = function (name) {
+		var searchTerm = $scope.createUmiForm[name];
+
+		var termLength = searchTerm.length;
+
+		if (termLength > 0) {
+			$http.get(appConfig.apiUrl + "/search/" + searchTerm).
+				success(function (data) {
+					$scope.searchResults = {};
+
+					var results = {
+						"currentSelection": 0,
+						"data": data
+					}
+
+					$scope.searchResults[name] = results;
+
+					console.log($scope.searchResults);
+				}).
+				error(function (data, status) {
+					alert("No data to display :-(");
+					console.log(data + " | " + status);
+				});
+		}
+		else {
+			$scope.searchResults = false;
+		}
+	};
 });
