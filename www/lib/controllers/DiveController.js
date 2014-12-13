@@ -51,21 +51,16 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 		}
 	};
 
-	$scope.getUmi = function (id) {
-		if (!id) {
+	$scope.getUmi = function (uri) {
+		if (!uri) {
 			if (!$scope.searchUmiResults) {
 				return false;
 			}
-
-			//console.log($scope.searchUmiResults);
-			//console.log($scope.searchUmiResults.data);
-
-			//id = $scope.searchUmiResults[data][$scope.searchUmiResults[currentSelection]]["id"];
 		}
 
 		sessionStorage.setItem("umiLastSearchTitle", $scope.searchUmiTerm);
 		sessionStorage.setItem("umiLastSearchResults", JSON.stringify($scope.searchUmiResults));
 
-		$location.path("/board/" + id);
+		$location.path("/board/" + uri);
 	};
 });
