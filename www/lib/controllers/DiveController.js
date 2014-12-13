@@ -1,7 +1,6 @@
 app.controller("DiveController", function ($scope, $rootScope, $http, $location) {
 	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
-	$scope.navDive = true;
 
 	//if (sessionStorage.getItem("umiLastSearchTitle")) {
 	//	var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
@@ -39,6 +38,8 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 						"currentSelection": 0,
 						"data": data
 					};
+
+					console.log($scope.searchUmiResults);
 				}).
 				error(function (data, status) {
 					alert("No data to display :-(");
@@ -50,21 +51,16 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 		}
 	};
 
-	$scope.getUmi = function (id) {
-		if (!id) {
+	$scope.getUmi = function (uri) {
+		if (!uri) {
 			if (!$scope.searchUmiResults) {
 				return false;
 			}
-
-			//console.log($scope.searchUmiResults);
-			//console.log($scope.searchUmiResults.data);
-
-			//id = $scope.searchUmiResults[data][$scope.searchUmiResults[currentSelection]]["id"];
 		}
 
 		sessionStorage.setItem("umiLastSearchTitle", $scope.searchUmiTerm);
 		sessionStorage.setItem("umiLastSearchResults", JSON.stringify($scope.searchUmiResults));
 
-		$location.path("/board/" + id);
+		$location.path("/board/" + uri);
 	};
 });
