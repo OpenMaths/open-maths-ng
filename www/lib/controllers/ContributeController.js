@@ -49,9 +49,11 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			titleSynonyms : createUmiForm.titleSynonyms ? createUmiForm.titleSynonyms : [],
 			prerequisiteDefinitionIds : createUmiForm.prerequisiteDefinitions ? createUmiForm.prerequisiteDefinitions : [],
 			seeAlsoIds : createUmiForm.seeAlso ? createUmiForm.seeAlso : [],
-			tags : createUmiForm.tags ? createUmiForm.tags : [],
+			tags : createUmiForm.tags ? [createUmiForm.tags] : [],
 			umiType : createUmiForm.type.id
 		};
+
+		console.log(dispatchCreateUmi);
 
 		// TODO: Abstract this as a function to make POST requests
 		// TODO: Look into JSONP
@@ -64,7 +66,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 		//http.setRequestHeader("Accept", "application/json;charset=UTF-8");
 
-		http.onload = function() {
+		http.onload = function(e) {
+			console.log(e);
 			$scope.notification = {
 				"message": "Your contribution was successfully posted!",
 				"type": "success",
