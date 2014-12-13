@@ -1,5 +1,6 @@
 .notification
 	+transition(top .25s)
+	+z-index(notification)
 
 	position: fixed
 	left: 0
@@ -8,8 +9,6 @@
 	height: $quadruple-unit-layout
 	background: $color-blue
 	color: $color-blue-900
-	// TODO: abstract into z-index module
-	z-index: 9
 
 	&.info
 		background: $color-blue

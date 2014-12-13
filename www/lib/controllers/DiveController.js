@@ -25,6 +25,7 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 		if (termLength > 0) {
 			$http.get(appConfig.apiUrl + "/search/" + $scope.searchUmiTerm).
 				success(function (data) {
+					// Temp implementation of search results metric
 					var scoreMetric = 100 / (data.length + 1);
 					var scoreMultiplier = 1;
 

@@ -1,4 +1,4 @@
-// @TODO: investigate factories -> would be nice to have notifications reqistered as factories / services
+// @TODO: investigate factories -> would be nice to have notifications registered as factories / services
 
 app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
