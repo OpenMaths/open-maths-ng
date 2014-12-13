@@ -1589,7 +1589,9 @@ h6 {
     border-bottom-color: white; }
     .umi.closes-bottom .expand-down {
       display: none; }
-  .umi:hover .title .full-screen, .umi:focus .title .full-screen {
+  .umi:hover .title .edit,
+  .umi:hover .title .full-screen, .umi:focus .title .edit,
+  .umi:focus .title .full-screen {
     opacity: 1; }
   .umi .content-holder {
     -webkit-box-flex: 1;
@@ -1634,6 +1636,7 @@ h6 {
       border-color: #1b2424;
       margin: 0 0.75rem 0 0;
       font-size: 0.6875rem; }
+    .umi .title .edit,
     .umi .title .full-screen {
       -webkit-transition: opacity 0.25s;
       transition: opacity 0.25s;
@@ -1645,10 +1648,14 @@ h6 {
       width: 2rem;
       height: 2rem;
       background-image: url("/assets/images/icons/icon-set/icon-set_expand.svg");
-      background-size: 150%;
+      background-size: 140%;
       background-position: center center;
       background-repeat: no-repeat;
       background-color: white; }
+    .umi .title .edit {
+      right: 2rem;
+      background-image: url("/assets/images/icons/icon-set/icon-set_list.svg");
+      background-size: 150%; }
   .umi article {
     width: 100%; }
     .umi article p {
@@ -1721,9 +1728,12 @@ h6 {
 
 .dark .umi .title {
   color: #7e9e9e; }
+  .dark .umi .title .edit,
   .dark .umi .title .full-screen {
     background-image: url("/assets/images/icons/icon-set/icon-set_expand-dark.svg");
     background-color: #1b2424; }
+  .dark .umi .title .edit {
+    background-image: url("/assets/images/icons/icon-set/icon-set_list-dark.svg"); }
   .dark .umi .title label {
     color: #7e9e9e;
     border-color: #7e9e9e; }

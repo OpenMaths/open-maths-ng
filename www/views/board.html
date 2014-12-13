@@ -25,6 +25,8 @@
 					 ng-hide="!data.htmlContent">
 					<div class="content-holder">
 						<div class="title flex center-vertically">
+							<!--This should only be displayed if a user is signed in!!-->
+							<a href="/contribute/edit:{{data.id}}"><i class="edit"></i></a>
 							<i class="full-screen"></i>
 							<label class="proof">{{ data.umiType }}</label>
 							<strong class="flex-1">{{ data.title }}</strong>

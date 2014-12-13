@@ -11,7 +11,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			$location.path("/contribute");
 		}
 
-		$http.get(appConfig.apiUrl + "/" + splitEditParam[1]).
+		$http.get(appConfig.apiUrl + "/id/" + splitEditParam[1]).
 			success(function (data) {
 				$scope.editUmiData = data;
 				$rootScope.title = $scope.editUmiData ? $scope.editUmiData.title : "Contribute";
