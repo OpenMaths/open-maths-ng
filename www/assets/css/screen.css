@@ -801,13 +801,13 @@ form .file-button {
   overflow: hidden;
   margin: 0 0 1rem; }
   form .file-button input[type="file"] {
+    z-index: 2;
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
-    z-index: 2;
     cursor: pointer !important; }
   form .file-button .button {
     margin: 0; }
@@ -1010,8 +1010,8 @@ dl {
     font-size: 0.875rem; }
 
 .drop-down {
-  position: relative;
-  z-index: 2; }
+  z-index: 6;
+  position: relative; }
   .drop-down .contextual-menu {
     -o-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
@@ -1057,9 +1057,9 @@ dl {
 #loading-bar .bar {
   -webkit-transition: width 350ms;
   transition: width 350ms;
+  z-index: 8;
   background: #1b2424;
   position: fixed;
-  z-index: 10002;
   top: 0;
   left: 0;
   width: 100%;
@@ -1423,14 +1423,14 @@ noscript #warning {
 .notification {
   -webkit-transition: top 0.25s;
   transition: top 0.25s;
+  z-index: 7;
   position: fixed;
   left: 0;
   top: -4rem;
   width: 100%;
   height: 4rem;
   background: #6eb3c9;
-  color: #327186;
-  z-index: 9; }
+  color: #327186; }
   .notification.info {
     background: #6eb3c9;
     color: #327186; }
@@ -1635,6 +1635,7 @@ h6 {
           border-radius: 100%;
           -webkit-transition: all 0.25s;
           transition: all 0.25s;
+          z-index: 1;
           position: absolute;
           width: 1.5rem;
           height: 1.5rem;
@@ -1645,8 +1646,7 @@ h6 {
           background-size: 75%;
           display: block;
           cursor: pointer;
-          opacity: 0;
-          z-index: 1; }
+          opacity: 0; }
           .umi article p strong i.expand-down, .umi article p strong i.expand-up {
             left: 50%;
             margin-left: -0.75rem; }
@@ -1757,8 +1757,8 @@ body.dark {
     .page-board #board-container #grid #manage-row {
       -webkit-transition: all 0.25s;
       transition: all 0.25s;
+      z-index: 5;
       position: absolute;
-      z-index: 3;
       opacity: 0; }
       .page-board #board-container #grid #manage-column a,
       .page-board #board-container #grid #manage-row a {
@@ -1814,7 +1814,7 @@ body.dark {
     position: relative;
     min-height: 11.25rem; }
     .page-board #board-container .row .resize-row {
-      z-index: 2;
+      z-index: 4;
       position: absolute;
       left: 0;
       bottom: 0;
@@ -1822,6 +1822,7 @@ body.dark {
       height: 0.5rem;
       cursor: row-resize !important; }
     .page-board #board-container .row .column {
+      z-index: 3;
       position: relative;
       display: -webkit-box;
       display: -webkit-flex;
@@ -1832,7 +1833,6 @@ body.dark {
       -webkit-flex-direction: column;
           -ms-flex-direction: column;
               flex-direction: column;
-      z-index: 1;
       border-right: 1px solid #d5e0e0;
       border-bottom: 1px solid #d5e0e0; }
       .page-board #board-container .row .column:last-of-type {
