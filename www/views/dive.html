@@ -11,7 +11,6 @@
 	<form id="search-umi" class="search-form flex-1 flex column center-vertically center-horizontally" ng-submit="getUmi(searchUmiResults.data[searchUmiResults.currentSelection].id)" tabindex="0">
 		<input type="text" placeholder="Dive into..." name="searchUmiTerm" ng-model="searchUmiTerm" ng-change="searchUmiKeyDown()" ng-keydown="searchResultsNavigate(searchUmiResults, $event)" class="unstyled" autofocus />
 		<article class="container-narrow search-umi-results">
-			Active selection: {{ searchUmiResults.currentSelection }}
 			<div class="item flex center-vertically" ng-repeat="result in searchUmiResults.data" ng-class="{active : $index == searchUmiResults.currentSelection}" ng-click="getUmi(result.id)">
 				<aside class="title">{{ result.title }}</aside>
 				<aside class="score">

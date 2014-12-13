@@ -1861,14 +1861,6 @@ body.dark {
 .page-board.dark #board-container .row .column {
   border-right: 1px solid #384b4b;
   border-bottom: 1px solid #384b4b; }
-.page-board.dark .timeline {
-  border-top: 1px solid #384b4b; }
-  .page-board.dark .timeline:before {
-    background: #384b4b; }
-  .page-board.dark .timeline article img {
-    border-color: #1b2424; }
-  .page-board.dark .timeline article small {
-    color: #4e6868; }
 
 .page-contribute footer {
   margin-top: 2rem;
