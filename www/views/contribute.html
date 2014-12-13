@@ -5,7 +5,8 @@
 <div class="flex">
 	<aside class="flex-7">
 		<header>
-			<h2>Contributing as {{ omUser.email }}</h2>
+			<h2 ng-hide="editUmiData">Contributing as {{ omUser.email }}</h2>
+			<h2 ng-show="editUmiData">Editing {{ editUmiData.title }}</h2>
 
 			<p>Please note that our editor features an automatic checker, as well as
 				interactive guidance throughout the whole process of filling out
@@ -22,7 +23,7 @@
 					</small>
 				</p>
 				<select ng-focus="showInstructions = 'type'"
-						ng-options="type as type.label for type in umiTypes"
+						ng-options="type as type.label for type in umiTypes track by type.id"
 						ng-model="createUmiForm.type"
 						name="type" class="flex-7" required>
 					<option value="">Select Type</option>
@@ -181,8 +182,8 @@
 			<div class="umi fade-in">
 				<div class="content-holder">
 					<div class="title flex center-vertically">
-						<label class="proof"
-							   ng-bind="createUmiForm.type.label || 'Contribution type'"></label>
+						<label
+							ng-bind="createUmiForm.type.label || 'Contribution type'"></label>
 						<strong class="flex-1"
 								ng-bind="createUmiForm.title || 'Contribution Title'"></strong>
 					</div>

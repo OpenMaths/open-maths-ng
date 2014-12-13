@@ -1,10 +1,42 @@
-app.controller("ContributeController", function ($scope, $rootScope, $http, $location, $timeout) {
+app.controller("ContributeController", function ($scope, $rootScope, $http, $location, $timeout, $routeParams) {
 	if (!$scope.omUser) {
 		alert("You must be logged in to Contribute to OpenMaths!");
 		$location.path("/");
 	}
 
-	$rootScope.title = "Contribute";
+	if ($routeParams.edit) {
+		var splitEditParam = $routeParams.edit.split(":");
+
+		if (splitEditParam[0] !== "edit") {
+			$location.path("/contribute");
+		}
+
+		$http.get(appConfig.apiUrl + "/" + splitEditParam[1]).
+			success(function (data) {
+				$scope.editUmiData = data;
+				$rootScope.title = $scope.editUmiData ? $scope.editUmiData.title : "Contribute";
+
+				$scope.createUmiForm = {
+					type: {id: data.umiType, label: data.umiType},
+					title: data.title,
+					titleSynonyms: data.titleSynonyms,
+					latexContent: data.latexContent,
+					seeAlso: data.seeAlso,
+					tags: data.tags
+				};
+			}).
+			error(function () {
+				$scope.notification = {
+					"message": "There was an error loading the requested contribution.",
+					"type": "error",
+					"act": true
+				};
+				$timeout(function () {
+					$scope.notification.act = false;
+				}, 2500);
+			});
+	}
+
 	$rootScope.navTopTransparentClass = false;
 
 	$scope.errorMessages = {
@@ -56,7 +88,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		console.log(dispatchCreateUmi);
 
 		// TODO: Abstract this as a function to make POST requests
-		// TODO: Look into JSONP
 		var http = new XMLHttpRequest();
 		var url = "http://127.0.0.1:8080/add"; //appConfig.apiUrl + "/add";
 		var data = JSON.stringify(dispatchCreateUmi);
@@ -64,7 +95,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		http.open("POST", url, true);
 
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-		//http.setRequestHeader("Accept", "application/json;charset=UTF-8");
 
 		http.onload = function(e) {
 			console.log(e);

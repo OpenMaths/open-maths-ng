@@ -12,7 +12,7 @@ var app = angular.module("openMathsApp", [
 			templateUrl: "views/board.html",
 			controller: "BoardController"
 		})
-		.when("/contribute", {
+		.when("/contribute/:edit?", {
 			templateUrl: "views/contribute.html",
 			controller: "ContributeController"
 		})
