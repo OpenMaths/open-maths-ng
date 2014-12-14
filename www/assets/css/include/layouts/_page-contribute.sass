@@ -30,25 +30,32 @@
 				&.button-holder
 					margin: $base-unit-layout 0
 
-				.search-results
-					+border-radius(0 0 4px 4px)
-					+z-index(search-results-contribute)
+				> div
+					position: relative
+					
+					input
+						width: 100%
 
-					border: 1px solid $color-grey-200
-					border-top: 0
-					position: absolute
-					width: 100%
-					top: 100%
-					left: 0
-					background: white
-					//color: white
-					padding: $base-unit-layout
+					.search-results
+						+border-radius(0 0 4px 4px)
+						+z-index(search-results-contribute)
 
-					span
-						display: block
+						border: 1px solid $color-grey-200
+						border-top: 0
+						position: absolute
+						width: 100%
+						top: 100%
+						margin-top: -2px
+						left: 0
+						background: white
+						//color: white
+						padding: $base-unit-layout
 
-						&.active
-							font-weight: 700
+						span
+							display: block
+
+							&.active
+								font-weight: 700
 
 				.error-message
 					cursor: help

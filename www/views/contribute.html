@@ -1,3 +1,5 @@
+<div notification></div>
+
 <!--Top navigation-->
 <div nav-top></div>
 <!--Top navigation-->
@@ -6,7 +8,7 @@
 	<aside class="flex-7">
 		<header>
 			<h2 ng-hide="editUmiData">Contributing as {{ omUser.email }}</h2>
-			<h2 ng-show="editUmiData">Editing {{ editUmiData.title.title }}</h2>
+			<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>
 
 			<p>Please note that our editor features an automatic checker, as well as
 				interactive guidance throughout the whole process of filling out
@@ -109,16 +111,22 @@
 						instructions.prerequisiteDefinitions }}
 					</small>
 				</p>
-				<input ng-focus="showInstructions = 'prerequisiteDefinitions'"
-					   ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128"
-					   class="flex-7" type="text"
-					   name="prerequisiteDefinitions"
-					   ng-change="search('prerequisiteDefinitions')"
-					   ng-keydown="searchResultsNavigate(searchResults['prerequisiteDefinitions'], $event)"
-					   placeholder="Prerequisite definitions"/>
+				<div class="flex-7">
+					<input ng-focus="showInstructions = 'prerequisiteDefinitions'"
+						   ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128"
+						   type="text"
+						   name="prerequisiteDefinitions"
+						   ng-change="search('prerequisiteDefinitions')"
+						   ng-keydown="searchResultsNavigate(searchResults['prerequisiteDefinitions'], $event)"
+						   placeholder="Prerequisite definitions"/>
 
-				<div class="search-results">
-					<span ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}}</span>
+					<div class="search-results" ng-show="showInstructions == 'prerequisiteDefinitions'">
+						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}} - {{result.id}}</span>
+					</div>
+
+					<div class="added-titles">
+
+					</div>
 				</div>
 
 				<!--Error messages for Prerequisite definitions-->
@@ -182,6 +190,7 @@
 	<aside class="flex-6 flex column">
 		<header>
 			<h2>Live preview</h2>
+			<p>This is what your contribution will look like as a single unit.</p>
 		</header>
 
 		<div class="umi-preview-holder flex-1 flex center-vertically center-horizontally">

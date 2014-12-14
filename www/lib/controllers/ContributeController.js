@@ -109,45 +109,38 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		http.open(method[0], url, true);
 
-		console.log(method);
-
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
 		http.onreadystatechange = function() {
 			if (http.readyState != 4) {
-				alert("ok");
-			}
-
-			if (http.status != 200 && http.status != 304) {
-				alert('HTTP error ' + http.status);
-				return;
+				$scope.notification = {
+					"message": "Your contribution was successfully posted!",
+					"type": "success",
+					"act": true
+				};
+				$timeout(function () {
+					$scope.notification.act = false;
+				}, 2500);
+			} else {
+				$scope.notification = {
+					"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
+					"type": "error",
+					"act": true
+				};
+				$timeout(function () {
+					$scope.notification.act = false;
+				}, 2500);
 			}
 		}
 
-		//http.onload = function(e) {
-		//	console.log(e);
-		//	$scope.notification = {
-		//		"message": "Your contribution was successfully posted!",
-		//		"type": "success",
-		//		"act": true
-		//	};
-		//	$timeout(function () {
-		//		$scope.notification.act = false;
-		//	}, 2500);
-		//};
-		//
-		//http.onerror = function(e) {
-		//	$scope.notification = {
-		//		"message": "There was an error making the request. Please check your contribution again before posting",
-		//		"type": "error",
-		//		"act": true
-		//	};
-		//	$timeout(function () {
-		//		$scope.notification.act = false;
-		//	}, 2500);
-		//};
-
 		http.send(data);
+	};
+
+	$scope.assignUmiId = function(searchResultsPointer, index) {
+		var results = $scope.searchResults[searchResultsPointer];
+		//var assignData = results.data[results.currentSelection];
+		var assignData = results.data[index];
+		console.log(assignData);
 	};
 
 	$scope.search = function (name) {
