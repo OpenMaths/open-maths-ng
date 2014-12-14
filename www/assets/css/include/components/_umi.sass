@@ -9,7 +9,7 @@
 	flex: 1
 	display: flex
 	flex-direction: column
-	padding: $umi-side-padding // $umi-side-padding $half-unit-layout
+	padding: $umi-side-padding
 
 	&.fade-in
 		opacity: 1
@@ -40,6 +40,7 @@
 
 	+hover
 		.title
+			.edit,
 			.full-screen
 				opacity: 1
 
@@ -76,6 +77,7 @@
 			margin: 0 ($base-unit-layout - $quarter-unit-layout) 0 0
 			font-size: rem(11px)
 
+		.edit,
 		.full-screen
 			+transition(opacity .25s)
 
@@ -88,10 +90,16 @@
 			height: $double-unit-layout
 			background:
 				image: url("#{$image-base}/icons/icon-set/icon-set_expand.svg")
-				size: 150%
+				size: 140%
 				position: center center
 				repeat: no-repeat
 				color: white
+
+		.edit
+			right: $double-unit-layout
+			background:
+				image: url("#{$image-base}/icons/icon-set/icon-set_list.svg")
+				size: 150%
 
 	article
 		width: 100%
@@ -131,6 +139,7 @@
 				i
 					+border-radius(100%)
 					+transition(all .25s)
+					+z-index(umi-icon)
 
 					position: absolute
 					width: $double-half-unit-layout
@@ -144,7 +153,6 @@
 					display: block
 					cursor: pointer
 					opacity: 0
-					z-index: 1
 
 					&.expand-down,
 					&.expand-up
@@ -199,10 +207,15 @@
 		.title
 			color: $color-grey-500
 
+			.edit,
 			.full-screen
 				background:
 					image: url("#{$image-base}/icons/icon-set/icon-set_expand-dark.svg")
 					color: $color-black
+
+			.edit
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_list-dark.svg")
 
 			label
 				color: $color-grey-500

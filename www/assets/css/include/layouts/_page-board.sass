@@ -9,9 +9,9 @@
 			#manage-column,
 			#manage-row
 				+transition(all .25s)
+				+z-index(manage-column)
 
 				position: absolute
-				z-index: 3
 				opacity: 0
 
 				a
@@ -78,7 +78,8 @@
 			min-height: rem(180px)
 
 			.resize-row
-				z-index: 2
+				+z-index(resize-row)
+
 				position: absolute
 				left: 0
 				bottom: 0
@@ -87,10 +88,11 @@
 				cursor: row-resize !important
 
 			.column
+				+z-index(column)
+
 				position: relative
 				display: flex
 				flex-direction: column
-				z-index: 1 // abstract as a module
 				border-right: 1px solid $color-grey-200
 				border-bottom: 1px solid $color-grey-200
 
@@ -140,16 +142,3 @@
 				.column
 					border-right: 1px solid $color-grey-800
 					border-bottom: 1px solid $color-grey-800
-
-		.timeline
-			border-top: 1px solid $color-grey-800
-
-			&:before
-				background: $color-grey-800
-
-			article
-				img
-					border-color: $color-black
-
-				small
-					color: $color-grey-700

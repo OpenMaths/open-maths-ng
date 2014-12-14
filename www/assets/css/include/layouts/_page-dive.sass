@@ -1,10 +1,10 @@
-.page-dive-into
+.page-dive
 	#masthead
 		height: 100vh
 		background:
-			image: url("#{$image-base}/bg/cover-dive.jpg")
+			image: url("#{$image-base}/bg/cover-dive-new.jpg")
 			color: #002e43
-			size: cover
+			size: 100% auto
 			repeat: no-repeat
 			position: center 0%
 
@@ -84,75 +84,3 @@
 
 								background: rgba(255,255,255,.25)
 								height: 100%
-
-
-	.timeline
-		position: relative
-		border-top: 1px solid $color-grey-200
-
-		header
-			@extend .text-center
-
-			padding: (.5 * $quadruple-unit-layout) 0 (1.5 * $quadruple-unit-layout)
-			font:
-				size: rem(30px)
-
-		&:before
-			+border-radius($border-radius $border-radius 0 0)
-
-			content: ""
-			position: absolute
-			left: 50%
-			top: 2 * $quadruple-unit-layout
-			width: 4px
-			margin: 0 0 0 -2px
-			height: 100%
-			background: $color-grey-100
-
-		article
-			@extend .text-right
-
-			width: 50%
-			position: relative
-			padding: 0 $double-unit-layout 0 0
-			margin-bottom: $double-unit-layout
-
-			p
-				margin: 0 0 $half-unit-layout
-
-			small
-				color: $color-grey
-
-			img
-				+border-radius(100%)
-
-				width: $double-unit-layout + $half-unit-layout
-				position: absolute
-				top: -($half-unit-layout)
-				right: -($base-unit-layout + $quarter-unit-layout)
-				border: $half-unit-layout solid white
-
-			&:nth-of-type(even)
-				@extend .text-left
-
-				padding: 0 0 0 $double-unit-layout
-				margin-left: 50%
-
-				img
-					right: auto
-					left: -($base-unit-layout + $quarter-unit-layout)
-
-	footer
-		border-top: 1px solid rgba(255,255,255,.2)
-		color: rgba(255,255,255,.4)
-		background: transparent
-
-		+hover
-			background: transparent
-
-		a
-			color: rgba(255,255,255,.4)
-			text-decoration: none
-
-			+hover
-				color: white
