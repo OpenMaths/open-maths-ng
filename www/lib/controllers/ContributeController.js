@@ -73,6 +73,12 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	];
 
 	$scope.createUmi = function() {
+		if ($scope.showSearchResults) {
+			$scope.assignUmiId($scope.showSearchResults, false);
+			
+			return false;
+		}
+
 		var createUmiForm = $scope.createUmiForm;
 
 		var dispatchCreateUmi = {
@@ -142,7 +148,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 	$scope.assignUmiId = function(searchResultsPointer, index) {
 		var results = $scope.searchResults[searchResultsPointer];
-		var assignData = results.data[index];
+		var assignData = !index ? results.data[results.currentSelection] : results.data[index];
 
 		$scope.assignData[assignData.id] = assignData.title;
 

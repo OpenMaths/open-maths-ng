@@ -124,8 +124,8 @@
 						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}} - {{result.id}}</span>
 					</div>
 
-					<div class="added-titles">
-						<span ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}</span>
+					<div class="added-titles flex">
+						<span class="label" ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}</span>
 					</div>
 				</div>
 

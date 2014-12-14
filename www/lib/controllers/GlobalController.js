@@ -168,7 +168,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @returns {boolean}
 	 *
 	 * @TODO: Turn into a factory?
-	 * @TODO: Dispatch event on Return?
+	 * @TODO: Dispatch event on Return key?
 	 */
 	$scope.searchResultsNavigate = function (res, e) {
 		if (!res) {
@@ -178,15 +178,22 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		var searchResultsCount = Object.keys(res.data).length;
 		var searchResultsCurrentSelection = res.currentSelection;
 
+		// TODO finish!
 		//if (e.keyCode == 13) {
-		//	dispatch;
+		//	e.preventDefault();
 		//}
 
 		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
+			e.preventDefault();
+
 			res.currentSelection = searchResultsCurrentSelection - 1;
 		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
+			e.preventDefault();
+
 			res.currentSelection = searchResultsCurrentSelection + 1;
 		}
+
+		return false;
 	};
 
 });
