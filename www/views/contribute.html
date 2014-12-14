@@ -124,8 +124,8 @@
 						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}} - {{result.id}}</span>
 					</div>
 
-					<div class="added-titles flex">
-						<span class="label" ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}</span>
+					<div class="added-titles flex wrap">
+						<span class="label flex" ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}<small ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
 					</div>
 				</div>
 
@@ -144,10 +144,23 @@
 						instructions.seeAlso }}
 					</small>
 				</p>
-				<input ng-focus="showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
-					   ng-maxlength="128" class="flex-7" type="text"
-					   name="seeAlso"
-					   placeholder="See also"/>
+
+				<div class="flex-7">
+					<input ng-focus="showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
+						   ng-maxlength="128" type="text"
+						   name="seeAlso"
+						   ng-change="search('seeAlso')"
+						   ng-keydown="searchResultsNavigate(searchResults['seeAlso'], $event)"
+						   placeholder="See also"/>
+
+					<div class="search-results" ng-show="showSearchResults == 'seeAlso'">
+						<span ng-click="assignUmiId('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}} - {{result.id}}</span>
+					</div>
+
+					<div class="added-titles flex wrap">
+						<span class="label flex" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
+					</div>
+				</div>
 
 				<!--Error messages for See also-->
 				<div class="error-message">

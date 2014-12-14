@@ -75,7 +75,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	$scope.createUmi = function() {
 		if ($scope.showSearchResults) {
 			$scope.assignUmiId($scope.showSearchResults, false);
-			
+
 			return false;
 		}
 
@@ -87,7 +87,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			content : createUmiForm.latexContent,
 			title : createUmiForm.title,
 			titleSynonyms : createUmiForm.titleSynonyms ? [createUmiForm.titleSynonyms] : [],
-			prerequisiteDefinitionIds : createUmiForm.prerequisiteDefinitions ? [createUmiForm.prerequisiteDefinitions] : [],
+			//TODO use underscore to make all keys integers?
+			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? Object.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
 			seeAlsoIds : createUmiForm.seeAlso ? [createUmiForm.seeAlso] : [],
 			tags : createUmiForm.tags ? [createUmiForm.tags] : [],
 			umiType : createUmiForm.type.id
@@ -143,21 +144,28 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	};
 
 	// TODO Abstract??
-	$scope.assignData = {};
 	$scope.assignDataAll = {};
 
 	$scope.assignUmiId = function(searchResultsPointer, index) {
 		var results = $scope.searchResults[searchResultsPointer];
-		var assignData = !index ? results.data[results.currentSelection] : results.data[index];
+		var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
 
-		$scope.assignData[assignData.id] = assignData.title;
-
-		$scope.createUmiForm.prerequisiteDefinitions = "";
+		$scope.createUmiForm[searchResultsPointer] = "";
 		$scope.showSearchResults = false;
 
-		$scope.assignDataAll[searchResultsPointer] = $scope.assignData;
+		// if allData with particular results pointer is already set:
+		if ($scope.assignDataAll[searchResultsPointer]) {
+			$scope.assignDataAll[searchResultsPointer][assignFromResults.id] = assignFromResults.title;
+		} else {
+			var assignData = {};
+			assignData[assignFromResults.id] = assignFromResults.title;
 
-		//console.log($scope.assignDataAll);
+			$scope.assignDataAll[searchResultsPointer] = assignData;
+		}
+	};
+
+	$scope.removeUmiId = function(searchResultsPointer, id) {
+		delete $scope.assignDataAll[searchResultsPointer][id];
 	};
 
 	$scope.search = function (name) {
@@ -179,7 +187,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 					$scope.searchResults[name] = results;
 
-					console.log($scope.searchResults);
+					//console.log($scope.searchResults);
 				}).
 				error(function (data, status) {
 					alert("No data to display :-(");
@@ -188,6 +196,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		}
 		else {
 			$scope.searchResults = false;
+			$scope.showSearchResults = false;
 		}
 	};
 });

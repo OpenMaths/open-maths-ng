@@ -184,11 +184,11 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		//}
 
 		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
-			e.preventDefault();
+			e.preventDefault(); //needed?
 
 			res.currentSelection = searchResultsCurrentSelection - 1;
 		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
-			e.preventDefault();
+			e.preventDefault(); //needed?
 
 			res.currentSelection = searchResultsCurrentSelection + 1;
 		}

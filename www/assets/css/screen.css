@@ -221,6 +221,10 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex; }
+  .flex.wrap, .page-contribute aside form label p.wrap, .page-contribute aside form label p small.wrap {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; }
   .flex.column, .page-contribute aside form label p.column, .page-contribute aside form label p small.column {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -1911,6 +1915,14 @@ body.dark {
       position: relative; }
       .page-contribute aside form label > div input {
         width: 100%; }
+      .page-contribute aside form label > div .added-titles {
+        padding: 0.5rem 0 0; }
+        .page-contribute aside form label > div .added-titles .label {
+          margin: 0 0.25rem 0.5rem 0; }
+          .page-contribute aside form label > div .added-titles .label small {
+            margin-left: 0.25rem;
+            font-weight: 700;
+            cursor: pointer; }
       .page-contribute aside form label > div .search-results {
         -o-border-radius: 0 0 4px 4px;
         border-radius: 0 0 4px 4px;
