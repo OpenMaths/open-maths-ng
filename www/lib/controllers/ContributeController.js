@@ -4,6 +4,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		$location.path("/");
 	}
 
+	$rootScope.title = "Contribute";
+
 	if ($routeParams.edit) {
 		var splitEditParam = $routeParams.edit.split(":");
 
@@ -11,14 +13,14 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			$location.path("/contribute");
 		}
 
-		$http.get(appConfig.apiUrl + "/id/" + splitEditParam[1]).
+		$http.get(appConfig.apiUrl + "/" + splitEditParam[1]).
 			success(function (data) {
 				$scope.editUmiData = data;
-				$rootScope.title = $scope.editUmiData ? $scope.editUmiData.title : "Contribute";
+				$rootScope.title = $scope.editUmiData.title.title;
 
 				$scope.createUmiForm = {
 					type: {id: data.umiType, label: data.umiType},
-					title: data.title,
+					title: data.title.title,
 					titleSynonyms: data.titleSynonyms,
 					latexContent: data.latexContent,
 					seeAlso: data.seeAlso,
@@ -111,28 +113,39 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
-		http.onload = function(e) {
-			console.log(e);
-			$scope.notification = {
-				"message": "Your contribution was successfully posted!",
-				"type": "success",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.notification.act = false;
-			}, 2500);
-		};
+		http.onreadystatechange = function() {
+			if (http.readyState != 4) {
+				alert("ok");
+			}
 
-		http.onerror = function(e) {
-			$scope.notification = {
-				"message": "There was an error making the request. Please check your contribution again before posting",
-				"type": "error",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.notification.act = false;
-			}, 2500);
-		};
+			if (http.status != 200 && http.status != 304) {
+				alert('HTTP error ' + http.status);
+				return;
+			}
+		}
+
+		//http.onload = function(e) {
+		//	console.log(e);
+		//	$scope.notification = {
+		//		"message": "Your contribution was successfully posted!",
+		//		"type": "success",
+		//		"act": true
+		//	};
+		//	$timeout(function () {
+		//		$scope.notification.act = false;
+		//	}, 2500);
+		//};
+		//
+		//http.onerror = function(e) {
+		//	$scope.notification = {
+		//		"message": "There was an error making the request. Please check your contribution again before posting",
+		//		"type": "error",
+		//		"act": true
+		//	};
+		//	$timeout(function () {
+		//		$scope.notification.act = false;
+		//	}, 2500);
+		//};
 
 		http.send(data);
 	};
