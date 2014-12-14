@@ -120,12 +120,12 @@
 						   ng-keydown="searchResultsNavigate(searchResults['prerequisiteDefinitions'], $event)"
 						   placeholder="Prerequisite definitions"/>
 
-					<div class="search-results" ng-show="showInstructions == 'prerequisiteDefinitions'">
+					<div class="search-results" ng-show="showSearchResults == 'prerequisiteDefinitions'">
 						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}} - {{result.id}}</span>
 					</div>
 
 					<div class="added-titles">
-
+						<span ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}</span>
 					</div>
 				</div>
 

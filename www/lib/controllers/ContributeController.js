@@ -136,11 +136,22 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		http.send(data);
 	};
 
+	// TODO Abstract??
+	$scope.assignData = {};
+	$scope.assignDataAll = {};
+
 	$scope.assignUmiId = function(searchResultsPointer, index) {
 		var results = $scope.searchResults[searchResultsPointer];
-		//var assignData = results.data[results.currentSelection];
 		var assignData = results.data[index];
-		console.log(assignData);
+
+		$scope.assignData[assignData.id] = assignData.title;
+
+		$scope.createUmiForm.prerequisiteDefinitions = "";
+		$scope.showSearchResults = false;
+
+		$scope.assignDataAll[searchResultsPointer] = $scope.assignData;
+
+		//console.log($scope.assignDataAll);
 	};
 
 	$scope.search = function (name) {
@@ -149,6 +160,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		var termLength = searchTerm.length;
 
 		if (termLength > 0) {
+			$scope.showSearchResults = name;
+
 			$http.get(appConfig.apiUrl + "/search/" + searchTerm).
 				success(function (data) {
 					$scope.searchResults = {};
