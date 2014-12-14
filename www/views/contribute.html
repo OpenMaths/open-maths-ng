@@ -5,7 +5,7 @@
 <!--Top navigation-->
 
 <div class="flex">
-	<aside class="flex-8">
+	<aside class="flex-6">
 		<header>
 			<h2 ng-hide="editUmiData">Contributing as {{ omUser.email }}</h2>
 			<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>
@@ -129,11 +129,11 @@
 						   placeholder="Prerequisite definitions"/>
 
 					<div class="search-results" ng-show="showSearchResults == 'prerequisiteDefinitions'">
-						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}} - {{result.id}}</span>
+						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}}</span>
 					</div>
 
 					<div class="added-titles flex wrap" ng-show="assignDataAll.prerequisiteDefinitions">
-						<span class="label flex" ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}<small ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
+						<span class="label" ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
 					</div>
 				</div>
 
@@ -166,7 +166,7 @@
 					</div>
 
 					<div class="added-titles flex wrap" ng-show="assignDataAll.seeAlso">
-						<span class="label flex" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
+						<span class="label" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
 					</div>
 				</div>
 
@@ -211,7 +211,7 @@
 		</form>
 	</aside>
 
-	<aside class="flex-6 flex column">
+	<aside class="flex-5 flex column">
 		<header>
 			<h2>Live preview</h2>
 			<p>This is what your contribution will look like as a single unit.</p>
