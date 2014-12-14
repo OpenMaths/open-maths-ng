@@ -32,8 +32,10 @@
 
 				> div
 					position: relative
-					
-					input
+
+					input,
+					select,
+					textarea
 						width: 100%
 
 					.added-titles
@@ -51,22 +53,29 @@
 						+border-radius(0 0 4px 4px)
 						+z-index(search-results-contribute)
 
-						border: 1px solid $color-grey-200
+						border: 1px solid $color-grey-300
 						border-top: 0
 						position: absolute
 						width: 100%
-						top: 100%
+						top: $double-unit-layout + $half-unit-layout + rem(2px)
 						margin-top: -2px
 						left: 0
-						background: white
+						background: rgba(255,255,255,.9)
 						//color: white
-						padding: $base-unit-layout
+						padding: 0
+						cursor: pointer
+						max-height: 4 * $double-unit-layout
+						overflow-y: scroll
 
-						span
+						> span
 							display: block
+							padding: $base-unit-layout
 
-							&.active
+							&.active,
+							&:hover,
+							&:focus
 								font-weight: 700
+								background: $color-grey-100
 
 				.error-message
 					cursor: help

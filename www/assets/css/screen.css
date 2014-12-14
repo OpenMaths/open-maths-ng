@@ -1913,7 +1913,9 @@ body.dark {
       margin: 1rem 0; }
     .page-contribute aside form label > div {
       position: relative; }
-      .page-contribute aside form label > div input {
+      .page-contribute aside form label > div input,
+      .page-contribute aside form label > div select,
+      .page-contribute aside form label > div textarea {
         width: 100%; }
       .page-contribute aside form label > div .added-titles {
         padding: 0.5rem 0 0; }
@@ -1927,19 +1929,24 @@ body.dark {
         -o-border-radius: 0 0 4px 4px;
         border-radius: 0 0 4px 4px;
         z-index: 6;
-        border: 1px solid #d5e0e0;
+        border: 1px solid #b8caca;
         border-top: 0;
         position: absolute;
         width: 100%;
-        top: 100%;
+        top: 2.625rem;
         margin-top: -2px;
         left: 0;
-        background: white;
-        padding: 1rem; }
-        .page-contribute aside form label > div .search-results span {
-          display: block; }
-          .page-contribute aside form label > div .search-results span.active {
-            font-weight: 700; }
+        background: rgba(255, 255, 255, 0.9);
+        padding: 0;
+        cursor: pointer;
+        max-height: 8rem;
+        overflow-y: scroll; }
+        .page-contribute aside form label > div .search-results > span {
+          display: block;
+          padding: 1rem; }
+          .page-contribute aside form label > div .search-results > span.active, .page-contribute aside form label > div .search-results > span:hover, .page-contribute aside form label > div .search-results > span:focus {
+            font-weight: 700;
+            background: #f2f6f6; }
     .page-contribute aside form label .error-message {
       cursor: help;
       position: absolute;
