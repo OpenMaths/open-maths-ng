@@ -138,12 +138,12 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 					$scope.notification.act = false;
 				}, 2500);
 			}
-		}
+		};
 
 		http.send(data);
 	};
 
-	// TODO Abstract??
+	// TODO: Abstract??
 	$scope.assignDataAll = {};
 
 	$scope.assignUmiId = function(searchResultsPointer, index) {
