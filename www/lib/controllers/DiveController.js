@@ -2,6 +2,16 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 	$rootScope.title = "Dive Into";
 	$rootScope.navTopTransparentClass = true;
 
+	// Lo-dash test
+	var ids = ["1", "2", "3", "4"];
+
+	var idsInt = _.map(ids, function (val) {
+		return _.parseInt(val);
+	});
+
+	console.log(idsInt);
+	// Lo-dash test
+
 	//if (sessionStorage.getItem("umiLastSearchTitle")) {
 	//	var umiLastSearchTitle = sessionStorage.getItem("umiLastSearchTitle");
 	//	$scope.searchUmiTerm = umiLastSearchTitle;
