@@ -38,10 +38,31 @@ app.controller("SearchController", function ($scope, $http) {
 
 	// TODO what if the model is a multi-dimensional array?
 	$scope.search = function (model, key) {
-		var term = $scope[model];
+
+		var term = function (path, object) {
+			var currentPath = path.split('.');
+			var pointer = _.first(currentPath);
+
+			if (currentPath.length > 1) {
+				currentPath.reverse().pop();
+
+				return term(currentPath.reverse().join("."), $scope[pointer]);
+			}
+
+			return object[pointer];
+		};
+
+		var term = term(model, false);
 		var termLength = term.length;
 
 		if (termLength > 0) {
+			// TODO outsource
+			if (key == "dive" && termLength < 40) {
+				var percentage = termLength * 2.5 + "%";
+
+				document.getElementById("masthead").style.backgroundPositionY = percentage;
+			}
+
 			$http.get(appConfig.apiUrl + "/search/" + term).
 				success(function (data) {
 					if (data.length > 0) {

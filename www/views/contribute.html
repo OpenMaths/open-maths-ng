@@ -153,11 +153,11 @@
 					</small>
 				</p>
 
-				<div class="flex-7">
+				<div class="flex-7" ng-controller="SearchController">
 					<input ng-focus="showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
 						   ng-maxlength="128" type="text"
 						   name="seeAlso"
-						   ng-change="search('seeAlso')"
+						   ng-change="search('createUmiForm.seeAlso', 'seeAlso')"
 						   ng-keydown="searchResultsNavigate(searchResults['seeAlso'], $event)"
 						   placeholder="See also"/>
 

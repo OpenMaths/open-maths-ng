@@ -5,21 +5,18 @@
 	<!--Top navigation-->
 
 	<div class="flex-1 flex column center-vertically center-horizontally search-box" ng-controller="SearchController">
-
-	<form id="search-umi" ng-submit="getUmi(searchUmiResults.data[searchUmiResults.currentSelection].uriFriendlyTitle)" tabindex="0">
-		<input type="text" placeholder="Dive into..." name="umiTitle" ng-model="umiTitle" ng-change="search('umiTitle', 'dive')" ng-keydown="searchResultsNavigate(searchResults['dive'], $event)" class="unstyled" autofocus />
-		<article class="container-narrow search-umi-results">
-			{{searchResults}}
-			<!--<div class="item flex center-vertically" ng-repeat="result in searchResults.dive.data" ng-class="{active : $index == searchResults.dive.currentSelection}" ng-click="getUmi(result.uriFriendlyTitle)">-->
-				<!--<aside class="title">{{ result.title }}</aside>-->
-				<!--<aside class="score">-->
-					<!--<div class="bar">-->
-						<!--<div class="progress" style="width: {{ result.score }}"></div>-->
-					<!--</div>-->
-				<!--</aside>-->
-			<!--</div>-->
-		</article>
-	</form>
-
+		<form id="search-umi" ng-submit="getUmi(searchResults.dive.data[searchResults.dive.currentSelection].uriFriendlyTitle)" tabindex="0">
+			<input type="text" placeholder="Dive into..." name="umiTitle" ng-model="umiTitle" ng-change="search('umiTitle', 'dive')" ng-keydown="searchResultsNavigate(searchResults['dive'], $event)" class="unstyled" autofocus />
+			<article class="container-narrow search-umi-results">
+				<div class="item flex center-vertically" ng-repeat="result in searchResults.dive.data" ng-class="{active : $index == searchResults.dive.currentSelection}" ng-click="getUmi(result.uriFriendlyTitle)">
+					<aside class="title">{{ result.title }}</aside>
+					<aside class="score">
+						<div class="bar">
+							<div class="progress" style="width: {{ result.score }}"></div>
+						</div>
+					</aside>
+				</div>
+			</article>
+		</form>
 	</div>
 </section>
