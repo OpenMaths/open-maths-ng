@@ -196,11 +196,13 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		return false;
 	};
 
-	$scope.search = function (term, key) {
+	$scope.search = function (model, key) {
+		var term = $scope;
+		console.log(term);
 		var termLength = term.length;
 
 		if (termLength > 0) {
-			$http.get(appConfig.apiUrl + "/search/" + searchTerm).
+			$http.get(appConfig.apiUrl + "/search/" + term).
 				success(function (data) {
 					if (data.length > 0) {
 						$scope.searchResults = {};
