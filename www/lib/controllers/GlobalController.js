@@ -60,7 +60,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 *
 	 * @returns {boolean}
 	 *
-	 * @TODO: Implement UX-friendly notifications
 	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignIn = function () {
@@ -113,7 +112,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	/**
 	 * Google Sign Out functionality
 	 *
-	 * @TODO: Implement UX-friendly notifications
 	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignOut = function () {
@@ -130,8 +128,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		$timeout(function () {
 			$scope.notification.act = false;
 		}, 2500);
-
-		//$location.path("/");
 	};
 
 	/**
@@ -142,7 +138,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @param type {string} info | warning | error | success
 	 * @returns {boolean}
 	 *
-	 * @TODO: Implement UX-friendly notifications
 	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.accessUrlUser = function (url, message, type) {
@@ -157,72 +152,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		}
 		else {
 			$location.url("/" + url);
-		}
-	};
-
-	/**
-	 * Search functionality
-	 *
-	 * @param res {object} currentSelection, data
-	 * @param e {object} $event
-	 * @returns {boolean}
-	 *
-	 * @TODO: Turn into a factory?
-	 * @TODO: Dispatch event on Return key?
-	 */
-	$scope.searchResultsNavigate = function (res, e) {
-		if (!res) {
-			return false;
-		}
-
-		var searchResultsCount = _.keys(res.data).length;
-		var searchResultsCurrentSelection = res.currentSelection;
-
-		// TODO finish!
-		//if (e.keyCode == 13) {
-		//	e.preventDefault();
-		//}
-
-		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
-			e.preventDefault(); //needed?
-
-			res.currentSelection = searchResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
-			e.preventDefault(); //needed?
-
-			res.currentSelection = searchResultsCurrentSelection + 1;
-		}
-
-		return false;
-	};
-
-	$scope.search = function (model, key) {
-		var term = $scope;
-		console.log(term);
-		var termLength = term.length;
-
-		if (termLength > 0) {
-			$http.get(appConfig.apiUrl + "/search/" + term).
-				success(function (data) {
-					if (data.length > 0) {
-						$scope.searchResults = {};
-
-						var results = {
-							"currentSelection": 0,
-							"data": data
-						};
-
-						$scope.searchResults[key] = results;
-					}
-				}).
-				error(function (data, status) {
-					// TODO change to a more meaningful way of showing there is a problem
-					alert("No data to display :-(");
-					console.log(data + " | " + status);
-				});
-		}
-		else {
-			$scope.searchResults = false;
 		}
 	};
 
