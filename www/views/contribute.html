@@ -162,11 +162,11 @@
 						   placeholder="See also"/>
 
 					<div class="search-results" ng-show="showSearchResults == 'seeAlso'">
-						<span ng-click="assignUmiId('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}} - {{result.id}}</span>
+						<span ng-click="assignUmiId('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}}</span>
 					</div>
 
 					<div class="added-titles flex wrap" ng-show="assignDataAll.seeAlso">
-						<span class="label" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
+						<span class="label" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
 					</div>
 				</div>
 
@@ -202,7 +202,7 @@
 			<label for="dispatchCreateUmi" class="flex button-holder"
 				   ng-show="umiContributeForm.$valid">
 				<p class="flex-2">
-					<!--<small class="active">{{ instructions.dispatch }}</small>-->
+					<small class="active">{{ instructions.dispatch }}</small>
 				</p>
 				<button name="dispatchCreateUmi" ng-focus="showInstructions = false"
 						class="button primary flex-7">Submit
@@ -226,8 +226,8 @@
 						<strong class="flex-1"
 								ng-bind="createUmiForm.title || 'Contribution Title'"></strong>
 					</div>
-					<article><p om-bind="createUmiForm.latexContent">LaTeX Content will be displayed
-						here.</p></article>
+					<article><p om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed
+						here'"></p></article>
 				</div>
 			</div>
 		</div>

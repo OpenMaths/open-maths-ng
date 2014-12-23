@@ -152,3 +152,19 @@
 					p
 						small
 							background: $color-black
+
+					> div
+						.added-titles
+							.label
+								border-color: $color-grey-500
+								color: $color-grey-500
+
+						.search-results
+							border-color: $color-grey-700
+							background: rgba(27,36,36,.85)
+
+							> span
+								&.active,
+								&:hover,
+								&:focus
+									background: darken($color-grey-800, 10%)

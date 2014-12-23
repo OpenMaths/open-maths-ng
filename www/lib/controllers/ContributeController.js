@@ -84,14 +84,19 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		var dispatchCreateUmi = {
 			author : $scope.omUser.email,
 			message : "Initialise UMI",
-			content : createUmiForm.latexContent,
+
+			umiType : createUmiForm.type.id,
+
 			title : createUmiForm.title,
 			titleSynonyms : createUmiForm.titleSynonyms ? [createUmiForm.titleSynonyms] : [],
-			//TODO use underscore to make all keys integers?
+
+			content : createUmiForm.latexContent,
+
+			// Note that the keys can not only be integers, because we use Base 16 to identify UMIs
 			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? Object.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
-			seeAlsoIds : createUmiForm.seeAlso ? [createUmiForm.seeAlso] : [],
+			seeAlsoIds : createUmiForm.seeAlso ? Object.keys($scope.assignDataAll.seeAlso) : [],
+
 			tags : createUmiForm.tags ? [createUmiForm.tags] : [],
-			umiType : createUmiForm.type.id
 		};
 
 		if ($scope.editUmiData) {

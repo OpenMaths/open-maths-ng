@@ -2002,6 +2002,14 @@ body.dark {
           opacity: 1; }
 .page-contribute.dark aside form label p small {
   background: #1b2424; }
+.page-contribute.dark aside form label > div .added-titles .label {
+  border-color: #7e9e9e;
+  color: #7e9e9e; }
+.page-contribute.dark aside form label > div .search-results {
+  border-color: #4e6868;
+  background: rgba(27, 36, 36, 0.85); }
+  .page-contribute.dark aside form label > div .search-results > span.active, .page-contribute.dark aside form label > div .search-results > span:hover, .page-contribute.dark aside form label > div .search-results > span:focus {
+    background: #222e2e; }
 
 .page-dive #masthead {
   height: 100vh;
