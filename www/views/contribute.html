@@ -162,11 +162,11 @@
 						   placeholder="See also"/>
 
 					<div class="search-results" ng-show="searchResults.seeAlso.data">
-						<span ng-click="assignUmiId('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}}</span>
+						<span ng-click="autocomplete('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}}</span>
 					</div>
 
-					<div class="added-titles flex wrap" ng-show="assignDataAll.seeAlso">
-						<span class="label" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
+					<div class="added-titles flex wrap" ng-show="autocompleteData.seeAlso">
+						<span class="label" ng-repeat="(id, title) in autocompleteData.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
 					</div>
 				</div>
 

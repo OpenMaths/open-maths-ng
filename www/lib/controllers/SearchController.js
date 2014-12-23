@@ -7,7 +7,6 @@ app.controller("SearchController", function ($scope, $http) {
 	 * @param e {object} $event
 	 * @returns {boolean}
 	 *
-	 * @TODO: Turn into a factory?
 	 * @TODO: Dispatch event on Return key?
 	 */
 	$scope.searchResultsNavigate = function (res, e) {
@@ -18,7 +17,7 @@ app.controller("SearchController", function ($scope, $http) {
 		var searchResultsCount = _.keys(res.data).length;
 		var searchResultsCurrentSelection = res.currentSelection;
 
-		// TODO finish!
+		// TODO decide what to do w/ this! Add a callback function?
 		//if (e.keyCode == 13) {
 		//	e.preventDefault();
 		//}
@@ -86,6 +85,32 @@ app.controller("SearchController", function ($scope, $http) {
 		} else {
 			$scope.searchResults = false;
 		}
+	};
+
+	$scope.autocompleteData = {};
+
+	$scope.autocomplete = function(searchResultsPointer, index) {
+		var results = $scope.searchResults[searchResultsPointer];
+
+		// If hitting enter rather than clicking
+		var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
+
+		$scope.createUmiForm[searchResultsPointer] = "";
+		$scope.hideAutocomplete = true;
+
+		// if autocompleteData with particular results pointer is already set:
+		if ($scope.autocompleteData[searchResultsPointer]) {
+			$scope.autocompleteData[searchResultsPointer][assignFromResults.id] = assignFromResults.title;
+		} else {
+			var assignData = {};
+			assignData[assignFromResults.id] = assignFromResults.title;
+
+			$scope.autocompleteData[searchResultsPointer] = assignData;
+		}
+	};
+
+	$scope.removeUmiId = function(searchResultsPointer, id) {
+		delete $scope.autocompleteData[searchResultsPointer][id];
 	};
 
 });
