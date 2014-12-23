@@ -161,7 +161,7 @@
 						   ng-keydown="searchResultsNavigate(searchResults['seeAlso'], $event)"
 						   placeholder="See also"/>
 
-					<div class="search-results" ng-show="showSearchResults == 'seeAlso'">
+					<div class="search-results" ng-show="searchResults.seeAlso.data">
 						<span ng-click="assignUmiId('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}}</span>
 					</div>
 

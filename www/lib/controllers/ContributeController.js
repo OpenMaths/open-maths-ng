@@ -81,6 +81,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		var createUmiForm = $scope.createUmiForm;
 
+		// TODO Implement Auth => add additional auth fields, such as token.
 		var dispatchCreateUmi = {
 			author : $scope.omUser.email,
 			message : "Initialise UMI",
@@ -88,15 +89,14 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			umiType : createUmiForm.type.id,
 
 			title : createUmiForm.title,
-			titleSynonyms : createUmiForm.titleSynonyms ? [createUmiForm.titleSynonyms] : [],
+			titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
 
 			content : createUmiForm.latexContent,
 
-			// Note that the keys can not only be integers, because we use Base 16 to identify UMIs
-			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? Object.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
-			seeAlsoIds : createUmiForm.seeAlso ? Object.keys($scope.assignDataAll.seeAlso) : [],
+			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? _.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
+			seeAlsoIds : $scope.assignDataAll.seeAlso ? _.keys($scope.assignDataAll.seeAlso) : [],
 
-			tags : createUmiForm.tags ? [createUmiForm.tags] : [],
+			tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
 		};
 
 		if ($scope.editUmiData) {
@@ -111,6 +111,9 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
 
 		console.log(dispatchData);
+
+		// TEMP till testing this unit
+		return false;
 
 		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
@@ -188,13 +191,12 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 					var results = {
 						"currentSelection": 0,
 						"data": data
-					}
+					};
 
 					$scope.searchResults[name] = results;
-
-					//console.log($scope.searchResults);
 				}).
 				error(function (data, status) {
+					// TODO change to a more meaningful way of showing there is a problem
 					alert("No data to display :-(");
 					console.log(data + " | " + status);
 				});
@@ -203,5 +205,12 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			$scope.searchResults = false;
 			$scope.showSearchResults = false;
 		}
+	};
+
+	// TODO should this be a shared function?
+	var cleanseCommaSeparatedValues = function (str) {
+		var vals = str.split(",");
+
+		return _.map(vals, function(val) { return val.trim(); });
 	};
 });

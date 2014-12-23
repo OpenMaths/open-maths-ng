@@ -175,7 +175,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 			return false;
 		}
 
-		var searchResultsCount = Object.keys(res.data).length;
+		var searchResultsCount = _.keys(res.data).length;
 		var searchResultsCurrentSelection = res.currentSelection;
 
 		// TODO finish!
@@ -194,6 +194,34 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		}
 
 		return false;
+	};
+
+	$scope.search = function (term, key) {
+		var termLength = term.length;
+
+		if (termLength > 0) {
+			$http.get(appConfig.apiUrl + "/search/" + searchTerm).
+				success(function (data) {
+					if (data.length > 0) {
+						$scope.searchResults = {};
+
+						var results = {
+							"currentSelection": 0,
+							"data": data
+						};
+
+						$scope.searchResults[key] = results;
+					}
+				}).
+				error(function (data, status) {
+					// TODO change to a more meaningful way of showing there is a problem
+					alert("No data to display :-(");
+					console.log(data + " | " + status);
+				});
+		}
+		else {
+			$scope.searchResults = false;
+		}
 	};
 
 });
