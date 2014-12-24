@@ -119,21 +119,21 @@
 						instructions.prerequisiteDefinitions }}
 					</small>
 				</p>
-				<div class="flex-7">
-					<input ng-focus="showInstructions = 'prerequisiteDefinitions'"
+				<div class="flex-7" ng-controller="SearchController">
+					<input ng-focus="$parent.showInstructions = 'prerequisiteDefinitions'"
 						   ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128"
 						   type="text"
 						   name="prerequisiteDefinitions"
-						   ng-change="search('prerequisiteDefinitions')"
-						   ng-keydown="searchResultsNavigate(searchResults['prerequisiteDefinitions'], $event)"
+						   ng-change="search('createUmiForm.prerequisiteDefinitions', true)"
+						   ng-keydown="searchResultsNavigate(searchResults, $event)"
 						   placeholder="Prerequisite definitions"/>
 
-					<div class="search-results" ng-show="showSearchResults == 'prerequisiteDefinitions'">
-						<span ng-click="assignUmiId('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.prerequisiteDefinitions.data" ng-class="{active : $index == searchResults.prerequisiteDefinitions.currentSelection}">{{result.title}}</span>
+					<div class="search-results" ng-show="showAutocomplete">
+						<span ng-click="autocomplete('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}">{{result.title}}</span>
 					</div>
 
-					<div class="added-titles flex wrap" ng-show="assignDataAll.prerequisiteDefinitions">
-						<span class="label" ng-repeat="(id, title) in assignDataAll.prerequisiteDefinitions">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
+					<div class="added-titles flex wrap" ng-show="autocompleteData.prerequisiteDefinitions">
+						<span class="label" ng-repeat="(id, title) in autocompleteData.prerequisiteDefinitions">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
 					</div>
 				</div>
 
@@ -153,20 +153,20 @@
 					</small>
 				</p>
 
-				<div class="flex-7">
-					<input ng-focus="showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
+				<div class="flex-7" ng-controller="SearchController">
+					<input ng-focus="$parent.showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
 						   ng-maxlength="128" type="text"
 						   name="seeAlso"
-						   ng-change="search('seeAlso')"
-						   ng-keydown="searchResultsNavigate(searchResults['seeAlso'], $event)"
+						   ng-change="search('createUmiForm.seeAlso', true)"
+						   ng-keydown="searchResultsNavigate(searchResults, $event)"
 						   placeholder="See also"/>
 
-					<div class="search-results" ng-show="searchResults.seeAlso.data">
-						<span ng-click="assignUmiId('seeAlso', $index)" ng-repeat="result in searchResults.seeAlso.data" ng-class="{active : $index == searchResults.seeAlso.currentSelection}">{{result.title}}</span>
+					<div class="search-results" ng-show="showAutocomplete">
+						<span ng-click="autocomplete('seeAlso', $index)" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}">{{result.title}}</span>
 					</div>
 
-					<div class="added-titles flex wrap" ng-show="assignDataAll.seeAlso">
-						<span class="label" ng-repeat="(id, title) in assignDataAll.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
+					<div class="added-titles flex wrap" ng-show="$parent.autocompleteData.seeAlso">
+						<span class="label" ng-repeat="(id, title) in $parent.autocompleteData.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
 					</div>
 				</div>
 
@@ -201,9 +201,7 @@
 
 			<label for="dispatchCreateUmi" class="flex button-holder"
 				   ng-show="umiContributeForm.$valid">
-				<p class="flex-2">
-					<small class="active">{{ instructions.dispatch }}</small>
-				</p>
+				<p class="flex-2"></p>
 				<button name="dispatchCreateUmi" ng-focus="showInstructions = false"
 						class="button primary flex-7">Submit
 				</button>

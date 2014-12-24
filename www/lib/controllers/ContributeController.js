@@ -6,6 +6,12 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 	$rootScope.title = "Contribute";
 
+	// The refactoring of this coming soon!!
+	$rootScope.navTopTransparentClass = false;
+
+	// This is here on purpose as we alter autocompleteData from a child controller
+	$scope.autocompleteData = {};
+
 	if ($routeParams.edit) {
 		var splitEditParam = $routeParams.edit.split(":");
 
@@ -38,8 +44,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				}, 2500);
 			});
 	}
-
-	$rootScope.navTopTransparentClass = false;
 
 	$scope.errorMessages = {
 		required: "This field is required.",
@@ -93,8 +97,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 			content : createUmiForm.latexContent,
 
-			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? _.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
-			seeAlsoIds : $scope.assignDataAll.seeAlso ? _.keys($scope.assignDataAll.seeAlso) : [],
+			prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
+			seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
 
 			tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
 		};
@@ -109,11 +113,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		}
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
-
-		console.log(dispatchData);
-
-		// TEMP till testing this unit
-		return false;
 
 		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
@@ -152,60 +151,29 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	};
 
 	// TODO: Abstract??
-	$scope.assignDataAll = {};
-
-	$scope.assignUmiId = function(searchResultsPointer, index) {
-		var results = $scope.searchResults[searchResultsPointer];
-		var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
-
-		$scope.createUmiForm[searchResultsPointer] = "";
-		$scope.showSearchResults = false;
-
-		// if allData with particular results pointer is already set:
-		if ($scope.assignDataAll[searchResultsPointer]) {
-			$scope.assignDataAll[searchResultsPointer][assignFromResults.id] = assignFromResults.title;
-		} else {
-			var assignData = {};
-			assignData[assignFromResults.id] = assignFromResults.title;
-
-			$scope.assignDataAll[searchResultsPointer] = assignData;
-		}
-	};
-
-	$scope.removeUmiId = function(searchResultsPointer, id) {
-		delete $scope.assignDataAll[searchResultsPointer][id];
-	};
-
-	$scope.search = function (name) {
-		var searchTerm = $scope.createUmiForm[name];
-
-		var termLength = searchTerm.length;
-
-		if (termLength > 0) {
-			$scope.showSearchResults = name;
-
-			$http.get(appConfig.apiUrl + "/search/" + searchTerm).
-				success(function (data) {
-					$scope.searchResults = {};
-
-					var results = {
-						"currentSelection": 0,
-						"data": data
-					};
-
-					$scope.searchResults[name] = results;
-				}).
-				error(function (data, status) {
-					// TODO change to a more meaningful way of showing there is a problem
-					alert("No data to display :-(");
-					console.log(data + " | " + status);
-				});
-		}
-		else {
-			$scope.searchResults = false;
-			$scope.showSearchResults = false;
-		}
-	};
+	//$scope.assignDataAll = {};
+	//
+	//$scope.assignUmiId = function(searchResultsPointer, index) {
+	//	var results = $scope.searchResults[searchResultsPointer];
+	//	var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
+	//
+	//	$scope.createUmiForm[searchResultsPointer] = "";
+	//	$scope.showSearchResults = false;
+	//
+	//	// if allData with particular results pointer is already set:
+	//	if ($scope.assignDataAll[searchResultsPointer]) {
+	//		$scope.assignDataAll[searchResultsPointer][assignFromResults.id] = assignFromResults.title;
+	//	} else {
+	//		var assignData = {};
+	//		assignData[assignFromResults.id] = assignFromResults.title;
+	//
+	//		$scope.assignDataAll[searchResultsPointer] = assignData;
+	//	}
+	//};
+	//
+	//$scope.removeUmiId = function(searchResultsPointer, id) {
+	//	delete $scope.assignDataAll[searchResultsPointer][id];
+	//};
 
 	// TODO should this be a shared function?
 	var cleanseCommaSeparatedValues = function (str) {
