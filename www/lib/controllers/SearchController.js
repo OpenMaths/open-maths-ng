@@ -1,7 +1,7 @@
 app.controller("SearchController", function ($scope, $http) {
 
 	/**
-	 * Search functionality
+	 * Search results arrow navigation functionality
 	 *
 	 * @param res {object} currentSelection, data
 	 * @param e {object} $event
@@ -35,8 +35,10 @@ app.controller("SearchController", function ($scope, $http) {
 		return false;
 	};
 
-	// TODO what if the model is a multi-dimensional array?
-	$scope.search = function (model, key) {
+	$scope.search = function (model, autocomplete) {
+		if (autocomplete) {
+			$scope.showAutocomplete = true;
+		}
 
 		var term = function (path, object) {
 			var currentPath = path.split('.');
@@ -48,31 +50,29 @@ app.controller("SearchController", function ($scope, $http) {
 				return term(currentPath.reverse().join("."), $scope[pointer]);
 			}
 
-			return object[pointer];
+			return object ? object[pointer] : $scope[pointer];
 		};
 
 		var term = term(model, false);
 		var termLength = term.length;
 
 		if (termLength > 0) {
-			// TODO outsource
-			if (key == "dive" && termLength < 40) {
-				var percentage = termLength * 2.5 + "%";
-
-				document.getElementById("masthead").style.backgroundPositionY = percentage;
-			}
+			// TODO finish & outsource
+			//if (termLength < 40) {
+			//	var percentage = termLength * 2.5 + "%";
+			//
+			//	document.getElementById("masthead").style.backgroundPositionY = percentage;
+			//}
 
 			$http.get(appConfig.apiUrl + "/search/" + term).
 				success(function (data) {
 					if (data.length > 0) {
-						$scope.searchResults = {};
-
 						var results = {
 							"currentSelection": 0,
 							"data": data
 						};
 
-						$scope.searchResults[key] = results;
+						$scope.searchResults = results;
 					} else {
 						$scope.searchResults = false;
 					}
@@ -87,16 +87,15 @@ app.controller("SearchController", function ($scope, $http) {
 		}
 	};
 
-	$scope.autocompleteData = {};
-
+	// NOTE autocompleteData sometimes might need to be specified in parent controller
 	$scope.autocomplete = function(searchResultsPointer, index) {
-		var results = $scope.searchResults[searchResultsPointer];
+		var results = $scope.searchResults;
 
 		// If hitting enter rather than clicking
 		var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
 
 		$scope.createUmiForm[searchResultsPointer] = "";
-		$scope.hideAutocomplete = true;
+		$scope.showAutocomplete = false;
 
 		// if autocompleteData with particular results pointer is already set:
 		if ($scope.autocompleteData[searchResultsPointer]) {

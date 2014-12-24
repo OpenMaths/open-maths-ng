@@ -6,6 +6,12 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 	$rootScope.title = "Contribute";
 
+	// The refactoring of this coming soon!!
+	$rootScope.navTopTransparentClass = false;
+
+	// This is here on purpose as we alter autocompleteData from a child controller
+	$scope.autocompleteData = {};
+
 	if ($routeParams.edit) {
 		var splitEditParam = $routeParams.edit.split(":");
 
@@ -38,8 +44,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				}, 2500);
 			});
 	}
-
-	$rootScope.navTopTransparentClass = false;
 
 	$scope.errorMessages = {
 		required: "This field is required.",
@@ -93,8 +97,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 			content : createUmiForm.latexContent,
 
-			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? _.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
-			seeAlsoIds : $scope.assignDataAll.seeAlso ? _.keys($scope.assignDataAll.seeAlso) : [],
+			prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
+			seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
 
 			tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
 		};
@@ -109,11 +113,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		}
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
-
-		console.log(dispatchData);
-
-		// TEMP till testing this unit
-		return false;
 
 		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
