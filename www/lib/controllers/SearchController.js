@@ -41,7 +41,7 @@ app.controller("SearchController", function ($scope, $http) {
 		}
 
 		var term = function (path, object) {
-			var currentPath = path.split('.');
+			var currentPath = path.split(".");
 			var pointer = _.first(currentPath);
 
 			if (currentPath.length > 1) {
@@ -87,7 +87,7 @@ app.controller("SearchController", function ($scope, $http) {
 		}
 	};
 
-	// NOTE autocompleteData sometimes might need to be specified in parent controller
+	// NOTE autocompleteData might sometimes need to be specified in parent controller
 	$scope.autocomplete = function(searchResultsPointer, index) {
 		var results = $scope.searchResults;
 
