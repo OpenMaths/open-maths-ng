@@ -1904,23 +1904,22 @@ body.dark {
 
 .page-contribute .progress {
   background: #f2f6f6;
-  height: 3rem; }
+  height: 4rem; }
   .page-contribute .progress ul {
     height: 100%; }
     .page-contribute .progress ul li {
       padding: 0 0.5rem;
       height: 100%;
-      font-size: 0.9375rem; }
-      .page-contribute .progress ul li > a {
+      font-size: 0.75rem; }
+      .page-contribute .progress ul li span {
         height: 100%;
         position: relative;
         padding: 0 0 0 2.5rem;
         color: #b8caca;
         text-decoration: none; }
-        .page-contribute .progress ul li > a.active {
+        .page-contribute .progress ul li span.active {
           color: #1b2424; }
-        .page-contribute .progress ul li > a:before,
-        .page-contribute .progress ul li > a > span {
+        .page-contribute .progress ul li span:before {
           content: "";
           width: 2rem;
           height: 2rem;
@@ -1929,14 +1928,26 @@ body.dark {
           left: 0;
           top: 50%;
           margin: -1rem 0 0;
-          background-size: 160%;
+          background-size: 150%;
           background-repeat: no-repeat;
           background-position: center center;
           background-color: transparent; }
-        .page-contribute .progress ul li > a#basic-settings:before {
-          background-image: url("/assets/images/icons/icon-set/icon-set_settings-grey.svg"); }
-        .page-contribute .progress ul li > a#basic-settings.active:before {
-          background-image: url("/assets/images/icons/icon-set/icon-set_settings.svg"); }
+        .page-contribute .progress ul li span#basic-settings:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_gear-grey.svg"); }
+        .page-contribute .progress ul li span#basic-settings.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_gear.svg"); }
+        .page-contribute .progress ul li span#editor:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_editor-grey.svg"); }
+        .page-contribute .progress ul li span#editor.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_editor.svg"); }
+        .page-contribute .progress ul li span#additional-settings:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_see-more-grey.svg"); }
+        .page-contribute .progress ul li span#additional-settings.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_see-more.svg"); }
+        .page-contribute .progress ul li span#preview:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_preview-grey.svg"); }
+        .page-contribute .progress ul li span#preview.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_preview.svg"); }
 .page-contribute footer {
   margin-top: 2rem;
   position: relative; }

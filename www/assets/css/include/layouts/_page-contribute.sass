@@ -1,7 +1,7 @@
 .page-contribute
 	.progress
 		background: $color-grey-100
-		height: $triple-unit-layout
+		height: $quadruple-unit-layout
 
 		ul
 			@extend .unstyled
@@ -12,9 +12,9 @@
 				padding: 0 $half-unit-layout
 				height: 100%
 				font:
-					size: rem(15px)
+					size: rem(12px)
 
-				> a
+				span
 					height: 100%
 					position: relative
 					padding: 0 0 0 ($double-unit-layout + $half-unit-layout)
@@ -24,8 +24,7 @@
 					&.active
 						color: $color-black
 
-					&:before,
-					> span
+					&:before
 						content: ""
 						width: $double-unit-layout
 						height: $double-unit-layout
@@ -35,7 +34,7 @@
 						top: 50%
 						margin: -($double-unit-layout / 2) 0 0
 						background:
-							size: 160%
+							size: 150%
 							repeat: no-repeat
 							position: center center
 							color: transparent
@@ -43,12 +42,42 @@
 					&#basic-settings
 						&:before
 							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_settings-grey.svg")
+								image: url("#{$image-base}/icons/icon-set/icon-set_gear-grey.svg")
 
 						&.active
 							&:before
 								background:
-									image: url("#{$image-base}/icons/icon-set/icon-set_settings.svg")
+									image: url("#{$image-base}/icons/icon-set/icon-set_gear.svg")
+
+					&#editor
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_editor-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_editor.svg")
+
+					&#additional-settings
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_see-more-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_see-more.svg")
+
+					&#preview
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_preview-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_preview.svg")
 
 	footer
 		margin-top: $double-unit-layout
