@@ -150,31 +150,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		http.send(data);
 	};
 
-	// TODO: Abstract??
-	//$scope.assignDataAll = {};
-	//
-	//$scope.assignUmiId = function(searchResultsPointer, index) {
-	//	var results = $scope.searchResults[searchResultsPointer];
-	//	var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
-	//
-	//	$scope.createUmiForm[searchResultsPointer] = "";
-	//	$scope.showSearchResults = false;
-	//
-	//	// if allData with particular results pointer is already set:
-	//	if ($scope.assignDataAll[searchResultsPointer]) {
-	//		$scope.assignDataAll[searchResultsPointer][assignFromResults.id] = assignFromResults.title;
-	//	} else {
-	//		var assignData = {};
-	//		assignData[assignFromResults.id] = assignFromResults.title;
-	//
-	//		$scope.assignDataAll[searchResultsPointer] = assignData;
-	//	}
-	//};
-	//
-	//$scope.removeUmiId = function(searchResultsPointer, id) {
-	//	delete $scope.assignDataAll[searchResultsPointer][id];
-	//};
-
 	// TODO should this be a shared function?
 	var cleanseCommaSeparatedValues = function (str) {
 		var vals = str.split(",");

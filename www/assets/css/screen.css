@@ -216,33 +216,33 @@
 .align-left {
   margin-right: auto !important; }
 
-.flex, .page-contribute aside form label p, .page-contribute aside form label p small {
+.flex, .page-contribute article form label p, .page-contribute article form label p small {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex; }
-  .flex.wrap, .page-contribute aside form label p.wrap, .page-contribute aside form label p small.wrap {
+  .flex.wrap, .page-contribute article form label p.wrap, .page-contribute article form label p small.wrap {
     -webkit-flex-wrap: wrap;
         -ms-flex-wrap: wrap;
             flex-wrap: wrap; }
-  .flex.column, .page-contribute aside form label p.column, .page-contribute aside form label p small.column {
+  .flex.column, .page-contribute article form label p.column, .page-contribute article form label p small.column {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column; }
-  .flex.row, .page-contribute aside form label p.row, .page-contribute aside form label p small.row {
+  .flex.row, .page-contribute article form label p.row, .page-contribute article form label p small.row {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row; }
-  .flex.center-vertically, .page-contribute aside form label p, .page-contribute aside form label p small {
+  .flex.center-vertically, .page-contribute article form label p, .page-contribute article form label p small {
     -webkit-box-align: center;
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center; }
-  .flex.center-horizontally, .page-contribute aside form label p.center-horizontally, .page-contribute aside form label p small.center-horizontally {
+  .flex.center-horizontally, .page-contribute article form label p.center-horizontally, .page-contribute article form label p small.center-horizontally {
     -webkit-box-pack: center;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
@@ -1890,42 +1890,49 @@ body.dark {
   border-right: 1px solid #384b4b;
   border-bottom: 1px solid #384b4b; }
 
+.page-contribute .progress {
+  background: #f2f6f6;
+  height: 3rem; }
 .page-contribute footer {
   margin-top: 2rem;
   position: relative; }
-.page-contribute aside {
+.page-contribute article {
   padding: 2rem; }
-  .page-contribute aside .umi-preview-holder .umi {
+  .page-contribute article .container-narrow {
+    max-width: 43.75rem; }
+  .page-contribute article .umi-preview-holder .umi {
     max-width: 90%;
     height: 13.75rem; }
-  .page-contribute aside header {
+  .page-contribute article header {
     padding: 0 0 2rem; }
-    .page-contribute aside header h2 {
+    .page-contribute article header h2 {
       margin-top: 0;
       font-size: 1.25rem; }
-    .page-contribute aside header p {
+    .page-contribute article header p {
       font-size: 0.875rem;
       color: #4e6868; }
-  .page-contribute aside form label {
+  .page-contribute article form .latex-content-preview {
+    padding: 1rem; }
+  .page-contribute article form label {
     margin: 0.5rem 0 1rem;
     position: relative; }
-    .page-contribute aside form label.button-holder {
+    .page-contribute article form label.button-holder {
       margin: 1rem 0; }
-    .page-contribute aside form label > div {
+    .page-contribute article form label > div {
       position: relative; }
-      .page-contribute aside form label > div input,
-      .page-contribute aside form label > div select,
-      .page-contribute aside form label > div textarea {
+      .page-contribute article form label > div input,
+      .page-contribute article form label > div select,
+      .page-contribute article form label > div textarea {
         width: 100%; }
-      .page-contribute aside form label > div .added-titles {
+      .page-contribute article form label > div .added-titles {
         padding: 0.5rem 0 0; }
-        .page-contribute aside form label > div .added-titles .label {
+        .page-contribute article form label > div .added-titles .label {
           margin: 0 0.25rem 0.5rem 0;
           border-color: #1b2424;
           color: #1b2424;
           position: relative;
           padding-right: 1.125rem; }
-          .page-contribute aside form label > div .added-titles .label small {
+          .page-contribute article form label > div .added-titles .label small {
             -webkit-transition: color 0.25s;
             transition: color 0.25s;
             width: 1rem;
@@ -1937,9 +1944,9 @@ body.dark {
             cursor: pointer;
             font-size: 0.875rem;
             font-weight: 700; }
-            .page-contribute aside form label > div .added-titles .label small:hover, .page-contribute aside form label > div .added-titles .label small:focus {
+            .page-contribute article form label > div .added-titles .label small:hover, .page-contribute article form label > div .added-titles .label small:focus {
               color: #ff784b; }
-      .page-contribute aside form label > div .search-results {
+      .page-contribute article form label > div .search-results {
         -o-border-radius: 0 0 4px 4px;
         border-radius: 0 0 4px 4px;
         z-index: 6;
@@ -1955,13 +1962,13 @@ body.dark {
         cursor: pointer;
         max-height: 8rem;
         overflow-y: scroll; }
-        .page-contribute aside form label > div .search-results > span {
+        .page-contribute article form label > div .search-results > span {
           display: block;
           padding: 1rem; }
-          .page-contribute aside form label > div .search-results > span.active, .page-contribute aside form label > div .search-results > span:hover, .page-contribute aside form label > div .search-results > span:focus {
+          .page-contribute article form label > div .search-results > span.active, .page-contribute article form label > div .search-results > span:hover, .page-contribute article form label > div .search-results > span:focus {
             font-weight: 700;
             background: #f2f6f6; }
-    .page-contribute aside form label .error-message {
+    .page-contribute article form label .error-message {
       cursor: help;
       position: absolute;
       width: 0.5rem;
@@ -1969,7 +1976,7 @@ body.dark {
       top: 50%;
       right: -1rem;
       margin: -0.25rem 0 0; }
-      .page-contribute aside form label .error-message small {
+      .page-contribute article form label .error-message small {
         -o-border-radius: 100%;
         border-radius: 100%;
         background: #ff784b;
@@ -1978,17 +1985,17 @@ body.dark {
         display: block;
         overflow: hidden;
         color: white; }
-    .page-contribute aside form label input, .page-contribute aside form label select, .page-contribute aside form label textarea {
+    .page-contribute article form label input, .page-contribute article form label select, .page-contribute article form label textarea {
       margin: 0;
       font-size: 0.9375rem; }
-    .page-contribute aside form label textarea {
+    .page-contribute article form label textarea {
       line-height: 1.65;
       min-height: 9.375rem; }
-    .page-contribute aside form label p {
+    .page-contribute article form label p {
       margin: 0;
       position: relative;
       margin-right: 1rem; }
-      .page-contribute aside form label p small {
+      .page-contribute article form label p small {
         -webkit-transition: opacity 0.25s;
         transition: opacity 0.25s;
         opacity: 0;
@@ -1998,17 +2005,17 @@ body.dark {
         top: 0;
         left: 0;
         background: rgba(255, 255, 255, 0.9); }
-        .page-contribute aside form label p small.active {
+        .page-contribute article form label p small.active {
           opacity: 1; }
-.page-contribute.dark aside form label p small {
+.page-contribute.dark article form label p small {
   background: #1b2424; }
-.page-contribute.dark aside form label > div .added-titles .label {
+.page-contribute.dark article form label > div .added-titles .label {
   border-color: #7e9e9e;
   color: #7e9e9e; }
-.page-contribute.dark aside form label > div .search-results {
+.page-contribute.dark article form label > div .search-results {
   border-color: #4e6868;
   background: rgba(27, 36, 36, 0.85); }
-  .page-contribute.dark aside form label > div .search-results > span.active, .page-contribute.dark aside form label > div .search-results > span:hover, .page-contribute.dark aside form label > div .search-results > span:focus {
+  .page-contribute.dark article form label > div .search-results > span.active, .page-contribute.dark article form label > div .search-results > span:hover, .page-contribute.dark article form label > div .search-results > span:focus {
     background: #222e2e; }
 
 .page-dive #masthead {

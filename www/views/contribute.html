@@ -2,24 +2,28 @@
 <div nav-top></div>
 <!--Top navigation-->
 
-<div class="flex">
-	<aside class="flex-6">
-		<header>
-			<h2 ng-hide="editUmiData">Contributing as {{ omUser.email }}</h2>
-			<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>
+<div class="progress">
 
-			<p>Please note that our editor features an automatic checker, as well as
-				interactive guidance throughout the whole process of filling out
-				this form.</p>
-		</header>
+</div>
 
-		<form name="umiContributeForm" class="flex-1 flex column" ng-submit="createUmi()">
-			<!--Type-->
+<article>
+	<header class="container-narrow">
+		<h2 ng-hide="editUmiData">Contributing as {{ omUser.email }}</h2>
+		<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>
+
+		<p>Please note that our editor features an automatic checker, as well as
+			interactive guidance throughout the whole process of filling out
+			this form.</p>
+	</header>
+
+	<form name="umiContributeForm" ng-submit="createUmi()">
+		<!--Type-->
+		<div class="container-narrow">
+			<div class="alert error">{{ errorMessages.required }}</div>
 			<label for="type" class="flex">
 				<p class="flex-2">
 					Type
-					<small ng-class="{active : showInstructions == 'type'}">{{ instructions.type
-						}}
+					<small ng-class="{active : showInstructions == 'type'}">{{ instructions.type }}
 					</small>
 				</p>
 				<div class="flex-7">
@@ -42,8 +46,7 @@
 			<label for="title" class="flex">
 				<p class="flex-2">
 					Title
-					<small ng-class="{active : showInstructions == 'title'}">{{ instructions.title
-						}}
+					<small ng-class="{active : showInstructions == 'title'}">{{ instructions.title }}
 					</small>
 				</p>
 				<div class="flex-7">
@@ -66,11 +69,10 @@
 			</label>
 
 			<!--Title Synonyms-->
-			<label for="titleSynonyms" class="flex">
+			<label for="titleSynonyms" class="flex flex-item">
 				<p class="flex-2">
 					Title Synonyms
-					<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{
-						instructions.titleSynonyms }}
+					<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ instructions.titleSynonyms }}
 					</small>
 				</p>
 				<div class="flex-7">
@@ -88,18 +90,20 @@
 				</div>
 			</label>
 
+			<label for="dispatchCreateUmi" class="flex button-holder">
+			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
+				<p class="flex-2"></p>
+				<button name="dispatchCreateUmi" ng-focus="showInstructions = false" class="button primary flex-7">Next step: <strong>Content</strong></button>
+			</label>
+		</div>
+
+		<div class="flex-grid-2 hide">
 			<!--LaTeX Content-->
-			<label for="latexContent" class="flex">
-				<p class="flex-2">
-					LaTeX content
-					<small ng-class="{active : showInstructions == 'latexContent'}">{{
-						instructions.latexContent }}
-					</small>
-				</p>
-				<div class="flex-7">
+			<label for="latexContent" class="flex flex-item">
+				<div>
 					<textarea ng-focus="showInstructions = 'latexContent'"
-						  ng-model="createUmiForm.latexContent" name="latexContent"
-						  placeholder="LaTeX content" required></textarea>
+					  ng-model="createUmiForm.latexContent" name="latexContent"
+					  placeholder="LaTeX content" required></textarea>
 				</div>
 
 				<!--Error messages for LaTeX Content-->
@@ -109,12 +113,18 @@
 				</div>
 			</label>
 
+			<div class="flex-item">
+				<p class="latex-content-preview" om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed here'"></p>
+			</div>
+		</div>
+
+		<div class="container-narrow hide">
+
 			<!--Prerequisite definitions-->
-			<label for="prerequisiteDefinitions" class="flex">
+			<label for="prerequisiteDefinitions" class="flex flex-item">
 				<p class="flex-2">
 					Prerequisite definitions
-					<small ng-class="{active : showInstructions == 'prerequisiteDefinitions'}">{{
-						instructions.prerequisiteDefinitions }}
+					<small ng-class="{active : showInstructions == 'prerequisiteDefinitions'}">{{ instructions.prerequisiteDefinitions }}
 					</small>
 				</p>
 				<div class="flex-7" ng-controller="SearchController">
@@ -143,11 +153,10 @@
 			</label>
 
 			<!--See also-->
-			<label for="seeAlso" class="flex">
+			<label for="seeAlso" class="flex flex-item">
 				<p class="flex-2">
 					See also
-					<small ng-class="{active : showInstructions == 'seeAlso'}">{{
-						instructions.seeAlso }}
+					<small ng-class="{active : showInstructions == 'seeAlso'}">{{ instructions.seeAlso }}
 					</small>
 				</p>
 
@@ -176,18 +185,17 @@
 			</label>
 
 			<!--Tags-->
-			<label for="tags" class="flex">
+			<label for="tags" class="flex flex-item">
 				<p class="flex-2">
 					Tags
-					<small ng-class="{active : showInstructions == 'tags'}">{{ instructions.tags
-						}}
+					<small ng-class="{active : showInstructions == 'tags'}">{{ instructions.tags }}
 					</small>
 				</p>
 
 				<div class="flex-7">
 					<input ng-focus="showInstructions = 'tags'" ng-model="createUmiForm.tags"
-					   ng-maxlength="128" type="text" name="tags"
-					   placeholder="Tags"/>
+						   ng-maxlength="128" type="text" name="tags"
+						   placeholder="Tags"/>
 				</div>
 
 				<!--Error messages for Tags-->
@@ -197,17 +205,20 @@
 				</div>
 			</label>
 
-			<label for="dispatchCreateUmi" class="flex button-holder"
-				   ng-show="umiContributeForm.$valid">
-				<p class="flex-2"></p>
-				<button name="dispatchCreateUmi" ng-focus="showInstructions = false"
-						class="button primary flex-7">Submit
-				</button>
-			</label>
-		</form>
-	</aside>
+		</div>
 
-	<aside class="flex-5 flex column">
+
+		<label for="dispatchCreateUmi" class="flex button-holder"
+			   ng-show="umiContributeForm.$valid">
+			<p class="flex-2"></p>
+			<button name="dispatchCreateUmi" ng-focus="showInstructions = false"
+					class="button primary flex-7">Submit
+			</button>
+		</label>
+	</form>
+</article>
+
+	<aside class="flex-5 flex column hide">
 		<header>
 			<h2>Live preview</h2>
 			<p>This is what your contribution will look like as a single unit.</p>

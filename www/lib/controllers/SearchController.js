@@ -72,6 +72,8 @@ app.controller("SearchController", function ($scope, $http) {
 							"data": data
 						};
 
+						console.log(data);
+
 						$scope.searchResults = results;
 					} else {
 						$scope.searchResults = false;
