@@ -2,6 +2,7 @@
 	.progress
 		background: $color-grey-100
 		height: $quadruple-unit-layout
+		border-bottom: 1px solid $color-grey-200
 
 		ul
 			@extend .unstyled
@@ -17,7 +18,7 @@
 				span
 					height: 100%
 					position: relative
-					padding: 0 0 0 ($double-unit-layout + $half-unit-layout)
+					padding: 0 0 0 ($double-unit-layout + $quarter-unit-layout)
 					color: $color-grey
 					text-decoration: none
 
@@ -69,15 +70,15 @@
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_see-more.svg")
 
-					&#preview
+					&#preview-and-publish
 						&:before
 							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_preview-grey.svg")
+								image: url("#{$image-base}/icons/icon-set/icon-set_tick-grey.svg")
 
 						&.active
 							&:before
 								background:
-									image: url("#{$image-base}/icons/icon-set/icon-set_preview.svg")
+									image: url("#{$image-base}/icons/icon-set/icon-set_tick.svg")
 
 	footer
 		margin-top: $double-unit-layout

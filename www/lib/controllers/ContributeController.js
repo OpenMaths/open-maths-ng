@@ -12,6 +12,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	// This is here on purpose as we alter autocompleteData from a child controller
 	$scope.autocompleteData = {};
 
+	// TODO this shall be a separate page: /edit/uriFriendlyTitle
 	if ($routeParams.edit) {
 		var splitEditParam = $routeParams.edit.split(":");
 
@@ -44,6 +45,17 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				}, 2500);
 			});
 	}
+
+	$scope.steps = {
+		"basic-settings": "Basic Settings",
+		"editor": "Editor",
+		"additional-settings": "Additional Settings",
+		"preview-and-publish": "Preview & Publish"
+	};
+
+	$scope.stepsKeys = _.keys($scope.steps);
+
+	$scope.activeStep = 0;
 
 	$scope.errorMessages = {
 		required: "This field is required.",

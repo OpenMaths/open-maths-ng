@@ -1904,7 +1904,8 @@ body.dark {
 
 .page-contribute .progress {
   background: #f2f6f6;
-  height: 4rem; }
+  height: 4rem;
+  border-bottom: 1px solid #d5e0e0; }
   .page-contribute .progress ul {
     height: 100%; }
     .page-contribute .progress ul li {
@@ -1914,7 +1915,7 @@ body.dark {
       .page-contribute .progress ul li span {
         height: 100%;
         position: relative;
-        padding: 0 0 0 2.5rem;
+        padding: 0 0 0 2.25rem;
         color: #b8caca;
         text-decoration: none; }
         .page-contribute .progress ul li span.active {
@@ -1944,10 +1945,10 @@ body.dark {
           background-image: url("/assets/images/icons/icon-set/icon-set_see-more-grey.svg"); }
         .page-contribute .progress ul li span#additional-settings.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_see-more.svg"); }
-        .page-contribute .progress ul li span#preview:before {
-          background-image: url("/assets/images/icons/icon-set/icon-set_preview-grey.svg"); }
-        .page-contribute .progress ul li span#preview.active:before {
-          background-image: url("/assets/images/icons/icon-set/icon-set_preview.svg"); }
+        .page-contribute .progress ul li span#preview-and-publish:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_tick-grey.svg"); }
+        .page-contribute .progress ul li span#preview-and-publish.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_tick.svg"); }
 .page-contribute footer {
   margin-top: 2rem;
   position: relative; }

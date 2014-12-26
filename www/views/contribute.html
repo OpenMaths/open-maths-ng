@@ -3,10 +3,8 @@
 <!--Top navigation-->
 
 <nav class="progress">
-	<ul id="nav" class="flex center-vertically align-left">
-		<li><span id="basic-settings" class="flex center-vertically" ng-class="{active : step == 'basic-settings'}">Basic Settings</span></li>
-		<li><span id="editor" class="flex center-vertically" ng-class="{active : step == 'editor'}">Editor</span></li>
-		<li><span id="additional-settings" class="flex center-vertically" ng-class="{active : step == 'additional-settings'}">Additional Settings</span></li>
+	<ul id="nav" class="flex center-horizontally center-vertically align-left">
+		<li ng-repeat="key in stepsKeys"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : step == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
 
