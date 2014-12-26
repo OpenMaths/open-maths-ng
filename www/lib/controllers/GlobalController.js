@@ -1,5 +1,3 @@
-// @TODO: investigate factories -> would be nice to have notifications registered as factories / services
-
 app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
 	/**
@@ -9,6 +7,8 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 
 	/**
 	 * Returns current path
+	 *
+	 * @TODO abstract welcome page name into config var.
 	 */
 	function returnPath() {
 		var splitUrl = $location.url().split("/");
@@ -16,7 +16,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 
 		// @TODO: check if this works properly
 		$window.ga("send", "pageview", {page: $location.path()});
-	}
+	};
 
 	/**
 	 * Watches changes in URL, returns current path
@@ -29,6 +29,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * Sets custom theme
 	 *
 	 * @param theme {string}
+	 * @TODO abstract default theme into config var.
 	 */
 	$scope.setTheme = function (theme) {
 		$scope.themeClass = theme;
@@ -40,6 +41,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * Sets custom font
 	 *
 	 * @param font {string}
+	 * @TODO abstract default font into config var.
 	 */
 	$scope.setUmiFont = function (font) {
 		$scope.umiFontClass = font;
@@ -78,7 +80,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 							sessionStorage.setItem("omUser", JSON.stringify(data));
 
 							$scope.notification = {
-								"message": "You are now signed in as " + data.email +  ".",
+								"message": "You are now signed in as " + data.email + ".",
 								"type": "success",
 								"act": true
 							};
