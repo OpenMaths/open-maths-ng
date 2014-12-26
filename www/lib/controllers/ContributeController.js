@@ -34,13 +34,13 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				};
 			}).
 			error(function () {
-				$scope.notification = {
+				$scope.$parent.notification = {
 					"message": "There was an error loading the requested contribution.",
 					"type": "error",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			});
 	}
@@ -127,22 +127,22 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		http.onreadystatechange = function() {
 			if (http.readyState != 4) {
-				$scope.notification = {
+				$scope.$parent.notification = {
 					"message": "Your contribution was successfully posted!",
 					"type": "success",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			} else {
-				$scope.notification = {
+				$scope.$parent.notification = {
 					"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
 					"type": "error",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			}
 		};
