@@ -3,6 +3,53 @@
 		background: $color-grey-100
 		height: $triple-unit-layout
 
+		ul
+			@extend .unstyled
+
+			height: 100%
+
+			li
+				padding: 0 $half-unit-layout
+				height: 100%
+				font:
+					size: rem(15px)
+
+				> a
+					height: 100%
+					position: relative
+					padding: 0 0 0 ($double-unit-layout + $half-unit-layout)
+					color: $color-grey
+					text-decoration: none
+
+					&.active
+						color: $color-black
+
+					&:before,
+					> span
+						content: ""
+						width: $double-unit-layout
+						height: $double-unit-layout
+						display: block
+						position: absolute
+						left: 0
+						top: 50%
+						margin: -($double-unit-layout / 2) 0 0
+						background:
+							size: 160%
+							repeat: no-repeat
+							position: center center
+							color: transparent
+
+					&#basic-settings
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_settings-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_settings.svg")
+
 	footer
 		margin-top: $double-unit-layout
 		position: relative

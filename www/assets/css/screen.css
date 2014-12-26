@@ -743,13 +743,17 @@ form .input {
   #nav-top form .button#nav,
   form #nav-top .button#controls,
   #nav-top form .button#controls,
+  form .page-contribute .progress ul.button,
+  .page-contribute .progress form ul.button,
   form .input.unstyled,
   form .drop-down .contextual-menu ul.input,
   .drop-down .contextual-menu form ul.input,
   form #nav-top .input#nav,
   #nav-top form .input#nav,
   form #nav-top .input#controls,
-  #nav-top form .input#controls {
+  #nav-top form .input#controls,
+  form .page-contribute .progress ul.input,
+  .page-contribute .progress form ul.input {
     border: 0; }
     form input.unstyled:hover, form #nav-top input#nav:hover, #nav-top form input#nav:hover,
     form #nav-top input#controls:hover,
@@ -793,6 +797,8 @@ form .input {
     #nav-top form .button#nav:hover,
     form #nav-top .button#controls:hover,
     #nav-top form .button#controls:hover,
+    form .page-contribute .progress ul.button:hover,
+    .page-contribute .progress form ul.button:hover,
     form .button.unstyled:focus,
     form .drop-down .contextual-menu ul.button:focus,
     .drop-down .contextual-menu form ul.button:focus,
@@ -800,6 +806,8 @@ form .input {
     #nav-top form .button#nav:focus,
     form #nav-top .button#controls:focus,
     #nav-top form .button#controls:focus,
+    form .page-contribute .progress ul.button:focus,
+    .page-contribute .progress form ul.button:focus,
     form .input.unstyled:hover,
     form .drop-down .contextual-menu ul.input:hover,
     .drop-down .contextual-menu form ul.input:hover,
@@ -807,13 +815,17 @@ form .input {
     #nav-top form .input#nav:hover,
     form #nav-top .input#controls:hover,
     #nav-top form .input#controls:hover,
+    form .page-contribute .progress ul.input:hover,
+    .page-contribute .progress form ul.input:hover,
     form .input.unstyled:focus,
     form .drop-down .contextual-menu ul.input:focus,
     .drop-down .contextual-menu form ul.input:focus,
     form #nav-top .input#nav:focus,
     #nav-top form .input#nav:focus,
     form #nav-top .input#controls:focus,
-    #nav-top form .input#controls:focus {
+    #nav-top form .input#controls:focus,
+    form .page-contribute .progress ul.input:focus,
+    .page-contribute .progress form ul.input:focus {
       box-shadow: none;
       border: 0; }
   form input:last-child,
@@ -1041,7 +1053,7 @@ ul, ol {
   ul:last-child, ol:last-child {
     margin-bottom: 0; }
   ul.unstyled, .drop-down .contextual-menu ul, #nav-top ul#nav,
-  #nav-top ul#controls, ol.unstyled, #nav-top ol#nav,
+  #nav-top ul#controls, .page-contribute .progress ul, ol.unstyled, #nav-top ol#nav,
   #nav-top ol#controls {
     margin: 0;
     padding: 0;
@@ -1893,6 +1905,38 @@ body.dark {
 .page-contribute .progress {
   background: #f2f6f6;
   height: 3rem; }
+  .page-contribute .progress ul {
+    height: 100%; }
+    .page-contribute .progress ul li {
+      padding: 0 0.5rem;
+      height: 100%;
+      font-size: 0.9375rem; }
+      .page-contribute .progress ul li > a {
+        height: 100%;
+        position: relative;
+        padding: 0 0 0 2.5rem;
+        color: #b8caca;
+        text-decoration: none; }
+        .page-contribute .progress ul li > a.active {
+          color: #1b2424; }
+        .page-contribute .progress ul li > a:before,
+        .page-contribute .progress ul li > a > span {
+          content: "";
+          width: 2rem;
+          height: 2rem;
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          margin: -1rem 0 0;
+          background-size: 160%;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-color: transparent; }
+        .page-contribute .progress ul li > a#basic-settings:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_settings-grey.svg"); }
+        .page-contribute .progress ul li > a#basic-settings.active:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_settings.svg"); }
 .page-contribute footer {
   margin-top: 2rem;
   position: relative; }
