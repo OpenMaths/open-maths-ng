@@ -89,6 +89,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	];
 
 	$scope.createUmi = function() {
+		// TODO get rid of this, replace with event fired on hitting Return key
 		if ($scope.showSearchResults) {
 			$scope.assignUmiId($scope.showSearchResults, false);
 
@@ -125,6 +126,9 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		}
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
+
+		$scope.contributeData = dispatchData;
+		return false;
 
 		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
