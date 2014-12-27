@@ -4,7 +4,7 @@
 
 <nav class="progress">
 	<ul id="nav" class="flex center-horizontally center-vertically align-left">
-		<li ng-repeat="key in stepsKeys"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : step == key}">{{ steps[key] }}</span></li>
+		<li ng-repeat="key in stepsKeys"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
 
@@ -18,9 +18,9 @@
 			this form.</p>
 	</header>
 
-	<form name="umiContributeForm" ng-submit="createUmi()">
+	<form>
 		<!--Type-->
-		<div class="container-narrow">
+		<div class="container-narrow" ng-show="activeStep == 0">
 			<div class="alert error">{{ errorMessages.required }}</div>
 			<label for="type" class="flex">
 				<p class="flex-2">
@@ -94,12 +94,12 @@
 
 			<label for="dispatchCreateUmi" class="flex button-holder">
 			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
-				<p class="flex-2"></p>
-				<button name="dispatchCreateUmi" ng-focus="showInstructions = false" class="button primary flex-7">Next step: <strong>Content</strong></button>
+				<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
 		</div>
 
-		<div class="flex-grid-2 hide">
+		<div ng-show="activeStep == 1">
+		<div class="flex-grid-2">
 			<!--LaTeX Content-->
 			<label for="latexContent" class="flex flex-item">
 				<div>
@@ -120,7 +120,14 @@
 			</div>
 		</div>
 
-		<div class="container-narrow hide">
+		<!-- NOTE we should have a button which says skip additional settings and go to preview and publish -->
+		<label for="dispatchCreateUmi" class="flex button-holder">
+			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
+			<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+		</label>
+		</div>
+
+		<div class="container-narrow" ng-show="activeStep == 2">
 
 			<!--Prerequisite definitions-->
 			<label for="prerequisiteDefinitions" class="flex flex-item">

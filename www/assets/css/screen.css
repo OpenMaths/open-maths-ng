@@ -1953,7 +1953,7 @@ body.dark {
   margin-top: 2rem;
   position: relative; }
 .page-contribute article {
-  padding: 2rem; }
+  padding: 2rem 0; }
   .page-contribute article .container-narrow {
     max-width: 43.75rem; }
   .page-contribute article .umi-preview-holder .umi {
