@@ -2063,6 +2063,29 @@ body.dark {
         background: rgba(255, 255, 255, 0.9); }
         .page-contribute article form label p small.active {
           opacity: 1; }
+.page-contribute.dark .progress {
+  background: transparent;
+  border-bottom: 1px solid #384b4b; }
+  .page-contribute.dark .progress ul li span {
+    color: #7e9e9e; }
+    .page-contribute.dark .progress ul li span.active {
+      color: white; }
+    .page-contribute.dark .progress ul li span#basic-settings:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_gear-dark.svg"); }
+    .page-contribute.dark .progress ul li span#basic-settings.active:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_gear-white.svg"); }
+    .page-contribute.dark .progress ul li span#editor:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_editor-dark.svg"); }
+    .page-contribute.dark .progress ul li span#editor.active:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_editor-white.svg"); }
+    .page-contribute.dark .progress ul li span#additional-settings:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_see-more-dark.svg"); }
+    .page-contribute.dark .progress ul li span#additional-settings.active:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_see-more-white.svg"); }
+    .page-contribute.dark .progress ul li span#preview-and-publish:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_tick-dark.svg"); }
+    .page-contribute.dark .progress ul li span#preview-and-publish.active:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_tick-white.svg"); }
 .page-contribute.dark article form label p small {
   background: #1b2424; }
 .page-contribute.dark article form label > div .added-titles .label {
