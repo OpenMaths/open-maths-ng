@@ -2065,7 +2065,7 @@ body.dark {
           opacity: 1; }
 .page-contribute.dark .progress {
   background: transparent;
-  border-bottom: 1px solid #384b4b; }
+  border-bottom-color: #384b4b; }
   .page-contribute.dark .progress ul li span {
     color: #7e9e9e; }
     .page-contribute.dark .progress ul li span.active {
