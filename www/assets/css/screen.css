@@ -558,11 +558,11 @@ blockquote {
     font-size: 1rem; }
 
 .button, button {
+  border-radius: 4px !important;
+  border: 1px solid;
   background: white;
   text-decoration: none;
-  padding: 1rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding: 1.5rem 1.5rem 1.375rem !important;
   cursor: pointer;
   border-color: #d5e0e0;
   color: #b8caca;
@@ -594,7 +594,8 @@ blockquote {
   .button:disabled, button:disabled {
     border-color: #d5e0e0;
     color: #d5e0e0;
-    cursor: not-allowed; }
+    cursor: not-allowed;
+    background: #f2f6f6; }
     .button:disabled:hover, .button:disabled:focus, .button:disabled:active, button:disabled:hover, button:disabled:focus, button:disabled:active {
       box-shadow: none;
       border-color: #d5e0e0;
@@ -1948,6 +1949,11 @@ body.dark {
           background-image: url("/assets/images/icons/icon-set/icon-set_tick-grey.svg"); }
         .page-contribute .progress ul li span#preview-and-publish.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_tick.svg"); }
+.page-contribute .button-holder {
+  margin-top: 2rem !important; }
+  .page-contribute .button-holder .button {
+    padding-left: 1rem;
+    padding-right: 1rem; }
 .page-contribute footer {
   margin-top: 2rem;
   position: relative; }

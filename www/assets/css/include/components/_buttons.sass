@@ -1,11 +1,14 @@
 .button, button
 	@extend .text-uppercase
+	//+border-radius(4px)
 
+	// UNHACK
+	border-radius: 4px !important
+	border: 1px solid
 	background: white
 	text-decoration: none
-	padding: $base-unit-layout
-	padding-left: $double-half-unit-layout
-	padding-right: $double-half-unit-layout
+	// UNHACK
+	padding: $double-half-unit-layout $double-half-unit-layout ($double-half-unit-layout - rem(2px)) !important
 	cursor: pointer
 	border-color: $color-grey-200
 	color: $color-grey-300
@@ -49,6 +52,7 @@
 		border-color: $color-grey-200
 		color: $color-grey-200
 		cursor: not-allowed
+		background: $color-grey-50
 
 		&:hover, &:focus, &:active
 			+box-shadow(none)
