@@ -1969,6 +1969,9 @@ body.dark {
       color: #4e6868; }
   .page-contribute article form .latex-content-preview {
     padding: 1rem; }
+  .page-contribute article form .error-messages .alert {
+    padding: 0.5rem 1rem 0.375rem;
+    font-size: 0.875rem; }
   .page-contribute article form label {
     margin: 0.5rem 0 1rem;
     position: relative; }
@@ -2024,15 +2027,7 @@ body.dark {
           .page-contribute article form label > div .search-results > span.active, .page-contribute article form label > div .search-results > span:hover, .page-contribute article form label > div .search-results > span:focus {
             font-weight: 700;
             background: #f2f6f6; }
-    .page-contribute article form label .error-message {
-      cursor: help;
-      position: absolute;
-      width: 0.5rem;
-      height: 0.5rem;
-      top: 50%;
-      right: -1rem;
-      margin: -0.25rem 0 0; }
-      .page-contribute article form label .error-message small {
+      .page-contribute article form label > div small {
         -o-border-radius: 100%;
         border-radius: 100%;
         background: #ff784b;

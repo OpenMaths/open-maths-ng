@@ -39,7 +39,9 @@
 			</label>
 
 			<!--Error messages for Type-->
-			<div class="alert error" ng-show="umiContributeForm.type.$error.required">{{ errorMessages.required }}</div>
+			<div class="error-messages" ng-show="showInstructions == 'type'">
+				<div class="alert error" ng-show="umiContributeForm.type.$error.required">{{ errorMessages.required }}</div>
+			</div>
 
 			<!--Title-->
 			<label for="title" class="flex">
@@ -58,9 +60,11 @@
 			</label>
 
 			<!--Error messages for Title-->
-			<div class="alert error" ng-show="umiContributeForm.title.$error.required">{{ errorMessages.required }}</div>
-			<div class="alert error" ng-show="umiContributeForm.title.$error.maxlength">{{ errorMessages.maxLength }}</div>
-			<div class="alert error" ng-show="umiContributeForm.title.$error.pattern">{{ errorMessages.umiTitle }}</div>
+			<div class="error-messages" ng-show="showInstructions == 'title'">
+				<div class="alert error" ng-show="umiContributeForm.title.$error.required">{{ errorMessages.required }}</div>
+				<div class="alert error" ng-show="umiContributeForm.title.$error.maxlength">{{ errorMessages.maxLength }}</div>
+				<div class="alert error" ng-show="umiContributeForm.title.$error.pattern">{{ errorMessages.umiTitle }}</div>
+			</div>
 
 			<!--Title Synonyms-->
 			<label for="titleSynonyms" class="flex flex-item">
@@ -76,17 +80,15 @@
 					   name="titleSynonyms"
 					   placeholder="Title Synonyms"/>
 				</div>
-
-				<!--Error messages for Synonyms-->
-				<div class="error-message">
-					<small ng-show="umiContributeForm.titleSynonyms.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}"></small>
-				</div>
 			</label>
 
-			<label for="dispatchCreateUmi" class="flex button-holder">
-			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
-				<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+			<!--Error messages for Synonyms-->
+			<div class="error-messages" ng-show="showInstructions == 'titleSynonyms'">
+				<div class="alert error" ng-show="umiContributeForm.titleSynonyms.$error.maxlength">{{ errorMessages.maxLength }}</div>
+			</div>
+
+			<label class="flex button-holder">
+				<button stop-event name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
 		</div>
 

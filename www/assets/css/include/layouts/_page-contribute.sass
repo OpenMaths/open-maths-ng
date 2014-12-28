@@ -110,6 +110,12 @@
 			.latex-content-preview
 				padding: $base-unit-layout
 
+			.error-messages
+				.alert
+					padding: $half-unit-layout $base-unit-layout ($half-unit-layout - rem(2px))
+					font:
+						size: rem(14px)
+
 			label
 				margin: $half-unit-layout 0 $base-unit-layout
 				position: relative
@@ -179,15 +185,6 @@
 							&:focus
 								font-weight: 700
 								background: $color-grey-100
-
-				.error-message
-					cursor: help
-					position: absolute
-					width: $half-unit-layout
-					height: $half-unit-layout
-					top: 50%
-					right: -($base-unit-layout)
-					margin: -($quarter-unit-layout) 0 0
 
 					small
 						+border-radius(100%)
