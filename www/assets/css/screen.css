@@ -1902,16 +1902,23 @@ body.dark {
   border-right: 1px solid #384b4b;
   border-bottom: 1px solid #384b4b; }
 
+.page-contribute .container-narrow {
+  max-width: 43.75rem; }
 .page-contribute .progress {
   background: #f2f6f6;
   height: 4rem;
   border-bottom: 1px solid #d5e0e0; }
   .page-contribute .progress ul {
-    height: 100%; }
+    height: 100%;
+    margin: 0 auto; }
     .page-contribute .progress ul li {
       padding: 0 0.5rem;
       height: 100%;
       font-size: 0.75rem; }
+      .page-contribute .progress ul li:first-of-type {
+        padding-left: 0; }
+      .page-contribute .progress ul li:last-of-type {
+        padding-right: 0; }
       .page-contribute .progress ul li span {
         height: 100%;
         position: relative;
@@ -1959,8 +1966,6 @@ body.dark {
   position: relative; }
 .page-contribute article {
   padding: 2rem 0; }
-  .page-contribute article .container-narrow {
-    max-width: 43.75rem; }
   .page-contribute article .umi-preview-holder .umi {
     max-width: 90%;
     height: 13.75rem; }
@@ -1974,7 +1979,20 @@ body.dark {
       color: #4e6868; }
   .page-contribute article form .latex-content-editor {
     border-top: 1px solid #d5e0e0;
-    border-bottom: 1px solid #d5e0e0; }
+    border-bottom: 1px solid #d5e0e0;
+    margin-bottom: 1.5rem;
+    position: relative; }
+    .page-contribute article form .latex-content-editor .error-messages {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      width: 100%; }
+      .page-contribute article form .latex-content-editor .error-messages .alert {
+        -o-border-radius: 0;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        margin: 0; }
     .page-contribute article form .latex-content-editor .flex-1:first-of-type {
       background: #f2f6f6;
       border-right: 1px solid #d5e0e0; }
@@ -1986,17 +2004,12 @@ body.dark {
       resize: none;
       border-bottom: 0;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.75;
       overflow-y: scroll;
       font-size: 0.875rem; }
   .page-contribute article form .error-messages .alert {
     padding: 0.75rem 1rem;
     font-size: 0.75rem; }
-  .page-contribute article form .error-messages.full-screen .alert {
-    -o-border-radius: 0;
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0; }
   .page-contribute article form label {
     margin: 0.5rem 0 1rem;
     position: relative; }
@@ -2052,15 +2065,6 @@ body.dark {
           .page-contribute article form label > div .search-results > span.active, .page-contribute article form label > div .search-results > span:hover, .page-contribute article form label > div .search-results > span:focus {
             font-weight: 700;
             background: #f2f6f6; }
-      .page-contribute article form label > div small {
-        -o-border-radius: 100%;
-        border-radius: 100%;
-        background: #ff784b;
-        width: 0.5rem;
-        height: 0.5rem;
-        display: block;
-        overflow: hidden;
-        color: white; }
     .page-contribute article form label input, .page-contribute article form label select, .page-contribute article form label textarea {
       margin: 0;
       font-size: 0.9375rem; }

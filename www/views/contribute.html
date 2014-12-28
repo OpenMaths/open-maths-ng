@@ -3,7 +3,7 @@
 <!--Top navigation-->
 
 <nav class="progress">
-	<ul id="nav" class="flex center-horizontally center-vertically align-left">
+	<ul id="nav" class="container-narrow flex  center-vertically align-left">
 		<li ng-repeat="key in stepsKeys"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
@@ -92,7 +92,7 @@
 
 	<form name="formEditor" ng-show="activeStep == 1">
 		<header class="container-narrow">
-			<h2>Create content for {{ createUmiForm.title }}</h2>
+			<h2>Content for <strong>{{ createUmiForm.title }}</strong></h2>
 
 			<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
 				checker and validator, as well as interactive guidance to assist you with the process.</p>
@@ -109,11 +109,11 @@
 			<div class="flex-1">
 				<p class="latex-content-preview" om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed here'"></p>
 			</div>
-		</div>
 
-		<!--Error messages for LaTeX Content-->
-		<div class="error-messages full-screen" ng-show="showInstructions == 'latexContent'">
-			<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ errorMessages.required }}</div>
+			<!--Error messages for LaTeX Content-->
+			<div class="error-messages full-screen" ng-show="showInstructions == 'latexContent'">
+				<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ errorMessages.required }}</div>
+			</div>
 		</div>
 
 		<div class="container-narrow">

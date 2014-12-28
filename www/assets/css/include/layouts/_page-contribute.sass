@@ -1,4 +1,7 @@
 .page-contribute
+	.container-narrow
+		max-width: rem(700px)
+
 	.progress
 		background: $color-grey-100
 		height: $quadruple-unit-layout
@@ -8,12 +11,20 @@
 			@extend .unstyled
 
 			height: 100%
+			margin: 0 auto
 
 			li
 				padding: 0 $half-unit-layout
 				height: 100%
 				font:
 					size: rem(12px)
+
+				&:first-of-type
+					padding-left: 0
+
+				// REVIEW is this needed?
+				&:last-of-type
+					padding-right: 0
 
 				span
 					height: 100%
@@ -94,9 +105,6 @@
 
 	article
 		padding: $double-unit-layout 0
-
-		.container-narrow
-			max-width: rem(700px)
 		
 		.umi-preview-holder
 			.umi
@@ -118,6 +126,21 @@
 			.latex-content-editor
 				border-top: 1px solid $color-grey-200
 				border-bottom: 1px solid $color-grey-200
+				margin-bottom: $double-half-unit-layout // or double??
+				position: relative
+
+				.error-messages
+					position: absolute
+					left: 0
+					bottom: -1px
+					width: 100%
+
+					.alert
+						+border-radius(0)
+
+						border-left: 0
+						border-right: 0
+						margin: 0
 
 				.flex-1
 					&:first-of-type
@@ -132,7 +155,7 @@
 					resize: none
 					border-bottom: 0
 					margin: 0
-					line-height: 1.5
+					line-height: 1.75
 					overflow-y: scroll
 					font:
 						size: rem(14px)
@@ -142,13 +165,6 @@
 					padding: ($half-unit-layout + $quarter-unit-layout) $base-unit-layout
 					font:
 						size: rem(12px)
-
-				&.full-screen
-					.alert
-						+border-radius(0)
-
-						border-left: 0
-						border-right: 0
 
 			label
 				margin: $half-unit-layout 0 $base-unit-layout
@@ -220,15 +236,7 @@
 								font-weight: 700
 								background: $color-grey-100
 
-					small
-						+border-radius(100%)
-
-						background: $color-alert-error
-						width: $half-unit-layout
-						height: $half-unit-layout
-						display: block
-						overflow: hidden
-						color: white
+					
 
 				input, select, textarea
 					margin: 0
