@@ -10,18 +10,18 @@
 
 <article>
 	<header class="container-narrow">
-		<h2 ng-hide="editUmiData">Contributing as {{ omUser.email }}</h2>
-		<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>
+		<h2 ng-hide="editUmiData">Create a new contribution</h2>
+		<!--<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>-->
 
-		<p>Please note that our editor features an automatic checker, as well as
-			interactive guidance throughout the whole process of filling out
-			this form.</p>
+		<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
+			checker and validator, as well as interactive guidance to assist you with the process.</p>
 	</header>
 
-	<form>
-		<!--Type-->
+	<!--NOTE the name attr is needed for error messages-->
+	<form name="umiContributeForm">
 		<div class="container-narrow" ng-show="activeStep == 0">
-			<div class="alert error">{{ errorMessages.required }}</div>
+
+			<!--Type-->
 			<label for="type" class="flex">
 				<p class="flex-2">
 					Type
@@ -36,13 +36,10 @@
 						<option value="">Select Type</option>
 					</select>
 				</div>
-
-				<!--Error messages for Type-->
-				<div class="error-message">
-					<small ng-show="umiContributeForm.type.$error.required"
-						   title="{{ errorMessages.required }}"></small>
-				</div>
 			</label>
+
+			<!--Error messages for Type-->
+			<div class="alert error" ng-show="umiContributeForm.type.$error.required">{{ errorMessages.required }}</div>
 
 			<!--Title-->
 			<label for="title" class="flex">
@@ -58,17 +55,12 @@
 					   placeholder="Title"
 					   required>
 				</div>
-
-				<!--Error messages for Title-->
-				<div class="error-message">
-					<small ng-show="umiContributeForm.title.$error.required"
-						   title="{{ errorMessages.required }}"></small>
-					<small ng-show="umiContributeForm.title.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}"></small>
-					<small ng-show="umiContributeForm.title.$error.pattern"
-						   title="{{ errorMessages.umiTitle }}"></small>
-				</div>
 			</label>
+
+			<!--Error messages for Title-->
+			<div class="alert error" ng-show="umiContributeForm.title.$error.required">{{ errorMessages.required }}</div>
+			<div class="alert error" ng-show="umiContributeForm.title.$error.maxlength">{{ errorMessages.maxLength }}</div>
+			<div class="alert error" ng-show="umiContributeForm.title.$error.pattern">{{ errorMessages.umiTitle }}</div>
 
 			<!--Title Synonyms-->
 			<label for="titleSynonyms" class="flex flex-item">
@@ -220,6 +212,7 @@
 		</div>
 
 		<div class="container-narrow" ng-show="activeStep == 3">
+			<p>Your contribution will be published under {{ omUser.email }}.</p>
 			<span ng-click="createUmi()">show data</span>
 			{{ contributeData }}
 		</div>
