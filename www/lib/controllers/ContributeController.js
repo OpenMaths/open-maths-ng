@@ -49,7 +49,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	$scope.steps = {
 		"basic-settings": "Basic Settings",
 		"editor": "Editor",
-		"additional-settings": "Additional Settings",
 		"preview-and-publish": "Preview & Publish"
 	};
 

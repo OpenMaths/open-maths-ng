@@ -109,21 +109,7 @@
 			<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ errorMessages.required }}</div>
 		</div>
 
-		<label class="flex button-holder">
-			<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
-		</label>
-
-
-
-		<!-- NOTE we should have a button which says skip additional settings and go to preview and publish -->
-		<!--<label for="dispatchCreateUmi" class="flex button-holder">-->
-			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
-			<!--<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>-->
-		<!--</label>-->
-	</form>
-
-		<div class="container-narrow" ng-show="activeStep == 2">
-
+		<div class="container-narrow">
 			<!--Prerequisite definitions-->
 			<label for="prerequisiteDefinitions" class="flex flex-item">
 				<p class="flex-2">
@@ -148,13 +134,12 @@
 						<span class="label" ng-repeat="(id, title) in autocompleteData.prerequisiteDefinitions">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
 					</div>
 				</div>
-
-				<!--Error messages for Prerequisite definitions-->
-				<div class="error-message">
-					<small ng-show="umiContributeForm.prerequisiteDefinitions.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}"></small>
-				</div>
 			</label>
+
+			<!--Error messages for Prerequisite definitions-->
+			<div class="error-messages" ng-show="showInstructions == 'prerequisiteDefinitions'">
+				<div class="alert error" ng-show="formEditor.prerequisiteDefinitions.$error.maxlength">{{ errorMessages.maxLength }}</div>
+			</div>
 
 			<!--See also-->
 			<label for="seeAlso" class="flex flex-item">
@@ -180,13 +165,12 @@
 						<span class="label" ng-repeat="(id, title) in $parent.autocompleteData.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
 					</div>
 				</div>
-
-				<!--Error messages for See also-->
-				<div class="error-message">
-					<small ng-show="umiContributeForm.seeAlso.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}"></small>
-				</div>
 			</label>
+
+			<!--Error messages for See also-->
+			<div class="error-messages" ng-show="showInstructions == 'seeAlso'">
+				<div class="alert error" ng-show="formEditor.seeAlso.$error.maxlength">{{ errorMessages.maxLength }}</div>
+			</div>
 
 			<!--Tags-->
 			<label for="tags" class="flex flex-item">
@@ -201,17 +185,28 @@
 						   ng-maxlength="128" type="text" name="tags"
 						   placeholder="Tags"/>
 				</div>
-
-				<!--Error messages for Tags-->
-				<div class="error-message">
-					<small ng-show="umiContributeForm.tags.$error.maxlength"
-						   title="{{ errorMessages.maxLength }}"></small>
-				</div>
 			</label>
 
-			<label for="dispatchCreateUmi" class="flex button-holder">
-				<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+			<!--Error messages for Tags-->
+			<div class="error-messages" ng-show="showInstructions == 'tags'">
+				<div class="alert error" ng-show="formEditor.tags.$error.maxlength">{{ errorMessages.maxLength }}</div>
+			</div>
+
+			<label class="flex button-holder">
+				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
+		</div>
+
+		<!-- NOTE we should have a button which says skip additional settings and go to preview and publish -->
+		<!--<label for="dispatchCreateUmi" class="flex button-holder">-->
+			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
+			<!--<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>-->
+		<!--</label>-->
+	</form>
+
+		<div class="container-narrow" ng-show="activeStep == 2">
+
+
 		</div>
 
 		<div class="container-narrow" ng-show="activeStep == 3">
