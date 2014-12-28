@@ -115,14 +115,40 @@
 				color: $color-grey-700
 
 		form
-			.latex-content-preview
-				padding: $base-unit-layout
+			.latex-content-editor
+				border-top: 1px solid $color-grey-200
+				border-bottom: 1px solid $color-grey-200
+
+				.flex-1
+					&:first-of-type
+						background: $color-grey-50
+						border-right: 1px solid $color-grey-200
+				
+				textarea,
+				.latex-content-preview
+					padding: $double-half-unit-layout
+					height: 10 * $double-unit-layout
+					width: 100%
+					resize: none
+					border-bottom: 0
+					margin: 0
+					line-height: 1.5
+					overflow-y: scroll
+					font:
+						size: rem(14px)
 
 			.error-messages
 				.alert
-					padding: $half-unit-layout $base-unit-layout ($half-unit-layout - rem(2px))
+					padding: ($half-unit-layout + $quarter-unit-layout) $base-unit-layout
 					font:
-						size: rem(14px)
+						size: rem(12px)
+
+				&.full-screen
+					.alert
+						+border-radius(0)
+
+						border-left: 0
+						border-right: 0
 
 			label
 				margin: $half-unit-layout 0 $base-unit-layout

@@ -37,87 +37,90 @@
 		</label>
 
 		<!--Error messages for Type-->
-			<div class="error-messages" ng-show="showInstructions == 'type'">
-				<div class="alert error" ng-show="formBasicSettings.type.$error.required">{{ errorMessages.required }}</div>
+		<div class="error-messages" ng-show="showInstructions == 'type'">
+			<div class="alert error" ng-show="formBasicSettings.type.$error.required">{{ errorMessages.required }}</div>
+		</div>
+
+		<!--Title-->
+		<label for="title" class="flex">
+			<p class="flex-2">
+				Title
+				<small ng-class="{active : showInstructions == 'title'}">{{ instructions.title }}
+				</small>
+			</p>
+			<div class="flex-7">
+				<input ng-focus="showInstructions = 'title'"
+					   ng-pattern="/^(?=.*[^\W\'_-])[\w\' -]*$/" ng-model="createUmiForm.title"
+					   ng-maxlength="128" type="text" name="title"
+					   placeholder="Title"
+					   required>
+			</div>
+		</label>
+
+		<!--Error messages for Title-->
+		<div class="error-messages" ng-show="showInstructions == 'title'">
+			<div class="alert error" ng-show="formBasicSettings.title.$error.required">{{ errorMessages.required }}</div>
+			<div class="alert error" ng-show="formBasicSettings.title.$error.maxlength">{{ errorMessages.maxLength }}</div>
+			<div class="alert error" ng-show="formBasicSettings.title.$error.pattern">{{ errorMessages.umiTitle }}</div>
+		</div>
+
+		<!--Title Synonyms-->
+		<label for="titleSynonyms" class="flex flex-item">
+			<p class="flex-2">
+				Title Synonyms
+				<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ instructions.titleSynonyms }}
+				</small>
+			</p>
+			<div class="flex-7">
+				<input ng-focus="showInstructions = 'titleSynonyms'"
+					   ng-model="createUmiForm.titleSynonyms" ng-maxlength="128"
+					   type="text"
+					   name="titleSynonyms"
+					   placeholder="Title Synonyms"/>
+			</div>
+		</label>
+
+		<!--Error messages for Title Synonyms-->
+		<div class="error-messages" ng-show="showInstructions == 'titleSynonyms'">
+			<div class="alert error" ng-show="formBasicSettings.titleSynonyms.$error.maxlength">{{ errorMessages.maxLength }}</div>
+		</div>
+
+		<label class="flex button-holder">
+			<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+		</label>
+	</form>
+
+	<form name="formEditor" ng-show="activeStep == 1">
+		<div class="flex latex-content-editor">
+			<!--LaTeX Content-->
+			<div class="flex-1">
+				<textarea ng-focus="showInstructions = 'latexContent'"
+				  ng-model="createUmiForm.latexContent" name="latexContent"
+				  placeholder="LaTeX content" required></textarea>
 			</div>
 
-			<!--Title-->
-			<label for="title" class="flex">
-				<p class="flex-2">
-					Title
-					<small ng-class="{active : showInstructions == 'title'}">{{ instructions.title }}
-					</small>
-				</p>
-				<div class="flex-7">
-					<input ng-focus="showInstructions = 'title'"
-						   ng-pattern="/^(?=.*[^\W\'_-])[\w\' -]*$/" ng-model="createUmiForm.title"
-						   ng-maxlength="128" type="text" name="title"
-						   placeholder="Title"
-						   required>
-				</div>
-			</label>
-
-			<!--Error messages for Title-->
-			<div class="error-messages" ng-show="showInstructions == 'title'">
-				<div class="alert error" ng-show="formBasicSettings.title.$error.required">{{ errorMessages.required }}</div>
-				<div class="alert error" ng-show="formBasicSettings.title.$error.maxlength">{{ errorMessages.maxLength }}</div>
-				<div class="alert error" ng-show="formBasicSettings.title.$error.pattern">{{ errorMessages.umiTitle }}</div>
+			<div class="flex-1">
+				<p class="latex-content-preview" om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed here'"></p>
 			</div>
+		</div>
 
-			<!--Title Synonyms-->
-			<label for="titleSynonyms" class="flex flex-item">
-				<p class="flex-2">
-					Title Synonyms
-					<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ instructions.titleSynonyms }}
-					</small>
-				</p>
-				<div class="flex-7">
-					<input ng-focus="showInstructions = 'titleSynonyms'"
-						   ng-model="createUmiForm.titleSynonyms" ng-maxlength="128"
-						   type="text"
-						   name="titleSynonyms"
-						   placeholder="Title Synonyms"/>
-				</div>
-			</label>
+		<!--Error messages for LaTeX Content-->
+		<div class="error-messages full-screen" ng-show="showInstructions == 'latexContent'">
+			<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ errorMessages.required }}</div>
+		</div>
 
-			<!--Error messages for Title Synonyms-->
-			<div class="error-messages" ng-show="showInstructions == 'titleSynonyms'">
-				<div class="alert error" ng-show="formBasicSettings.titleSynonyms.$error.maxlength">{{ errorMessages.maxLength }}</div>
-			</div>
+		<label class="flex button-holder">
+			<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+		</label>
 
-			<label class="flex button-holder">
-				<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
-			</label>
-		</form>
 
-		<div ng-show="activeStep == 1">
-			<div class="flex-grid-2">
-				<!--LaTeX Content-->
-				<label for="latexContent" class="flex flex-item">
-					<div>
-						<textarea ng-focus="showInstructions = 'latexContent'"
-						  ng-model="createUmiForm.latexContent" name="latexContent"
-						  placeholder="LaTeX content" required></textarea>
-					</div>
-
-					<!--Error messages for LaTeX Content-->
-					<div class="error-message">
-						<small ng-show="umiContributeForm.latexContent.$error.required"
-							   title="{{ errorMessages.required }}"></small>
-					</div>
-				</label>
-
-				<div class="flex-item">
-					<p class="latex-content-preview" om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed here'"></p>
-				</div>
-			</div>
 
 		<!-- NOTE we should have a button which says skip additional settings and go to preview and publish -->
-		<label for="dispatchCreateUmi" class="flex button-holder">
+		<!--<label for="dispatchCreateUmi" class="flex button-holder">-->
 			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
-			<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
-		</label>
-		</div>
+			<!--<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>-->
+		<!--</label>-->
+	</form>
 
 		<div class="container-narrow" ng-show="activeStep == 2">
 
