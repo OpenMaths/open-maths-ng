@@ -9,16 +9,16 @@
 </nav>
 
 <article>
-	<header class="container-narrow">
-		<h2 ng-hide="editUmiData">Create a new contribution</h2>
-		<!--<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>-->
-
-		<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
-			checker and validator, as well as interactive guidance to assist you with the process.</p>
-	</header>
-
 	<!--NOTE the name attr is needed for error messages-->
 	<form name="formBasicSettings" class="container-narrow" ng-show="activeStep == 0">
+		<header>
+			<h2>Create a new contribution</h2>
+			<!--<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>-->
+
+			<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
+				checker and validator, as well as interactive guidance to assist you with the process.</p>
+		</header>
+
 		<!--Type-->
 		<label for="type" class="flex">
 			<p class="flex-2">
@@ -91,6 +91,13 @@
 	</form>
 
 	<form name="formEditor" ng-show="activeStep == 1">
+		<header class="container-narrow">
+			<h2>Create content for {{ createUmiForm.title }}</h2>
+
+			<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
+				checker and validator, as well as interactive guidance to assist you with the process.</p>
+		</header>
+
 		<div class="flex latex-content-editor">
 			<!--LaTeX Content-->
 			<div class="flex-1">

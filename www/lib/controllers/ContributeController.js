@@ -52,6 +52,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		"preview-and-publish": "Preview & Publish"
 	};
 
+	// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
 	$scope.stepsKeys = _.keys($scope.steps);
 
 	$scope.activeStep = 0;
