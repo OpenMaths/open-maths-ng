@@ -592,13 +592,12 @@ blockquote {
       border-color: #449cb8;
       color: #449cb8; }
   .button:disabled, button:disabled {
-    background: #f2f6f6;
-    border-color: #f2f6f6;
+    border-color: #d5e0e0;
     color: #d5e0e0;
     cursor: not-allowed; }
     .button:disabled:hover, .button:disabled:focus, .button:disabled:active, button:disabled:hover, button:disabled:focus, button:disabled:active {
       box-shadow: none;
-      border-color: #f2f6f6;
+      border-color: #d5e0e0;
       color: #d5e0e0; }
 
 .close {
