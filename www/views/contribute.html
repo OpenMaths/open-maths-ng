@@ -133,7 +133,7 @@
 						   ng-keydown="searchResultsNavigate(searchResults, $event)"
 						   placeholder="Prerequisite definitions"/>
 
-					<div class="search-results" ng-show="showAutocomplete">
+					<div class="search-results" ng-show="searchResults">
 						<span ng-click="autocomplete('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}">{{result.title}}</span>
 					</div>
 
@@ -164,7 +164,7 @@
 						   ng-keydown="searchResultsNavigate(searchResults, $event)"
 						   placeholder="See also"/>
 
-					<div class="search-results" ng-show="showAutocomplete">
+					<div class="search-results" ng-show="searchResults">
 						<span ng-click="autocomplete('seeAlso', $index)" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}">{{result.title}}</span>
 					</div>
 
@@ -203,12 +203,6 @@
 				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
 		</div>
-
-		<!-- NOTE we should have a button which says skip additional settings and go to preview and publish -->
-		<!--<label for="dispatchCreateUmi" class="flex button-holder">-->
-			<!--<label for="dispatchCreateUmi" class="flex button-holder" ng-show="umiContributeForm.$valid">-->
-			<!--<button name="next" class="button primary" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>-->
-		<!--</label>-->
 	</form>
 
 		<div class="container-narrow" ng-show="activeStep == 2">
@@ -239,26 +233,3 @@
 
 	</form>
 </article>
-
-	<aside class="flex-5 flex column hide">
-		<header>
-			<h2>Live preview</h2>
-			<p>This is what your contribution will look like as a single unit.</p>
-		</header>
-
-		<div class="umi-preview-holder flex-1 flex center-vertically center-horizontally">
-			<div class="umi fade-in">
-				<div class="content-holder">
-					<div class="title flex center-vertically">
-						<label
-							ng-bind="createUmiForm.type.label || 'Contribution type'"></label>
-						<strong class="flex-1"
-								ng-bind="createUmiForm.title || 'Contribution Title'"></strong>
-					</div>
-					<article><p om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed
-						here'"></p></article>
-				</div>
-			</div>
-		</div>
-	</aside>
-</div>

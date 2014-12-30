@@ -18,16 +18,16 @@ app.controller("SearchController", function ($scope, $http) {
 		var searchResultsCurrentSelection = res.currentSelection;
 
 		// TODO decide what to do w/ this! Add a callback function?
-		//if (e.keyCode == 13) {
-		//	e.preventDefault();
-		//}
+		if (e.keyCode == 13) {
+			e.preventDefault();
+		}
 
 		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
-			e.preventDefault(); //needed?
+			e.preventDefault();
 
 			res.currentSelection = searchResultsCurrentSelection - 1;
 		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
-			e.preventDefault(); //needed?
+			e.preventDefault();
 
 			res.currentSelection = searchResultsCurrentSelection + 1;
 		}
@@ -71,8 +71,6 @@ app.controller("SearchController", function ($scope, $http) {
 							"currentSelection": 0,
 							"data": data
 						};
-
-						console.log(data);
 
 						$scope.searchResults = results;
 					} else {
