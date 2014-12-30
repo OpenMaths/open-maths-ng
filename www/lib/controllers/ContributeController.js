@@ -12,7 +12,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	// This is here on purpose as we alter autocompleteData from a child controller
 	$scope.autocompleteData = {};
 
-	// TODO this shall be a separate page: /edit/uriFriendlyTitle
+	// TODO + UNHACK this shall be a separate page: /edit/uriFriendlyTitle !!
 	if ($routeParams.edit) {
 		var splitEditParam = $routeParams.edit.split(":");
 
@@ -49,8 +49,14 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	$scope.goToStep = function(key) {
 		var keyIndex = _.indexOf($scope.stepsKeys, key);
 
-		if (keyIndex < $scope.activeStep) {
+		if (keyIndex <= $scope.activeStep) {
 			$scope.activeStep = keyIndex;
+		} else {
+			// TODO outsource this as once function? The only thing to consider is the scope -> parent vs no parent?
+			$scope.$parent.notification = {"message": "Please complete the current step first before proceeding further.", "type": "info", "act": true};
+			$timeout(function () {
+				$scope.$parent.notification.act = false;
+			}, 2500);
 		}
 	};
 
