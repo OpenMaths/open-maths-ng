@@ -46,6 +46,14 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			});
 	}
 
+	$scope.goToStep = function(key) {
+		var keyIndex = _.indexOf($scope.stepsKeys, key);
+
+		if (keyIndex < $scope.activeStep) {
+			$scope.activeStep = keyIndex;
+		}
+	};
+
 	$scope.steps = {
 		"basic-settings": "Basic Settings",
 		"editor": "Editor",

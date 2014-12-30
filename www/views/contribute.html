@@ -4,7 +4,7 @@
 
 <nav class="progress">
 	<ul id="nav" class="container-narrow flex  center-vertically align-left">
-		<li ng-repeat="key in stepsKeys"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
+		<li ng-repeat="key in stepsKeys" ng-click="goToStep(key)"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
 
@@ -212,13 +212,28 @@
 	</form>
 
 		<div class="container-narrow" ng-show="activeStep == 2">
+			<header>
+				<h2>Preview: <strong>{{ createUmiForm.title }}</strong></h2>
+				<p>This contribution will be published under {{ omUser.email }}.</p>
+			</header>
 
+			<div class="umi fade-in">
+				<div class="content-holder">
+					<div class="title flex center-vertically">
+						<!--This should only be displayed if a user is signed in!!-->
+						<!--ng-show="data.author == omUser.email"-->
+						<i class="edit"></i>
+						<i class="full-screen"></i>
+						<label class="proof">{{ createUmiForm.type.label }}</label>
+						<strong class="flex-1">{{ createUmiForm.title }}</strong>
+					</div>
+					<article>
+						<p om-bind="createUmiForm.latexContent"></p>
+					</article>
+				</div>
+			</div>
 
-		</div>
-
-		<div class="container-narrow" ng-show="activeStep == 3">
-			<p>Your contribution will be published under {{ omUser.email }}.</p>
-			<span ng-click="createUmi()">show data</span>
+			<button name="publish" class="button primary align-right" ng-click="createUmi()"><strong>Publish</strong> your contribution</button>
 			{{ contributeData }}
 		</div>
 
