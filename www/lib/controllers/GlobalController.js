@@ -1,5 +1,3 @@
-// @TODO: investigate factories -> would be nice to have notifications registered as factories / services
-
 app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
 	/**
@@ -9,6 +7,8 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 
 	/**
 	 * Returns current path
+	 *
+	 * @TODO abstract welcome page name into config var.
 	 */
 	function returnPath() {
 		var splitUrl = $location.url().split("/");
@@ -16,7 +16,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 
 		// @TODO: check if this works properly
 		$window.ga("send", "pageview", {page: $location.path()});
-	}
+	};
 
 	/**
 	 * Watches changes in URL, returns current path
@@ -29,6 +29,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * Sets custom theme
 	 *
 	 * @param theme {string}
+	 * @TODO abstract default theme into config var.
 	 */
 	$scope.setTheme = function (theme) {
 		$scope.themeClass = theme;
@@ -40,6 +41,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * Sets custom font
 	 *
 	 * @param font {string}
+	 * @TODO abstract default font into config var.
 	 */
 	$scope.setUmiFont = function (font) {
 		$scope.umiFontClass = font;
@@ -60,7 +62,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 *
 	 * @returns {boolean}
 	 *
-	 * @TODO: Implement UX-friendly notifications
 	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignIn = function () {
@@ -79,7 +80,7 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 							sessionStorage.setItem("omUser", JSON.stringify(data));
 
 							$scope.notification = {
-								"message": "You are now signed in as " + data.email +  ".",
+								"message": "You are now signed in as " + data.email + ".",
 								"type": "success",
 								"act": true
 							};
@@ -113,7 +114,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	/**
 	 * Google Sign Out functionality
 	 *
-	 * @TODO: Implement UX-friendly notifications
 	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignOut = function () {
@@ -130,8 +130,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		$timeout(function () {
 			$scope.notification.act = false;
 		}, 2500);
-
-		//$location.path("/");
 	};
 
 	/**
@@ -142,7 +140,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @param type {string} info | warning | error | success
 	 * @returns {boolean}
 	 *
-	 * @TODO: Implement UX-friendly notifications
 	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.accessUrlUser = function (url, message, type) {
@@ -158,42 +155,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		else {
 			$location.url("/" + url);
 		}
-	};
-
-	/**
-	 * Search functionality
-	 *
-	 * @param res {object} currentSelection, data
-	 * @param e {object} $event
-	 * @returns {boolean}
-	 *
-	 * @TODO: Turn into a factory?
-	 * @TODO: Dispatch event on Return key?
-	 */
-	$scope.searchResultsNavigate = function (res, e) {
-		if (!res) {
-			return false;
-		}
-
-		var searchResultsCount = Object.keys(res.data).length;
-		var searchResultsCurrentSelection = res.currentSelection;
-
-		// TODO finish!
-		//if (e.keyCode == 13) {
-		//	e.preventDefault();
-		//}
-
-		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
-			e.preventDefault(); //needed?
-
-			res.currentSelection = searchResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
-			e.preventDefault(); //needed?
-
-			res.currentSelection = searchResultsCurrentSelection + 1;
-		}
-
-		return false;
 	};
 
 });

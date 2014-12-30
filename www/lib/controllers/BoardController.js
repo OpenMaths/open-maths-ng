@@ -100,13 +100,14 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 				$timeout(fadeInUmi, 250);
 			}).
 			error(function () {
-				$scope.notification = {
+				// TODO this needs to be properly documented
+				$scope.$parent.notification = {
 					"message": "There was an error loading the requested contribution.",
 					"type": "error",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			});
 	};

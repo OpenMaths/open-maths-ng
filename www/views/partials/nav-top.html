@@ -27,7 +27,10 @@
 
 			<nav class="contextual-menu right" ng-show="dropDownUser">
 				<ul class="flex column" stop-event>
-					<li><header class="item-heading">Account Actions</header><strong ng-click="googleSignOut(); dropDownUser = false;">Sign Out</strong></li>
+					<li>
+						<header class="item-heading">{{ omUser.name }}</header>
+						<strong ng-click="googleSignOut(); dropDownUser = false;">Sign Out</strong>
+					</li>
 				</ul>
 			</nav>
 		</li>

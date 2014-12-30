@@ -6,6 +6,13 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 	$rootScope.title = "Contribute";
 
+	// The refactoring of this coming soon!!
+	$rootScope.navTopTransparentClass = false;
+
+	// This is here on purpose as we alter autocompleteData from a child controller
+	$scope.autocompleteData = {};
+
+	// TODO + UNHACK this shall be a separate page: /edit/uriFriendlyTitle !!
 	if ($routeParams.edit) {
 		var splitEditParam = $routeParams.edit.split(":");
 
@@ -28,18 +35,41 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				};
 			}).
 			error(function () {
-				$scope.notification = {
+				$scope.$parent.notification = {
 					"message": "There was an error loading the requested contribution.",
 					"type": "error",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			});
 	}
 
-	$rootScope.navTopTransparentClass = false;
+	$scope.goToStep = function(key) {
+		var keyIndex = _.indexOf($scope.stepsKeys, key);
+
+		if (keyIndex <= $scope.activeStep) {
+			$scope.activeStep = keyIndex;
+		} else {
+			// TODO outsource this as once function? The only thing to consider is the scope -> parent vs no parent?
+			$scope.$parent.notification = {"message": "Please complete the current step first before proceeding further.", "type": "info", "act": true};
+			$timeout(function () {
+				$scope.$parent.notification.act = false;
+			}, 2500);
+		}
+	};
+
+	$scope.steps = {
+		"basic-settings": "Basic Settings",
+		"editor": "Editor",
+		"preview-and-publish": "Preview & Publish"
+	};
+
+	// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
+	$scope.stepsKeys = _.keys($scope.steps);
+
+	$scope.activeStep = 0;
 
 	$scope.errorMessages = {
 		required: "This field is required.",
@@ -73,6 +103,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	];
 
 	$scope.createUmi = function() {
+		// TODO get rid of this, replace with event fired on hitting Return key
 		if ($scope.showSearchResults) {
 			$scope.assignUmiId($scope.showSearchResults, false);
 
@@ -81,17 +112,22 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		var createUmiForm = $scope.createUmiForm;
 
+		// TODO Implement Auth => add additional auth fields, such as token.
 		var dispatchCreateUmi = {
 			author : $scope.omUser.email,
 			message : "Initialise UMI",
-			content : createUmiForm.latexContent,
+
+			umiType : createUmiForm.type.id,
+
 			title : createUmiForm.title,
-			titleSynonyms : createUmiForm.titleSynonyms ? [createUmiForm.titleSynonyms] : [],
-			//TODO use underscore to make all keys integers?
-			prerequisiteDefinitionIds : $scope.assignDataAll.prerequisiteDefinitions ? Object.keys($scope.assignDataAll.prerequisiteDefinitions) : [],
-			seeAlsoIds : createUmiForm.seeAlso ? [createUmiForm.seeAlso] : [],
-			tags : createUmiForm.tags ? [createUmiForm.tags] : [],
-			umiType : createUmiForm.type.id
+			titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
+
+			content : createUmiForm.latexContent,
+
+			prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
+			seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
+
+			tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
 		};
 
 		if ($scope.editUmiData) {
@@ -105,7 +141,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
 
-		console.log(dispatchData);
+		$scope.contributeData = dispatchData;
+		return false;
 
 		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
@@ -120,83 +157,33 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		http.onreadystatechange = function() {
 			if (http.readyState != 4) {
-				$scope.notification = {
+				$scope.$parent.notification = {
 					"message": "Your contribution was successfully posted!",
 					"type": "success",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			} else {
-				$scope.notification = {
+				$scope.$parent.notification = {
 					"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
 					"type": "error",
 					"act": true
 				};
 				$timeout(function () {
-					$scope.notification.act = false;
+					$scope.$parent.notification.act = false;
 				}, 2500);
 			}
-		}
+		};
 
 		http.send(data);
 	};
 
-	// TODO Abstract??
-	$scope.assignDataAll = {};
+	// TODO should this be a shared function?
+	var cleanseCommaSeparatedValues = function (str) {
+		var vals = str.split(",");
 
-	$scope.assignUmiId = function(searchResultsPointer, index) {
-		var results = $scope.searchResults[searchResultsPointer];
-		var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
-
-		$scope.createUmiForm[searchResultsPointer] = "";
-		$scope.showSearchResults = false;
-
-		// if allData with particular results pointer is already set:
-		if ($scope.assignDataAll[searchResultsPointer]) {
-			$scope.assignDataAll[searchResultsPointer][assignFromResults.id] = assignFromResults.title;
-		} else {
-			var assignData = {};
-			assignData[assignFromResults.id] = assignFromResults.title;
-
-			$scope.assignDataAll[searchResultsPointer] = assignData;
-		}
-	};
-
-	$scope.removeUmiId = function(searchResultsPointer, id) {
-		delete $scope.assignDataAll[searchResultsPointer][id];
-	};
-
-	$scope.search = function (name) {
-		var searchTerm = $scope.createUmiForm[name];
-
-		var termLength = searchTerm.length;
-
-		if (termLength > 0) {
-			$scope.showSearchResults = name;
-
-			$http.get(appConfig.apiUrl + "/search/" + searchTerm).
-				success(function (data) {
-					$scope.searchResults = {};
-
-					var results = {
-						"currentSelection": 0,
-						"data": data
-					}
-
-					$scope.searchResults[name] = results;
-
-					//console.log($scope.searchResults);
-				}).
-				error(function (data, status) {
-					alert("No data to display :-(");
-					console.log(data + " | " + status);
-				});
-		}
-		else {
-			$scope.searchResults = false;
-			$scope.showSearchResults = false;
-		}
+		return _.map(vals, function(val) { return val.trim(); });
 	};
 });

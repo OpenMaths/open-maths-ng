@@ -1,11 +1,116 @@
 .page-contribute
+	.container-narrow
+		max-width: rem(700px)
+
+		.umi
+			border: 1px solid $color-black
+			margin: $double-unit-layout 0
+
+	.progress
+		background: $color-grey-100
+		height: $quadruple-unit-layout
+		border-bottom: 1px solid $color-grey-200
+
+		ul
+			@extend .unstyled
+
+			height: 100%
+			margin: 0 auto
+
+			li
+				cursor: pointer
+				padding: 0 $half-unit-layout
+				height: 100%
+				font:
+					size: rem(12px)
+
+				&:first-of-type
+					padding-left: 0
+
+				// REVIEW is this needed?
+				&:last-of-type
+					padding-right: 0
+
+				span
+					height: 100%
+					position: relative
+					padding: 0 0 0 ($double-unit-layout + $quarter-unit-layout)
+					color: $color-grey
+					text-decoration: none
+
+					&.active
+						color: $color-black
+
+					&:before
+						content: ""
+						width: $double-unit-layout
+						height: $double-unit-layout
+						display: block
+						position: absolute
+						left: 0
+						top: 50%
+						margin: -($double-unit-layout / 2) 0 0
+						background:
+							size: 150%
+							repeat: no-repeat
+							position: center center
+							color: transparent
+
+					&#basic-settings
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_gear-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_gear.svg")
+
+					&#editor
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_editor-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_editor.svg")
+
+					&#additional-settings
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_see-more-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_see-more.svg")
+
+					&#preview-and-publish
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_tick-grey.svg")
+
+						&.active
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_tick.svg")
+
+	.button-holder
+		// UNHACK
+		margin-top: $double-unit-layout !important
+
+		.button
+			padding-left: $base-unit-layout
+			padding-right: $base-unit-layout
+
 	footer
 		margin-top: $double-unit-layout
 		position: relative
 
-	aside
-		padding: $double-unit-layout
-
+	article
+		padding: $double-unit-layout 0
+		
 		.umi-preview-holder
 			.umi
 				max-width: 90%
@@ -23,6 +128,49 @@
 				color: $color-grey-700
 
 		form
+			.latex-content-editor
+				border-top: 1px solid $color-grey-200
+				border-bottom: 1px solid $color-grey-200
+				margin-bottom: $double-half-unit-layout // or double??
+				position: relative
+
+				.error-messages
+					position: absolute
+					left: 0
+					bottom: -1px
+					width: 100%
+
+					.alert
+						+border-radius(0)
+
+						border-left: 0
+						border-right: 0
+						margin: 0
+
+				.flex-1
+					&:first-of-type
+						background: $color-grey-50
+						border-right: 1px solid $color-grey-200
+				
+				textarea,
+				.latex-content-preview
+					padding: $double-half-unit-layout
+					height: 10 * $double-unit-layout
+					width: 100%
+					resize: none
+					border-bottom: 0
+					margin: 0
+					line-height: 1.75
+					overflow-y: scroll
+					font:
+						size: rem(14px)
+
+			.error-messages
+				.alert
+					padding: ($half-unit-layout + $quarter-unit-layout) $base-unit-layout
+					font:
+						size: rem(12px)
+
 			label
 				margin: $half-unit-layout 0 $base-unit-layout
 				position: relative
@@ -93,25 +241,6 @@
 								font-weight: 700
 								background: $color-grey-100
 
-				.error-message
-					cursor: help
-					position: absolute
-					width: $half-unit-layout
-					height: $half-unit-layout
-					top: 50%
-					right: -($base-unit-layout)
-					margin: -($quarter-unit-layout) 0 0
-
-					small
-						+border-radius(100%)
-
-						background: $color-alert-error
-						width: $half-unit-layout
-						height: $half-unit-layout
-						display: block
-						overflow: hidden
-						color: white
-
 				input, select, textarea
 					margin: 0
 					font-size: rem(15px)
@@ -146,9 +275,89 @@
 							opacity: 1
 
 	&.dark
-		aside
+		.container-narrow
+			.umi
+				border-color: $color-grey-800
+
+		.progress
+			background: transparent
+			border-bottom-color: $color-grey-800
+
+			ul
+				li
+					span
+						color: $color-grey-500
+
+						&.active
+							color: white
+
+						&#basic-settings
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_gear-dark.svg")
+
+							&.active
+								&:before
+									background:
+										image: url("#{$image-base}/icons/icon-set/icon-set_gear-white.svg")
+
+						&#editor
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_editor-dark.svg")
+
+							&.active
+								&:before
+									background:
+										image: url("#{$image-base}/icons/icon-set/icon-set_editor-white.svg")
+
+						&#additional-settings
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_see-more-dark.svg")
+
+							&.active
+								&:before
+									background:
+										image: url("#{$image-base}/icons/icon-set/icon-set_see-more-white.svg")
+
+						&#preview-and-publish
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_tick-dark.svg")
+
+							&.active
+								&:before
+									background:
+										image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+
+		article
 			form
+				.latex-content-editor
+					border-color: $color-grey-800
+
+					.flex-1
+						&:first-of-type
+							border-right-color: $color-grey-800
+							background: darken($color-grey-800, 12.5%)
+
 				label
 					p
 						small
 							background: $color-black
+
+					> div
+						.added-titles
+							.label
+								border-color: $color-grey-500
+								color: $color-grey-500
+
+						.search-results
+							border-color: $color-grey-700
+							background: rgba(27,36,36,.85)
+
+							> span
+								&.active,
+								&:hover,
+								&:focus
+									background: darken($color-grey-800, 10.5%)
