@@ -4,7 +4,7 @@
 
 		.umi
 			border: 1px solid $color-black
-			margin-bottom: $double-unit-layout
+			margin: $double-unit-layout 0
 
 	.progress
 		background: $color-grey-100
@@ -275,6 +275,10 @@
 							opacity: 1
 
 	&.dark
+		.container-narrow
+			.umi
+				border-color: $color-grey-800
+
 		.progress
 			background: transparent
 			border-bottom-color: $color-grey-800
@@ -329,6 +333,14 @@
 
 		article
 			form
+				.latex-content-editor
+					border-color: $color-grey-800
+
+					.flex-1
+						&:first-of-type
+							border-right-color: $color-grey-800
+							background: darken($color-grey-800, 12.5%)
+
 				label
 					p
 						small
@@ -348,4 +360,4 @@
 								&.active,
 								&:hover,
 								&:focus
-									background: darken($color-grey-800, 10%)
+									background: darken($color-grey-800, 10.5%)

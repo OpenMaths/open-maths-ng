@@ -29,8 +29,8 @@
 							<!--ng-show="data.author == omUser.email"-->
 							<a href="/contribute/edit:{{data.title.uriFriendlyTitle}}"><i class="edit"></i></a>
 							<i class="full-screen"></i>
-							<label class="proof">{{ data.umiType }}</label>
-							<strong class="flex-1">{{ data.title.title }} ({{ data.title.id }})</strong>
+							<span class="label">{{ data.umiType }}</span>
+							<strong class="flex-1">{{ data.title.title }}</strong>
 						</div>
 						<article stop-event>
 							<p om-bind="data.htmlContent"></p>
