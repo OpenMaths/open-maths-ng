@@ -35,7 +35,7 @@ app.controller("SearchController", function ($scope, $http) {
 		return false;
 	};
 
-	$scope.search = function (model, autocomplete) {
+	$scope.search = function (model, autocomplete, dive) {
 		if (autocomplete) {
 			$scope.showAutocomplete = true;
 		}
@@ -57,12 +57,9 @@ app.controller("SearchController", function ($scope, $http) {
 		var termLength = term.length;
 
 		if (termLength > 0) {
-			// TODO finish & outsource
-			//if (termLength < 40) {
-			//	var percentage = termLength * 2.5 + "%";
-			//
-			//	document.getElementById("masthead").style.backgroundPositionY = percentage;
-			//}
+			if (dive) {
+				simulateDiving(termLength);
+			}
 
 			$http.get(appConfig.apiUrl + "/search/" + term).
 				success(function (data) {
@@ -94,8 +91,10 @@ app.controller("SearchController", function ($scope, $http) {
 		// If hitting enter rather than clicking
 		var assignFromResults = !index ? results.data[results.currentSelection] : results.data[index];
 
+		// NOTE this is resetting the currently open results container
 		$scope.createUmiForm[searchResultsPointer] = "";
 		$scope.showAutocomplete = false;
+		$scope.searchResults = false;
 
 		// if autocompleteData with particular results pointer is already set:
 		if ($scope.autocompleteData[searchResultsPointer]) {
@@ -110,6 +109,19 @@ app.controller("SearchController", function ($scope, $http) {
 
 	$scope.removeUmiId = function(searchResultsPointer, id) {
 		delete $scope.autocompleteData[searchResultsPointer][id];
+	};
+
+	/**
+	 * Function specific to Dive section
+	 *
+	 * @param termLength {int}
+	 */
+	var simulateDiving = function(termLength) {
+		if (termLength < 40) {
+			var percentage = termLength * 2.5 + "%";
+
+			document.getElementById("masthead").style.backgroundPositionY = percentage;
+		}
 	};
 
 });

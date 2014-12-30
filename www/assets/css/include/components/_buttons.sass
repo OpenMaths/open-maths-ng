@@ -1,26 +1,19 @@
 .button, button
 	@extend .text-uppercase
-	//+border-radius(4px)
+	+border-radius(4px)
 
-	// UNHACK
-	border-radius: 4px !important
-	border: 1px solid
-	// correct??
 	background: white
-	// CONCATENATE
-	font-family: $font-family-primary
-	font-size: rem(14px)
 	text-decoration: none
-	// UNHACK
-	padding: $double-half-unit-layout $double-half-unit-layout ($double-half-unit-layout - rem(2px)) !important
+	padding: $double-half-unit-layout $double-half-unit-layout ($double-half-unit-layout - rem(2px))
 	cursor: pointer
 	border-color: $color-grey-200
 	color: $color-grey-300
 	min-width: inherit
+	border:
+		width: 1px
+		style: solid
 
 	+hover()
-		//+box-shadow(0 1px 2px rgba(0,0,0,.125)) // This should not be black
-
 		border-color: $color-grey-300
 		color: $color-grey-300
 
