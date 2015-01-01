@@ -89,27 +89,35 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	};
 
 	$scope.umiTypes = [
-		{id: "Definition", label: "Definition"},
+		{id: "Definition", label: "Definition", formal: "allow"},
 		{id: "Axiom", label: "Axiom"},
-		{id: "Theorem", label: "Theorem"},
+		{id: "Theorem", label: "Theorem", formal: "allow"},
 		{id: "Lemma", label: "Lemma"},
 		{id: "Corollary", label: "Corollary"},
 		{id: "Conjecture", label: "Conjecture"},
-		{id: "Proof", label: "Proof"},
+		{id: "Proof", label: "Proof", formal: "allow"},
 		{id: "HistoricalNote", label: "Historical Note"},
 		{id: "PhilosophicalJustification", label: "Philosophical Justification"},
 		{id: "Diagram", label: "Diagram"},
 		{id: "Example", label: "Example"}
 	];
 
-	$scope.createUmi = function() {
-		// TODO get rid of this, replace with event fired on hitting Return key
-		if ($scope.showSearchResults) {
-			$scope.assignUmiId($scope.showSearchResults, false);
+	$scope.toggleFormalVersion = function() {
+		$scope.formalVersion = $scope.formalVersion ? false : true;
 
-			return false;
+		if ($scope.formalVersion) {
+			$scope.$parent.notification = {
+				"message": "Your contribution is now of type Formal",
+				"type": "info",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.$parent.notification.act = false;
+			}, 2500);
 		}
+	};
 
+	$scope.createUmi = function() {
 		var createUmiForm = $scope.createUmiForm;
 
 		// TODO Implement Auth => add additional auth fields, such as token.

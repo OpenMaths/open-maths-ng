@@ -979,6 +979,9 @@ textarea:invalid {
 
 .dark .button, .dark button {
   background: transparent; }
+  .dark .button.default, .dark button.default {
+    border-color: #7e9e9e;
+    color: #7e9e9e; }
   .dark .button:disabled, .dark button:disabled {
     border-color: #384b4b;
     color: #384b4b; }
@@ -1490,6 +1493,30 @@ table {
     color: #1b2424;
     background: #f2f6f6; }
 
+.toggle-holder .toggle {
+  margin-right: 0.5rem; }
+
+.toggle {
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  width: 1.75rem;
+  height: 1rem;
+  border: 1px solid #1b2424;
+  padding: 0.125rem;
+  cursor: pointer; }
+  .toggle:before {
+    -o-border-radius: 100%;
+    border-radius: 100%;
+    -webkit-transition: margin 0.25s;
+    transition: margin 0.25s;
+    display: block;
+    content: "";
+    width: 0.625rem;
+    height: 0.625rem;
+    background: #1b2424; }
+  .toggle.active:before {
+    margin: 0 0 0 0.75rem; }
+
 p, h1, h2, h3, h4, h5, h6 {
   line-height: 1.5; }
 
@@ -1928,8 +1955,7 @@ body.dark {
 .page-contribute .button-holder {
   margin-top: 2rem !important; }
   .page-contribute .button-holder .button {
-    padding-left: 1rem;
-    padding-right: 1rem; }
+    margin-bottom: 0; }
 .page-contribute footer {
   margin-top: 2rem;
   position: relative; }

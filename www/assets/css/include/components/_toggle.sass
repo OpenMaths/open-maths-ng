@@ -1,0 +1,26 @@
+.toggle-holder
+	.toggle
+		margin-right: $half-unit-layout
+
+.toggle
+	+border-radius(3px)
+
+	width: $double-half-unit-layout + $quarter-unit-layout
+	height: $base-unit-layout
+	border: 1px solid $color-black
+	padding: $quarter-unit-layout / 2
+	cursor: pointer
+
+	&:before
+		+border-radius(100%)
+		+transition(margin .25s)
+
+		display: block
+		content: ""
+		width: $base-unit-layout - $quarter-unit-layout - rem(2px)
+		height: $base-unit-layout - $quarter-unit-layout - rem(2px)
+		background: $color-black
+
+	&.active
+		&:before
+			margin: 0 0 0 $half-unit-layout + $quarter-unit-layout
