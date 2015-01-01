@@ -1,15 +1,16 @@
-app.controller("SearchController", function ($scope, $http) {
+app.controller("SearchController", function ($scope, $http, $timeout) {
 
 	/**
 	 * Search results arrow navigation functionality
 	 *
 	 * @param res {object} currentSelection, data
 	 * @param e {object} $event
+	 * @param callback {array}
 	 * @returns {boolean}
 	 *
 	 * @TODO: Dispatch event on Return key?
 	 */
-	$scope.searchResultsNavigate = function (res, e) {
+	$scope.searchResultsNavigate = function (res, e, callback) {
 		if (!res) {
 			return false;
 		}
@@ -20,6 +21,14 @@ app.controller("SearchController", function ($scope, $http) {
 		// TODO decide what to do w/ this! Add a callback function?
 		if (e.keyCode == 13) {
 			e.preventDefault();
+
+			if (_.first(callback) == "getUmi") {
+				var uriFriendlyTitle = $scope.searchResults.data[$scope.searchResults.currentSelection].uriFriendlyTitle;
+
+				$scope.$parent[callback](uriFriendlyTitle);
+			} else if (_.first(callback) == "autocomplete") {
+				$scope.autocomplete(callback[1]);
+			}
 		}
 
 		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
@@ -75,9 +84,14 @@ app.controller("SearchController", function ($scope, $http) {
 					}
 				}).
 				error(function (data, status) {
-					// TODO change to a more meaningful way of showing there is a problem
-					alert("No data to display :-(");
-					console.log(data + " | " + status);
+					$scope.$parent.$parent.notification = {
+						"message": "There was an error with the connection to our API.",
+						"type": "error",
+						"act": true
+					};
+					$timeout(function () {
+						$scope.$parent.$parent.notification.act = false;
+					}, 2500);
 				});
 		} else {
 			$scope.searchResults = false;

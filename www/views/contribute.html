@@ -85,7 +85,12 @@
 			<div class="alert error" ng-show="formBasicSettings.titleSynonyms.$error.maxlength">{{ errorMessages.maxLength }}</div>
 		</div>
 
-		<label class="flex button-holder">
+		<label class="flex center-vertically button-holder">
+			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.type.formal">
+				<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
+				<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
+			</div>
+
 			<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 		</label>
 	</form>
@@ -103,16 +108,20 @@
 			<div class="flex-1">
 				<textarea ng-focus="showInstructions = 'latexContent'"
 				  ng-model="createUmiForm.latexContent" name="latexContent"
-				  placeholder="LaTeX content" required></textarea>
+				  placeholder="LaTeX content" required ng-change="latexToHtml()"></textarea>
 			</div>
 
 			<div class="flex-1">
-				<p class="latex-content-preview" om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed here'"></p>
+				<p class="latex-content-preview" om-bind="parsedLatexContent || 'LaTeX Content will be displayed here'"></p>
 			</div>
 
 			<!--Error messages for LaTeX Content-->
 			<div class="error-messages full-screen" ng-show="showInstructions == 'latexContent'">
 				<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ errorMessages.required }}</div>
+			</div>
+
+			<div class="error-messages full-screen" ng-show="editorError.message">
+				<div class="alert error">{{ editorError.message }} <strong>near</strong> "{{ editorError.where }}"</div>
 			</div>
 		</div>
 
@@ -130,7 +139,7 @@
 						   type="text"
 						   name="prerequisiteDefinitions"
 						   ng-change="search('createUmiForm.prerequisiteDefinitions', true)"
-						   ng-keydown="searchResultsNavigate(searchResults, $event)"
+						   ng-keydown="searchResultsNavigate(searchResults, $event, ['autocomplete', 'prerequisiteDefinitions'])"
 						   placeholder="Prerequisite definitions"/>
 
 					<div class="search-results" ng-show="searchResults">
@@ -161,7 +170,7 @@
 						   ng-maxlength="128" type="text"
 						   name="seeAlso"
 						   ng-change="search('createUmiForm.seeAlso', true)"
-						   ng-keydown="searchResultsNavigate(searchResults, $event)"
+						   ng-keydown="searchResultsNavigate(searchResults, $event, ['autocomplete', 'seeAlso'])"
 						   placeholder="See also"/>
 
 					<div class="search-results" ng-show="searchResults">
@@ -200,6 +209,7 @@
 			</div>
 
 			<label class="flex button-holder">
+				<button class="button default" ng-click="activeStep = activeStep - 1">Back</button>
 				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
 		</div>
@@ -227,7 +237,10 @@
 				</div>
 			</div>
 
-			<button name="publish" class="button primary align-right" ng-click="createUmi()"><strong>Publish</strong> your contribution</button>
+			<label class="flex button-holder">
+				<button class="button default" ng-click="activeStep = activeStep - 1">Back</button>
+				<button name="publish" class="button primary align-right" ng-click="createUmi()"><strong>Publish</strong> your contribution</button>
+			</label>
 			{{ contributeData }}
 		</div>
 
