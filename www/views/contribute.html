@@ -130,7 +130,7 @@
 						   type="text"
 						   name="prerequisiteDefinitions"
 						   ng-change="search('createUmiForm.prerequisiteDefinitions', true)"
-						   ng-keydown="searchResultsNavigate(searchResults, $event)"
+						   ng-keydown="searchResultsNavigate(searchResults, $event, ['autocomplete', 'prerequisiteDefinitions'])"
 						   placeholder="Prerequisite definitions"/>
 
 					<div class="search-results" ng-show="searchResults">
@@ -161,7 +161,7 @@
 						   ng-maxlength="128" type="text"
 						   name="seeAlso"
 						   ng-change="search('createUmiForm.seeAlso', true)"
-						   ng-keydown="searchResultsNavigate(searchResults, $event)"
+						   ng-keydown="searchResultsNavigate(searchResults, $event, ['autocomplete', 'seeAlso'])"
 						   placeholder="See also"/>
 
 					<div class="search-results" ng-show="searchResults">

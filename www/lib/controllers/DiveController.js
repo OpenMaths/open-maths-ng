@@ -12,16 +12,16 @@ app.controller("DiveController", function ($scope, $rootScope, $http, $location)
 	//	}
 	//}
 
-
 	$scope.getUmi = function (uri) {
 		if (!uri) {
+			// TODO investigate why there is no return false after this if() statement
 			if (!$scope.searchUmiResults) {
 				return false;
 			}
 		}
 
-		sessionStorage.setItem("umiLastSearchTitle", $scope.searchUmiTerm);
-		sessionStorage.setItem("umiLastSearchResults", JSON.stringify($scope.searchUmiResults));
+		//sessionStorage.setItem("umiLastSearchTitle", $scope.searchUmiTerm);
+		//sessionStorage.setItem("umiLastSearchResults", JSON.stringify($scope.searchUmiResults));
 
 		$location.path("/board/" + uri);
 	};

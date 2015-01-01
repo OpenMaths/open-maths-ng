@@ -9,7 +9,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	// The refactoring of this coming soon!!
 	$rootScope.navTopTransparentClass = false;
 
-	// This is here on purpose as we alter autocompleteData from a child controller
+	// This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
 	$scope.autocompleteData = {};
 
 	// TODO + UNHACK this shall be a separate page: /edit/uriFriendlyTitle !!
