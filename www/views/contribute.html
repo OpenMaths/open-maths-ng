@@ -108,16 +108,20 @@
 			<div class="flex-1">
 				<textarea ng-focus="showInstructions = 'latexContent'"
 				  ng-model="createUmiForm.latexContent" name="latexContent"
-				  placeholder="LaTeX content" required></textarea>
+				  placeholder="LaTeX content" required ng-change="latexToHtml()"></textarea>
 			</div>
 
 			<div class="flex-1">
-				<p class="latex-content-preview" om-bind="createUmiForm.latexContent || 'LaTeX Content will be displayed here'"></p>
+				<p class="latex-content-preview" om-bind="parsedLatexContent || 'LaTeX Content will be displayed here'"></p>
 			</div>
 
 			<!--Error messages for LaTeX Content-->
 			<div class="error-messages full-screen" ng-show="showInstructions == 'latexContent'">
 				<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ errorMessages.required }}</div>
+			</div>
+
+			<div class="error-messages full-screen" ng-show="editorError.message">
+				<div class="alert error">{{ editorError.message }} <strong>near</strong> "{{ editorError.where }}"</div>
 			</div>
 		</div>
 

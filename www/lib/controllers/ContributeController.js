@@ -90,16 +90,17 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 	$scope.umiTypes = [
 		{id: "Definition", label: "Definition", formal: "allow"},
-		{id: "Axiom", label: "Axiom"},
+		{id: "Axiom", label: "Axiom", formal: "allow"},
 		{id: "Theorem", label: "Theorem", formal: "allow"},
-		{id: "Lemma", label: "Lemma"},
-		{id: "Corollary", label: "Corollary"},
-		{id: "Conjecture", label: "Conjecture"},
+		{id: "Lemma", label: "Lemma", formal: "allow"},
+		{id: "Corollary", label: "Corollary", formal: "allow"},
+		{id: "Conjecture", label: "Conjecture", formal: "allow"},
 		{id: "Proof", label: "Proof", formal: "allow"},
 		{id: "HistoricalNote", label: "Historical Note"},
 		{id: "PhilosophicalJustification", label: "Philosophical Justification"},
 		{id: "Diagram", label: "Diagram"},
-		{id: "Example", label: "Example"}
+		{id: "Example", label: "Example"},
+		{id: "PartialTheorem", label: "Partial Theorem", formal: "allow"}
 	];
 
 	$scope.toggleFormalVersion = function() {
@@ -164,7 +165,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
 		http.onreadystatechange = function() {
-			if (http.readyState != 4) {
+			if (http.readyState == 4) {
 				$scope.$parent.notification = {
 					"message": "Your contribution was successfully posted!",
 					"type": "success",
@@ -186,6 +187,55 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		};
 
 		http.send(data);
+	};
+
+	$scope.latexToHtml = function() {
+		$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
+
+		$timeout(function () {
+			var http = new XMLHttpRequest();
+			var url = "http://127.0.0.1:8080/latex-to-html"; //appConfig.apiUrl + "/add";
+			var data = $scope.createUmiForm.latexContent;
+
+			http.open("POST", url, true);
+
+			http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+
+			http.onreadystatechange = function() {
+				if (http.readyState == 4) {
+					var response = JSON.parse(http.responseText);
+					var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+
+					if (!valid) {
+						var err = _.first(_.values(response));
+
+						var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
+						var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
+
+						$scope.editorError = {
+							message: err[0],
+							offset: err[1],
+							where: whereabouts
+						};
+					} else {
+						$scope.editorError = false;
+						$scope.parsedLatexContent = response.parsed;
+					}
+				} else {
+					// TODO suss out
+					//$scope.$parent.notification = {
+					//	"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
+					//	"type": "error",
+					//	"act": true
+					//};
+					//$timeout(function () {
+					//	$scope.$parent.notification.act = false;
+					//}, 2500);
+				}
+			};
+
+			http.send(data);
+		}, 2500); // TODO what would the best timeout be?
 	};
 
 	// TODO should this be a shared function?
