@@ -241,7 +241,7 @@
 				<button class="button default" ng-click="activeStep = activeStep - 1">Back</button>
 				<button name="publish" class="button primary align-right" ng-click="createUmi()"><strong>Publish</strong> your contribution</button>
 			</label>
-			{{ contributeData }}
+			{{ contributeData | json }}
 		</div>
 
 	</form>

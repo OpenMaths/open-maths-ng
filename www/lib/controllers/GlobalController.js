@@ -173,7 +173,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		http.onreadystatechange = function () {
 			var response = http.responseText;
 
-			// TODO && http.status == 200 in if condition??
 			if (http.readyState == 4) {
 				if (http.status == 200) {
 					success(response);
@@ -181,14 +180,16 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 					if (error) {
 						error(response);
 					} else {
-						$scope.notification = {
-							"message": "There was an error connecting to our application server.",
-							"type": "error",
-							"act": true
-						};
-						$timeout(function () {
-							$scope.notification.act = false;
-						}, 2500);
+						$scope.$apply(function () {
+							$scope.notification = {
+								"message": "There was an error with our application server while dealing with your request.",
+								"type": "error",
+								"act": true
+							};
+							$timeout(function () {
+								$scope.notification.act = false;
+							}, 2500);
+						});
 					}
 				}
 			}

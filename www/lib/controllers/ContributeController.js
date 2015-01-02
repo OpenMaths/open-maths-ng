@@ -9,7 +9,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	// The refactoring of this coming soon!!
 	$rootScope.navTopTransparentClass = false;
 
-	// This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
+	// NOTE This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
 	$scope.autocompleteData = {};
 
 	// TODO + UNHACK this shall be a separate page: /edit/uriFriendlyTitle !!
@@ -33,6 +33,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 					seeAlso: data.seeAlso,
 					tags: data.tags
 				};
+
+				$scope.parsedLatexContent = data.htmlContent;
 			}).
 			error(function () {
 				$scope.$parent.notification = {
@@ -53,7 +55,11 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			$scope.activeStep = keyIndex;
 		} else {
 			// TODO outsource this as once function? The only thing to consider is the scope -> parent vs no parent?
-			$scope.$parent.notification = {"message": "Please complete the current step first before proceeding further.", "type": "info", "act": true};
+			$scope.$parent.notification = {
+				"message": "Please complete the current step first before proceeding further.",
+				"type": "info",
+				"act": true
+			};
 			$timeout(function () {
 				$scope.$parent.notification.act = false;
 			}, 2500);
@@ -108,8 +114,17 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		if ($scope.formalVersion) {
 			$scope.$parent.notification = {
-				"message": "Your contribution is now of type Formal",
+				"message": "Your contribution is now of type Formal.",
 				"type": "info",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.$parent.notification.act = false;
+			}, 2500);
+		} else {
+			$scope.$parent.notification = {
+				"message": "Your contribution is no longer of type Formal.",
+				"type": "warning",
 				"act": true
 			};
 			$timeout(function () {
@@ -122,23 +137,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		var createUmiForm = $scope.createUmiForm;
 
 		// TODO Implement Auth => add additional auth fields, such as token.
-		var dispatchCreateUmi = {
-			author : $scope.omUser.email,
-			message : "Initialise UMI",
-
-			umiType : createUmiForm.type.id,
-
-			title : createUmiForm.title,
-			titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
-
-			content : createUmiForm.latexContent,
-
-			prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
-			seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
-
-			tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
-		};
-
 		if ($scope.editUmiData) {
 			var updateUmi = {
 				umiId: $scope.editUmiData.id,
@@ -146,26 +144,42 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				message: "Update UMI",
 				newLatex: createUmiForm.latexContent
 			};
+		} else {
+			var dispatchCreateUmi = {
+				author : $scope.omUser.email,
+				message : "Initialise UMI",
+
+				umiType : createUmiForm.type.id,
+
+				title : createUmiForm.title,
+				titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
+
+				content : createUmiForm.latexContent,
+
+				prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
+				seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
+
+				tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
+			};
 		}
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
-
-		// TEMP
-		$scope.contributeData = dispatchData;
-		return false;
-
 		var requestData = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
+
+		$scope.contributeData = dispatchData;
 
 		// TODO requestData 0 and 1 indexes should be keys??
 		$scope.http(requestData[0], requestData[1], JSON.stringify(dispatchData), function(response) {
-			$scope.$parent.notification = {
-				"message": "Your contribution was successfully posted!",
-				"type": "success",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.$parent.notification.act = false;
-			}, 2500);
+			$scope.$apply(function() {
+				$scope.$parent.notification = {
+					"message": "Your contribution was successfully posted!",
+					"type": "success",
+					"act": true
+				};
+				$timeout(function () {
+					$scope.$parent.notification.act = false;
+				}, 2500);
+			});
 		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
@@ -175,6 +189,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 			return false;
 		}
+
+		$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
 
 		$scope.http("POST", "latex-to-html", $scope.createUmiForm.latexContent, function(response) {
 			var parsedLatexContent;
@@ -199,11 +215,9 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				parsedLatexContent = response.parsed;
 			}
 
-			var updateParsedLatexContent = function() {
+			$scope.$apply(function() {
 				$scope.parsedLatexContent = parsedLatexContent;
-			};
-
-			$scope.$apply(updateParsedLatexContent);
+			});
 		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 

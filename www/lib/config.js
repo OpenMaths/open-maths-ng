@@ -4,5 +4,5 @@ var appConfig = {
 	description: {
 		en: "OpenMaths - The way Mathematics should have been done."
 	},
-	apiUrl: "http://localhost:8080"
+	apiUrl: "http://127.0.0.1:8080"
 };
