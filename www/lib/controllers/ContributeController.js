@@ -190,9 +190,9 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 	};
 
 	$scope.latexToHtml = function() {
-		$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
+		//$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
+		console.log($scope.createUmiForm.latexContent);
 
-		$timeout(function () {
 			var http = new XMLHttpRequest();
 			var url = "http://127.0.0.1:8080/latex-to-html"; //appConfig.apiUrl + "/add";
 			var data = $scope.createUmiForm.latexContent;
@@ -202,6 +202,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 
 			http.onreadystatechange = function() {
+				var parsedLatexContent;
+
 				if (http.readyState == 4) {
 					var response = JSON.parse(http.responseText);
 					var valid = _.first(_.keys(response)) == "parsed" ? true : false;
@@ -217,10 +219,18 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 							offset: err[1],
 							where: whereabouts
 						};
+
+						parsedLatexContent = $scope.createUmiForm.latexContent;
 					} else {
 						$scope.editorError = false;
-						$scope.parsedLatexContent = response.parsed;
+						parsedLatexContent = response.parsed;
 					}
+
+					var updateParsedLatexContent = function() {
+						$scope.parsedLatexContent = parsedLatexContent;
+					};
+
+					$scope.$apply(updateParsedLatexContent);
 				} else {
 					// TODO suss out
 					//$scope.$parent.notification = {
@@ -235,7 +245,7 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			};
 
 			http.send(data);
-		}, 2500); // TODO what would the best timeout be?
+		 // TODO what would the best timeout be?
 	};
 
 	// TODO should this be a shared function?
