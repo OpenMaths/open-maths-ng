@@ -150,102 +150,61 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
 
+		// TEMP
 		$scope.contributeData = dispatchData;
 		return false;
 
-		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
+		var requestData = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
-		// TODO: Abstract this as a function to make POST requests
-		var http = new XMLHttpRequest();
-		var url = "http://127.0.0.1:8080/" + method[1]; //appConfig.apiUrl + "/add";
-		var data = JSON.stringify(dispatchData);
-
-		http.open(method[0], url, true);
-
-		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-
-		http.onreadystatechange = function() {
-			if (http.readyState == 4) {
-				$scope.$parent.notification = {
-					"message": "Your contribution was successfully posted!",
-					"type": "success",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.$parent.notification.act = false;
-				}, 2500);
-			} else {
-				$scope.$parent.notification = {
-					"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
-					"type": "error",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.$parent.notification.act = false;
-				}, 2500);
-			}
-		};
-
-		http.send(data);
+		// TODO requestData 0 and 1 indexes should be keys??
+		$scope.http(requestData[0], requestData[1], JSON.stringify(dispatchData), function(response) {
+			$scope.$parent.notification = {
+				"message": "Your contribution was successfully posted!",
+				"type": "success",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.$parent.notification.act = false;
+			}, 2500);
+		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
 	$scope.latexToHtml = function() {
-		//$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
-		console.log($scope.createUmiForm.latexContent);
+		if (!$scope.createUmiForm.latexContent) {
+			$scope.parsedLatexContent = "";
 
-			var http = new XMLHttpRequest();
-			var url = "http://127.0.0.1:8080/latex-to-html"; //appConfig.apiUrl + "/add";
-			var data = $scope.createUmiForm.latexContent;
+			return false;
+		}
 
-			http.open("POST", url, true);
+		$scope.http("POST", "latex-to-html", $scope.createUmiForm.latexContent, function(response) {
+			var parsedLatexContent;
+			var response = JSON.parse(response);
+			var valid = _.first(_.keys(response)) == "parsed" ? true : false;
 
-			http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+			if (!valid) {
+				var err = _.first(_.values(response));
 
-			http.onreadystatechange = function() {
-				var parsedLatexContent;
+				var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
+				var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
 
-				if (http.readyState == 4) {
-					var response = JSON.parse(http.responseText);
-					var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+				$scope.editorError = {
+					message: err[0],
+					offset: err[1],
+					where: whereabouts
+				};
 
-					if (!valid) {
-						var err = _.first(_.values(response));
+				parsedLatexContent = $scope.createUmiForm.latexContent;
+			} else {
+				$scope.editorError = false;
+				parsedLatexContent = response.parsed;
+			}
 
-						var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
-						var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
-
-						$scope.editorError = {
-							message: err[0],
-							offset: err[1],
-							where: whereabouts
-						};
-
-						parsedLatexContent = $scope.createUmiForm.latexContent;
-					} else {
-						$scope.editorError = false;
-						parsedLatexContent = response.parsed;
-					}
-
-					var updateParsedLatexContent = function() {
-						$scope.parsedLatexContent = parsedLatexContent;
-					};
-
-					$scope.$apply(updateParsedLatexContent);
-				} else {
-					// TODO suss out
-					//$scope.$parent.notification = {
-					//	"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
-					//	"type": "error",
-					//	"act": true
-					//};
-					//$timeout(function () {
-					//	$scope.$parent.notification.act = false;
-					//}, 2500);
-				}
+			var updateParsedLatexContent = function() {
+				$scope.parsedLatexContent = parsedLatexContent;
 			};
 
-			http.send(data);
-		 // TODO what would the best timeout be?
+			$scope.$apply(updateParsedLatexContent);
+		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
 	// TODO should this be a shared function?
