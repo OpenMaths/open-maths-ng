@@ -5,6 +5,9 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 */
 	console.log("OpenMaths is now running");
 
+	//$scope.transparentNav = false;
+	//$scope.transparentNav = false;
+
 	/**
 	 * Returns current path
 	 *

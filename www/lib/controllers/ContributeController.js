@@ -1,13 +1,11 @@
-app.controller("ContributeController", function ($scope, $rootScope, $http, $location, $timeout, $routeParams) {
+app.controller("ContributeController", function ($scope, $http, $location, $timeout, $routeParams) {
 	if (!$scope.omUser) {
 		alert("You must be logged in to Contribute to OpenMaths!");
 		$location.path("/");
 	}
 
-	$rootScope.title = "Contribute";
-
-	// The refactoring of this coming soon!!
-	$rootScope.navTopTransparentClass = false;
+	$scope.$parent.title = "Contribute";
+	$scope.$parent.transparentNav = false;
 
 	// NOTE This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
 	$scope.autocompleteData = {};
@@ -22,8 +20,9 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		$http.get(appConfig.apiUrl + "/" + splitEditParam[1]).
 			success(function (data) {
+				$scope.$parent.title = $scope.editUmiData.title.title;
+
 				$scope.editUmiData = data;
-				$rootScope.title = $scope.editUmiData.title.title;
 
 				$scope.createUmiForm = {
 					type: {id: data.umiType, label: data.umiType},
