@@ -3,7 +3,7 @@
 <!--Top navigation-->
 
 <nav class="progress">
-	<ul id="nav" class="container-narrow flex  center-vertically align-left">
+	<ul id="nav" class="container-narrow flex center-vertically align-left">
 		<li ng-repeat="key in stepsKeys" ng-click="goToStep(key)"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
@@ -102,6 +102,13 @@
 			<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
 				checker and validator, as well as interactive guidance to assist you with the process.</p>
 		</header>
+
+		<section class="controls flex">
+			<ul class="flex center-vertically align-right">
+				<li><span id="parsing" class="flex center-vertically" ng-show="parsingContent">Parsing in progress</span></li>
+				<li><span id="locked" class="flex center-vertically">Content securely locked</span></li>
+			</ul>
+		</section>
 
 		<div class="flex latex-content-editor">
 			<!--LaTeX Content-->

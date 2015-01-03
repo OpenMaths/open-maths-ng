@@ -6,7 +6,7 @@
 			border: 1px solid $color-black
 			margin: 0 0 $double-unit-layout
 
-	.progress
+	.progress, .controls
 		background: $color-grey-100
 		height: $quadruple-unit-layout
 		border-bottom: 1px solid $color-grey-200
@@ -95,6 +95,36 @@
 							&:before
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_tick.svg")
+
+	.controls
+		height: $triple-unit-layout
+		background: transparent
+		border: 0
+		padding: 0 $base-unit-layout
+
+		ul
+			margin-right: 0
+
+			li
+				span
+					color: $color-black
+
+					&:before
+						background:
+							size: 125%
+
+					&#parsing
+						&:before
+							@extend .rotating
+
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_progress.svg")
+								size: 115%
+
+					&#locked
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_enclosed.svg")
 
 	.button-holder
 		// UNHACK

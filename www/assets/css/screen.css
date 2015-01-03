@@ -1,3 +1,28 @@
+@keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg); }
+
+  to {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+.rotating, .page-contribute .controls ul li span#parsing:before {
+  -webkit-animation: rotating 1.25s linear infinite;
+  -ms-animation: rotating 1.25s linear infinite;
+  animation: rotating 1.25s linear infinite; }
+
 .columns-1 {
   width: 8.33333%;
   padding: 0 1rem; }
@@ -691,11 +716,13 @@ button,
   #nav-top .button#nav,
   #nav-top .button#controls,
   .page-contribute .progress ul.button,
+  .page-contribute .controls ul.button,
   .input.unstyled,
   .drop-down .contextual-menu ul.input,
   #nav-top .input#nav,
   #nav-top .input#controls,
-  .page-contribute .progress ul.input {
+  .page-contribute .progress ul.input,
+  .page-contribute .controls ul.input {
     border: 0; }
     input.unstyled:hover, #nav-top input#nav:hover,
     #nav-top input#controls:hover, input.unstyled:focus, #nav-top input#nav:focus,
@@ -723,21 +750,25 @@ button,
     #nav-top .button#nav:hover,
     #nav-top .button#controls:hover,
     .page-contribute .progress ul.button:hover,
+    .page-contribute .controls ul.button:hover,
     .button.unstyled:focus,
     .drop-down .contextual-menu ul.button:focus,
     #nav-top .button#nav:focus,
     #nav-top .button#controls:focus,
     .page-contribute .progress ul.button:focus,
+    .page-contribute .controls ul.button:focus,
     .input.unstyled:hover,
     .drop-down .contextual-menu ul.input:hover,
     #nav-top .input#nav:hover,
     #nav-top .input#controls:hover,
     .page-contribute .progress ul.input:hover,
+    .page-contribute .controls ul.input:hover,
     .input.unstyled:focus,
     .drop-down .contextual-menu ul.input:focus,
     #nav-top .input#nav:focus,
     #nav-top .input#controls:focus,
-    .page-contribute .progress ul.input:focus {
+    .page-contribute .progress ul.input:focus,
+    .page-contribute .controls ul.input:focus {
       box-shadow: none;
       border: 0; }
   input:last-child,
@@ -1021,7 +1052,7 @@ ul, ol {
   ul:last-child, ol:last-child {
     margin-bottom: 0; }
   ul.unstyled, .drop-down .contextual-menu ul, #nav-top ul#nav,
-  #nav-top ul#controls, .page-contribute .progress ul, ol.unstyled, #nav-top ol#nav,
+  #nav-top ul#controls, .page-contribute .progress ul, .page-contribute .controls ul, ol.unstyled, #nav-top ol#nav,
   #nav-top ol#controls {
     margin: 0;
     padding: 0;
@@ -1497,8 +1528,8 @@ table {
   margin-right: 0.5rem; }
 
 .toggle {
-  -o-border-radius: 3px;
-  border-radius: 3px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
   width: 1.75rem;
   height: 1rem;
   border: 1px solid #1b2424;
@@ -1899,31 +1930,31 @@ body.dark {
   .page-contribute .container-narrow .umi {
     border: 1px solid #1b2424;
     margin: 0 0 2rem; }
-.page-contribute .progress {
+.page-contribute .progress, .page-contribute .controls {
   background: #f2f6f6;
   height: 4rem;
   border-bottom: 1px solid #d5e0e0; }
-  .page-contribute .progress ul {
+  .page-contribute .progress ul, .page-contribute .controls ul {
     height: 100%;
     margin: 0 auto; }
-    .page-contribute .progress ul li {
+    .page-contribute .progress ul li, .page-contribute .controls ul li {
       cursor: pointer;
       padding: 0 0.5rem;
       height: 100%;
       font-size: 0.75rem; }
-      .page-contribute .progress ul li:first-of-type {
+      .page-contribute .progress ul li:first-of-type, .page-contribute .controls ul li:first-of-type {
         padding-left: 0; }
-      .page-contribute .progress ul li:last-of-type {
+      .page-contribute .progress ul li:last-of-type, .page-contribute .controls ul li:last-of-type {
         padding-right: 0; }
-      .page-contribute .progress ul li span {
+      .page-contribute .progress ul li span, .page-contribute .controls ul li span {
         height: 100%;
         position: relative;
         padding: 0 0 0 2.25rem;
         color: #b8caca;
         text-decoration: none; }
-        .page-contribute .progress ul li span.active {
+        .page-contribute .progress ul li span.active, .page-contribute .controls ul li span.active {
           color: #1b2424; }
-        .page-contribute .progress ul li span:before {
+        .page-contribute .progress ul li span:before, .page-contribute .controls ul li span:before {
           content: "";
           width: 2rem;
           height: 2rem;
@@ -1936,22 +1967,38 @@ body.dark {
           background-repeat: no-repeat;
           background-position: center center;
           background-color: transparent; }
-        .page-contribute .progress ul li span#basic-settings:before {
+        .page-contribute .progress ul li span#basic-settings:before, .page-contribute .controls ul li span#basic-settings:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_gear-grey.svg"); }
-        .page-contribute .progress ul li span#basic-settings.active:before {
+        .page-contribute .progress ul li span#basic-settings.active:before, .page-contribute .controls ul li span#basic-settings.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_gear.svg"); }
-        .page-contribute .progress ul li span#editor:before {
+        .page-contribute .progress ul li span#editor:before, .page-contribute .controls ul li span#editor:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_editor-grey.svg"); }
-        .page-contribute .progress ul li span#editor.active:before {
+        .page-contribute .progress ul li span#editor.active:before, .page-contribute .controls ul li span#editor.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_editor.svg"); }
-        .page-contribute .progress ul li span#additional-settings:before {
+        .page-contribute .progress ul li span#additional-settings:before, .page-contribute .controls ul li span#additional-settings:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_see-more-grey.svg"); }
-        .page-contribute .progress ul li span#additional-settings.active:before {
+        .page-contribute .progress ul li span#additional-settings.active:before, .page-contribute .controls ul li span#additional-settings.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_see-more.svg"); }
-        .page-contribute .progress ul li span#preview-and-publish:before {
+        .page-contribute .progress ul li span#preview-and-publish:before, .page-contribute .controls ul li span#preview-and-publish:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_tick-grey.svg"); }
-        .page-contribute .progress ul li span#preview-and-publish.active:before {
+        .page-contribute .progress ul li span#preview-and-publish.active:before, .page-contribute .controls ul li span#preview-and-publish.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_tick.svg"); }
+.page-contribute .controls {
+  height: 3rem;
+  background: transparent;
+  border: 0;
+  padding: 0 1rem; }
+  .page-contribute .controls ul {
+    margin-right: 0; }
+    .page-contribute .controls ul li span {
+      color: #1b2424; }
+      .page-contribute .controls ul li span:before {
+        background-size: 125%; }
+      .page-contribute .controls ul li span#parsing:before {
+        background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg");
+        background-size: 115%; }
+      .page-contribute .controls ul li span#locked:before {
+        background-image: url("/assets/images/icons/icon-set/icon-set_enclosed.svg"); }
 .page-contribute .button-holder {
   margin-top: 2rem !important; }
   .page-contribute .button-holder .button {

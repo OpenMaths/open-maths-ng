@@ -5,9 +5,6 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 */
 	console.log("OpenMaths is now running");
 
-	//$scope.transparentNav = false;
-	//$scope.transparentNav = false;
-
 	/**
 	 * Returns current path
 	 *
@@ -77,6 +74,8 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 				if (authResult["status"]["signed_in"]) {
 					var token = gapi.auth.getToken();
 
+					console.log(authResult);
+
 					$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
 						success(function (data) {
 							$scope.omUser = data;
@@ -90,6 +89,18 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 							$timeout(function () {
 								$scope.notification.act = false;
 							}, 2500);
+
+							// TEMP testing merely
+							var testData = {
+								"token": authResult["access_token"],
+								"clientId": data["id"]
+							};
+
+							$scope.http("POST", "auth", JSON.stringify(testData), function(result){
+								alert(result);
+							}, false, {"Content-type" : "application/json;charset=UTF-8"});
+							// TEMP testing merely
+
 						}).error(function (data, status) {
 							$scope.notification = {
 								"message": "There was an error during the sign in process.",

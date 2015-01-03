@@ -1,3 +1,6 @@
+var parseLatexContent;
+var parseLatexContentTimeout = 2000;
+
 app.controller("ContributeController", function ($scope, $http, $location, $timeout, $routeParams) {
 	if (!$scope.omUser) {
 		alert("You must be logged in to Contribute to OpenMaths!");
@@ -189,35 +192,49 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 			return false;
 		}
 
+		window.clearTimeout(parseLatexContent);
+
 		$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
 
-		$scope.http("POST", "latex-to-html", $scope.createUmiForm.latexContent, function(response) {
-			var parsedLatexContent;
-			var response = JSON.parse(response);
-			var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+		parseLatexContent = _.delay(function() {
+			$scope.parsingContent = true;
 
-			if (!valid) {
-				var err = _.first(_.values(response));
+			$scope.http("POST", "latex-to-html", $scope.createUmiForm.latexContent, function(response) {
+				var parsedLatexContent;
+				var response = JSON.parse(response);
+				var valid = _.first(_.keys(response)) == "parsed" ? true : false;
 
-				var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
-				var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
+				if (!valid) {
+					var err = _.first(_.values(response));
 
-				$scope.editorError = {
-					message: err[0],
-					offset: err[1],
-					where: whereabouts
-				};
+					var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
+					var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
 
-				parsedLatexContent = $scope.createUmiForm.latexContent;
-			} else {
-				$scope.editorError = false;
-				parsedLatexContent = response.parsed;
-			}
+					// TODO consider changing to Object rather than an array (BackEnd tidying)
+					$scope.editorError = {
+						message: err[0],
+						offset: err[1],
+						where: whereabouts
+					};
 
-			$scope.$apply(function() {
-				$scope.parsedLatexContent = parsedLatexContent;
-			});
-		}, false, {"Content-type" : "application/json;charset=UTF-8"});
+					parsedLatexContent = $scope.createUmiForm.latexContent;
+				} else {
+					$scope.editorError = false;
+					parsedLatexContent = response.parsed;
+				}
+
+				$scope.$apply(function() {
+					$scope.parsedLatexContent = parsedLatexContent;
+				});
+
+				// NOTE This delay is to replicate the actual parsing in production (may take about 1 sec.)
+				_.delay(function() {
+					$scope.$apply(function() {
+						$scope.parsingContent = false;
+					});
+				}, 1000);
+			}, false, {"Content-type" : "application/json;charset=UTF-8"});
+		}, parseLatexContentTimeout);
 	};
 
 	// TODO should this be a shared function?
