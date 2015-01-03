@@ -74,34 +74,43 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 				if (authResult["status"]["signed_in"]) {
 					var token = gapi.auth.getToken();
 
-					console.log(authResult);
-
 					$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
 						success(function (data) {
-							$scope.omUser = data;
-							sessionStorage.setItem("omUser", JSON.stringify(data));
+							data.accessToken = authResult["access_token"];
 
-							$scope.notification = {
-								"message": "You are now signed in as " + data.email + ".",
-								"type": "success",
-								"act": true
-							};
-							$timeout(function () {
-								$scope.notification.act = false;
-							}, 2500);
-
-							// TEMP testing merely
-							var testData = {
-								"token": authResult["access_token"],
-								"clientId": data["id"]
+							var loginData = {
+								"code": authResult.code,
+								"gPlusId": data.id
 							};
 
-							$scope.http("POST", "auth", JSON.stringify(testData), function(result){
-								alert(result);
+							$scope.http("POST", "login", JSON.stringify(loginData), function(result){
+								var res = JSON.parse(result);
+
+								if (_.first(_.keys(res)) == "successMsg") {
+									$scope.omUser = data;
+
+									sessionStorage.setItem("omUser", JSON.stringify(data));
+
+									$scope.notification = {
+										"message": "You are now signed in as " + data.email + ".",
+										"type": "success",
+										"act": true
+									};
+									$timeout(function () {
+										$scope.notification.act = false;
+									}, 2500);
+								} else {
+									$scope.notification = {
+										"message": "There was an error signing you in.",
+										"type": "error",
+										"act": true
+									};
+									$timeout(function () {
+										$scope.notification.act = false;
+									}, 2500);
+								}
 							}, false, {"Content-type" : "application/json;charset=UTF-8"});
-							// TEMP testing merely
-
-						}).error(function (data, status) {
+						}).error(function () {
 							$scope.notification = {
 								"message": "There was an error during the sign in process.",
 								"type": "error",

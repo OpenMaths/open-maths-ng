@@ -138,17 +138,31 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 	$scope.createUmi = function() {
 		var createUmiForm = $scope.createUmiForm;
 
+		//var testAuthData = {
+
+		//};
+		//$scope.http("POST", "test-secret", JSON.stringify(testAuthData), function(result){
+		//	console.log(testAuthData);
+		//	console.log(result);
+		//}, false, {"Content-type" : "application/json;charset=UTF-8"});
+
 		// TODO Implement Auth => add additional auth fields, such as token.
 		if ($scope.editUmiData) {
 			var updateUmi = {
-				umiId: $scope.editUmiData.id,
 				author: $scope.omUser.email,
+				accessToken: $scope.omUser.accessToken,
+				gPlusId: $scope.omUser.id,
+
+				umiId: $scope.editUmiData.id,
 				message: "Update UMI",
 				newLatex: createUmiForm.latexContent
 			};
 		} else {
 			var dispatchCreateUmi = {
 				author : $scope.omUser.email,
+				accessToken: $scope.omUser.accessToken,
+				gPlusId: $scope.omUser.id,
+
 				message : "Initialise UMI",
 
 				umiType : createUmiForm.type.id,
@@ -169,6 +183,8 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 		var requestData = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
 		$scope.contributeData = dispatchData;
+
+		return false;
 
 		// TODO requestData 0 and 1 indexes should be keys??
 		$scope.http(requestData[0], requestData[1], JSON.stringify(dispatchData), function(response) {

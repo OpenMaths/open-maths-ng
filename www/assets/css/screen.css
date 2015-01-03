@@ -1936,7 +1936,9 @@ body.dark {
   border-bottom: 1px solid #d5e0e0; }
   .page-contribute .progress ul, .page-contribute .controls ul {
     height: 100%;
-    margin: 0 auto; }
+    margin: 0 auto;
+    position: relative;
+    left: -0.375rem; }
     .page-contribute .progress ul li, .page-contribute .controls ul li {
       cursor: pointer;
       padding: 0 0.5rem;
@@ -1989,16 +1991,19 @@ body.dark {
   border: 0;
   padding: 0 1rem; }
   .page-contribute .controls ul {
-    margin-right: 0; }
-    .page-contribute .controls ul li span {
-      color: #1b2424; }
-      .page-contribute .controls ul li span:before {
-        background-size: 125%; }
-      .page-contribute .controls ul li span#parsing:before {
-        background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg");
-        background-size: 115%; }
-      .page-contribute .controls ul li span#locked:before {
-        background-image: url("/assets/images/icons/icon-set/icon-set_enclosed.svg"); }
+    margin-right: 0;
+    left: auto; }
+    .page-contribute .controls ul li {
+      cursor: default; }
+      .page-contribute .controls ul li span {
+        color: #1b2424; }
+        .page-contribute .controls ul li span:before {
+          background-size: 125%; }
+        .page-contribute .controls ul li span#parsing:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg");
+          background-size: 115%; }
+        .page-contribute .controls ul li span#locked:before {
+          background-image: url("/assets/images/icons/icon-set/icon-set_enclosed.svg"); }
 .page-contribute .button-holder {
   margin-top: 2rem !important; }
   .page-contribute .button-holder .button {
