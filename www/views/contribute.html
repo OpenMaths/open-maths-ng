@@ -217,7 +217,7 @@
 
 			<label class="flex button-holder">
 				<button class="button default" ng-click="activeStep = activeStep - 1">Back</button>
-				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid || editorError" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
 		</div>
 	</form>
