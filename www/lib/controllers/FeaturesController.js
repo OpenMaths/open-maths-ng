@@ -1,4 +1,4 @@
-app.controller("FeaturesController", function ($scope, $rootScope) {
-	$rootScope.title = "Features";
-	$rootScope.navTopTransparentClass = true;
+app.controller("FeaturesController", function ($scope) {
+	$scope.$parent.title = "Features";
+	$scope.$parent.transparentNav = true;
 });

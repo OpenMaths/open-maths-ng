@@ -1,15 +1,13 @@
-app.controller("ContributeController", function ($scope, $rootScope, $http, $location, $timeout, $routeParams) {
+app.controller("ContributeController", function ($scope, $http, $location, $timeout, $routeParams) {
 	if (!$scope.omUser) {
 		alert("You must be logged in to Contribute to OpenMaths!");
 		$location.path("/");
 	}
 
-	$rootScope.title = "Contribute";
+	$scope.$parent.title = "Contribute";
+	$scope.$parent.transparentNav = false;
 
-	// The refactoring of this coming soon!!
-	$rootScope.navTopTransparentClass = false;
-
-	// This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
+	// NOTE This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
 	$scope.autocompleteData = {};
 
 	// TODO + UNHACK this shall be a separate page: /edit/uriFriendlyTitle !!
@@ -22,8 +20,9 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		$http.get(appConfig.apiUrl + "/" + splitEditParam[1]).
 			success(function (data) {
+				$scope.$parent.title = $scope.editUmiData.title.title;
+
 				$scope.editUmiData = data;
-				$rootScope.title = $scope.editUmiData.title.title;
 
 				$scope.createUmiForm = {
 					type: {id: data.umiType, label: data.umiType},
@@ -33,6 +32,8 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 					seeAlso: data.seeAlso,
 					tags: data.tags
 				};
+
+				$scope.parsedLatexContent = data.htmlContent;
 			}).
 			error(function () {
 				$scope.$parent.notification = {
@@ -53,7 +54,11 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 			$scope.activeStep = keyIndex;
 		} else {
 			// TODO outsource this as once function? The only thing to consider is the scope -> parent vs no parent?
-			$scope.$parent.notification = {"message": "Please complete the current step first before proceeding further.", "type": "info", "act": true};
+			$scope.$parent.notification = {
+				"message": "Please complete the current step first before proceeding further.",
+				"type": "info",
+				"act": true
+			};
 			$timeout(function () {
 				$scope.$parent.notification.act = false;
 			}, 2500);
@@ -108,8 +113,17 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 
 		if ($scope.formalVersion) {
 			$scope.$parent.notification = {
-				"message": "Your contribution is now of type Formal",
+				"message": "Your contribution is now of type Formal.",
 				"type": "info",
+				"act": true
+			};
+			$timeout(function () {
+				$scope.$parent.notification.act = false;
+			}, 2500);
+		} else {
+			$scope.$parent.notification = {
+				"message": "Your contribution is no longer of type Formal.",
+				"type": "warning",
 				"act": true
 			};
 			$timeout(function () {
@@ -122,23 +136,6 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 		var createUmiForm = $scope.createUmiForm;
 
 		// TODO Implement Auth => add additional auth fields, such as token.
-		var dispatchCreateUmi = {
-			author : $scope.omUser.email,
-			message : "Initialise UMI",
-
-			umiType : createUmiForm.type.id,
-
-			title : createUmiForm.title,
-			titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
-
-			content : createUmiForm.latexContent,
-
-			prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
-			seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
-
-			tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
-		};
-
 		if ($scope.editUmiData) {
 			var updateUmi = {
 				umiId: $scope.editUmiData.id,
@@ -146,26 +143,33 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				message: "Update UMI",
 				newLatex: createUmiForm.latexContent
 			};
+		} else {
+			var dispatchCreateUmi = {
+				author : $scope.omUser.email,
+				message : "Initialise UMI",
+
+				umiType : createUmiForm.type.id,
+
+				title : createUmiForm.title,
+				titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
+
+				content : createUmiForm.latexContent,
+
+				prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
+				seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
+
+				tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
+			};
 		}
 
 		var dispatchData = $scope.editUmiData ? updateUmi : dispatchCreateUmi;
+		var requestData = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
 
 		$scope.contributeData = dispatchData;
-		return false;
 
-		var method = $scope.editUmiData ? ["PUT", "update-latex"] : ["POST", "add"];
-
-		// TODO: Abstract this as a function to make POST requests
-		var http = new XMLHttpRequest();
-		var url = "http://127.0.0.1:8080/" + method[1]; //appConfig.apiUrl + "/add";
-		var data = JSON.stringify(dispatchData);
-
-		http.open(method[0], url, true);
-
-		http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-
-		http.onreadystatechange = function() {
-			if (http.readyState == 4) {
+		// TODO requestData 0 and 1 indexes should be keys??
+		$scope.http(requestData[0], requestData[1], JSON.stringify(dispatchData), function(response) {
+			$scope.$apply(function() {
 				$scope.$parent.notification = {
 					"message": "Your contribution was successfully posted!",
 					"type": "success",
@@ -174,68 +178,46 @@ app.controller("ContributeController", function ($scope, $rootScope, $http, $loc
 				$timeout(function () {
 					$scope.$parent.notification.act = false;
 				}, 2500);
-			} else {
-				$scope.$parent.notification = {
-					"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
-					"type": "error",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.$parent.notification.act = false;
-				}, 2500);
-			}
-		};
-
-		http.send(data);
+			});
+		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
 	$scope.latexToHtml = function() {
+		if (!$scope.createUmiForm.latexContent) {
+			$scope.parsedLatexContent = "";
+
+			return false;
+		}
+
 		$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
 
-		$timeout(function () {
-			var http = new XMLHttpRequest();
-			var url = "http://127.0.0.1:8080/latex-to-html"; //appConfig.apiUrl + "/add";
-			var data = $scope.createUmiForm.latexContent;
+		$scope.http("POST", "latex-to-html", $scope.createUmiForm.latexContent, function(response) {
+			var parsedLatexContent;
+			var response = JSON.parse(response);
+			var valid = _.first(_.keys(response)) == "parsed" ? true : false;
 
-			http.open("POST", url, true);
+			if (!valid) {
+				var err = _.first(_.values(response));
 
-			http.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+				var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
+				var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
 
-			http.onreadystatechange = function() {
-				if (http.readyState == 4) {
-					var response = JSON.parse(http.responseText);
-					var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+				$scope.editorError = {
+					message: err[0],
+					offset: err[1],
+					where: whereabouts
+				};
 
-					if (!valid) {
-						var err = _.first(_.values(response));
+				parsedLatexContent = $scope.createUmiForm.latexContent;
+			} else {
+				$scope.editorError = false;
+				parsedLatexContent = response.parsed;
+			}
 
-						var substrPos = _.parseInt(err[1]) - 4; // does this need < 0 fallback??
-						var whereabouts = $scope.createUmiForm.latexContent.substr(substrPos, 8);
-
-						$scope.editorError = {
-							message: err[0],
-							offset: err[1],
-							where: whereabouts
-						};
-					} else {
-						$scope.editorError = false;
-						$scope.parsedLatexContent = response.parsed;
-					}
-				} else {
-					// TODO suss out
-					//$scope.$parent.notification = {
-					//	"message": "There was an error ("+ http.status +") making the request. Please check your contribution again before posting",
-					//	"type": "error",
-					//	"act": true
-					//};
-					//$timeout(function () {
-					//	$scope.$parent.notification.act = false;
-					//}, 2500);
-				}
-			};
-
-			http.send(data);
-		}, 2500); // TODO what would the best timeout be?
+			$scope.$apply(function() {
+				$scope.parsedLatexContent = parsedLatexContent;
+			});
+		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
 	// TODO should this be a shared function?

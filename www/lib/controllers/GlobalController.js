@@ -5,6 +5,9 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 */
 	console.log("OpenMaths is now running");
 
+	//$scope.transparentNav = false;
+	//$scope.transparentNav = false;
+
 	/**
 	 * Returns current path
 	 *
@@ -155,6 +158,47 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		else {
 			$location.url("/" + url);
 		}
+	};
+
+	// Should this be concealed / definition approached differently?
+	$scope.http = function (method, uri, data, success, error, headers) {
+		var http = new XMLHttpRequest();
+
+		var url = appConfig.apiUrl + "/" + uri;
+
+		// allowed methods checked against config??
+		http.open(method, url, true);
+
+		_.forEach(_.keys(headers), function (key) {
+			http.setRequestHeader(key, headers[key]);
+		});
+
+		http.onreadystatechange = function () {
+			var response = http.responseText;
+
+			if (http.readyState == 4) {
+				if (http.status == 200) {
+					success(response);
+				} else {
+					if (error) {
+						error(response);
+					} else {
+						$scope.$apply(function () {
+							$scope.notification = {
+								"message": "There was an error with our application server while dealing with your request.",
+								"type": "error",
+								"act": true
+							};
+							$timeout(function () {
+								$scope.notification.act = false;
+							}, 2500);
+						});
+					}
+				}
+			}
+		};
+
+		http.send(data);
 	};
 
 });

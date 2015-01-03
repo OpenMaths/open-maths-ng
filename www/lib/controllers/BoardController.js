@@ -1,12 +1,22 @@
-app.controller("BoardController", function ($scope, $rootScope, $http, $timeout, $routeParams) {
-	$rootScope.title = "Board";
-	$rootScope.navTopTransparentClass = false;
-	$scope.grid = [];
+var gridDefaultRowCount = 3;
+var gridDefaultColumnCount = 3;
 
-	$scope.rows = sessionStorage.getItem("gridRows") ? parseInt(sessionStorage.getItem("gridRows")) : 3;
-	$scope.columns = sessionStorage.getItem("gridColumns") ? parseInt(sessionStorage.getItem("gridColumns")) : 3;
+var gridMaxRows = 6;
+var gridMinRows = 2;
+var gridMaxColumns = 6;
+var gridMinColumns = 2;
+
+app.controller("BoardController", function ($scope, $http, $timeout, $routeParams) {
+	$scope.$parent.title = "Board";
+	$scope.$parent.transparentNav = false;
+
+	// TODO abstract to magic numbers
+	$scope.rows = sessionStorage.getItem("gridRows") ? parseInt(sessionStorage.getItem("gridRows")) : gridDefaultRowCount;
+	$scope.columns = sessionStorage.getItem("gridColumns") ? parseInt(sessionStorage.getItem("gridColumns")) : gridDefaultColumnCount;
 
 	var initId = $routeParams.id;
+
+	$scope.grid = [];
 
 	for (i = 0; i < $scope.rows; i++) {
 		var row = [];
@@ -37,7 +47,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 
 			switch (method) {
 				case "add":
-					if ($scope.rows > 5) {
+					if ($scope.rows > (gridMaxRows - 1)) {
 						return false;
 					}
 
@@ -45,7 +55,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 					$scope.grid.push(row);
 					break;
 				case "remove":
-					if ($scope.rows < 3) {
+					if ($scope.rows < (gridMinRows + 1)) {
 						return false;
 					}
 
@@ -58,7 +68,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 		} else if (type == "column") {
 			switch (method) {
 				case "add":
-					if ($scope.columns > 5) {
+					if ($scope.columns > (gridMaxColumns - 1)) {
 						return false;
 					}
 
@@ -68,7 +78,7 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 					$scope.columns = $scope.columns + 1;
 					break;
 				case "remove":
-					if ($scope.columns < 3) {
+					if ($scope.columns < (gridMinColumns + 1)) {
 						return false;
 					}
 
@@ -127,14 +137,13 @@ app.controller("BoardController", function ($scope, $rootScope, $http, $timeout,
 			var targetPosition = [row, column + 1];
 		}
 
-		// @TODO: replace the boundary number by an extract from user-defined settings
 		if (targetPosition[0] == 0) {
 			targetClasses.push("closes-top");
-		} else if (targetPosition[0] == 2) {
+		} else if (targetPosition[0] == ($scope.rows - 1)) {
 			targetClasses.push("closes-bottom");
 		} else if (targetPosition[1] == 0) {
 			targetClasses.push("closes-left");
-		} else if (targetPosition[1] == 2) {
+		} else if (targetPosition[1] == ($scope.columns - 1)) {
 			targetClasses.push("closes-right");
 		}
 
