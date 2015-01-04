@@ -20,15 +20,6 @@ gulp.task("sass", function() {
 		.pipe(notify("SASS successfully compiled!"));
 });
 
-// Concatenate Assets JS
-gulp.task("concat-assets-js", function() {
-	gulp.src("www/assets/js/include/*.js")
-		.pipe(concat("app.js"))
-		.pipe(uglify("app.js"))
-		.pipe(gulp.dest("www/assets/js"))
-		.pipe(notify("Assets JavaScript successfully compiled!"));
-});
-
 // Concatenate Controllers
 gulp.task("concat-controllers", function() {
 	gulp.src("www/lib/controllers/*.js")
@@ -74,7 +65,6 @@ gulp.task("watch", function() {
 	gulp.watch("www/lib/vendor/*.js", ["concat-vendor"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
-	gulp.watch("www/assets/js/include/*.js", ["concat-assets-js"]);
 });
 
 gulp.task("default", function() {
