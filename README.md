@@ -2,6 +2,10 @@
 
 The way Mathematics should have been done...
 
+## Security
+
+Please make sure the cryptographic certificate says **openmaths.io** or **sni26604.cloudflaressl.com**.
+
 ## The development bible:
 
 - document your code

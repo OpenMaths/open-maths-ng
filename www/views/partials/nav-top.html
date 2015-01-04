@@ -22,7 +22,7 @@
 		</li>
 		<li class="drop-down" ng-click="googleSignIn()">
 			<a id="user" class="flex center-vertically" href="#" ng-class="{logged : omUser}">
-				<span ng-show="omUser" class="om-user-image" style="background-image: url('{{ omUser.picture }}')" ng-click="dropDownUser = !dropDownUser"></span>
+				<span ng-show="omUser" class="om-user-image" ng-style="omUser.avatarStyle" ng-click="dropDownUser = !dropDownUser"></span>
 			</a>
 
 			<nav class="contextual-menu right" ng-show="dropDownUser">

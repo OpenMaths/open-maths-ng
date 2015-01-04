@@ -49,14 +49,13 @@ gulp.task("concat-directives", function() {
 		.pipe(notify("Directives successfully concatenated!"));
 });
 
-// Concatenate Factories
-gulp.task("concat-factories", function() {
-	gulp.src("www/lib/factories/*.js")
-		.pipe(concat("factories.js"))
-		.pipe(ngAnnotate())
+// Concatenate LoDash Custom Library
+gulp.task("concat-lodash-custom", function() {
+	gulp.src("www/lib/lodash/*.js")
+		.pipe(concat("lodash.js"))
 		.pipe(uglify())
 		.pipe(gulp.dest("www/lib/_build"))
-		.pipe(notify("Factories successfully concatenated!"));
+		.pipe(notify("LoDash Custom Library successfully concatenated!"));
 });
 
 // Concatenate Vendor
@@ -71,7 +70,7 @@ gulp.task("concat-vendor", function() {
 gulp.task("watch", function() {
 	gulp.watch("www/lib/controllers/*.js", ["concat-controllers"]);
 	gulp.watch("www/lib/directives/*.js", ["concat-directives"]);
-	gulp.watch("www/lib/factories/*.js", ["concat-factories"]);
+	gulp.watch("www/lib/lodash/*.js", ["concat-lodash-custom"]);
 	gulp.watch("www/lib/vendor/*.js", ["concat-vendor"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);

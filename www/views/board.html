@@ -17,10 +17,10 @@
 
 		<div class="row" ng-repeat="row in grid">
 			<div class="resize-row"></div>
-			<div class="column flex-1 {{ data.targetClasses }}" ng-repeat="data in row">
+			<div class="column flex-1" ng-repeat="data in row">
 
 				<!--Unit of Mathematical Information-->
-				<div class="umi"
+				<div class="umi {{ data.targetClasses }}"
 					 ng-class="{'fade-in' : fadeInUmi}"
 					 ng-hide="!data.htmlContent">
 					<div class="content-holder">

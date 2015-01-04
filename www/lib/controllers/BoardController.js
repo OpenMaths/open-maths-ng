@@ -6,6 +6,8 @@ var gridMinRows = 2;
 var gridMaxColumns = 6;
 var gridMinColumns = 2;
 
+var fadeUmiTimeout = 250;
+
 app.controller("BoardController", function ($scope, $http, $timeout, $routeParams) {
 	$scope.$parent.title = "Board";
 	$scope.$parent.transparentNav = false;
@@ -93,6 +95,14 @@ app.controller("BoardController", function ($scope, $http, $timeout, $routeParam
 		}
 	};
 
+	/**
+	 * Gets umi, either from URL or as a new expansion
+	 *
+	 * @param getBy {string}
+	 * @param param {string}
+	 * @param where {array}
+	 * @param classes {string}
+	 */
 	var getUmi = function(getBy, param, where, classes) {
 		var fadeInUmi = function () {
 			$scope.fadeInUmi = true;
@@ -107,23 +117,28 @@ app.controller("BoardController", function ($scope, $http, $timeout, $routeParam
 				}
 
 				$scope.grid[where[0]][where[1]] = data;
-				$timeout(fadeInUmi, 250);
+				// TODO this does not work on expanding??
+				$timeout(fadeInUmi, fadeUmiTimeout);
 			}).
 			error(function () {
 				// TODO this needs to be properly documented
-				$scope.$parent.notification = {
-					"message": "There was an error loading the requested contribution.",
-					"type": "error",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.$parent.notification.act = false;
-				}, 2500);
+				$scope.notify(
+					"There was an error loading requested contribution.",
+					"error", $scope.$parent
+				);
 			});
 	};
 
 	getUmi("uriFriendlyTitle", initId, [1,1]);
 
+	/**
+	 * Position elements correctly within a grid
+	 *
+	 * @param row {int}
+	 * @param column {int}
+	 * @param direction {string}
+	 * @param newUmiID {string}
+	 */
 	$scope.position = function (row, column, direction, newUmiID) {
 		var targetClasses = [];
 

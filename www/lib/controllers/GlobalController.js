@@ -1,12 +1,11 @@
+var notificationDisappearTimeout = 2500;
+
 app.controller("GlobalController", function ($scope, $location, $window, $http, $timeout) {
 
 	/**
 	 * Test function that will run on page load.
 	 */
 	console.log("OpenMaths is now running");
-
-	//$scope.transparentNav = false;
-	//$scope.transparentNav = false;
 
 	/**
 	 * Returns current path
@@ -79,36 +78,50 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 
 					$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
 						success(function (data) {
-							$scope.omUser = data;
-							sessionStorage.setItem("omUser", JSON.stringify(data));
+							data.accessToken = authResult["access_token"];
+							data.avatarStyle = {"background-image": "url('" + data["picture"] + "')"};
 
-							$scope.notification = {
-								"message": "You are now signed in as " + data.email + ".",
-								"type": "success",
-								"act": true
-							};
-							$timeout(function () {
-								$scope.notification.act = false;
-							}, 2500);
-						}).error(function (data, status) {
-							$scope.notification = {
-								"message": "There was an error during the sign in process.",
-								"type": "error",
-								"act": true
-							};
-							$timeout(function () {
-								$scope.notification.act = false;
-							}, 2500);
+							// Retrieve anti request forgery token first
+							$scope.http("POST", "arft", data.id, function(token){
+								var loginData = {
+									"code": authResult.code,
+									"gPlusId": data.id,
+									"arfToken": token
+								};
+
+								$scope.http("POST", "login", JSON.stringify(loginData), function(result){
+									var res = JSON.parse(result);
+
+									if (_.first(_.keys(res)) == "successMsg") {
+										$scope.omUser = data;
+
+										sessionStorage.setItem("omUser", JSON.stringify(data));
+
+										$scope.notify(
+											"You are now signed in as " + data.email + ".",
+											"success", $scope, true
+										);
+									} else {
+										$scope.notify(
+											"There was an error signing you in to our application server.",
+											"error", $scope, true
+										);
+									}
+								}, false, {"Content-type" : "application/json;charset=UTF-8"});
+							}, false, {"Content-type" : "application/json;charset=UTF-8"});
+						}).error(function () {
+							$scope.notify(
+								"There was an error retrieving user data from Google.",
+								"error", $scope, true
+							);
 						});
 				} else {
-					$scope.notification = {
-						"message": "There was an error (" + authResult["error"] + ") during the sign in process.",
-						"type": "error",
-						"act": true
-					};
-					$timeout(function () {
-						$scope.notification.act = false;
-					}, 2500);
+					if (authResult["error"] !== "immediate_failed") {
+						$scope.notify(
+							"There was an error (" + authResult["error"] + ") during the sign in process.",
+							"error", $scope, true
+						);
+					}
 				}
 			}
 		});
@@ -116,23 +129,24 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 
 	/**
 	 * Google Sign Out functionality
-	 *
-	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.googleSignOut = function () {
 		gapi.auth.signOut();
 
-		$scope.omUser = false;
-		sessionStorage.removeItem("omUser");
-
-		$scope.notification = {
-			"message": "You have been successfully signed out.",
-			"type": "info",
-			"act": true
+		var signOutData = {
+			accessToken: $scope.omUser.accessToken,
+			gPlusId: $scope.omUser.id
 		};
-		$timeout(function () {
-			$scope.notification.act = false;
-		}, 2500);
+
+		$scope.http("POST", "logout", JSON.stringify(signOutData), function() {
+			$scope.omUser = false;
+			sessionStorage.removeItem("omUser");
+
+			$scope.notify(
+				"You have been successfully signed out.",
+				"info", $scope, true
+			);
+		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
 	/**
@@ -143,16 +157,10 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @param type {string} info | warning | error | success
 	 * @returns {boolean}
 	 *
-	 * @TODO: Abstract notificaton functionality as a factory / service
 	 */
 	$scope.accessUrlUser = function (url, message, type) {
 		if (!$scope.omUser) {
-
-			$scope.notification = {"message": message, "type": type, "act": true};
-			$timeout(function () {
-				$scope.notification.act = false;
-			}, 2500);
-
+			$scope.notify(message, type, $scope);
 			return false;
 		}
 		else {
@@ -160,13 +168,30 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 		}
 	};
 
-	// Should this be concealed / definition approached differently?
+	/**
+	 * Makes CORS possible (Always sends JSON)
+	 *
+	 * @param method {string} POST | PUT
+	 * @param uri {string}
+	 * @param data {mixed}
+	 * @param success {function}
+	 * @param error {function}
+	 * @param headers {object}
+	 * @returns {boolean}
+	 *
+	 * @TODO Should this be concealed / definition approached differently?
+	 */
 	$scope.http = function (method, uri, data, success, error, headers) {
 		var http = new XMLHttpRequest();
 
 		var url = appConfig.apiUrl + "/" + uri;
 
-		// allowed methods checked against config??
+		if (_.indexOf(appConfig.apiCORSMethods, method) == -1) {
+			// TODO add proper debugging
+			console.log("Method " + method + " not allowed.");
+			return false;
+		}
+
 		http.open(method, url, true);
 
 		_.forEach(_.keys(headers), function (key) {
@@ -183,22 +208,40 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 					if (error) {
 						error(response);
 					} else {
-						$scope.$apply(function () {
-							$scope.notification = {
-								"message": "There was an error with our application server while dealing with your request.",
-								"type": "error",
-								"act": true
-							};
-							$timeout(function () {
-								$scope.notification.act = false;
-							}, 2500);
-						});
+						$scope.notify(
+							"There was an error with our application server while dealing with your request.",
+							"error", $scope, true
+						);
 					}
 				}
 			}
 		};
 
 		http.send(data);
+	};
+
+	/**
+	 * Renders notifications
+	 *
+	 * @param msg {string}
+	 * @param type {string} info | warning | error | success
+	 * @param scope {object}
+	 * @param apply {boolean}
+	 *
+	 * @TODO look into clearing the timeout
+	 */
+	$scope.notify = function(msg, type, scope, apply) {
+		var notificationData = { "message": msg, "type": type, "act": true };
+
+		if (apply) {
+			scope.$apply(function() { scope.notification = notificationData; });
+		} else {
+			scope.notification = notificationData;
+		}
+
+		$timeout(function() {
+			scope.notification.act = false;
+		}, notificationDisappearTimeout);
 	};
 
 });

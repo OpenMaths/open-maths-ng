@@ -3,7 +3,7 @@
 <!--Top navigation-->
 
 <nav class="progress">
-	<ul id="nav" class="container-narrow flex  center-vertically align-left">
+	<ul id="nav" class="container-narrow flex center-vertically align-left">
 		<li ng-repeat="key in stepsKeys" ng-click="goToStep(key)"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
@@ -13,7 +13,6 @@
 	<form name="formBasicSettings" class="container-narrow" ng-show="activeStep == 0">
 		<header>
 			<h2>Create a new contribution</h2>
-			<!--<h2 ng-show="editUmiData">Editing: <strong>{{ editUmiData.title.title }}</strong></h2>-->
 
 			<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
 				checker and validator, as well as interactive guidance to assist you with the process.</p>
@@ -102,6 +101,13 @@
 			<p>To ensure every contribution is as relevant and valuable as possible, we feature automatic
 				checker and validator, as well as interactive guidance to assist you with the process.</p>
 		</header>
+
+		<section class="controls flex">
+			<ul class="flex center-vertically align-right">
+				<li><span id="parsing" class="flex center-vertically" ng-show="parsingContent">Parsing in progress</span></li>
+				<li><span id="locked" class="flex center-vertically">Content securely locked</span></li>
+			</ul>
+		</section>
 
 		<div class="flex latex-content-editor">
 			<!--LaTeX Content-->
@@ -210,7 +216,7 @@
 
 			<label class="flex button-holder">
 				<button class="button default" ng-click="activeStep = activeStep - 1">Back</button>
-				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
+				<button name="next" class="button primary align-right" ng-disabled="!formEditor.$valid || editorError" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
 			</label>
 		</div>
 	</form>

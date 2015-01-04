@@ -1,0 +1,1 @@
+function capitalise(i){return i.charAt(0).toUpperCase()+i.slice(1)}function cleanseCSV(i){var e=i.split(",");return _.map(e,function(i){return i.trim()})}_.mixin({capitalise:capitalise}),_.mixin({cleanseCSV:cleanseCSV});
