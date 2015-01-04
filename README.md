@@ -11,7 +11,7 @@ Please make sure the cryptographic certificate says **openmaths.io** or **sni266
 - document your code
 - commit often
 - follow [this successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/) -> use branches properly
-- take the time to **do things properly**, rather than in a BO-ey (hacky), slapdash way
+- take the time to **do things properly**, rather than in a hacky, slapdash way
 
 ## Features
 - OpenMaths is **completely open**
