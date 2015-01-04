@@ -116,10 +116,12 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 							);
 						});
 				} else {
-					$scope.notify(
-						"There was an error (" + authResult["error"] + ") during the sign in process.",
-						"error", $scope, true
-					);
+					if (authResult["error"] !== "immediate_failed") {
+						$scope.notify(
+							"There was an error (" + authResult["error"] + ") during the sign in process.",
+							"error", $scope, true
+						);
+					}
 				}
 			}
 		});
@@ -131,13 +133,20 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	$scope.googleSignOut = function () {
 		gapi.auth.signOut();
 
-		$scope.omUser = false;
-		sessionStorage.removeItem("omUser");
+		var signOutData = {
+			accessToken: $scope.omUser.accessToken,
+			gPlusId: $scope.omUser.id
+		};
 
-		$scope.notify(
-			"You have been successfully signed out.",
-			"info", $scope
-		);
+		$scope.http("POST", "logout", JSON.stringify(signOutData), function() {
+			$scope.omUser = false;
+			sessionStorage.removeItem("omUser");
+
+			$scope.notify(
+				"You have been successfully signed out.",
+				"info", $scope, true
+			);
+		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
 	/**
