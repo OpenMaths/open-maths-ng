@@ -1,0 +1,1 @@
+function capitalise(i){return i.charAt(0).toUpperCase()+i.slice(1)}_.mixin({capitalise:capitalise});
