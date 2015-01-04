@@ -122,7 +122,7 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 		} else {
 			$scope.notify(
 				"Your contribution is no longer of type Formal.",
-				"warning", $scope.$parent
+				"info", $scope.$parent
 			);
 		}
 	};
@@ -135,9 +135,10 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 
 		if ($scope.editUmiData) {
 			var updateUmi = {
-				author: $scope.omUser.email,
-				accessToken: $scope.omUser.accessToken,
-				gPlusId: $scope.omUser.id,
+				auth: {
+					accessToken: $scope.omUser.accessToken,
+					gPlusId: $scope.omUser.id
+				},
 
 				umiId: $scope.editUmiData.id,
 				message: "Update UMI",
@@ -145,9 +146,10 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 			};
 		} else {
 			var dispatchCreateUmi = {
-				author : $scope.omUser.email,
-				accessToken: $scope.omUser.accessToken,
-				gPlusId: $scope.omUser.id,
+				auth: {
+					accessToken: $scope.omUser.accessToken,
+					gPlusId: $scope.omUser.id
+				},
 
 				message : "Initialise UMI",
 
@@ -172,8 +174,10 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 
 		// TODO requestData 0 and 1 indexes should be keys??
 		$scope.http(requestData[0], requestData[1], JSON.stringify(dispatchData), function(response) {
+			var message = requestData[0] == "POST" ? "Your contribution was successfully posted!" : "Your contribution was successfully updated!";
+
 			$scope.notify(
-				"Your contribution was successfully posted!",
+				message,
 				"success", $scope.$parent, true
 			);
 		}, false, {"Content-type" : "application/json;charset=UTF-8"});

@@ -16,8 +16,6 @@
 
 			height: 100%
 			margin: 0 auto
-			position: relative
-			left: -(rem(6px))
 
 			li
 				cursor: pointer
@@ -28,6 +26,7 @@
 
 				&:first-of-type
 					padding-left: 0
+					margin-left: -(rem(6px))
 
 				// REVIEW is this needed?
 				&:last-of-type
@@ -106,10 +105,12 @@
 
 		ul
 			margin-right: 0
-			left: auto
 
 			li
 				cursor: default
+
+				&:first-of-type
+					margin-left: 0
 
 				span
 					color: $color-black
@@ -313,7 +314,8 @@
 			.umi
 				border-color: $color-grey-800
 
-		.progress
+		.progress,
+		.controls
 			background: transparent
 			border-bottom-color: $color-grey-800
 
@@ -364,6 +366,16 @@
 								&:before
 									background:
 										image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+
+						&#parsing
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_progress-dark.svg")
+
+						&#locked
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_enclosed-dark.svg")
 
 		article
 			form

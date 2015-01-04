@@ -227,6 +227,8 @@ app.controller("GlobalController", function ($scope, $location, $window, $http, 
 	 * @param type {string} info | warning | error | success
 	 * @param scope {object}
 	 * @param apply {boolean}
+	 *
+	 * @TODO look into clearing the timeout
 	 */
 	$scope.notify = function(msg, type, scope, apply) {
 		var notificationData = { "message": msg, "type": type, "act": true };
