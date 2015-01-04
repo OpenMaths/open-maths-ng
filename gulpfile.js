@@ -20,41 +20,37 @@ gulp.task("sass", function() {
 		.pipe(notify("SASS successfully compiled!"));
 });
 
-// Concatenate Controllers
-gulp.task("concat-controllers", function() {
-	gulp.src("www/lib/controllers/*.js")
-		.pipe(concat("controllers.js"))
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/_build"))
-		.pipe(notify("Controllers successfully concatenated!"));
-});
-
-// Concatenate Directives
-gulp.task("concat-directives", function() {
-	gulp.src("www/lib/directives/*.js")
-		.pipe(concat("directives.js"))
-		.pipe(ngAnnotate())
-		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/_build"))
-		.pipe(notify("Directives successfully concatenated!"));
-});
-
-// Concatenate LoDash Custom Library
-gulp.task("concat-lodash-custom", function() {
-	gulp.src("www/lib/lodash/*.js")
-		.pipe(concat("lodash.js"))
-		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/_build"))
-		.pipe(notify("LoDash Custom Library successfully concatenated!"));
-});
-
 // Concatenate Vendor
 gulp.task("concat-vendor", function() {
 	gulp.src("www/lib/vendor/*.js")
 		.pipe(concat("vendor.js"))
 		.pipe(gulp.dest("www/lib/_build"))
 		.pipe(notify("Vendors successfully concatenated!"));
+});
+
+// Concat angular dependencies
+var ngConcat = function(name) {
+	gulp.src("www/lib/" + name + "/*.js")
+		.pipe(concat(name + ".js"))
+		.pipe(ngAnnotate())
+		.pipe(uglify())
+		.pipe(gulp.dest("www/lib/_build"))
+		.pipe(notify(name + ".js successfully concatenated!"));
+};
+
+// Concatenate Controllers
+gulp.task("concat-controllers", function() {
+	ngConcat("controllers");
+});
+
+// Concatenate Directives
+gulp.task("concat-directives", function() {
+	ngConcat("directives");
+});
+
+// Concatenate LoDash Custom Library
+gulp.task("concat-lodash-custom", function() {
+	ngConcat("lodash");
 });
 
 // Watch directories and execute assigned tasks
