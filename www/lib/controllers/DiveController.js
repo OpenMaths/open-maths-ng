@@ -12,6 +12,14 @@ app.controller("DiveController", function ($scope, $http, $location) {
 	//	}
 	//}
 
+	/**
+	 * Navigates to a proper UMI url
+	 *
+	 * @param uri {string}
+	 * @returns {boolean}
+	 *
+	 * @TODO save last search data?
+	 */
 	$scope.getUmi = function (uri) {
 		if (!uri) {
 			// TODO investigate why there is no return false after this if() statement

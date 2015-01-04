@@ -1,5 +1,6 @@
 var parseLatexContent;
 var parseLatexContentTimeout = 2000;
+var parseLatexContentProgressTimeout = 800;
 
 app.controller("ContributeController", function ($scope, $http, $location, $timeout, $routeParams) {
 	if (!$scope.omUser) {
@@ -23,9 +24,9 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 
 		$http.get(appConfig.apiUrl + "/" + splitEditParam[1]).
 			success(function (data) {
-				$scope.$parent.title = $scope.editUmiData.title.title;
-
 				$scope.editUmiData = data;
+
+				$scope.$parent.title = $scope.editUmiData.title.title;
 
 				$scope.createUmiForm = {
 					type: {id: data.umiType, label: data.umiType},
@@ -39,34 +40,12 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 				$scope.parsedLatexContent = data.htmlContent;
 			}).
 			error(function () {
-				$scope.$parent.notification = {
-					"message": "There was an error loading the requested contribution.",
-					"type": "error",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.$parent.notification.act = false;
-				}, 2500);
+				$scope.notify(
+					"There was an error loading requested contribution.",
+					"error", $scope.$parent
+				);
 			});
 	}
-
-	$scope.goToStep = function(key) {
-		var keyIndex = _.indexOf($scope.stepsKeys, key);
-
-		if (keyIndex <= $scope.activeStep) {
-			$scope.activeStep = keyIndex;
-		} else {
-			// TODO outsource this as once function? The only thing to consider is the scope -> parent vs no parent?
-			$scope.$parent.notification = {
-				"message": "Please complete the current step first before proceeding further.",
-				"type": "info",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.$parent.notification.act = false;
-			}, 2500);
-		}
-	};
 
 	$scope.steps = {
 		"basic-settings": "Basic Settings",
@@ -111,42 +90,49 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 		{id: "PartialTheorem", label: "Partial Theorem", formal: "allow"}
 	];
 
+	/**
+	 * Navigates through individual steps of the contribution
+	 *
+	 * @param key {int}
+	 */
+	$scope.goToStep = function(key) {
+		var keyIndex = _.indexOf($scope.stepsKeys, key);
+
+		if (keyIndex <= $scope.activeStep) {
+			$scope.activeStep = keyIndex;
+		} else {
+			$scope.notify(
+				"Please complete the current step first before proceeding further.",
+				"info", $scope.$parent
+			);
+		}
+	};
+
+	/**
+	 * Toggles Formal Version of a contribution
+	 */
 	$scope.toggleFormalVersion = function() {
 		$scope.formalVersion = $scope.formalVersion ? false : true;
 
 		if ($scope.formalVersion) {
-			$scope.$parent.notification = {
-				"message": "Your contribution is now of type Formal.",
-				"type": "info",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.$parent.notification.act = false;
-			}, 2500);
+			$scope.notify(
+				"Your contribution is now of type Formal.",
+				"info", $scope.$parent
+			);
 		} else {
-			$scope.$parent.notification = {
-				"message": "Your contribution is no longer of type Formal.",
-				"type": "warning",
-				"act": true
-			};
-			$timeout(function () {
-				$scope.$parent.notification.act = false;
-			}, 2500);
+			$scope.notify(
+				"Your contribution is no longer of type Formal.",
+				"warning", $scope.$parent
+			);
 		}
 	};
 
+	/**
+	 * Makes mutation request (either a new Contribution or an Edit)
+	 */
 	$scope.createUmi = function() {
 		var createUmiForm = $scope.createUmiForm;
 
-		//var testAuthData = {
-
-		//};
-		//$scope.http("POST", "test-secret", JSON.stringify(testAuthData), function(result){
-		//	console.log(testAuthData);
-		//	console.log(result);
-		//}, false, {"Content-type" : "application/json;charset=UTF-8"});
-
-		// TODO Implement Auth => add additional auth fields, such as token.
 		if ($scope.editUmiData) {
 			var updateUmi = {
 				author: $scope.omUser.email,
@@ -167,15 +153,15 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 
 				umiType : createUmiForm.type.id,
 
-				title : createUmiForm.title,
-				titleSynonyms : createUmiForm.titleSynonyms ? cleanseCommaSeparatedValues(createUmiForm.titleSynonyms) : [],
+				title : _.capitalise(createUmiForm.title),
+				titleSynonyms : createUmiForm.titleSynonyms ? _.cleanseCSV(createUmiForm.titleSynonyms) : [],
 
 				content : createUmiForm.latexContent,
 
 				prerequisiteDefinitionIds : $scope.autocompleteData.prerequisiteDefinitions ? _.keys($scope.autocompleteData.prerequisiteDefinitions) : [],
 				seeAlsoIds : $scope.autocompleteData.seeAlso ? _.keys($scope.autocompleteData.seeAlso) : [],
 
-				tags : createUmiForm.tags ? cleanseCommaSeparatedValues(createUmiForm.tags) : []
+				tags : createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
 			};
 		}
 
@@ -184,23 +170,20 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 
 		$scope.contributeData = dispatchData;
 
-		return false;
-
 		// TODO requestData 0 and 1 indexes should be keys??
 		$scope.http(requestData[0], requestData[1], JSON.stringify(dispatchData), function(response) {
-			$scope.$apply(function() {
-				$scope.$parent.notification = {
-					"message": "Your contribution was successfully posted!",
-					"type": "success",
-					"act": true
-				};
-				$timeout(function () {
-					$scope.$parent.notification.act = false;
-				}, 2500);
-			});
+			$scope.notify(
+				"Your contribution was successfully posted!",
+				"success", $scope.$parent, true
+			);
 		}, false, {"Content-type" : "application/json;charset=UTF-8"});
 	};
 
+	/**
+	 * Updates latex to HTML
+	 *
+	 * @returns {boolean}
+	 */
 	$scope.latexToHtml = function() {
 		if (!$scope.createUmiForm.latexContent) {
 			$scope.parsedLatexContent = "";
@@ -212,6 +195,7 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 
 		$scope.parsedLatexContent = $scope.createUmiForm.latexContent;
 
+		// NOTE this needs to be _.delay, not $timeout
 		parseLatexContent = _.delay(function() {
 			$scope.parsingContent = true;
 
@@ -243,20 +227,11 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 					$scope.parsedLatexContent = parsedLatexContent;
 				});
 
-				// NOTE This delay is to replicate the actual parsing in production (may take about 1 sec.)
-				_.delay(function() {
-					$scope.$apply(function() {
-						$scope.parsingContent = false;
-					});
-				}, 1000);
+				// NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
+				$timeout(function() {
+					$scope.parsingContent = false;
+				}, parseLatexContentProgressTimeout);
 			}, false, {"Content-type" : "application/json;charset=UTF-8"});
 		}, parseLatexContentTimeout);
-	};
-
-	// TODO should this be a shared function?
-	var cleanseCommaSeparatedValues = function (str) {
-		var vals = str.split(",");
-
-		return _.map(vals, function(val) { return val.trim(); });
 	};
 });

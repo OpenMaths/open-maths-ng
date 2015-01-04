@@ -1,4 +1,10 @@
-app.controller("SearchController", function ($scope, $http, $timeout) {
+var keyDown = 40;
+var keyUp = 38;
+var keyReturn = 13;
+
+var simulateDivingMaxTermLength = 40;
+
+app.controller("SearchController", function ($scope, $http) {
 
 	/**
 	 * Search results arrow navigation functionality
@@ -7,8 +13,6 @@ app.controller("SearchController", function ($scope, $http, $timeout) {
 	 * @param e {object} $event
 	 * @param callback {array}
 	 * @returns {boolean}
-	 *
-	 * @TODO: Dispatch event on Return key?
 	 */
 	$scope.searchResultsNavigate = function (res, e, callback) {
 		if (!res) {
@@ -18,8 +22,7 @@ app.controller("SearchController", function ($scope, $http, $timeout) {
 		var searchResultsCount = _.keys(res.data).length;
 		var searchResultsCurrentSelection = res.currentSelection;
 
-		// TODO decide what to do w/ this! Add a callback function?
-		if (e.keyCode == 13) {
+		if (e.keyCode == keyReturn) {
 			e.preventDefault();
 
 			if (_.first(callback) == "getUmi") {
@@ -31,11 +34,11 @@ app.controller("SearchController", function ($scope, $http, $timeout) {
 			}
 		}
 
-		if (e.keyCode == 38 && searchResultsCurrentSelection > 0) {
+		if (e.keyCode == keyUp && searchResultsCurrentSelection > 0) {
 			e.preventDefault();
 
 			res.currentSelection = searchResultsCurrentSelection - 1;
-		} else if (e.keyCode == 40 && searchResultsCurrentSelection < (searchResultsCount - 1)) {
+		} else if (e.keyCode == keyDown && searchResultsCurrentSelection < (searchResultsCount - 1)) {
 			e.preventDefault();
 
 			res.currentSelection = searchResultsCurrentSelection + 1;
@@ -44,6 +47,13 @@ app.controller("SearchController", function ($scope, $http, $timeout) {
 		return false;
 	};
 
+	/**
+	 * Executes search against our BE
+	 *
+	 * @param model {string}
+	 * @param autocomplete {boolean}
+	 * @param dive {boolean}
+	 */
 	$scope.search = function (model, autocomplete, dive) {
 		if (autocomplete) {
 			$scope.showAutocomplete = true;
@@ -81,24 +91,32 @@ app.controller("SearchController", function ($scope, $http, $timeout) {
 						$scope.searchResults = results;
 					} else {
 						$scope.searchResults = false;
+
+						$scope.notify(
+							"No results found :-(",
+							"info", $scope.$parent.$parent
+						);
 					}
 				}).
-				error(function (data, status) {
-					$scope.$parent.$parent.notification = {
-						"message": "There was an error with the connection to our API.",
-						"type": "error",
-						"act": true
-					};
-					$timeout(function () {
-						$scope.$parent.$parent.notification.act = false;
-					}, 2500);
+				error(function () {
+					$scope.notify(
+						"There was an error with the connection to our API.",
+						"error", $scope.$parent.$parent
+					);
 				});
 		} else {
 			$scope.searchResults = false;
 		}
 	};
 
-	// NOTE autocompleteData might sometimes need to be specified in parent controller
+	/**
+	 * Adds items user chooses to an autocompleteData object (from search results)
+	 *
+	 * @param searchResultsPointer {string}
+	 * @param index {int}
+	 *
+	 * @NOTE autocompleteData might sometimes need to be specified in parent controller
+	 */
 	$scope.autocomplete = function(searchResultsPointer, index) {
 		var results = $scope.searchResults;
 
@@ -121,18 +139,24 @@ app.controller("SearchController", function ($scope, $http, $timeout) {
 		}
 	};
 
+	/**
+	 * Removes an item from autocomplete data
+	 *
+	 * @param searchResultsPointer {string}
+	 * @param id {id}
+	 */
 	$scope.removeUmiId = function(searchResultsPointer, id) {
 		delete $scope.autocompleteData[searchResultsPointer][id];
 	};
 
 	/**
-	 * Function specific to Dive section
+	 * Makes diver go down
 	 *
 	 * @param termLength {int}
 	 */
 	var simulateDiving = function(termLength) {
-		if (termLength < 40) {
-			var percentage = termLength * 2.5 + "%";
+		if (termLength < simulateDivingMaxTermLength) {
+			var percentage = termLength * (100 / simulateDivingMaxTermLength) + "%";
 
 			document.getElementById("masthead").style.backgroundPositionY = percentage;
 		}
