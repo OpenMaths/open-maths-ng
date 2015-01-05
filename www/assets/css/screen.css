@@ -1914,10 +1914,12 @@ body.dark {
         .page-contribute .controls ul li span {
           color: #1b2424; }
           .page-contribute .controls ul li span:before {
-            background-size: 125%; }
-          .page-contribute .controls ul li span#parsing:before {
-            background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg");
             background-size: 130%; }
+          .page-contribute .controls ul li span#parsing:before {
+            background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg"); }
+          .page-contribute .controls ul li span#time-scale:before {
+            background-image: url("/assets/images/icons/icon-set/icon-set_clock.svg");
+            background-size: 150%; }
           .page-contribute .controls ul li span#locked:before {
             background-image: url("/assets/images/icons/icon-set/icon-set_enclosed.svg"); }
   .page-contribute .button-holder {
