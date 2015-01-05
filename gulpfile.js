@@ -4,18 +4,34 @@ var gulp =
 	sass = require("gulp-ruby-sass"),
 	autoprefixer = require("gulp-autoprefixer"),
 	uglify = require("gulp-uglify"),
+	rename = require("gulp-rename"),
+	minifycss = require("gulp-minify-css"),
 	concat = require("gulp-concat"),
 	ngAnnotate = require("gulp-ng-annotate"),
+	plumber = require("gulp-plumber"),
 	notify = require("gulp-notify");
+
+var onError = notify.onError({
+	title: "Your SASS is broken!",
+	subtitle: "<%= file %> did not compile!",
+	message: "<%= error.message %>"
+});
 
 // Compile SASS
 gulp.task("sass", function() {
 	gulp.src("www/assets/css/include/screen.sass")
+		.pipe(plumber({
+			errorHandler: onError
+		}))
+		.pipe(plumber({ errorHandler: onError }))
 		.pipe(sass({
 			loadPath: process.cwd() + "/www/assets/css/include",
 			style: "nested"
 		}))
-		.pipe(autoprefixer("last 2 version", "> 1%"))
+		.pipe(autoprefixer("last 20 version", "> 1%"))
+		.pipe(gulp.dest("www/assets/css"))
+		.pipe(rename({suffix: ".min"}))
+		.pipe(minifycss())
 		.pipe(gulp.dest("www/assets/css"))
 		.pipe(notify("SASS successfully compiled!"));
 });

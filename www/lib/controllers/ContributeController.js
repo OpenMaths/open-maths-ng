@@ -203,6 +203,8 @@ app.controller("ContributeController", function ($scope, $http, $location, $time
 		parseLatexContent = _.delay(function() {
 			$scope.parsingContent = true;
 
+			$scope.timeScale = _.timeScale($scope.createUmiForm.latexContent);
+
 			$scope.http("POST", "latex-to-html", $scope.createUmiForm.latexContent, function(response) {
 				var parsedLatexContent;
 				var response = JSON.parse(response);
