@@ -38,43 +38,39 @@ gulp.task("sass", function() {
 
 // Concatenate Vendor
 gulp.task("concat-vendor", function() {
-	gulp.src("www/lib/vendor/*.js")
+	gulp.src("www/app/vendor/*.js")
 		.pipe(concat("vendor.js"))
-		.pipe(gulp.dest("www/lib/_build"))
+		.pipe(gulp.dest("www/app/_build"))
 		.pipe(notify("Vendors successfully concatenated!"));
 });
 
 // Concat angular dependencies
 var ngConcat = function(name) {
-	gulp.src("www/lib/" + name + "/*.js")
+	gulp.src("www/app/" + name + "/**/*.js")
 		.pipe(concat(name + ".js"))
-		.pipe(ngAnnotate())
+		.pipe(ngAnnotate({
+			add: true
+		}))
 		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/_build"))
+		.pipe(gulp.dest("www/app/_build"))
 		.pipe(notify(name + ".js successfully concatenated!"));
 };
 
-// Concatenate Controllers
-gulp.task("concat-controllers", function() {
-	ngConcat("controllers");
+// Concatenate Sections
+gulp.task("concat-sections", function() {
+	ngConcat("sections");
 });
 
-// Concatenate Directives
-gulp.task("concat-directives", function() {
-	ngConcat("directives");
-});
-
-// Concatenate LoDash Custom Library
-gulp.task("concat-lodash-custom", function() {
-	ngConcat("lodash");
+// Concatenate Utilities
+gulp.task("concat-utilities", function() {
+	ngConcat("utilities");
 });
 
 // Watch directories and execute assigned tasks
 gulp.task("watch", function() {
-	gulp.watch("www/lib/controllers/*.js", ["concat-controllers"]);
-	gulp.watch("www/lib/directives/*.js", ["concat-directives"]);
-	gulp.watch("www/lib/lodash/*.js", ["concat-lodash-custom"]);
-	gulp.watch("www/lib/vendor/*.js", ["concat-vendor"]);
+	gulp.watch("www/app/vendor/*.js", ["concat-vendor"]);
+	gulp.watch("www/app/sections/**/*.js", ["concat-sections"]);
+	gulp.watch("www/app/utilities/**/*.js", ["concat-utilities"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
 });
