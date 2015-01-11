@@ -41,6 +41,7 @@
 				scope.notification = notificationData;
 			}
 
+			// @TODO clear timeout
 			$timeout(function() {
 				scope.notification.act = false;
 			}, notificationDisappearTimeout);

@@ -10,7 +10,7 @@
 			restrict: "EA",
 			templateUrl: "app/sections/section.global/notification.layout.html",
 			scope: true,
-			transclude : false // @TODO what is this??
+			//transclude : false // @TODO what is this??
 		};
 
 		return directive;
