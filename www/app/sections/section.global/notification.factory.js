@@ -7,14 +7,22 @@
 
 	function notification($timeout, $log) {
 		// @TODO make global / config?
-		var notificationDisappearTimeout = 2500;
+		console.log('oh');
+
+
+		var subscriptions = [];
 
 		return {
+			subscribe: subscribe,
 			generate: generate
 		};
 
+		function subscribe(callback){
+			subscriptions.push(callback);
+		}
+
 		function generate (msg, type, scope, apply) {
-			var notificationData = { "message": msg, "type": type, "act": true };
+			var notificationData = { "message": msg, "type": type };
 
 			switch(type) {
 				case "info":
@@ -35,16 +43,20 @@
 					break;
 			}
 
-			if (apply) {
-				scope.$apply(function() { scope.notification = notificationData; });
-			} else {
-				scope.notification = notificationData;
-			}
+			_.forEach(subscriptions, function(callback){
+				callback(notificationData);
+			});
+
+			//if (apply) {
+			//	scope.$apply(function() { scope.notification = notificationData; });
+			//} else {
+			//	scope.notification = notificationData;
+			//}
 
 			// @TODO clear timeout
-			$timeout(function() {
-				scope.notification.act = false;
-			}, notificationDisappearTimeout);
+			//$timeout(function() {
+			//	scope.notification.act = false;
+			//}, notificationDisappearTimeout);
 		}
 	};
 

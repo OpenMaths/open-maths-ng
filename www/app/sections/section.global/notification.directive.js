@@ -3,17 +3,31 @@
 
 	angular
 		.module("omApp")
-		.directive("notification", notification);
+		.directive("notificationDirective", notificationDirective);
 
-	function notification() {
+	function notificationDirective($timeout, notification) {
 		var directive = {
 			restrict: "EA",
 			templateUrl: "app/sections/section.global/notification.layout.html",
-			scope: true,
-			//transclude : false // @TODO what is this??
+			scope: {},
+			replace: true,
+			link: linker
 		};
 
 		return directive;
+
+		function linker(scope) {
+			var notificationDisappearTimeout = 2500;
+
+			notification.subscribe(function(notificationData){
+				scope.notification = notificationData;
+				scope.act = true;
+
+				$timeout(function() {
+					scope.act = false;
+				}, notificationDisappearTimeout);
+			});
+		}
 	}
 
 })();
