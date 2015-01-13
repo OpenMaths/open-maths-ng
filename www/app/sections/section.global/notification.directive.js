@@ -17,12 +17,14 @@
 		return directive;
 
 		function linker(scope) {
+			// @TODO make global / config?
 			var notificationDisappearTimeout = 2500;
 
 			notification.subscribe(function(notificationData){
 				scope.notification = notificationData;
 				scope.act = true;
 
+				// @TODO clear timeout
 				$timeout(function() {
 					scope.act = false;
 				}, notificationDisappearTimeout);

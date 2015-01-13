@@ -5,11 +5,7 @@
 		.module("omApp")
 		.factory("notification", notification);
 
-	function notification($timeout, $log) {
-		// @TODO make global / config?
-		console.log('oh');
-
-
+	function notification($log) {
 		var subscriptions = [];
 
 		return {
@@ -21,9 +17,8 @@
 			subscriptions.push(callback);
 		}
 
-		function generate (msg, type, scope, apply) {
-			var notificationData = { "message": msg, "type": type };
-
+		// @TODO simplify?
+		function generate (msg, type) {
 			switch(type) {
 				case "info":
 					$log.info(msg);
@@ -43,20 +38,11 @@
 					break;
 			}
 
+			var notificationData = { "message": msg, "type": type };
+
 			_.forEach(subscriptions, function(callback){
 				callback(notificationData);
 			});
-
-			//if (apply) {
-			//	scope.$apply(function() { scope.notification = notificationData; });
-			//} else {
-			//	scope.notification = notificationData;
-			//}
-
-			// @TODO clear timeout
-			//$timeout(function() {
-			//	scope.notification.act = false;
-			//}, notificationDisappearTimeout);
 		}
 	};
 
