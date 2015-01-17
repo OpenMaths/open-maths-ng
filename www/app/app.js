@@ -12,6 +12,9 @@
 				templateUrl: _.returnLayout("dive"),
 				controller: "DiveController",
 				controllerAs: "vm"
+			}).when("/board/:id", {
+				templateUrl: _.returnLayout("board"),
+				controller: "BoardController"
 			});
 
 		$locationProvider.html5Mode(true);

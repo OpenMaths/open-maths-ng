@@ -3,9 +3,9 @@
 
 	angular
 		.module("omApp")
-		.factory("notification", notification);
+		.factory("notification", notificationFactory);
 
-	function notification($log) {
+	function notificationFactory($log) {
 		var subscriptions = [];
 
 		return {

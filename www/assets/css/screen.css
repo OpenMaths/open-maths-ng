@@ -183,7 +183,6 @@
 .container-flex,
 .flex-row,
 [class^="flex-grid"] {
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -221,8 +220,6 @@
   .flex-row.vertical,
   [class^="flex-grid"].vertical {
     height: 100vh;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column; }
@@ -230,7 +227,6 @@
     .container-flex.vertical > [class^="column"],
     .flex-row.vertical > [class^="column"],
     [class^="flex-grid"].vertical > [class^="column"] {
-      -webkit-box-flex: 1;
       -webkit-flex: 1;
           -ms-flex: 1;
               flex: 1; }
@@ -242,7 +238,6 @@
   margin-right: auto !important; }
 
 .flex, .page-contribute article form label p, .page-contribute article form label p small {
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex; }
@@ -251,96 +246,78 @@
         -ms-flex-wrap: wrap;
             flex-wrap: wrap; }
   .flex.column, .page-contribute article form label p.column, .page-contribute article form label p small.column {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column; }
   .flex.row, .page-contribute article form label p.row, .page-contribute article form label p small.row {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
     -webkit-flex-direction: row;
         -ms-flex-direction: row;
             flex-direction: row; }
   .flex.center-vertically, .page-contribute article form label p, .page-contribute article form label p small {
-    -webkit-box-align: center;
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center; }
   .flex.center-horizontally, .page-contribute article form label p.center-horizontally, .page-contribute article form label p small.center-horizontally {
-    -webkit-box-pack: center;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center; }
 
 .flex-1 {
-  -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1; }
 
 .flex-2 {
-  -webkit-box-flex: 2;
   -webkit-flex: 2;
       -ms-flex: 2;
           flex: 2; }
 
 .flex-3 {
-  -webkit-box-flex: 3;
   -webkit-flex: 3;
       -ms-flex: 3;
           flex: 3; }
 
 .flex-4 {
-  -webkit-box-flex: 4;
   -webkit-flex: 4;
       -ms-flex: 4;
           flex: 4; }
 
 .flex-5 {
-  -webkit-box-flex: 5;
   -webkit-flex: 5;
       -ms-flex: 5;
           flex: 5; }
 
 .flex-6 {
-  -webkit-box-flex: 6;
   -webkit-flex: 6;
       -ms-flex: 6;
           flex: 6; }
 
 .flex-7 {
-  -webkit-box-flex: 7;
   -webkit-flex: 7;
       -ms-flex: 7;
           flex: 7; }
 
 .flex-8 {
-  -webkit-box-flex: 8;
   -webkit-flex: 8;
       -ms-flex: 8;
           flex: 8; }
 
 .flex-9 {
-  -webkit-box-flex: 9;
   -webkit-flex: 9;
       -ms-flex: 9;
           flex: 9; }
 
 .flex-10 {
-  -webkit-box-flex: 10;
   -webkit-flex: 10;
       -ms-flex: 10;
           flex: 10; }
 
 .flex-11 {
-  -webkit-box-flex: 11;
   -webkit-flex: 11;
       -ms-flex: 11;
           flex: 11; }
 
 .flex-12 {
-  -webkit-box-flex: 12;
   -webkit-flex: 12;
       -ms-flex: 12;
           flex: 12; }
@@ -375,7 +352,6 @@ a,
 .link,
 .link-primary,
 .link-secondary {
-  -webkit-transition: color 0.25s;
   transition: color 0.25s;
   cursor: pointer;
   text-decoration: underline;
@@ -583,7 +559,6 @@ blockquote {
     font-size: 1rem; }
 
 .close {
-  -webkit-transition: color 0.25s;
   transition: color 0.25s;
   position: absolute;
   top: 0;
@@ -599,7 +574,6 @@ blockquote {
     text-decoration: none; }
 
 footer {
-  -webkit-transition: background 0.25s;
   transition: background 0.25s;
   width: 100%;
   height: 3.5rem;
@@ -660,7 +634,6 @@ button,
   box-shadow: none;
   -o-border-radius: 0;
   border-radius: 0;
-  -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
   -webkit-appearance: none;
   border-bottom: 1px solid #d5e0e0;
@@ -835,7 +808,6 @@ textarea:invalid {
   .checkbox-holder .checkbox .indicator, .checkbox-holder .radio-button .indicator, .radio-button-holder .checkbox .indicator, .radio-button-holder .radio-button .indicator {
     -o-border-radius: 3px;
     border-radius: 3px;
-    -webkit-transition: all 0.25s;
     transition: all 0.25s;
     border: 1px solid #d5e0e0;
     width: 0.875rem;
@@ -849,7 +821,6 @@ textarea:invalid {
     .checkbox-holder .checkbox .indicator:after, .checkbox-holder .radio-button .indicator:after, .radio-button-holder .checkbox .indicator:after, .radio-button-holder .radio-button .indicator:after {
       -o-border-radius: 2px;
       border-radius: 2px;
-      -webkit-transition: background 0.25s;
       transition: background 0.25s;
       opacity: 0;
       content: "";
@@ -1101,7 +1072,6 @@ dl {
   background: transparent; }
 
 #loading-bar {
-  -webkit-transition: 350ms linear all;
   transition: 350ms linear all;
   pointer-events: none;
   -webkit-pointer-events: none; }
@@ -1115,7 +1085,6 @@ dl {
   opacity: 1; }
 
 #loading-bar .bar {
-  -webkit-transition: width 350ms;
   transition: width 350ms;
   z-index: 9;
   background: #1b2424;
@@ -1388,7 +1357,6 @@ noscript #warning {
   width: 100%; }
 
 .notification {
-  -webkit-transition: top 0.25s;
   transition: top 0.25s;
   z-index: 8;
   position: fixed;
@@ -1445,7 +1413,6 @@ table {
   .toggle:before {
     -o-border-radius: 100%;
     border-radius: 100%;
-    -webkit-transition: margin 0.25s;
     transition: margin 0.25s;
     display: block;
     content: "";
@@ -1502,22 +1469,17 @@ h6 {
   font-size: 1.25rem; }
 
 .umi {
-  -webkit-transition: opacity 0.25s;
   transition: opacity 0.25s;
   -o-border-radius: 4px;
   border-radius: 4px;
   position: relative;
   opacity: 0;
-  -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
@@ -1545,24 +1507,18 @@ h6 {
   .umi:focus .title .full-screen {
     opacity: 1; }
   .umi .content-holder {
-    -webkit-box-flex: 1;
     -webkit-flex: 1;
         -ms-flex: 1;
             flex: 1;
-    display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
     -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-align: center;
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-box-pack: center;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -1589,7 +1545,6 @@ h6 {
       font-size: 0.6875rem; }
     .umi .title .edit,
     .umi .title .full-screen {
-      -webkit-transition: opacity 0.25s;
       transition: opacity 0.25s;
       cursor: pointer;
       opacity: 0;
@@ -1614,7 +1569,6 @@ h6 {
       font-size: 0.875rem;
       font-family: "Anonymous Pro", "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
       .umi article p strong {
-        -webkit-transition: color 0.25s;
         transition: color 0.25s;
         color: #ec6470;
         position: relative;
@@ -1636,7 +1590,6 @@ h6 {
         .umi article p strong i {
           -o-border-radius: 100%;
           border-radius: 100%;
-          -webkit-transition: all 0.25s;
           transition: all 0.25s;
           z-index: 1;
           position: absolute;
@@ -1669,7 +1622,6 @@ h6 {
             right: 0;
             background-image: url("/assets/images/icons/expand-arrows/arrow-right-black.svg"); }
   .umi .footer {
-    -webkit-transition: opacity 0.25s;
     transition: opacity 0.25s;
     display: none;
     padding: 0.5rem 0 0;
@@ -1732,7 +1684,6 @@ body.dark {
     position: relative; }
     .page-board #board-container #grid #manage-column,
     .page-board #board-container #grid #manage-row {
-      -webkit-transition: all 0.25s;
       transition: all 0.25s;
       z-index: 5;
       position: absolute;
@@ -1780,11 +1731,9 @@ body.dark {
         bottom: 0; }
   .page-board #board-container .row {
     width: 100%;
-    -webkit-box-flex: 1;
     -webkit-flex: 1;
         -ms-flex: 1;
             flex: 1;
-    display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
@@ -1801,12 +1750,9 @@ body.dark {
     .page-board #board-container .row .column {
       z-index: 3;
       position: relative;
-      display: -webkit-box;
       display: -webkit-flex;
       display: -ms-flexbox;
       display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
       -webkit-flex-direction: column;
           -ms-flex-direction: column;
               flex-direction: column;
@@ -1992,7 +1938,6 @@ body.dark {
             position: relative;
             padding-right: 1.125rem; }
             .page-contribute article form label > div .added-titles .label small {
-              -webkit-transition: color 0.25s;
               transition: color 0.25s;
               width: 1rem;
               height: 1rem;
@@ -2038,7 +1983,6 @@ body.dark {
         position: relative;
         margin-right: 1rem; }
         .page-contribute article form label p small {
-          -webkit-transition: opacity 0.25s;
           transition: opacity 0.25s;
           opacity: 0;
           width: 100%;
@@ -2125,7 +2069,7 @@ body.dark {
       color: white;
       margin: 0;
       width: 100%;
-      font-size: 3.75rem; }
+      font-size: 4.0625rem; }
       .page-dive #masthead #search-umi input::-webkit-input-placeholder {
         color: rgba(255, 255, 255, 0.25); }
       .page-dive #masthead #search-umi input::-moz-placeholder {
@@ -2135,7 +2079,6 @@ body.dark {
       .page-dive #masthead #search-umi input:-ms-input-placeholder {
         color: rgba(255, 255, 255, 0.25); }
     .page-dive #masthead #search-umi .search-umi-results {
-      -webkit-transition: height 0.25s;
       transition: height 0.25s;
       height: auto;
       max-width: 37.5rem;
@@ -2143,7 +2086,6 @@ body.dark {
       max-height: 12rem;
       overflow-y: scroll; }
       .page-dive #masthead #search-umi .search-umi-results .item {
-        -webkit-transition: color 0.25s;
         transition: color 0.25s;
         color: rgba(255, 255, 255, 0.5);
         padding: 1rem 0;
@@ -2165,14 +2107,12 @@ body.dark {
           text-indent: 1px;
           margin-right: 2rem; }
         .page-dive #masthead #search-umi .search-umi-results .item .score {
-          -webkit-transition: color 0.25s;
           transition: color 0.25s;
           margin: 0 0 0 auto;
           width: 25%;
           color: rgba(255, 255, 255, 0.5);
           font-size: 0.75rem; }
           .page-dive #masthead #search-umi .search-umi-results .item .score .bar {
-            -webkit-transition: background 0.25s;
             transition: background 0.25s;
             -o-border-radius: 4px;
             border-radius: 4px;
@@ -2180,7 +2120,6 @@ body.dark {
             height: 4px;
             background: rgba(255, 255, 255, 0.25); }
             .page-dive #masthead #search-umi .search-umi-results .item .score .bar .progress {
-              -webkit-transition: background 0.25s;
               transition: background 0.25s;
               -o-border-radius: 4px;
               border-radius: 4px;
