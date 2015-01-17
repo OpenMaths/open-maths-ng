@@ -3,27 +3,25 @@
 
 	angular
 		.module("omApp")
-		.controller("BoardController", BoardController);
+		.controller("BoardController", BoardController)
+		.constant("magic", {
+			gridDefaultRowCount: 3,
+			gridDefaultColumnCount: 3,
+			gridMaxRows: 6,
+			gridMinRows: 2,
+			gridMaxColumns: 6,
+			gridMinColumns: 2,
+			fadeUmiTimeout: 250
+		});
 
-	function BoardController($scope, $http, $timeout, $routeParams) {
-		// @TODO move to default config?
-		var gridDefaultRowCount = 3;
-		var gridDefaultColumnCount = 3;
-
-		var gridMaxRows = 6;
-		var gridMinRows = 2;
-		var gridMaxColumns = 6;
-		var gridMinColumns = 2;
-
-		var fadeUmiTimeout = 250;
-
+	function BoardController($scope, $http, $timeout, $routeParams, magic, notification) {
 		var initId = $routeParams.id;
 
 		$scope.$parent.title = "Board";
 		$scope.$parent.transparentNav = false;
 
-		$scope.rows = sessionStorage.getItem("gridRows") ? _.parseInt(sessionStorage.getItem("gridRows")) : gridDefaultRowCount;
-		$scope.columns = sessionStorage.getItem("gridColumns") ? _.parseInt(sessionStorage.getItem("gridColumns")) : gridDefaultColumnCount;
+		$scope.rows = sessionStorage.getItem("gridRows") ? _.parseInt(sessionStorage.getItem("gridRows")) : magic.gridDefaultRowCount;
+		$scope.columns = sessionStorage.getItem("gridColumns") ? _.parseInt(sessionStorage.getItem("gridColumns")) : magic.gridDefaultColumnCount;
 
 		$scope.grid = [];
 
@@ -43,8 +41,6 @@
 		 * @param method {string} add | remove
 		 * @param type {string} row | column
 		 * @returns {boolean}
-		 *
-		 * @TODO: abstract max rows and columns into config?
 		 */
 		$scope.manageGrid = function(method, type) {
 			if (type == "row") {
@@ -56,7 +52,7 @@
 
 				switch (method) {
 					case "add":
-						if ($scope.rows > (gridMaxRows - 1)) {
+						if ($scope.rows > (magic.gridMaxRows - 1)) {
 							return false;
 						}
 
@@ -64,7 +60,7 @@
 						$scope.grid.push(row);
 						break;
 					case "remove":
-						if ($scope.rows < (gridMinRows + 1)) {
+						if ($scope.rows < (magic.gridMinRows + 1)) {
 							return false;
 						}
 
@@ -77,7 +73,7 @@
 			} else if (type == "column") {
 				switch (method) {
 					case "add":
-						if ($scope.columns > (gridMaxColumns - 1)) {
+						if ($scope.columns > (magic.gridMaxColumns - 1)) {
 							return false;
 						}
 
@@ -87,7 +83,7 @@
 						$scope.columns = $scope.columns + 1;
 						break;
 					case "remove":
-						if ($scope.columns < (gridMinColumns + 1)) {
+						if ($scope.columns < (magic.gridMinColumns + 1)) {
 							return false;
 						}
 
@@ -108,7 +104,7 @@
 		 * @param getBy {string}
 		 * @param param {string}
 		 * @param where {array}
-		 * @param classes {string}
+		 * @param classes {string | boolean}
 		 */
 		var getUmi = function(getBy, param, where, classes) {
 			var fadeInUmi = function () {
@@ -125,18 +121,18 @@
 
 					$scope.grid[where[0]][where[1]] = data;
 					// TODO this does not work on expanding??
-					$timeout(fadeInUmi, fadeUmiTimeout);
+					$timeout(fadeInUmi, magic.fadeUmiTimeout);
 				}).
 				error(function () {
 					// TODO this needs to be properly documented
-					$scope.notify(
+					notification.generate(
 						"There was an error loading requested contribution.",
 						"error", $scope.$parent
 					);
 				});
 		};
 
-		getUmi("uriFriendlyTitle", initId, [1,1]);
+		getUmi("uriFriendlyTitle", initId, [1,1], false);
 
 		/**
 		 * Position elements correctly within a grid
