@@ -23,5 +23,5 @@ function timeScale(content) {
 }
 
 _.mixin({
-	'timeScale': timeScale
+	"timeScale": timeScale
 });

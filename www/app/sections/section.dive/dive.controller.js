@@ -3,21 +3,21 @@
 
 	angular
 		.module("omApp")
-		.controller("DiveController", DiveController);
+		.controller("DiveController", DiveController)
+		.constant("magicForDive", {
+			pageTitle: "Dive Into",
+			pageTransparentNav: true
+		});
 
-	function DiveController($scope, $location, $log) {
-		$scope.$parent.title = "Dive Into";
-		$scope.$parent.transparentNav = true;
+	function DiveController($scope, $location, notification, magicForDive) {
+		$scope.$parent.title = magicForDive.pageTitle;
+		$scope.$parent.transparentNav = magicForDive.pageTransparentNav;
 
-		// @TODO investigate the behaviour on errors
 		$scope.getUmi = function (uri) {
 			if (!uri) {
-				if (!$scope.searchUmiResults) {
-					$log.error("No URI argument present");
-					return false;
-				}
+				notification.generate("No URI argument present",
+				"error", $scope);
 
-				$log.error("No URI argument present");
 				return false;
 			}
 

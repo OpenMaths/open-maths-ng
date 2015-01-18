@@ -3,5 +3,5 @@ function capitalise(string) {
 }
 
 _.mixin({
-	'capitalise': capitalise
+	"capitalise": capitalise
 });

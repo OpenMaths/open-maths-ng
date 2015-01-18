@@ -1,3 +1,7 @@
+var initGapi = function() {
+	window.initGapi();
+};
+
 (function() {
 	"use strict";
 
@@ -15,6 +19,9 @@
 			}).when("/board/:id", {
 				templateUrl: _.returnLayout("board"),
 				controller: "BoardController"
+			}).when("/contribute", {
+				templateUrl: _.returnLayout("contribute"),
+				controller: "ContributeController"
 			});
 
 		$locationProvider.html5Mode(true);

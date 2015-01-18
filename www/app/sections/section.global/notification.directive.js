@@ -1,9 +1,9 @@
-(function() {
+(function () {
 	"use strict";
 
 	angular
 		.module("omApp")
-		.directive("notificationDirective", notificationDirective);
+		.directive("notificationDirective", notificationDirective); // @TODO rename to notification-layout everywhere later
 
 	function notificationDirective($timeout, notification) {
 		var directive = {
@@ -19,12 +19,12 @@
 		function linker(scope) {
 			var notificationDisappearTimeout = 2500;
 
-			notification.subscribe(function(notificationData){
+			notification.subscribe(function (notificationData) {
 				scope.notification = notificationData;
 				scope.act = true;
 
 				// @TODO clear timeout
-				$timeout(function() {
+				$timeout(function () {
 					scope.act = false;
 				}, notificationDisappearTimeout);
 			});

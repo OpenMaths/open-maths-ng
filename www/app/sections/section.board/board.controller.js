@@ -4,26 +4,31 @@
 	angular
 		.module("omApp")
 		.controller("BoardController", BoardController)
-		.constant("magic", {
+		.constant("magicForBoard", {
+			pageTitle: "Board",
+			pageTransparentNav: false,
 			gridDefaultRowCount: 3,
 			gridDefaultColumnCount: 3,
 			gridMaxRows: 6,
 			gridMinRows: 2,
 			gridMaxColumns: 6,
 			gridMinColumns: 2,
+			gridStartingPosition: {
+				"row": 1,
+				"column": 1
+			},
 			fadeUmiTimeout: 250
 		});
 
-	function BoardController($scope, $http, $timeout, $routeParams, magic, notification) {
+	function BoardController($scope, $http, $timeout, $routeParams, notification, magicForBoard) {
 		var initId = $routeParams.id;
+		var grid = [];
 
-		$scope.$parent.title = "Board";
-		$scope.$parent.transparentNav = false;
+		$scope.$parent.title = magicForBoard.pageTitle;
+		$scope.$parent.transparentNav = magicForBoard.pageTransparentNav;
 
-		$scope.rows = sessionStorage.getItem("gridRows") ? _.parseInt(sessionStorage.getItem("gridRows")) : magic.gridDefaultRowCount;
-		$scope.columns = sessionStorage.getItem("gridColumns") ? _.parseInt(sessionStorage.getItem("gridColumns")) : magic.gridDefaultColumnCount;
-
-		$scope.grid = [];
+		$scope.rows = sessionStorage.getItem("gridRows") ? _.parseInt(sessionStorage.getItem("gridRows")) : magicForBoard.gridDefaultRowCount;
+		$scope.columns = sessionStorage.getItem("gridColumns") ? _.parseInt(sessionStorage.getItem("gridColumns")) : magicForBoard.gridDefaultColumnCount;
 
 		for (var i = 0; i < $scope.rows; i++) {
 			var row = [];
@@ -31,9 +36,10 @@
 			for (var c = 0; c < $scope.columns; c++) {
 				row.push(c);
 			}
-
-			$scope.grid.push(row);
+			grid.push(row);
 		}
+
+		$scope.grid = grid;
 
 		/**
 		 * Manages the grid layout
@@ -46,13 +52,13 @@
 			if (type == "row") {
 				var row = [];
 
-				for (i = 0; i < $scope.columns; i++) {
+				for (var i = 0; i < $scope.columns; i++) {
 					row.push(i);
 				}
 
 				switch (method) {
 					case "add":
-						if ($scope.rows > (magic.gridMaxRows - 1)) {
+						if ($scope.rows > (magicForBoard.gridMaxRows - 1)) {
 							return false;
 						}
 
@@ -60,7 +66,7 @@
 						$scope.grid.push(row);
 						break;
 					case "remove":
-						if ($scope.rows < (magic.gridMinRows + 1)) {
+						if ($scope.rows < (magicForBoard.gridMinRows + 1)) {
 							return false;
 						}
 
@@ -73,17 +79,17 @@
 			} else if (type == "column") {
 				switch (method) {
 					case "add":
-						if ($scope.columns > (magic.gridMaxColumns - 1)) {
+						if ($scope.columns > (magicForBoard.gridMaxColumns - 1)) {
 							return false;
 						}
 
-						for (i = 0; i < $scope.rows; i++) {
+						for (var i = 0; i < $scope.rows; i++) {
 							$scope.grid[i].push($scope.columns);
 						}
 						$scope.columns = $scope.columns + 1;
 						break;
 					case "remove":
-						if ($scope.columns < (magic.gridMinColumns + 1)) {
+						if ($scope.columns < (magicForBoard.gridMinColumns + 1)) {
 							return false;
 						}
 
@@ -103,7 +109,7 @@
 		 *
 		 * @param getBy {string}
 		 * @param param {string}
-		 * @param where {array}
+		 * @param where {object}
 		 * @param classes {string | boolean}
 		 */
 		var getUmi = function(getBy, param, where, classes) {
@@ -119,9 +125,9 @@
 						data.targetClasses = classes;
 					}
 
-					$scope.grid[where[0]][where[1]] = data;
+					$scope.grid[where.row][where.column] = data;
 					// TODO this does not work on expanding??
-					$timeout(fadeInUmi, magic.fadeUmiTimeout);
+					$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
 				}).
 				error(function () {
 					// TODO this needs to be properly documented
@@ -132,7 +138,7 @@
 				});
 		};
 
-		getUmi("uriFriendlyTitle", initId, [1,1], false);
+		getUmi("uriFriendlyTitle", initId, magicForBoard.gridStartingPosition, false);
 
 		/**
 		 * Position elements correctly within a grid
@@ -165,7 +171,12 @@
 				targetClasses.push("closes-right");
 			}
 
-			getUmi("id", newUmiID, [targetPosition[0],targetPosition[1]], targetClasses.join(" "));
+			var targetPosition = {
+				"row": targetPosition[0],
+				"column": targetPosition[1]
+			};
+
+			getUmi("id", newUmiID, targetPosition, targetClasses.join(" "));
 		};
 	}
 

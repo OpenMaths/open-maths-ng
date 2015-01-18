@@ -5,5 +5,5 @@ function cleanseCSV(str) {
 };
 
 _.mixin({
-	'cleanseCSV': cleanseCSV
+	"cleanseCSV": cleanseCSV
 });

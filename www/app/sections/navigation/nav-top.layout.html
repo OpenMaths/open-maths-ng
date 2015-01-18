@@ -3,7 +3,7 @@
 		<li><a id="dive" class="flex center-vertically" ng-class="{active : path == 'dive'}" href="/">Dive</a></li>
 		<li><a id="board" class="flex center-vertically" ng-class="{active : path == 'board'}" href="/board">Board</a></li>
 		<li ng-click="accessUrlUser('contribute', 'You need to be signed in to access this feature.', 'info')"><a id="contribute" class="flex center-vertically" ng-class="{active : path == 'contribute'}">Contribute</a></li>
-		<li><a id="features" class="flex center-vertically" ng-class="{active : path == 'features'}" href="/features">Features</a></li>
+		<!--<li><a id="features" class="flex center-vertically" ng-class="{active : path == 'features'}" href="/features">Features</a></li>-->
 	</ul>
 
 	<a id="logo-nav-top" href="/">
@@ -20,7 +20,7 @@
 				</ul>
 			</nav>
 		</li>
-		<li class="drop-down" ng-click="googleSignIn()">
+		<li class="drop-down" ng-show="gapiActive" ng-click="googleSignIn()">
 			<a id="user" class="flex center-vertically" href="#" ng-class="{logged : omUser}">
 				<span ng-show="omUser" class="om-user-image" ng-style="omUser.avatarStyle" ng-click="dropDownUser = !dropDownUser"></span>
 			</a>

@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	"use strict";
 
 	angular
@@ -13,13 +13,13 @@
 			generate: generate
 		};
 
-		function subscribe(callback){
+		function subscribe(callback) {
 			subscriptions.push(callback);
 		}
 
 		// @TODO simplify?
-		function generate (msg, type) {
-			switch(type) {
+		function generate(msg, type) {
+			switch (type) {
 				case "info":
 					$log.info(msg);
 					break;
@@ -30,7 +30,7 @@
 					$log.error(msg);
 					break;
 				case "success":
-					$log.success(msg);
+					$log.info(msg);
 					break;
 				default:
 					type = "info";
@@ -38,9 +38,9 @@
 					break;
 			}
 
-			var notificationData = { "message": msg, "type": type };
+			var notificationData = {"message": msg, "type": type};
 
-			_.forEach(subscriptions, function(callback){
+			_.forEach(subscriptions, function (callback) {
 				callback(notificationData);
 			});
 		}

@@ -98,17 +98,11 @@
 						} else {
 							$scope.searchResults = false;
 
-							notification.generate(
-								"No results found :-(",
-								"info", $scope.$parent.$parent
-							);
+							notification.generate("No results found :-(", "info");
 						}
 					}).
 					error(function () {
-						notification.generate(
-							"There was an error with the connection to our API.",
-							"error", $scope.$parent.$parent
-						);
+						notification.generate("There was an error with the connection to our API.", "error");
 					});
 			} else {
 				$scope.searchResults = false;
