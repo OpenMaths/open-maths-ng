@@ -28,31 +28,31 @@
 			});
 		});
 
-		//$scope.googleSignIn = function () {
-		//	if ($scope.omUser) {
-		//		return false;
-		//	}
-		//
-		//	gapi.auth.signIn({
-		//		"callback": function (authResult) {
-		//			if (authResult.status.signed_in) {
-		//				omAuth.signIn(authResult, gapi.auth.getToken(), logUserData);
-		//			} else {
-		//				if (authResult.error !== "immediate_failed") {
-		//					notification.generate("There was an error (" + authResult["error"] + ") during the sign in process.", "error");
-		//				}
-		//			}
-		//		}
-		//	});
-		//};
-		//
-		//$scope.googleSignOut = function() {
-		//	gapi.auth.signOut();
-		//
-		//	omAuth.signOut({
-		//		accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id
-		//	}, scrapUserData);
-		//};
+		$scope.googleSignIn = function () {
+			if ($scope.omUser) {
+				return false;
+			}
+
+			gapi.auth.signIn({
+				"callback": function (authResult) {
+					if (authResult.status.signed_in) {
+						omAuth.signIn(authResult, gapi.auth.getToken(), logUserData);
+					} else {
+						if (authResult.error !== "immediate_failed") {
+							notification.generate("There was an error (" + authResult["error"] + ") during the sign in process.", "error");
+						}
+					}
+				}
+			});
+		};
+
+		$scope.googleSignOut = function() {
+			gapi.auth.signOut();
+
+			omAuth.signOut({
+				accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id
+			}, scrapUserData);
+		};
 
 		var logUserData = function(userData) {
 			sessionStorage.setItem("omUser", JSON.stringify(userData));
@@ -66,10 +66,7 @@
 				sessionStorage.removeItem("omUser");
 				$scope.omUser = false;
 
-				// @TODO temp hack
-				$scope.$apply(function() {
-					notification.generate("You have been successfully signed out.", "info");
-				});
+				notification.generate("You have been successfully signed out.", "info");
 			} else {
 				notification.generate("There was an error signing you out.", "error");
 			}

@@ -19,7 +19,7 @@
 				scope.gapiActive = true;
 			};
 
-			scope.googleSignIn = function() {alert("ok!");};
+			//scope.googleSignIn = function() {alert("ok!");};
 		}
 	}
 

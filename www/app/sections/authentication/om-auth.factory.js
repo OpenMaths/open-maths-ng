@@ -5,7 +5,7 @@
 		.module("omApp")
 		.factory("omAuth", omAuth);
 
-	function omAuth($http, CORS, notification) {
+	function omAuth($http, $log, notification) {
 
 		return {
 			signIn: signIn,
@@ -15,28 +15,38 @@
 		function signIn(authResult, token, callback) {
 			$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
 				success(function (data) {
-					data.accessToken = authResult["access_token"];
-					data.avatarStyle = {"background-image": "url('" + data["picture"] + "')"};
+					data.accessToken = authResult.access_token;
+					data.avatarStyle = {"background-image": "url('" + data.picture + "')"};
 
 					// Retrieve anti request forgery token first
-					CORS.request("POST", "arft", data.id, function (token) {
-						var loginData = {
-							"code": authResult.code,
-							"gPlusId": data.id,
-							"arfToken": token
-						};
+					$http.post(appConfig.apiUrl + "arft", data.id).
+						success(function(token) {
+							var loginData = {
+								"code": authResult.code,
+								"gPlusId": data.id,
+								"arfToken": token
+							};
 
-						CORS.request("POST", "login", JSON.stringify(loginData), function (result) {
-							var res = JSON.parse(result);
-
-							if (_.first(_.keys(res)) == "successMsg") {
-								callback(data);
-							} else {
-								notification.generate("There was an error signing you in to our application server.", "error");
-							}
-						}, false, {"Content-type": "application/json;charset=UTF-8"});
-					}, false, {"Content-type": "application/json;charset=UTF-8"});
-				}).error(function () {
+							$http.post(appConfig.apiUrl + "login", loginData).
+								success(function(result) {
+									if (_.first(_.keys(result)) == "successMsg") {
+										callback(data);
+									} else {
+										$log.error(result);
+										notification.generate("There was an error signing you in to our application server.", "error");
+									}
+								}).
+								error(function(errorData) {
+									$log.error(errorData);
+									notification.generate("There was an error signing you in to our application server.", "error");
+								});
+						}).
+						error(function(errorData) {
+							$log.error(errorData);
+							notification.generate("There was an error getting the anti request forgery token from our application server.", "error");
+						});
+				}).error(function (errorData) {
+					$log.error(errorData);
 					notification.generate("There was an error retrieving user data from Google.", "error");
 				});
 		}
@@ -48,9 +58,14 @@
 		 * @returns {promise}
 		 */
 		function signOut(signOutData, callback) {
-			CORS.request("POST", "logout", JSON.stringify(signOutData), function () {
-				callback(true);
-			}, false, {"Content-type": "application/json;charset=UTF-8"});
+			$http.post(appConfig.apiUrl + "logout", signOutData).
+				success(function() {
+					callback(true);
+				}).
+				error(function(status) {
+					$log.error(status);
+					notification.generate("There was an error signing you out of our application server.", "error");
+				});
 		}
 
 	}

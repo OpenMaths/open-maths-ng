@@ -19,26 +19,11 @@
 
 		// @TODO simplify?
 		function generate(msg, type) {
-			switch (type) {
-				case "info":
-					$log.info(msg);
-					break;
-				case "warning":
-					$log.warn(msg);
-					break;
-				case "error":
-					$log.error(msg);
-					break;
-				case "success":
-					$log.info(msg);
-					break;
-				default:
-					type = "info";
-					$log.info(msg);
-					break;
-			}
-
+			// @TODO in_array info / warning / error / success
 			var notificationData = {"message": msg, "type": type};
+
+			// @TODO only if debug
+			$log.info(notificationData);
 
 			_.forEach(subscriptions, function (callback) {
 				callback(notificationData);
