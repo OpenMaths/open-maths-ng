@@ -9,7 +9,7 @@
 			pageDefaultWelcomeLabel: "dive"
 		});
 
-	function GlobalController($scope, $location, $window, notification, omAuth, magicForGlobal) {
+	function GlobalController($scope, $location, $window, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = appConfig.siteName;
@@ -28,50 +28,6 @@
 			});
 		});
 
-		$scope.googleSignIn = function () {
-			if ($scope.omUser) {
-				return false;
-			}
-
-			gapi.auth.signIn({
-				"callback": function (authResult) {
-					if (authResult.status.signed_in) {
-						omAuth.signIn(authResult, gapi.auth.getToken(), logUserData);
-					} else {
-						if (authResult.error !== "immediate_failed") {
-							notification.generate("There was an error (" + authResult["error"] + ") during the sign in process.", "error");
-						}
-					}
-				}
-			});
-		};
-
-		$scope.googleSignOut = function() {
-			gapi.auth.signOut();
-
-			omAuth.signOut({
-				accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id
-			}, scrapUserData);
-		};
-
-		var logUserData = function(userData) {
-			sessionStorage.setItem("omUser", JSON.stringify(userData));
-			$scope.omUser = userData;
-
-			notification.generate("You are now signed in as " + userData.email + ".", "success");
-		};
-
-		var scrapUserData = function(success) {
-			if (success) {
-				sessionStorage.removeItem("omUser");
-				$scope.omUser = false;
-
-				notification.generate("You have been successfully signed out.", "info");
-			} else {
-				notification.generate("There was an error signing you out.", "error");
-			}
-		};
-
 		// @TODO decide how and where implement
 		$scope.setTheme = function (theme) {
 			$scope.themeClass = theme;
@@ -88,6 +44,8 @@
 		if (sessionStorage.getItem("omUser")) {
 			var omUserString = sessionStorage.getItem("omUser");
 			$scope.omUser = JSON.parse(omUserString);
+		} else {
+			$scope.omUser = false;
 		}
 	}
 

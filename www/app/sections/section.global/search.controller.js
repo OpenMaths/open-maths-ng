@@ -86,7 +86,7 @@
 					simulateDiving(termLength);
 				}
 
-				$http.get(appConfig.apiUrl + "/search/" + term).
+				$http.get(appConfig.apiUrl + "search/" + term).
 					success(function (data) {
 						if (data.length > 0) {
 							var results = {

@@ -117,7 +117,7 @@
 				$scope.fadeInUmi = true;
 			};
 
-			var url = (getBy == "uriFriendlyTitle") ? appConfig.apiUrl + "/" + param : appConfig.apiUrl + "/" + getBy + "/" + param
+			var url = (getBy == "uriFriendlyTitle") ? appConfig.apiUrl + param : appConfig.apiUrl + getBy + "/" + param
 
 			$http.get(url).
 				success(function (data) {

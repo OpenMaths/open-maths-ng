@@ -60,7 +60,7 @@
 		function signOut(signOutData, callback) {
 			$http.post(appConfig.apiUrl + "logout", signOutData).
 				success(function() {
-					callback(true);
+					callback();
 				}).
 				error(function(status) {
 					$log.error(status);

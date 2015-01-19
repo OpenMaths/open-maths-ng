@@ -9,12 +9,26 @@ var gulp =
 	concat = require("gulp-concat"),
 	ngAnnotate = require("gulp-ng-annotate"),
 	plumber = require("gulp-plumber"),
-	notify = require("gulp-notify");
+	notify = require("gulp-notify"),
+	express = require("express"),
+	expressPort = 9000;
 
 var onError = notify.onError({
 	title: "Your SASS is broken!",
 	subtitle: "<%= file %> did not compile!",
 	message: "<%= error.message %>"
+});
+
+var server = express();
+
+gulp.task("staticServer", function() {
+	server.use(express.static("www"));
+	server.all("/*", function(req, res) {
+		res.sendFile("index.html", { root: "www" });
+	});
+
+	server.listen(expressPort);
+	console.log("Express static server running for open-maths-ng on port " + expressPort);
 });
 
 // Compile SASS
@@ -77,4 +91,5 @@ gulp.task("watch", function() {
 
 gulp.task("default", function() {
 	gulp.start("watch");
+	gulp.start("staticServer");
 });

@@ -3,9 +3,12 @@
 
 	angular
 		.module("omApp")
-		.factory("notification", notificationFactory);
+		.factory("notification", notificationFactory)
+		.constant("magicForNotificationFactory", {
+			"allowedTypes": ["info", "warning", "error", "success"]
+		});
 
-	function notificationFactory($log) {
+	function notificationFactory($log, magicForNotificationFactory) {
 		var subscriptions = [];
 
 		return {
@@ -17,9 +20,12 @@
 			subscriptions.push(callback);
 		}
 
-		// @TODO simplify?
 		function generate(msg, type) {
-			// @TODO in_array info / warning / error / success
+			if (_.indexOf(magicForNotificationFactory.allowedTypes, type) == -1) {
+				$log.error("Method " + type + " not allowed.");
+				return false;
+			}
+
 			var notificationData = {"message": msg, "type": type};
 
 			// @TODO only if debug
