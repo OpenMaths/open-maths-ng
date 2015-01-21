@@ -1,5 +1,6 @@
 <nav id="nav-top" class="flex center-horizontally">
 	<ul id="nav" class="flex center-vertically align-left">
+		<!--@TODO automate this!!-->
 		<li><a id="dive" class="flex center-vertically" ng-class="{active : path == 'dive'}" href="/">Dive</a></li>
 		<li><a id="board" class="flex center-vertically" ng-class="{active : path == 'board'}" href="/board">Board</a></li>
 		<li ng-click="accessUrlUser('contribute', 'You need to be signed in to access this feature.', 'info')"><a id="contribute" class="flex center-vertically" ng-class="{active : path == 'contribute'}">Contribute</a></li>
@@ -20,9 +21,9 @@
 				</ul>
 			</nav>
 		</li>
-		<li class="drop-down" ng-show="gapiActive" ng-click="googleSignIn()">
+		<li class="drop-down" ng-show="gapiActive || omUser" ng-click="googleSignIn()">
 			<a id="user" class="flex center-vertically" href="#" ng-class="{logged : omUser}">
-				<span ng-show="omUser" class="om-user-image" ng-style="omUser.avatarStyle" ng-click="dropDownUser = !dropDownUser"></span>
+				<span ng-show="omUser" class="om-user-image" ng-style="omUser.avatarStyle"></span>
 			</a>
 
 			<nav class="contextual-menu right" ng-show="dropDownUser">

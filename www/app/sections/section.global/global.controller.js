@@ -7,14 +7,21 @@
 		.constant("magicForGlobal", {
 			pageTitle: "Page",
 			pageDefaultWelcomeLabel: "dive"
+		})
+		.constant("magic", {
+			siteName: "OpenMaths",
+			siteLanguage: "en",
+			description: "The way Mathematics should have been done.",
+			api: _.getApiUrl(),
+			debug: _.getDebug()
 		});
 
-	function GlobalController($scope, $location, $window, magicForGlobal) {
+	function GlobalController($scope, $location, $window, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
-		$scope.siteName = appConfig.siteName;
-		$scope.siteLanguage = appConfig.siteLanguage;
-		$scope.description = appConfig.description[appConfig.siteLanguage];
+		$scope.siteName = magic.siteName;
+		$scope.siteLanguage = magic.siteLanguage;
+		$scope.description = magic.description;
 
 		$scope.$watch(function () {
 			return $location.path();

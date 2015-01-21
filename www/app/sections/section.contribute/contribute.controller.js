@@ -4,7 +4,7 @@
 	angular
 		.module("omApp")
 		.controller("ContributeController", ContributeController)
-		.constant("magic", {
+		.constant("magicForContribute", {
 			pageTitle: "Contribute",
 			pageTransparentNav: false,
 			parseLatexContentTimeout: 2000,
@@ -15,8 +15,8 @@
 		// @TODO document
 		var parseLatexContent;
 
-		$scope.$parent.title = magic.pageTitle;
-		$scope.$parent.transparentNav = magic.pageTransparentNav;
+		$scope.$parent.title = magicForContribute.pageTitle;
+		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
 
 		// @TODO abstract
 		if (!$scope.omUser) {
@@ -197,9 +197,9 @@
 					// NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
 					$timeout(function() {
 						$scope.parsingContent = false;
-					}, magic.parseLatexContentProgressTimeout);
+					}, magicForContribute.parseLatexContentProgressTimeout);
 				}, false, {"Content-type" : "application/json;charset=UTF-8"});
-			}, magic.parseLatexContentTimeout);
+			}, magicForContribute.parseLatexContentTimeout);
 		};
 	}
 

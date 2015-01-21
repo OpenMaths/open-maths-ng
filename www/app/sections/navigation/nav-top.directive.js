@@ -21,6 +21,7 @@
 
 			scope.googleSignIn = function () {
 				if (scope.omUser) {
+					scope.dropDownUser = scope.dropDownUser ? false : true;
 					return false;
 				}
 

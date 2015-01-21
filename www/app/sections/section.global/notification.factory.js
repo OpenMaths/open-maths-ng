@@ -8,7 +8,7 @@
 			"allowedTypes": ["info", "warning", "error", "success"]
 		});
 
-	function notificationFactory($log, magicForNotificationFactory) {
+	function notificationFactory($log, magicForNotificationFactory, magic) {
 		var subscriptions = [];
 
 		return {
@@ -20,7 +20,7 @@
 			subscriptions.push(callback);
 		}
 
-		function generate(msg, type) {
+		function generate(msg, type, stackTrace) {
 			if (_.indexOf(magicForNotificationFactory.allowedTypes, type) == -1) {
 				$log.error("Method " + type + " not allowed.");
 				return false;
@@ -28,8 +28,11 @@
 
 			var notificationData = {"message": msg, "type": type};
 
-			// @TODO only if debug
-			$log.info(notificationData);
+			if (stackTrace) {
+				notificationData.trace = stackTrace;
+			}
+
+			magic.debug ? $log.info(notificationData) : "";
 
 			_.forEach(subscriptions, function (callback) {
 				callback(notificationData);

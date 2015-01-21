@@ -101,8 +101,8 @@
 							notification.generate("No results found :-(", "info");
 						}
 					}).
-					error(function () {
-						notification.generate("There was an error with the connection to our API.", "error");
+					error(function (data) {
+						notification.generate("There was an error with the connection to our API.", "error", data);
 					});
 			} else {
 				$scope.searchResults = false;

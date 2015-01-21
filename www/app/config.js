@@ -4,5 +4,6 @@ var appConfig = {
 	description: {
 		en: "OpenMaths - The way Mathematics should have been done."
 	},
-	apiUrl: "http://api.om.dev/"
+	apiUrl: "http://api.om.dev/",
+	debug: true
 };
