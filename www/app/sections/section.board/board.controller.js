@@ -7,6 +7,7 @@
 		.constant("magicForBoard", {
 			pageTitle: "Board",
 			pageTransparentNav: false,
+			fadeUmiTimeout: 250,
 			gridDefaultRowCount: 3,
 			gridDefaultColumnCount: 3,
 			gridMaxRows: 6,
@@ -16,11 +17,10 @@
 			gridStartingPosition: {
 				"row": 1,
 				"column": 1
-			},
-			fadeUmiTimeout: 250
+			}
 		});
 
-	function BoardController($scope, $http, $timeout, $routeParams, notification, magicForBoard) {
+	function BoardController($scope, $http, $timeout, $routeParams, notification, magic, magicForBoard) {
 		var initId = $routeParams.id;
 		var grid = [];
 
@@ -117,7 +117,7 @@
 				$scope.fadeInUmi = true;
 			};
 
-			var url = (getBy == "uriFriendlyTitle") ? appConfig.apiUrl + param : appConfig.apiUrl + getBy + "/" + param
+			var url = (getBy == "uriFriendlyTitle") ? magic.api + param : magic.api + getBy + "/" + param;
 
 			$http.get(url).
 				success(function (data) {
@@ -130,7 +130,6 @@
 					$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
 				}).
 				error(function (data) {
-					// TODO this needs to be properly documented
 					notification.generate("There was an error loading requested contribution.", "error", data);
 				});
 		};

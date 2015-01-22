@@ -8,7 +8,7 @@
 			allowedTypes: ["info", "warning", "error", "success"]
 		});
 
-	function notificationFactory($log, magicForNotificationFactory, magic) {
+	function notificationFactory($log, magic, magicForNotificationFactory) {
 		var subscriptions = [];
 
 		return {

@@ -27,8 +27,6 @@
 
 				gapi.auth.signIn({
 					"callback": function (authResult) {
-						console.log(authResult.status); // TEMP | Debug
-
 						if (authResult.status.signed_in == true) {
 							omAuth.signIn(authResult, gapi.auth.getToken(), logUserData);
 						} else {
