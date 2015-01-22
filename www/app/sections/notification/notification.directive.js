@@ -8,7 +8,7 @@
 	function notificationDirective($timeout, notification) {
 		var directive = {
 			restrict: "EA",
-			templateUrl: "app/sections/section.global/notification.layout.html",
+			templateUrl: "app/sections/notification/layout.html",
 			scope: {},
 			replace: true,
 			link: linker

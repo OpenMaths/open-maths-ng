@@ -8,7 +8,7 @@
 	function navTopDirective($window, notification, omAuth, lStorage) {
 		var directive = {
 			restrict: "EA",
-			templateUrl: "app/sections/navigation/nav-top.layout.html",
+			templateUrl: "app/sections/navigation/layout.html",
 			link: linker
 		};
 
