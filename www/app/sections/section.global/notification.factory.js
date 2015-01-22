@@ -5,7 +5,7 @@
 		.module("omApp")
 		.factory("notification", notificationFactory)
 		.constant("magicForNotificationFactory", {
-			"allowedTypes": ["info", "warning", "error", "success"]
+			allowedTypes: ["info", "warning", "error", "success"]
 		});
 
 	function notificationFactory($log, magicForNotificationFactory, magic) {
@@ -22,7 +22,7 @@
 
 		function generate(msg, type, stackTrace) {
 			if (_.indexOf(magicForNotificationFactory.allowedTypes, type) == -1) {
-				$log.error("Method " + type + " not allowed.");
+				magic.debug ? $log.error("Method " + type + " not allowed.") : "";
 				return false;
 			}
 

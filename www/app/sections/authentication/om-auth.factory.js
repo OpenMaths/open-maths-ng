@@ -22,9 +22,9 @@
 					$http.post(magic.api + "arft", data.id).
 						success(function(token) {
 							var loginData = {
-								"code": authResult.code,
-								"gPlusId": data.id,
-								"arfToken": token
+								code: authResult.code,
+								gPlusId: data.id,
+								arfToken: token
 							};
 
 							$http.post(magic.api + "login", loginData).
@@ -58,8 +58,8 @@
 				success(function() {
 					callback();
 				}).
-				error(function(status) {
-					notification.generate("There was an error signing you out of our application server.", "error", status);
+				error(function(data, status) {
+					notification.generate("There was an error signing you out of our application server.", "error", [data, status]);
 				});
 		}
 

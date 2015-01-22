@@ -129,12 +129,9 @@
 					// TODO this does not work on expanding??
 					$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
 				}).
-				error(function () {
+				error(function (data) {
 					// TODO this needs to be properly documented
-					notification.generate(
-						"There was an error loading requested contribution.",
-						"error", $scope.$parent
-					);
+					notification.generate("There was an error loading requested contribution.", "error", data);
 				});
 		};
 

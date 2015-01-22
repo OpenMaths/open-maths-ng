@@ -6,7 +6,11 @@
 		.controller("GlobalController", GlobalController)
 		.constant("magicForGlobal", {
 			pageTitle: "Page",
-			pageDefaultWelcomeLabel: "dive"
+			pageDefaultWelcomeLabel: "dive",
+			uiSettingsDefault: {
+				theme: "light",
+				font: "umi-font-modern"
+			}
 		})
 		.constant("magic", {
 			siteName: "OpenMaths",
@@ -16,7 +20,7 @@
 			debug: _.getDebug()
 		});
 
-	function GlobalController($scope, $location, $window, magic, magicForGlobal) {
+	function GlobalController($scope, $location, $window, lStorage, sStorage, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = magic.siteName;
@@ -35,25 +39,8 @@
 			});
 		});
 
-		// @TODO decide how and where implement
-		$scope.setTheme = function (theme) {
-			$scope.themeClass = theme;
-			localStorage.setItem("themeClass", theme);
-		};
-		$scope.themeClass = localStorage.getItem("themeClass") ? localStorage.getItem("themeClass") : "light";
-
-		$scope.setUmiFont = function (font) {
-			$scope.umiFontClass = font;
-			localStorage.setItem("umiFontClass", font);
-		};
-		$scope.umiFontClass = localStorage.getItem("umiFontClass") ? localStorage.getItem("umiFontClass") : "umi-font-modern";
-
-		if (sessionStorage.getItem("omUser")) {
-			var omUserString = sessionStorage.getItem("omUser");
-			$scope.omUser = JSON.parse(omUserString);
-		} else {
-			$scope.omUser = false;
-		}
+		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettings;
+		$scope.omUser = sStorage.get("omUser") ? sStorage.get("omUser") : false;
 	}
 
 

@@ -16,8 +16,16 @@
 			<a id="settings" class="flex center-vertically" href="#" ng-class="{active : dropDownSettings}"></a>
 			<nav class="contextual-menu right" ng-show="dropDownSettings">
 				<ul class="flex column" stop-event>
-					<li><header>Theme</header><strong ng-click="setTheme('light')" ng-class="{selected : themeClass == 'light'}">Light</strong> &bull; <strong ng-click="setTheme('dark')" ng-class="{selected : themeClass == 'dark'}">Dark</strong></li>
-					<li><header class="item-heading">Definition Font</header><strong ng-click="setUmiFont('umi-font-modern')" ng-class="{selected : umiFontClass == 'umi-font-modern'}">Modern</strong> &bull; <strong ng-click="setUmiFont('umi-font-traditional')" ng-class="{selected : umiFontClass == 'umi-font-traditional'}">Traditional</strong></li>
+					<li>
+						<header>Theme</header>
+						<strong ng-click="setUI('theme', 'light')" ng-class="{selected : uiSettings.theme == 'light'}">Light</strong> &bull;
+						<strong ng-click="setUI('theme', 'dark')" ng-class="{selected : uiSettings.theme == 'dark'}">Dark</strong>
+					</li>
+					<li>
+						<header>Definition Font</header>
+						<strong ng-click="setUI('font', 'umi-font-modern')" ng-class="{selected : uiSettings.font == 'umi-font-modern'}">Modern</strong> &bull;
+						<strong ng-click="setUI('font', 'umi-font-traditional')" ng-class="{selected : uiSettings.font == 'umi-font-traditional'}">Traditional</strong>
+					</li>
 				</ul>
 			</nav>
 		</li>
