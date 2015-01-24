@@ -5,7 +5,7 @@
 		.module("omApp")
 		.directive("navTopLayout", navTopDirective);
 
-	function navTopDirective($window, notification, omAuth, lStorage) {
+	function navTopDirective($window, userLevel, notification, omAuth, lStorage, sStorage) {
 		var directive = {
 			restrict: "EA",
 			templateUrl: "app/sections/shared.navigation/layout.html",
@@ -47,14 +47,14 @@
 			};
 
 			var logUserData = function (userData) {
-				sessionStorage.setItem("omUser", JSON.stringify(userData));
+				sStorage.set("omUser", userData);
 				scope.omUser = userData;
 
 				notification.generate("You are now signed in as " + userData.email + ".", "success");
 			};
 
 			var scrapUserData = function () {
-				sessionStorage.removeItem("omUser");
+				sStorage.remove("omUser");
 				scope.omUser = false;
 
 				notification.generate("You have been successfully signed out.", "info");
@@ -74,6 +74,10 @@
 
 				lStorage.set("uiSettings", uiSettings);
 				scope.uiSettings = uiSettings;
+			};
+
+			scope.accessUserLevel = function (url) {
+				return userLevel.access(url);
 			};
 		}
 	}

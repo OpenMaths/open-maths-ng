@@ -1,8 +1,8 @@
-var initGapi = function() {
+var initGapi = function () {
 	window.initGapi();
 };
 
-(function() {
+(function () {
 	"use strict";
 
 	angular
