@@ -12,6 +12,8 @@
 	function ContributeController($scope, userLevel, magicForContribute) {
 		userLevel.check();
 
+		console.log($scope.omUser);
+
 		$scope.$parent.title = magicForContribute.pageTitle;
 		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
 	}

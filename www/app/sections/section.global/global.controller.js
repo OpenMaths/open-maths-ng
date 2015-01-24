@@ -31,7 +31,9 @@
 			return $location.path();
 		}, function () {
 			var splitUrl = $location.url().split("/");
+
 			$scope.path = splitUrl[1] == "" ? magicForGlobal.pageDefaultWelcomeLabel : splitUrl[1];
+			$scope.omUser = sStorage.get("omUser") ? sStorage.get("omUser") : false;
 
 			logger.log("Current location: " + $location.path(), "info");
 
@@ -42,7 +44,6 @@
 		});
 
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettings;
-		$scope.omUser = sStorage.get("omUser") ? sStorage.get("omUser") : false;
 	}
 
 

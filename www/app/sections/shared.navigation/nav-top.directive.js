@@ -9,6 +9,7 @@
 		var directive = {
 			restrict: "EA",
 			templateUrl: "app/sections/shared.navigation/layout.html",
+			scope: true,
 			link: linker
 		};
 

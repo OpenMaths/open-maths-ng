@@ -47,6 +47,7 @@
 		var directive = {
 			restrict: "EA",
 			templateUrl: "app/sections/section.contribute/contribute.layout.html",
+			scope: true,
 			link: linker
 		};
 
@@ -127,9 +128,11 @@
 
 				$http.post(magic.api + "add", dispatchCreateUmi).
 					success(function(data) {
+						console.log("Success: " + data); // @TODO look into this
 						notification.generate("Your contribution was successfully posted!", "success", data);
 					}).
-					error(function(errorData) {
+					error(function(errorData, status) {
+						console.log("Error: " + errorData + "; Status: " + status); // @TODO look into this
 						notification.generate("There was an error posting your contribution.", "error", errorData);
 					});
 			};

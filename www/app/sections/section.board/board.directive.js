@@ -128,6 +128,8 @@
 			 * @param classes {string | boolean}
 			 */
 			var getUmi = function (getBy, param, where, classes) {
+				logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
+
 				var fadeInUmi = function () {
 					scope.fadeInUmi = true;
 				};
