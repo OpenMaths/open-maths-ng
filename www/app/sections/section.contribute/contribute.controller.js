@@ -13,7 +13,7 @@
 		// @TODO abstract
 		if (!$scope.omUser) {
 			alert("You must be logged in to Contribute to OpenMaths!");
-			//$location.path("/"); TEMP
+			//$location.path("/"); TEMPORARILY OUT
 		}
 
 		$scope.$parent.title = magicForContribute.pageTitle;
