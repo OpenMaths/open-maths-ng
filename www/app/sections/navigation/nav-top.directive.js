@@ -15,7 +15,7 @@
 		return directive;
 
 		function linker(scope) {
-			$window.initGapi = function() {
+			$window.initGapi = function () {
 				scope.gapiActive = true;
 			};
 
@@ -38,7 +38,7 @@
 				});
 			};
 
-			scope.googleSignOut = function() {
+			scope.googleSignOut = function () {
 				gapi.auth.signOut();
 
 				omAuth.signOut({
@@ -46,21 +46,21 @@
 				}, scrapUserData);
 			};
 
-			var logUserData = function(userData) {
+			var logUserData = function (userData) {
 				sessionStorage.setItem("omUser", JSON.stringify(userData));
 				scope.omUser = userData;
 
 				notification.generate("You are now signed in as " + userData.email + ".", "success");
 			};
 
-			var scrapUserData = function() {
+			var scrapUserData = function () {
 				sessionStorage.removeItem("omUser");
 				scope.omUser = false;
 
 				notification.generate("You have been successfully signed out.", "info");
 			};
 
-			scope.setUI = function(type, value) {
+			scope.setUI = function (type, value) {
 				var uiSettings = scope.uiSettings;
 
 				switch (type) {

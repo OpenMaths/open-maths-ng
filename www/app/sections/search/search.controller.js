@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	"use strict";
 
 	angular
@@ -117,7 +117,7 @@
 		 *
 		 * @NOTE autocompleteData might sometimes need to be specified in parent controller
 		 */
-		$scope.autocomplete = function(searchResultsPointer, index) {
+		$scope.autocomplete = function (searchResultsPointer, index) {
 			var results = $scope.searchResults;
 
 			// If hitting enter rather than clicking
@@ -145,7 +145,7 @@
 		 * @param searchResultsPointer {string}
 		 * @param id {id}
 		 */
-		$scope.removeUmiId = function(searchResultsPointer, id) {
+		$scope.removeUmiId = function (searchResultsPointer, id) {
 			delete $scope.autocompleteData[searchResultsPointer][id];
 		};
 
@@ -154,7 +154,7 @@
 		 *
 		 * @param termLength {int}
 		 */
-		var simulateDiving = function(termLength) {
+		var simulateDiving = function (termLength) {
 			if (termLength < simulateDivingMaxTermLength) {
 				var percentage = termLength * (100 / simulateDivingMaxTermLength) + "%";
 
