@@ -20,7 +20,7 @@
 			debug: _.getDebug()
 		});
 
-	function GlobalController($scope, $location, $window, lStorage, sStorage, magic, magicForGlobal) {
+	function GlobalController($scope, $location, $window, lStorage, sStorage, logger, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = magic.siteName;
@@ -32,6 +32,8 @@
 		}, function () {
 			var splitUrl = $location.url().split("/");
 			$scope.path = splitUrl[1] == "" ? magicForGlobal.pageDefaultWelcomeLabel : splitUrl[1];
+
+			logger.log("Current location: " + $location.path(), "info");
 
 			// @TODO check if this works properly
 			$window.ga("send", "pageview", {

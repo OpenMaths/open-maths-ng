@@ -20,7 +20,7 @@
 
 					// Retrieve anti request forgery token first
 					$http.post(magic.api + "arft", data.id).
-						success(function(token) {
+						success(function (token) {
 							var loginData = {
 								code: authResult.code,
 								gPlusId: data.id,
@@ -28,18 +28,18 @@
 							};
 
 							$http.post(magic.api + "login", loginData).
-								success(function(result) {
+								success(function (result) {
 									if (_.first(_.keys(result)) == "successMsg") {
 										callback(data);
 									} else {
 										notification.generate("There was an error signing you in to our application server.", "error", result);
 									}
 								}).
-								error(function(errorData) {
+								error(function (errorData) {
 									notification.generate("There was an error signing you in to our application server.", "error", errorData);
 								});
 						}).
-						error(function(errorData) {
+						error(function (errorData) {
 							notification.generate("There was an error getting the anti request forgery token from our application server.", "error", errorData);
 						});
 				}).error(function (errorData) {
@@ -55,10 +55,10 @@
 		 */
 		function signOut(signOutData, callback) {
 			$http.post(magic.api + "logout", signOutData).
-				success(function() {
+				success(function () {
 					callback();
 				}).
-				error(function(data, status) {
+				error(function (data, status) {
 					notification.generate("There was an error signing you out of our application server.", "error", [data, status]);
 				});
 		}

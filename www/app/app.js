@@ -8,7 +8,7 @@ var initGapi = function() {
 	angular
 		.module("omApp", ["ngRoute", "angular-loading-bar"])
 		.config(config)
-		.run();
+		.run(run);
 
 	function config($routeProvider, $locationProvider, cfpLoadingBarProvider) {
 		$routeProvider
@@ -28,6 +28,10 @@ var initGapi = function() {
 		$locationProvider.hashPrefix("!");
 
 		cfpLoadingBarProvider.includeSpinner = false;
+	}
+
+	function run(logger) {
+		logger.log("Application omApp is now running", "info");
 	}
 
 })();

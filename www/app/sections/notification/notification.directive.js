@@ -3,7 +3,7 @@
 
 	angular
 		.module("omApp")
-		.directive("notificationLayout", notificationDirective); // @TODO rename to notification-layout everywhere later
+		.directive("notificationLayout", notificationDirective);
 
 	function notificationDirective($timeout, notification) {
 		var directive = {
