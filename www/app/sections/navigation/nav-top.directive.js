@@ -3,7 +3,7 @@
 
 	angular
 		.module("omApp")
-		.directive("navTop", navTopDirective); // @TODO rename to nav-top-layout everywhere later
+		.directive("navTopLayout", navTopDirective);
 
 	function navTopDirective($window, notification, omAuth, lStorage) {
 		var directive = {

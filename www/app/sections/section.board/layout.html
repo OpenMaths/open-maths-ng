@@ -1,44 +1,7 @@
 <section class="flex column" id="board-container">
 
-	<!--Top navigation-->
-	<nav-top></nav-top>
-	<!--Top navigation-->
+	<nav-top-layout></nav-top-layout>
 
-	<div class="flex-1 flex column center-horizontally center-vertically" id="grid">
-		<!--Column and Row management-->
-		<nav id="manage-column" class="flex column">
-			<a class="flex-1 add" href="#" ng-click="manageGrid('add', 'column')"></a>
-			<a class="flex-1 remove" href="#" ng-click="manageGrid('remove', 'column')"></a>
-		</nav>
-		<nav id="manage-row" class="flex">
-			<a class="flex-1 add" href="#" ng-click="manageGrid('add', 'row')"></a>
-			<a class="flex-1 center-vertically remove" href="#" ng-click="manageGrid('remove', 'row')"></a>
-		</nav>
+	<board-layout></board-layout>
 
-		<div class="row" ng-repeat="row in grid">
-			<div class="resize-row"></div>
-			<div class="column flex-1" ng-repeat="data in row">
-
-				<!--Unit of Mathematical Information-->
-				<div class="umi {{ data.targetClasses }}"
-					 ng-class="{'fade-in' : fadeInUmi}"
-					 ng-hide="!data.htmlContent">
-					<div class="content-holder">
-						<div class="title flex center-vertically">
-							<!--This should only be displayed if a user is signed in!!-->
-							<!--ng-show="data.author == omUser.email"-->
-							<a href="/contribute/edit:{{ data.title.uriFriendlyTitle }}"><i class="edit"></i></a>
-							<i class="full-screen"></i>
-							<span class="label">{{ data.umiType }}</span>
-							<strong class="flex-1">{{ data.title.title }}</strong>
-						</div>
-						<article stop-event>
-							<p om-bind="data.htmlContent"></p>
-						</article>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
 </section>

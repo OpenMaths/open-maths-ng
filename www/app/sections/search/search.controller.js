@@ -34,7 +34,7 @@
 				if (_.first(callback) == "getUmi") {
 					var uriFriendlyTitle = $scope.searchResults.data[$scope.searchResults.currentSelection].uriFriendlyTitle;
 
-					$scope.$parent[callback](uriFriendlyTitle);
+					$scope[callback](uriFriendlyTitle);
 				} else if (_.first(callback) == "autocomplete") {
 					$scope.autocomplete(callback[1]);
 				}

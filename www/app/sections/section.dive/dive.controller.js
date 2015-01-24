@@ -9,20 +9,9 @@
 			pageTransparentNav: true
 		});
 
-	function DiveController($scope, $location, notification, magicForDive) {
+	function DiveController($scope, magicForDive) {
 		$scope.$parent.title = magicForDive.pageTitle;
 		$scope.$parent.transparentNav = magicForDive.pageTransparentNav;
-
-		$scope.getUmi = function (uri) {
-			if (!uri) {
-				notification.generate("No URI argument present",
-				"error", $scope);
-
-				return false;
-			}
-
-			$location.path("/board/" + uri);
-		};
 	}
 
 })();
