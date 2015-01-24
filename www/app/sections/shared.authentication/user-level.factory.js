@@ -8,7 +8,8 @@
 	function userLevelFactory($location, sStorage, notification) {
 
 		return {
-			access: access
+			access: access,
+			check: check
 		};
 
 		function access(url) {
@@ -19,6 +20,15 @@
 				return false;
 			} else {
 				$location.url("/" + url);
+			}
+		}
+
+		function check() {
+			var omUser = sStorage.get("omUser");
+
+			if (!omUser) {
+				notification.generate("You need to be signed in to access this section.", "info");
+				$location.url("/");
 			}
 		}
 

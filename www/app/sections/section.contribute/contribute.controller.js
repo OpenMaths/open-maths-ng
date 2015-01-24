@@ -9,12 +9,8 @@
 			pageTransparentNav: false
 		});
 
-	function ContributeController($scope, $location, magicForContribute) {
-		// @TODO abstract
-		if (!$scope.omUser) {
-			alert("You must be logged in to Contribute to OpenMaths!");
-			$location.path("/");
-		}
+	function ContributeController($scope, userLevel, magicForContribute) {
+		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
 		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
