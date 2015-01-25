@@ -1,5 +1,5 @@
 function getApiUrl() {
-	return document.location.hostname == "om.dev" ? "http://api.om.dev/" : "https://146.148.119.150/";
+	return document.location.hostname == "om.dev" ? "http://api.om.dev/" : "https://api.openmaths.io/";
 }
 
 _.mixin({
