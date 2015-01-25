@@ -160,7 +160,7 @@
 			if (termLength < simulateDivingMaxTermLength) {
 				var percentage = termLength * (100 / simulateDivingMaxTermLength) + "%";
 
-				document.getElementById("masthead").style.backgroundPositionY = percentage;
+				document.getElementById("page-layout").style.backgroundPositionY = percentage;
 			}
 		};
 	}

@@ -38,49 +38,37 @@
 
 <body class="page-{{ path }} {{ siteLanguage }} {{ uiSettings.font }} {{ uiSettings.theme }}" ng-class="{'nav-top-transparent' : transparentNav}">
 
-<noscript>
-	<div id="warning">
-		<p>To be able to experience {{ siteName }} with all its features, you need a browser that supports JavaScript, and it <strong>needs to be enabled.</strong></p>
+	<noscript>
+		<div id="warning"><p>To be able to experience {{ siteName }} with all its features, you need a browser that supports JavaScript, and it <strong>needs to be enabled.</strong></p></div>
+	</noscript>
+
+	<notification-layout></notification-layout>
+
+	<div id="page-layout" class="flex column">
+		<nav nav-top-layout id="nav-top" class="flex center-horizontally"></nav>
+
+		<main ng-view class="flex-1 flex"></main>
+
+		<footer footer-layout class="flex center-vertically" ng-hide="path == 'board'"></footer>
 	</div>
-</noscript>
 
-<notification-layout></notification-layout>
+	<!--LaTex parser library-->
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			extensions: ["tex2jax.js"],
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+				processEscapes: true
+			},
+			"HTML-CSS": { availableFonts: ["TeX"] }
+		});
+	</script>
+	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 
-<div ng-view></div>
-
-<footer class="flex center-vertically">
-	<small class="flex-1">&copy; 2014, Hand-Coded with Love in London.</small>
-
-	<nav class="flex-1">
-		<a href="https://github.com/OpenMaths" target="_blank">GitHub</a>
-		&bull;
-		<a href="https://twitter.com/OpenMathsIO" target="_blank">Twitter</a>
-		&bull;
-		<a href="https://www.facebook.com/openmaths.io" target="_blank">Facebook</a>
-		&bull;
-		<a href="https://plus.google.com/+OpenmathsIo" target="_blank">Google+</a>
-	</nav>
-
-	<strong class="flex-1">contribute@openmaths.io</strong>
-</footer>
-
-<!--LaTex parser library-->
-<script type="text/x-mathjax-config">
-	MathJax.Hub.Config({
-		extensions: ["tex2jax.js"],
-		jax: ["input/TeX", "output/HTML-CSS"],
-		tex2jax: {
-			inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-			displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-			processEscapes: true
-		},
-		"HTML-CSS": { availableFonts: ["TeX"] }
-	});
-</script>
-<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
-
-<!--omApp.js-->
-<script src="/app/omApp.js" type="text/javascript"></script>
+	<!--omApp.js-->
+	<script src="/app/omApp.js" type="text/javascript"></script>
 
 </body>
 </html>

@@ -1,12 +1,8 @@
 .page-contribute
-	padding-bottom: $quadruple-unit-layout
-
-	.container-narrow
-		max-width: rem(700px)
-
-		.umi
-			border: 1px solid $color-black
-			margin: 0 0 $double-unit-layout
+	// @TODO change the visuals of this?
+	.umi
+		border: 1px solid $color-black
+		margin: 0 0 $double-unit-layout
 
 	.progress, .controls
 		background: $color-grey-100
@@ -312,10 +308,6 @@
 						&.active
 							opacity: 1
 
-	footer
-		position: fixed
-		bottom: 0
-
 	&.dark
 		.container-narrow
 			.umi
@@ -373,6 +365,11 @@
 								&:before
 									background:
 										image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+
+						&#time-scale
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_clock-dark.svg")
 
 						&#parsing
 							&:before
