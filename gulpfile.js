@@ -9,12 +9,26 @@ var gulp =
 	concat = require("gulp-concat"),
 	ngAnnotate = require("gulp-ng-annotate"),
 	plumber = require("gulp-plumber"),
-	notify = require("gulp-notify");
+	notify = require("gulp-notify"),
+	express = require("express"),
+	expressPort = 9000;
 
 var onError = notify.onError({
 	title: "Your SASS is broken!",
 	subtitle: "<%= file %> did not compile!",
 	message: "<%= error.message %>"
+});
+
+var server = express();
+
+gulp.task("staticServer", function() {
+	server.use(express.static("www"));
+	server.all("/*", function(req, res) {
+		res.sendFile("index.html", { root: "www" });
+	});
+
+	server.listen(expressPort);
+	console.log("Express static server running for open-maths-ng on port " + expressPort);
 });
 
 // Compile SASS
@@ -38,47 +52,59 @@ gulp.task("sass", function() {
 
 // Concatenate Vendor
 gulp.task("concat-vendor", function() {
-	gulp.src("www/lib/vendor/*.js")
+	gulp.src("www/app/vendor/*.js")
 		.pipe(concat("vendor.js"))
-		.pipe(gulp.dest("www/lib/_build"))
+		.pipe(gulp.dest("www/app/build"))
 		.pipe(notify("Vendors successfully concatenated!"));
 });
 
 // Concat angular dependencies
 var ngConcat = function(name) {
-	gulp.src("www/lib/" + name + "/*.js")
+	gulp.src("www/app/" + name + "/**/*.js")
 		.pipe(concat(name + ".js"))
-		.pipe(ngAnnotate())
+		.pipe(ngAnnotate({
+			add: true
+		}))
 		.pipe(uglify())
-		.pipe(gulp.dest("www/lib/_build"))
+		.pipe(gulp.dest("www/app/build"))
 		.pipe(notify(name + ".js successfully concatenated!"));
 };
 
-// Concatenate Controllers
-gulp.task("concat-controllers", function() {
-	ngConcat("controllers");
+// Concatenate Sections
+gulp.task("concat-sections", function() {
+	ngConcat("sections");
 });
 
-// Concatenate Directives
-gulp.task("concat-directives", function() {
-	ngConcat("directives");
-});
-
-// Concatenate LoDash Custom Library
-gulp.task("concat-lodash-custom", function() {
+// Concatenate Utilities
+gulp.task("concat-lodash", function() {
 	ngConcat("lodash");
+});
+
+// Concatenate all resources into a single omApp.js file
+gulp.task("concat-all", function() {
+	gulp.src([
+		"www/app/build/vendor.js",
+		"www/app/config.js",
+		"www/app/app.js",
+		"www/app/build/lodash.js",
+		"www/app/build/sections.js"
+	])
+		.pipe(concat("omApp.js"))
+		.pipe(gulp.dest("www/app"))
+		.pipe(notify("omApp.js successfully concatenated!"));
 });
 
 // Watch directories and execute assigned tasks
 gulp.task("watch", function() {
-	gulp.watch("www/lib/controllers/*.js", ["concat-controllers"]);
-	gulp.watch("www/lib/directives/*.js", ["concat-directives"]);
-	gulp.watch("www/lib/lodash/*.js", ["concat-lodash-custom"]);
-	gulp.watch("www/lib/vendor/*.js", ["concat-vendor"]);
+	gulp.watch("www/app/vendor/*.js", ["concat-vendor"]);
+	gulp.watch("www/app/sections/**/*.js", ["concat-sections"]);
+	gulp.watch("www/app/lodash/*.js", ["concat-lodash"]);
+	gulp.watch("www/app/build/*.js", ["concat-all"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
 });
 
 gulp.task("default", function() {
 	gulp.start("watch");
+	gulp.start("staticServer");
 });

@@ -1,6 +1,5 @@
 .page-dive
-	#masthead
-		height: 100vh
+	#page-layout
 		background:
 			image: url("#{$image-base}/bg/cover-dive-new.jpg")
 			color: #002e43
@@ -8,24 +7,22 @@
 			repeat: no-repeat
 			position: center 0%
 
-		#search-umi
-			width: 90%
+		form
+			width: 100%
 
 			input
 				+placeholder
-					color: rgba(255,255,255,.25)
+					color: rgba(255, 255, 255, .25)
 
-				padding: $base-unit-layout $double-unit-layout
+				padding: $base-unit-layout $quadruple-unit-layout
 				text-align: center
 				color: white
 				margin: 0
 				width: 100%
 				font:
-					size: rem(60px)
+					size: rem(65px)
 
 			.search-umi-results
-				+transition(height .25s)
-
 				height: auto
 				max-width: rem(600px)
 				margin: $double-unit-layout auto
@@ -35,9 +32,10 @@
 				.item
 					+transition(color .25s)
 
-					color: rgba(255,255,255,.5)
+					color: rgba(255, 255, 255, .5)
 					padding: $base-unit-layout 0
 					cursor: pointer
+					position: relative
 					font:
 						size: rem(20px)
 
@@ -46,43 +44,20 @@
 					&:focus
 						color: white
 
-						.score
+						.label
 							color: white
-
-							.bar
-								background: rgba(255,255,255,.5)
-
-								.progress
-									background: white
+							border-color: white
 
 					.title
-						+ellipsis(70%)
-
-						text-indent: 1px
 						margin-right: $double-unit-layout
 
-					.score
-						@extend .text-center
-						+transition(color .25s)
+					.label
+						+transition(all .25s)
 
-						margin: 0 0 0 auto
-						width: 25%
-						color: rgba(255,255,255,.5)
+						position: absolute
+						right: 0
+						top: $base-unit-layout
+						border-color: rgba(255, 255, 255, .5)
+						color: rgba(255, 255, 255, .5)
 						font:
 							size: rem(12px)
-
-						.bar
-							+transition(background .25s)
-							+border-radius($border-radius)
-
-							//margin-top: $half-unit-layout
-							width: 100%
-							height: 4px
-							background: rgba(255,255,255,.25)
-
-							.progress
-								+transition(background .25s)
-								+border-radius($border-radius)
-
-								background: rgba(255,255,255,.25)
-								height: 100%

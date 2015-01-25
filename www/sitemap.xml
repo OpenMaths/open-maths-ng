@@ -5,6 +5,18 @@
 	<url>
 		<loc>/</loc>
 		<changefreq>monthly</changefreq>
+		<priority>0.7</priority>
+	</url>
+
+	<url>
+		<loc>/board</loc>
+		<changefreq>daily</changefreq>
+		<priority>0.8</priority>
+	</url>
+
+	<url>
+		<loc>/contribute</loc>
+		<changefreq>monthly</changefreq>
 		<priority>1</priority>
 	</url>
 
