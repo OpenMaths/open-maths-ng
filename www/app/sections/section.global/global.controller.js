@@ -16,6 +16,7 @@
 			siteName: "OpenMaths",
 			siteLanguage: "en",
 			description: "The way Mathematics should have been done.",
+			css: _.getCSSPath(),
 			api: _.getApiUrl(),
 			debug: _.getDebug()
 		});
@@ -29,7 +30,9 @@
 
 		$scope.$watch(function () {
 			return $location.path();
-		}, function () {
+		}, runOnLocationChange);
+
+		function runOnLocationChange() {
 			var splitUrl = $location.url().split("/");
 
 			$scope.path = splitUrl[1] == "" ? magicForGlobal.pageDefaultWelcomeLabel : splitUrl[1];
@@ -39,14 +42,14 @@
 
 			logger.log("Current location: " + $location.path(), "info");
 
-			// @TODO check if this works properly, will have to create a directive I think
+			// @TODO check if this works properly, would be better to create a directive I think
 			$window.ga("send", "pageview", {
 				page: $location.path()
 			});
-		});
+		}
 
+		$scope.cssPath = magic.css;
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettings;
 	}
-
 
 })();
