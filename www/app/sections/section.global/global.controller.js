@@ -39,7 +39,7 @@
 
 			logger.log("Current location: " + $location.path(), "info");
 
-			// @TODO check if this works properly
+			// @TODO check if this works properly, will have to create a directive I think
 			$window.ga("send", "pageview", {
 				page: $location.path()
 			});
