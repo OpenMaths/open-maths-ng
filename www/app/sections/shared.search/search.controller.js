@@ -3,15 +3,15 @@
 
 	angular
 		.module("omApp")
-		.controller("SearchController", SearchController);
+		.controller("SearchController", SearchController)
+		.constant("magicForSearch", {
+			keyDown: 40,
+			keyUp: 38,
+			keyReturn: 13,
+			simulateDivingMaxTermLength: 40
+		});
 
-	function SearchController($scope, $http, notification, logger, magic) {
-		var keyDown = 40;
-		var keyUp = 38;
-		var keyReturn = 13;
-
-		var simulateDivingMaxTermLength = 40;
-
+	function SearchController($scope, $http, notification, logger, magic, magicForSearch) {
 		/**
 		 * Search results arrow navigation functionality
 		 *
@@ -28,7 +28,7 @@
 			var searchResultsCount = _.keys(res.data).length;
 			var searchResultsCurrentSelection = res.currentSelection;
 
-			if (e.keyCode == keyReturn) {
+			if (e.keyCode == magicForSearch.keyReturn) {
 				e.preventDefault();
 
 				if (_.first(callback) == "getUmi") {
@@ -40,11 +40,11 @@
 				}
 			}
 
-			if (e.keyCode == keyUp && searchResultsCurrentSelection > 0) {
+			if (e.keyCode == magicForSearch.keyUp && searchResultsCurrentSelection > 0) {
 				e.preventDefault();
 
 				res.currentSelection = searchResultsCurrentSelection - 1;
-			} else if (e.keyCode == keyDown && searchResultsCurrentSelection < (searchResultsCount - 1)) {
+			} else if (e.keyCode == magicForSearch.keyDown && searchResultsCurrentSelection < (searchResultsCount - 1)) {
 				e.preventDefault();
 
 				res.currentSelection = searchResultsCurrentSelection + 1;
@@ -157,8 +157,8 @@
 		 * @param termLength {int}
 		 */
 		var simulateDiving = function (termLength) {
-			if (termLength < simulateDivingMaxTermLength) {
-				var percentage = termLength * (100 / simulateDivingMaxTermLength) + "%";
+			if (termLength < magicForSearch.simulateDivingMaxTermLength) {
+				var percentage = termLength * (100 / magicForSearch.simulateDivingMaxTermLength) + "%";
 
 				document.getElementById("page-layout").style.backgroundPositionY = percentage;
 			}
