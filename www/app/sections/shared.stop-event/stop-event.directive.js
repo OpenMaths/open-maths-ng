@@ -8,14 +8,17 @@
 	function stopEvent() {
 		var directive = {
 			restrict: "A",
-			link: function (scope, element) {
-				element.bind("click", function (e) {
-					e.stopPropagation();
-				});
-			}
+			link: link
 		};
 
 		return directive;
+
+		function link(scope, element) {
+			element.bind("click", function (e) {
+				e.stopPropagation();
+			});
+		}
+
 	}
 
 })();
