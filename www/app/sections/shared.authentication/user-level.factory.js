@@ -17,6 +17,7 @@
 
 			if (!omUser) {
 				notification.generate("You need to be signed in to access this section.", "info");
+
 				return false;
 			} else {
 				$location.url("/" + url);
@@ -29,6 +30,8 @@
 			if (!omUser) {
 				notification.generate("You need to be signed in to access this section.", "info");
 				$location.url("/");
+
+				return false;
 			}
 		}
 

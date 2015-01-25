@@ -33,7 +33,9 @@
 			var splitUrl = $location.url().split("/");
 
 			$scope.path = splitUrl[1] == "" ? magicForGlobal.pageDefaultWelcomeLabel : splitUrl[1];
-			$scope.omUser = sStorage.get("omUser") ? sStorage.get("omUser") : false;
+
+			$scope.omUser = sStorage.get("omUser");
+			$scope.gapiActive = sStorage.get("gapiActive");
 
 			logger.log("Current location: " + $location.path(), "info");
 

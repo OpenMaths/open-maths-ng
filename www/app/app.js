@@ -16,7 +16,7 @@ var initGapi = function () {
 				templateUrl: _.returnLayout("dive"),
 				controller: "DiveController",
 				controllerAs: "vm"
-			}).when("/board/:uriFriendlyTitle", {
+			}).when("/board/:uriFriendlyTitle?", {
 				templateUrl: _.returnLayout("board"),
 				controller: "BoardController"
 			}).when("/contribute", {

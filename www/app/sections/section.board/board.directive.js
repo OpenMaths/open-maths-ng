@@ -18,7 +18,7 @@
 			}
 		});
 
-	function boardDirective($routeParams, $http, $timeout, notification, sStorage, logger, magic, magicForBoardDirective) {
+	function boardDirective($routeParams, $http, $timeout, $location, notification, sStorage, logger, magic, magicForBoardDirective) {
 		var directive = {
 			restrict: "EA",
 			templateUrl: "app/sections/section.board/board.layout.html",
@@ -31,7 +31,7 @@
 			scope.rows = sStorage.get("gridRows") ? _.parseInt(sStorage.get("gridRows")) : magicForBoardDirective.gridDefaultRowCount;
 			scope.columns = sStorage.get("gridColumns") ? _.parseInt(sStorage.get("gridColumns")) : magicForBoardDirective.gridDefaultColumnCount;
 
-			var initUriFriendlyTitle = $routeParams.uriFriendlyTitle;
+			var initUriFriendlyTitle = $routeParams.uriFriendlyTitle ? $routeParams.uriFriendlyTitle : false;
 			var grid = [];
 
 			for (var i = 0; i < scope.rows; i++) {
@@ -128,7 +128,12 @@
 			 * @param classes {string | boolean}
 			 */
 			var getUmi = function (getBy, param, where, classes) {
-				logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
+				if (param === false) {
+					notification.generate("A parameter must be present to access this section. Try navigating through search.", "info");
+					$location.url("/");
+
+					return false;
+				}
 
 				var fadeInUmi = function () {
 					scope.fadeInUmi = true;
@@ -138,6 +143,8 @@
 
 				$http.get(url).
 					success(function (data) {
+						logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
+
 						if (classes) {
 							data.targetClasses = classes;
 						}

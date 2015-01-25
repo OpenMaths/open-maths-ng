@@ -5,7 +5,7 @@
 		.module("omApp")
 		.controller("SearchController", SearchController);
 
-	function SearchController($scope, $http, notification, magic) {
+	function SearchController($scope, $http, notification, logger, magic) {
 		var keyDown = 40;
 		var keyUp = 38;
 		var keyReturn = 13;
@@ -88,6 +88,8 @@
 
 				$http.get(magic.api + "search/" + term).
 					success(function (data) {
+						logger.log("Listing results for term: " + term, "info");
+
 						if (data.length > 0) {
 							var results = {
 								"currentSelection": 0,

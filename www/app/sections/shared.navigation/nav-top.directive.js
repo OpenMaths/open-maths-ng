@@ -17,7 +17,7 @@
 
 		function linker(scope) {
 			$window.initGapi = function () {
-				scope.gapiActive = true;
+				scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
 			};
 
 			scope.googleSignIn = function () {
