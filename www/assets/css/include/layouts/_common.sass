@@ -1,4 +1,10 @@
 body
+	#page-layout
+		height: 100vh
+
+		main
+			overflow-y: scroll
+
 	.container-full-screen, .container-narrow
 		+clearfix
 		@extend .block-center
@@ -7,7 +13,7 @@ body
 
 	.container-narrow
 		width: 80%
-		max-width: 800px
+		max-width: 700px
 
 	&.dark
 		background: $color-grey-900

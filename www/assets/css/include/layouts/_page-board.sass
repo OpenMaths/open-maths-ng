@@ -1,144 +1,136 @@
 .page-board
-	//Needs major refactoring
-	#board-container
-		min-height: 100vh
+	#grid
+		position: relative
 
-		#grid
-			position: relative
+		#manage-column,
+		#manage-row
+			+transition(all .25s)
+			+z-index(manage-column)
 
-			#manage-column,
-			#manage-row
-				+transition(all .25s)
-				+z-index(manage-column)
+			position: absolute
+			opacity: 0
 
-				position: absolute
-				opacity: 0
+			a
+				//+transition(background .25s)
 
-				a
-					//+transition(background .25s)
+				width: $triple-unit-layout
+				height: $triple-unit-layout
+				display: block
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_add-dark.svg")
+					size: $triple-unit-layout + $half-unit-layout
+					position: center center
+					repeat: no-repeat
+					color: black
 
-					width: $triple-unit-layout
-					height: $triple-unit-layout
-					display: block
+				// Not using +hover on purpose
+				&:hover
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_add-dark.svg")
-						size: $triple-unit-layout + $half-unit-layout
-						position: center center
-						repeat: no-repeat
-						color: black
+						image: url("#{$image-base}/icons/icon-set/icon-set_add-white.svg")
+
+				&.remove
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_remove-dark.svg")
 
 					// Not using +hover on purpose
 					&:hover
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_add-white.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_remove-white.svg")
+
+			+hover
+				opacity: 1
+
+		#manage-column
+			//border-left: 1px solid $color-black
+			width: $triple-unit-layout
+			height: 100%
+			right: -($base-unit-layout)
+			top: 0
+
+			a:first-of-type
+				border-bottom: 1px solid $color-grey-700
+
+			+hover
+				right: 0
+
+		#manage-row
+			//border-top: 1px solid $color-black
+			height: $triple-unit-layout
+			width: 100%
+			left: 0
+			bottom: -($base-unit-layout)
+
+			a:first-of-type
+				border-right: 1px solid $color-grey-700
+
+			+hover
+				bottom: 0
+
+	.row
+		width: 100%
+		flex: 1
+		display: flex
+		position: relative
+		min-height: rem(180px)
+
+		.resize-row
+			+z-index(resize-row)
+
+			position: absolute
+			left: 0
+			bottom: 0
+			width: 100%
+			height: rem(8px)
+			cursor: row-resize !important
+
+		.column
+			+z-index(column)
+
+			position: relative
+			display: flex
+			flex-direction: column
+			border-right: 1px solid $color-grey-200
+			border-bottom: 1px solid $color-grey-200
+
+			&:last-of-type
+				border-right: 0 !important
+
+		&:last-of-type
+			.column
+				border-bottom: 0 !important
+
+	&.dark
+		#grid
+			#manage-column,
+			#manage-row
+				a
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_add-grey.svg")
+						color: white
+
+					// Not using +hover on purpose
+					&:hover
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_add.svg")
 
 					&.remove
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_remove-dark.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_remove-grey.svg")
 
 						// Not using +hover on purpose
 						&:hover
 							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_remove-white.svg")
-
-				+hover
-					opacity: 1
+								image: url("#{$image-base}/icons/icon-set/icon-set_remove.svg")
 
 			#manage-column
-				//border-left: 1px solid $color-black
-				width: $triple-unit-layout
-				height: 100%
-				right: -($base-unit-layout)
-				top: 0
-
 				a:first-of-type
-					border-bottom: 1px solid $color-grey-700
-
-				+hover
-					right: 0
+					border-bottom: 1px solid $color-grey-300
 
 			#manage-row
-				//border-top: 1px solid $color-black
-				height: $triple-unit-layout
-				width: 100%
-				left: 0
-				bottom: -($base-unit-layout)
-
 				a:first-of-type
-					border-right: 1px solid $color-grey-700
-
-				+hover
-					bottom: 0
+					border-right: 1px solid $color-grey-300
 
 		.row
-			width: 100%
-			flex: 1
-			display: flex
-			position: relative
-			min-height: rem(180px)
-
-			.resize-row
-				+z-index(resize-row)
-
-				position: absolute
-				left: 0
-				bottom: 0
-				width: 100%
-				height: rem(8px)
-				cursor: row-resize !important
-
 			.column
-				+z-index(column)
-
-				position: relative
-				display: flex
-				flex-direction: column
-				border-right: 1px solid $color-grey-200
-				border-bottom: 1px solid $color-grey-200
-
-				&:last-of-type
-					border-right: 0 !important
-
-			&:last-of-type
-				.column
-					border-bottom: 0 !important
-
-	footer
-		display: none
-
-	&.dark
-		#board-container
-			#grid
-				#manage-column,
-				#manage-row
-					a
-						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_add-grey.svg")
-							color: white
-
-						// Not using +hover on purpose
-						&:hover
-							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_add.svg")
-
-						&.remove
-							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_remove-grey.svg")
-
-							// Not using +hover on purpose
-							&:hover
-								background:
-									image: url("#{$image-base}/icons/icon-set/icon-set_remove.svg")
-
-				#manage-column
-					a:first-of-type
-						border-bottom: 1px solid $color-grey-300
-
-				#manage-row
-					a:first-of-type
-						border-right: 1px solid $color-grey-300
-
-			.row
-				.column
-					border-right: 1px solid $color-grey-800
-					border-bottom: 1px solid $color-grey-800
+				border-right: 1px solid $color-grey-800
+				border-bottom: 1px solid $color-grey-800
