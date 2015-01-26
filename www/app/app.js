@@ -1,4 +1,4 @@
-var initGapi = function () {
+var initGapiAsync = function () {
 	window.initGapi();
 };
 

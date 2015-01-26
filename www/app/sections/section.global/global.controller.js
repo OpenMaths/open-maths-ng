@@ -49,7 +49,7 @@
 		}
 
 		$scope.cssPath = magic.css;
-		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettings;
+		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
 	}
 
 })();

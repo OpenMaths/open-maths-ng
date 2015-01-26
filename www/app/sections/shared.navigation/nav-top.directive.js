@@ -5,7 +5,7 @@
 		.module("omApp")
 		.directive("navTopLayout", navTopDirective);
 
-	function navTopDirective($window, userLevel, notification, omAuth, lStorage, sStorage) {
+	function navTopDirective($window, userLevel, notification, omAuth, logger, lStorage, sStorage) {
 		var directive = {
 			restrict: "A",
 			templateUrl: "app/sections/shared.navigation/layout.html",
@@ -31,8 +31,12 @@
 						if (authResult.status.signed_in == true) {
 							omAuth.signIn(authResult, gapi.auth.getToken(), logUserData);
 						} else {
-							if (authResult.error !== "immediate_failed") {
-								notification.generate("There was an error (" + authResult["error"] + ") during the sign in process.", "error");
+							var signInError = authResult.error;
+
+							if (signInError !== "immediate_failed" && signInError !== "user_signed_out") {
+								notification.generate("There was an error (" + signInError + ") during the sign in process.", "error");
+							} else {
+								logger.log(signInError, "debug");
 							}
 						}
 					}
