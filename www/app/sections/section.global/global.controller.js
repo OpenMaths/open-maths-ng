@@ -15,7 +15,7 @@
 		.constant("magic", {
 			siteName: "OpenMaths",
 			siteLanguage: "en",
-			description: "The way Mathematics should have been done.",
+			description: "The way Mathematics should be done.",
 			css: _.getCSSPath(),
 			api: _.getApiUrl(),
 			debug: _.getDebug()
