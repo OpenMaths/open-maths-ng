@@ -8,10 +8,16 @@
 			keyDown: 40,
 			keyUp: 38,
 			keyReturn: 13,
-			simulateDivingMaxTermLength: 40
+			simulateDivingMaxTermLength: 40,
+			simulateDivingDomId: "page-layout",
+			keyboardDelay: 250
 		});
 
-	function SearchController($scope, $http, notification, logger, magic, magicForSearch) {
+	function SearchController($scope, $http, $timeout, $location, notification, logger, magic, magicForSearch) {
+		// This is to store the $timeout promise,
+		// so it can be reset on every keystroke.
+		var makeSearchCall;
+
 		/**
 		 * Search results arrow navigation functionality
 		 *
@@ -61,6 +67,8 @@
 		 * @param dive {boolean}
 		 */
 		$scope.search = function (model, autocomplete, dive) {
+			$timeout.cancel(makeSearchCall);
+
 			if (autocomplete) {
 				$scope.showAutocomplete = true;
 			}
@@ -81,34 +89,36 @@
 			var term = term(model, false);
 			var termLength = term.length;
 
+			if (dive) {
+				simulateDiving(termLength);
+			}
+
 			if (termLength > 0) {
-				if (dive) {
-					simulateDiving(termLength);
-				}
-
-				$http.get(magic.api + "search/" + term).
-					success(function (data) {
-						logger.log("Listing results for term: " + term, "info");
-
-						if (data.length > 0) {
-							var results = {
-								"currentSelection": 0,
-								"data": data
-							};
-
-							$scope.searchResults = results;
-						} else {
-							$scope.searchResults = false;
-
-							notification.generate("No results found :-(", "info");
-						}
-					}).
-					error(function (data) {
-						notification.generate("There was an error with the connection to our API.", "error", data);
-					});
+				makeSearchCall = $timeout(function() {}, magicForSearch.keyboardDelay);
 			} else {
 				$scope.searchResults = false;
 			}
+
+			makeSearchCall.then(function () {
+				$http.get(magic.api + "search/" + term).success(function (data) {
+					logger.log("Listing results for term: " + term, "info");
+
+					if (data.length > 0) {
+						var results = {
+							"currentSelection": 0,
+							"data": data
+						};
+
+						$scope.searchResults = results;
+					} else {
+						$scope.searchResults = false;
+
+						notification.generate("No results found :-(", "info");
+					}
+				}).error(function (data) {
+					notification.generate("There was an error with the connection to our API.", "error", data);
+				});
+			});
 		};
 
 		/**
@@ -151,6 +161,16 @@
 			delete $scope.autocompleteData[searchResultsPointer][id];
 		};
 
+		$scope.getUmi = function (uri) {
+			if (!uri) {
+				notification.generate("No URI argument present", "error");
+
+				return false;
+			}
+
+			$location.path("/board/" + uri);
+		};
+
 		/**
 		 * Makes diver go down
 		 *
@@ -160,7 +180,7 @@
 			if (termLength < magicForSearch.simulateDivingMaxTermLength) {
 				var percentage = termLength * (100 / magicForSearch.simulateDivingMaxTermLength) + "%";
 
-				document.getElementById("page-layout").style.backgroundPositionY = percentage;
+				document.getElementById(magicForSearch.simulateDivingDomId).style.backgroundPositionY = percentage;
 			}
 		};
 	}

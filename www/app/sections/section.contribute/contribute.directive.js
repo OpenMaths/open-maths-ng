@@ -18,13 +18,13 @@
 				umiTitle: "The title should only consist of letters, spaces, or hyphens"
 			},
 			formInstructions: {
-				type : "What category of information?",
-				title : "Users will be able to search your contribution.",
-				titleSynonyms : "Comma-separated list of alternative names.",
-				latexContent : "The actual content. You are free to use LaTeX (including text-mode macros!!).",
-				prerequisiteDefinitions : "Comma-separated list of valid dependency Titles.",
-				seeAlso : "Comma-separated list of valid Titles which may be related.",
-				tags : "Comma-separated list of tags to help users find your contribution.",
+				type: "What category of information?",
+				title: "Users will be able to search your contribution.",
+				titleSynonyms: "Comma-separated list of alternative names.",
+				latexContent: "The actual content. You are free to use LaTeX (including text-mode macros!!).",
+				prerequisiteDefinitions: "Comma-separated list of valid dependency Titles.",
+				seeAlso: "Comma-separated list of valid Titles which may be related.",
+				tags: "Comma-separated list of tags to help users find your contribution.",
 				dispatch: "Submitting your contribution will create a request to pull the content into our database."
 			},
 			formUmiTypes: [
@@ -45,7 +45,7 @@
 
 	function contributeDirective($http, $window, $timeout, magic, notification, magicForContributeDirective) {
 		var directive = {
-			restrict: "EA",
+			restrict: "E",
 			templateUrl: "app/sections/section.contribute/contribute.layout.html",
 			scope: true,
 			link: linker
@@ -53,6 +53,7 @@
 
 		return directive;
 
+		// @TODO yes, yes, this should be a controller
 		function linker(scope) {
 			// @TODO document why this is here
 			var parseLatexContent;
@@ -74,7 +75,7 @@
 			 *
 			 * @param key {int}
 			 */
-			scope.goToStep = function(key) {
+			scope.goToStep = function (key) {
 				var keyIndex = _.indexOf(scope.stepsKeys, key);
 
 				if (keyIndex <= scope.activeStep) {
@@ -87,7 +88,7 @@
 			/**
 			 * Toggles Formal Version of a contribution
 			 */
-			scope.toggleFormalVersion = function() {
+			scope.toggleFormalVersion = function () {
 				scope.formalVersion = scope.formalVersion ? false : true;
 
 				if (scope.formalVersion) {
@@ -100,7 +101,7 @@
 			/**
 			 * Makes mutation request
 			 */
-			scope.createUmi = function() {
+			scope.createUmi = function () {
 				var createUmiForm = scope.createUmiForm;
 
 				var dispatchCreateUmi = {
@@ -109,29 +110,29 @@
 						gPlusId: scope.omUser.id
 					},
 
-					message : "Initialise UMI",
+					message: "Initialise UMI",
 
-					umiType : createUmiForm.type.id,
+					umiType: createUmiForm.type.id,
 
-					title : _.capitalise(createUmiForm.title),
-					titleSynonyms : createUmiForm.titleSynonyms ? _.cleanseCSV(createUmiForm.titleSynonyms) : [],
+					title: _.capitalise(createUmiForm.title),
+					titleSynonyms: createUmiForm.titleSynonyms ? _.cleanseCSV(createUmiForm.titleSynonyms) : [],
 
-					content : createUmiForm.latexContent,
+					content: createUmiForm.latexContent,
 
-					prerequisiteDefinitionIds : scope.autocompleteData.prerequisiteDefinitions ? _.keys(scope.autocompleteData.prerequisiteDefinitions) : [],
-					seeAlsoIds : scope.autocompleteData.seeAlso ? _.keys(scope.autocompleteData.seeAlso) : [],
+					prerequisiteDefinitionIds: scope.autocompleteData.prerequisiteDefinitions ? _.keys(scope.autocompleteData.prerequisiteDefinitions) : [],
+					seeAlsoIds: scope.autocompleteData.seeAlso ? _.keys(scope.autocompleteData.seeAlso) : [],
 
-					tags : createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
+					tags: createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
 				};
 
 				scope.contributeData = dispatchCreateUmi;
 
 				$http.post(magic.api + "add", dispatchCreateUmi).
-					success(function(data) {
+					success(function (data) {
 						console.log("Success: " + data); // @TODO look into this
 						notification.generate("Your contribution was successfully posted!", "success", data);
 					}).
-					error(function(errorData, status) {
+					error(function (errorData, status) {
 						console.log("Error: " + errorData + "; Status: " + status); // @TODO look into this
 						notification.generate("There was an error posting your contribution.", "error", errorData);
 					});
@@ -142,7 +143,7 @@
 			 *
 			 * @returns {boolean}
 			 */
-			scope.latexToHtml = function() {
+			scope.latexToHtml = function () {
 				if (!scope.createUmiForm.latexContent) {
 					scope.parsedLatexContent = "";
 
@@ -154,13 +155,13 @@
 				scope.parsedLatexContent = scope.createUmiForm.latexContent;
 
 				// NOTE this needs to be _.delay, not $timeout (MIGHT NEED TO CHANGE TO TIMEOUT)
-				parseLatexContent = _.delay(function() {
+				parseLatexContent = _.delay(function () {
 					scope.parsingContent = true;
 
 					scope.timeScale = _.timeScale(scope.createUmiForm.latexContent);
 
 					$http.post(magic.api + "latex-to-html", scope.createUmiForm.latexContent).
-						success(function(response) {
+						success(function (response) {
 							var parsedLatexContent;
 							var valid = _.first(_.keys(response)) == "parsed" ? true : false;
 
@@ -186,11 +187,11 @@
 							scope.parsedLatexContent = parsedLatexContent;
 
 							// @NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
-							$timeout(function() {
+							$timeout(function () {
 								scope.parsingContent = false;
 							}, magicForContributeDirective.parseLatexContentProgressTimeout);
 						}).
-						error(function(errorData) {
+						error(function (errorData) {
 							notification.generate("There was an error parsing content", "error", errorData);
 						});
 				}, magicForContributeDirective.parseLatexContentTimeout);
