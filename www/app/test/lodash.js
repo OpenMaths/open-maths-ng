@@ -1,5 +1,29 @@
 "use strict";
 
+describe("Get Debug", function () {
+	it("should set Debug to true / false depending on the current environment", function () {
+		var a = _.getDebug();
+
+		expect(a).toBe(true);
+	});
+});
+
+describe("Get CSS Path", function () {
+	it("should return the path to a non-minified CSS asset", function () {
+		var a = _.getCSSPath();
+
+		expect(a).toEqual("/assets/css/screen.css");
+	});
+});
+
+describe("Get API Url", function () {
+	it("should return the URL pointing to local API", function () {
+		var a = _.getApiUrl();
+
+		expect(a).toEqual("http://api.om.dev/");
+	});
+});
+
 describe("Capitalise", function () {
 	it("should capitalise strings", function () {
 		var a = _.capitalise("foo");
