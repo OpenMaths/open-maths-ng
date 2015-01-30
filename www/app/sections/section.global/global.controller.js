@@ -28,6 +28,9 @@
 		$scope.siteLanguage = magic.siteLanguage;
 		$scope.description = magic.description;
 
+		$scope.cssPath = magic.css;
+		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
+
 		$scope.$watch(function () {
 			return $location.path();
 		}, runOnLocationChange);
@@ -40,14 +43,7 @@
 			$scope.gapiActive = sStorage.get("gapiActive");
 
 			logger.log("Current location: " + $location.path(), "info");
-
-			//$window.ga("send", "pageview", {
-			//	page: $location.path()
-			//});
 		}
-
-		$scope.cssPath = magic.css;
-		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
 	}
 
 })();

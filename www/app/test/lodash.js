@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 describe("Capitalise", function () {
 	it("should capitalise strings", function () {

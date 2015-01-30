@@ -9,9 +9,11 @@
 			pageTransparentNav: true
 		});
 
-	function DiveController($scope, magicForDive) {
+	function DiveController($scope, $location, googleAnalytics, magicForDive) {
 		$scope.$parent.title = magicForDive.pageTitle;
 		$scope.$parent.transparentNav = magicForDive.pageTransparentNav;
+
+		$scope.$on("$viewContentLoaded", googleAnalytics.sendPageView($location.path()));
 	}
 
 })();
