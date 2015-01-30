@@ -36,16 +36,14 @@
 			var splitUrl = $location.url().split("/");
 
 			$scope.path = splitUrl[1] == "" ? magicForGlobal.pageDefaultWelcomeLabel : splitUrl[1];
-
 			$scope.omUser = sStorage.get("omUser");
 			$scope.gapiActive = sStorage.get("gapiActive");
 
 			logger.log("Current location: " + $location.path(), "info");
 
-			// @TODO check if this works properly, would be better to create a directive I think
-			$window.ga("send", "pageview", {
-				page: $location.path()
-			});
+			//$window.ga("send", "pageview", {
+			//	page: $location.path()
+			//});
 		}
 
 		$scope.cssPath = magic.css;

@@ -6,7 +6,7 @@
 		.directive("contributeLayout", contributeDirective)
 		.constant("magicForContributeDirective", {
 			parseLatexContentTimeout: 2000,
-			parseLatexContentProgressTimeout: 800,
+			parseLatexContentProgressTimeout: 750,
 			steps: {
 				"basic-settings": "Basic Settings",
 				"editor": "Editor",
@@ -55,10 +55,11 @@
 
 		// @TODO yes, yes, this should be a controller
 		function linker(scope) {
-			// @TODO document why this is here
+			// @NOTE This is to store the $timeout promise,
+			// so it can be reset on every keystroke.
 			var parseLatexContent;
 
-			// NOTE This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
+			// @NOTE This is here on purpose as we alter autocompleteData from a child controller (Search Controller)
 			scope.autocompleteData = {};
 
 			scope.formErrorMessages = magicForContributeDirective.formErrorMessages; // CHANGE IN LAYOUT
@@ -129,11 +130,9 @@
 
 				$http.post(magic.api + "add", dispatchCreateUmi).
 					success(function (data) {
-						console.log("Success: " + data); // @TODO look into this
 						notification.generate("Your contribution was successfully posted!", "success", data);
 					}).
 					error(function (errorData, status) {
-						console.log("Error: " + errorData + "; Status: " + status); // @TODO look into this
 						notification.generate("There was an error posting your contribution.", "error", errorData);
 					});
 			};
@@ -150,12 +149,15 @@
 					return false;
 				}
 
-				$window.clearTimeout(parseLatexContent);
+				$timeout.cancel(parseLatexContent);
 
 				scope.parsedLatexContent = scope.createUmiForm.latexContent;
 
-				// NOTE this needs to be _.delay, not $timeout (MIGHT NEED TO CHANGE TO TIMEOUT)
-				parseLatexContent = _.delay(function () {
+				parseLatexContent = $timeout(function() {}, magicForContributeDirective.parseLatexContentTimeout);
+
+				parseLatexContent.then(function () {
+					console.log(scope.createUmiForm.latexContent);
+
 					scope.parsingContent = true;
 
 					scope.timeScale = _.timeScale(scope.createUmiForm.latexContent);
@@ -194,7 +196,7 @@
 						error(function (errorData) {
 							notification.generate("There was an error parsing content", "error", errorData);
 						});
-				}, magicForContributeDirective.parseLatexContentTimeout);
+				});
 			};
 		}
 	}

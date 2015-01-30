@@ -1,9 +1,9 @@
-// Wikipedia suggests a proofreading speed on screen of 180 wpm,
-// but since we present a bit more complicated content,
-// we will go for 125 wpm (avg)
-var avgWPM = 125;
-
 function timeScale(content) {
+	// Wikipedia suggests a proofreading speed on screen of 180 wpm,
+	// but since we present a bit more complicated content,
+	// we will go for 125 wpm (avg)
+	var avgWPM = 125;
+
 	var wordCount = content.match(/(\w+)/g).length;
 
 	if (wordCount < 60) {

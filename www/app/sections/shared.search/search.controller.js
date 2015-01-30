@@ -14,7 +14,7 @@
 		});
 
 	function SearchController($scope, $http, $timeout, $location, notification, logger, magic, magicForSearch) {
-		// This is to store the $timeout promise,
+		// @NOTE This is to store the $timeout promise,
 		// so it can be reset on every keystroke.
 		var makeSearchCall;
 
@@ -67,8 +67,6 @@
 		 * @param dive {boolean}
 		 */
 		$scope.search = function (model, autocomplete, dive) {
-			$timeout.cancel(makeSearchCall);
-
 			if (autocomplete) {
 				$scope.showAutocomplete = true;
 			}
@@ -93,10 +91,14 @@
 				simulateDiving(termLength);
 			}
 
-			if (termLength > 0) {
-				makeSearchCall = $timeout(function() {}, magicForSearch.keyboardDelay);
-			} else {
+			if (termLength < 1) {
 				$scope.searchResults = false;
+
+				return false;
+			} else {
+				$timeout.cancel(makeSearchCall);
+
+				makeSearchCall = $timeout(function() {}, magicForSearch.keyboardDelay);
 			}
 
 			makeSearchCall.then(function () {
