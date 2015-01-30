@@ -43,7 +43,7 @@
 			]
 		});
 
-	function contributeDirective($http, $window, $timeout, magic, notification, magicForContributeDirective) {
+	function contributeDirective($http, $timeout, magic, notification, magicForContributeDirective) {
 		var directive = {
 			restrict: "E",
 			templateUrl: "app/sections/section.contribute/contribute.layout.html",

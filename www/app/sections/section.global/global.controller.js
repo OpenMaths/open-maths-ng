@@ -42,7 +42,7 @@
 			$scope.omUser = sStorage.get("omUser");
 			$scope.gapiActive = sStorage.get("gapiActive");
 
-			if (!_.getDebug()) {
+			if (!magic.debug) {
 				googleAnalytics.sendPageView($location.path());
 			}
 		}
