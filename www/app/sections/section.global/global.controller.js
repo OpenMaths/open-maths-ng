@@ -21,7 +21,7 @@
 			debug: _.getDebug()
 		});
 
-	function GlobalController($scope, $location, $window, lStorage, sStorage, logger, magic, magicForGlobal) {
+	function GlobalController($scope, $location, lStorage, sStorage, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = magic.siteName;
@@ -41,8 +41,6 @@
 			$scope.path = splitUrl[1] == "" ? magicForGlobal.pageDefaultWelcomeLabel : splitUrl[1];
 			$scope.omUser = sStorage.get("omUser");
 			$scope.gapiActive = sStorage.get("gapiActive");
-
-			logger.log("Current location: " + $location.path(), "info");
 		}
 	}
 

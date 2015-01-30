@@ -35,7 +35,7 @@ describe("GlobalController", function () {
 		});
 	});
 
-	it("should change the path variable when navigating to a location", function () {
+	it("should change the 'path' variable and set 'path', 'omUser', and 'gapiActive' variables when changing url location", function () {
 		location.path("/");
 		scope.$apply();
 
