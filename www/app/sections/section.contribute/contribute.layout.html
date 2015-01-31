@@ -15,16 +15,16 @@
 		</header>
 
 		<!--Type-->
-		<label for="type" class="flex">
+		<label class="flex">
 			<p class="flex-2">
 				Type
-				<small ng-class="{active : showInstructions == 'type'}">{{ formInstructions.type }}
+				<small ng-class="{active : showInstructions == 'umiType'}">{{ formInstructions.umiType }}
 				</small>
 			</p>
 			<div class="flex-7">
-				<select ng-focus="showInstructions = 'type'"
+				<select ng-focus="showInstructions = 'umiType'"
 						ng-options="type as type.label for type in formUmiTypes track by type.id"
-						ng-model="createUmiForm.type"
+						ng-model="createUmiForm.umiType"
 						name="type" required>
 					<option value="">Select Type</option>
 				</select>
@@ -32,12 +32,12 @@
 		</label>
 
 		<!--Error messages for Type-->
-		<div class="error-messages" ng-show="showInstructions == 'type'">
+		<div class="error-messages" ng-show="showInstructions == 'umiType'">
 			<div class="alert error" ng-show="formBasicSettings.type.$error.required">{{ formErrorMessages.required }}</div>
 		</div>
 
 		<!--Title-->
-		<label for="title" class="flex">
+		<label class="flex">
 			<p class="flex-2">
 				Title
 				<small ng-class="{active : showInstructions == 'title'}">{{ formInstructions.title }}
@@ -60,7 +60,7 @@
 		</div>
 
 		<!--Title Synonyms-->
-		<label for="titleSynonyms" class="flex flex-item">
+		<label class="flex flex-item">
 			<p class="flex-2">
 				Title Synonyms
 				<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ formInstructions.titleSynonyms }}
@@ -81,7 +81,8 @@
 		</div>
 
 		<label class="flex center-vertically button-holder">
-			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.type.formal">
+			<!--@TODO fix this issue (probably flexbox)-->
+			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.formal">
 				<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
 				<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
 			</div>
@@ -107,20 +108,20 @@
 		</section>
 
 		<div class="flex latex-content-editor">
-			<!--LaTeX Content-->
+			<!--Content-->
 			<div class="flex-1">
-				<textarea ng-focus="showInstructions = 'latexContent'"
-						  ng-model="createUmiForm.latexContent" name="latexContent"
-						  placeholder="LaTeX content" required ng-change="latexToHtml()"></textarea>
+				<textarea ng-focus="showInstructions = 'content'"
+						  ng-model="createUmiForm.content" name="content"
+						  placeholder="Contents of your contribution" required ng-change="latexToHtml()"></textarea>
 			</div>
 
 			<div class="flex-1">
-				<p class="latex-content-preview" om-bind="parsedLatexContent || 'LaTeX Content will be displayed here'"></p>
+				<p class="latex-content-preview" om-bind="parsedContent || 'Parsed content will be displayed here'"></p>
 			</div>
 
 			<!--Error messages for LaTeX Content-->
-			<div class="error-messages full-screen" ng-show="showInstructions == 'latexContent'">
-				<div class="alert error" ng-show="formEditor.latexContent.$error.required">{{ formErrorMessages.required }}</div>
+			<div class="error-messages full-screen" ng-show="showInstructions == 'content'">
+				<div class="alert error" ng-show="formEditor.content.$error.required">{{ formErrorMessages.required }}</div>
 			</div>
 
 			<div class="error-messages full-screen" ng-show="editorError.message">
@@ -130,69 +131,26 @@
 
 		<div class="container-narrow">
 			<!--Prerequisite definitions-->
-			<label for="prerequisiteDefinitions" class="flex flex-item">
+			<label class="flex flex-item">
 				<p class="flex-2">
 					Prerequisite definitions
-					<small ng-class="{active : showInstructions == 'prerequisiteDefinitions'}">{{ formInstructions.prerequisiteDefinitions }}
-					</small>
+					<small ng-class="{active : showInstructions == 'prerequisiteDefinitionIds'}">{{ formInstructions.prerequisiteDefinitionIds }}</small>
 				</p>
-				<div class="flex-7" ng-controller="SearchController">
-					<input ng-focus="$parent.showInstructions = 'prerequisiteDefinitions'"
-						   ng-model="createUmiForm.prerequisiteDefinitions" ng-maxlength="128"
-						   type="text"
-						   name="prerequisiteDefinitions"
-						   ng-change="search('createUmiForm.prerequisiteDefinitions', true)"
-						   ng-keydown="searchResultsNavigate(searchResults, $event, ['autocomplete', 'prerequisiteDefinitions'])"
-						   placeholder="Prerequisite definitions"/>
-
-					<div class="search-results" ng-show="searchResults">
-						<span ng-click="autocomplete('prerequisiteDefinitions', $index)" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}">{{result.title}}</span>
-					</div>
-
-					<div class="added-titles flex wrap" ng-show="autocompleteData.prerequisiteDefinitions">
-						<span class="label" ng-repeat="(id, title) in autocompleteData.prerequisiteDefinitions">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('prerequisiteDefinitions', id)">&times;</small></span>
-					</div>
-				</div>
+				<div class="flex-7" autocomplete model="createUmiForm.prerequisiteDefinitionIds"></div>
 			</label>
-
-			<!--Error messages for Prerequisite definitions-->
-			<div class="error-messages" ng-show="showInstructions == 'prerequisiteDefinitions'">
-				<div class="alert error" ng-show="formEditor.prerequisiteDefinitions.$error.maxlength">{{ formErrorMessages.maxLength }}</div>
-			</div>
 
 			<!--See also-->
-			<label for="seeAlso" class="flex flex-item">
+			<label class="flex flex-item">
 				<p class="flex-2">
 					See also
-					<small ng-class="{active : showInstructions == 'seeAlso'}">{{ formInstructions.seeAlso }}
-					</small>
+					<small ng-class="{active : showInstructions == 'seeAlsoIds'}">{{ formInstructions.seeAlsoIds }}</small>
 				</p>
 
-				<div class="flex-7" ng-controller="SearchController">
-					<input ng-focus="$parent.showInstructions = 'seeAlso'" ng-model="createUmiForm.seeAlso"
-						   ng-maxlength="128" type="text"
-						   name="seeAlso"
-						   ng-change="search('createUmiForm.seeAlso', true)"
-						   ng-keydown="searchResultsNavigate(searchResults, $event, ['autocomplete', 'seeAlso'])"
-						   placeholder="See also"/>
-
-					<div class="search-results" ng-show="searchResults">
-						<span ng-click="autocomplete('seeAlso', $index)" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}">{{result.title}}</span>
-					</div>
-
-					<div class="added-titles flex wrap" ng-show="$parent.autocompleteData.seeAlso">
-						<span class="label" ng-repeat="(id, title) in $parent.autocompleteData.seeAlso">{{title}}<small class="flex center-horizontally center-vertically" ng-click="removeUmiId('seeAlso', id)">&times;</small></span>
-					</div>
-				</div>
+				<div class="flex-7" autocomplete model="createUmiForm.seeAlsoIds"></div>
 			</label>
 
-			<!--Error messages for See also-->
-			<div class="error-messages" ng-show="showInstructions == 'seeAlso'">
-				<div class="alert error" ng-show="formEditor.seeAlso.$error.maxlength">{{ formErrorMessages.maxLength }}</div>
-			</div>
-
 			<!--Tags-->
-			<label for="tags" class="flex flex-item">
+			<label class="flex flex-item">
 				<p class="flex-2">
 					Tags
 					<small ng-class="{active : showInstructions == 'tags'}">{{ formInstructions.tags }}
@@ -227,15 +185,13 @@
 		<div class="umi fade-in">
 			<div class="content-holder">
 				<div class="title flex center-vertically">
-					<!--This should only be displayed if a user is signed in!!-->
-					<!--ng-show="data.author == omUser.email"-->
 					<i class="edit"></i>
 					<i class="full-screen"></i>
-					<span class="label">{{ createUmiForm.type.label }}</span>
+					<span class="label">{{ createUmiForm.umiType.label }}</span>
 					<strong class="flex-1">{{ createUmiForm.title }}</strong>
 				</div>
 				<article>
-					<p om-bind="parsedLatexContent"></p>
+					<p om-bind="parsedContent"></p>
 				</article>
 			</div>
 		</div>
@@ -244,7 +200,6 @@
 			<button class="button default" ng-click="activeStep = activeStep - 1">Back</button>
 			<button name="publish" class="button primary align-right" ng-click="createUmi()"><strong>Publish</strong> your contribution</button>
 		</label>
-		{{ contributeData | json }}
 	</div>
 
 	</form>

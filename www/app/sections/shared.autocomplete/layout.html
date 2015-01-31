@@ -1,0 +1,18 @@
+<input type="text" placeholder="Prerequisite definitions"
+	   ng-model="searchTerm"
+	   ng-keydown="nNavigate($event)"
+	   ng-change="nSearch()">
+
+<div class="search-results" ng-show="searchResults">
+	<span ng-repeat="result in searchResults.data"
+		  ng-click="nAutocomplete($index)"
+		  ng-class="{active : $index == searchResults.currentSelection}">{{ result.title }}</span>
+</div>
+
+<div class="added-titles flex wrap" ng-show="autocompleteData">
+	<span class="label" ng-repeat="(id, title) in autocompleteData">
+		{{ title }}
+		<small class="flex center-horizontally center-vertically"
+			   ng-click="nRemoveTag(id)">&times;</small>
+	</span>
+</div>

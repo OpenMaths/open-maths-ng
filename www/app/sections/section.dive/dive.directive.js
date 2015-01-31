@@ -5,27 +5,14 @@
 		.module("omApp")
 		.directive("diveLayout", diveDirective);
 
-	function diveDirective($location, notification) {
+	function diveDirective() {
 		var directive = {
-			restrict: "EA",
+			restrict: "E",
 			templateUrl: "app/sections/section.dive/dive.layout.html",
-			link: linker,
 			controller: "SearchController"
 		};
 
 		return directive;
-
-		function linker(scope) {
-			scope.getUmi = function (uri) {
-				if (!uri) {
-					notification.generate("No URI argument present", "error");
-
-					return false;
-				}
-
-				$location.path("/board/" + uri);
-			};
-		}
 	}
 
 })();

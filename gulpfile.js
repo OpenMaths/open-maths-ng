@@ -10,6 +10,7 @@ var gulp =
 	ngAnnotate = require("gulp-ng-annotate"),
 	plumber = require("gulp-plumber"),
 	notify = require("gulp-notify"),
+	karma = require("karma").server,
 	express = require("express"),
 	expressPort = 9000;
 
@@ -20,6 +21,12 @@ var onError = notify.onError({
 });
 
 var server = express();
+
+gulp.task("test", function (done) {
+	karma.start({
+		configFile: process.cwd() + "/www/app/karma.conf.js"
+	});
+});
 
 gulp.task("staticServer", function() {
 	server.use(express.static("www"));
@@ -42,7 +49,7 @@ gulp.task("sass", function() {
 			loadPath: process.cwd() + "/www/assets/css/include",
 			style: "nested"
 		}))
-		.pipe(autoprefixer("last 20 version", "> 1%"))
+		.pipe(autoprefixer("last 8 version", "> 1%"))
 		.pipe(gulp.dest("www/assets/css"))
 		.pipe(rename({suffix: ".min"}))
 		.pipe(minifycss())

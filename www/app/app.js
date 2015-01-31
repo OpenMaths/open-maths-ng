@@ -1,7 +1,3 @@
-var initGapi = function () {
-	window.initGapi();
-};
-
 (function () {
 	"use strict";
 
@@ -35,3 +31,9 @@ var initGapi = function () {
 	}
 
 })();
+
+var initGapiAsync = function () {
+	_.delay(function() {
+		window.initGapi();
+	}, 100);
+};

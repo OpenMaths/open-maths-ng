@@ -1,77 +1,10 @@
 .page-board
-	#grid
-		position: relative
-
-		#manage-column,
-		#manage-row
-			+transition(all .25s)
-			+z-index(manage-column)
-
-			position: absolute
-			opacity: 0
-
-			a
-				//+transition(background .25s)
-
-				width: $triple-unit-layout
-				height: $triple-unit-layout
-				display: block
-				background:
-					image: url("#{$image-base}/icons/icon-set/icon-set_add-dark.svg")
-					size: $triple-unit-layout + $half-unit-layout
-					position: center center
-					repeat: no-repeat
-					color: black
-
-				// Not using +hover on purpose
-				&:hover
-					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_add-white.svg")
-
-				&.remove
-					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_remove-dark.svg")
-
-					// Not using +hover on purpose
-					&:hover
-						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_remove-white.svg")
-
-			+hover
-				opacity: 1
-
-		#manage-column
-			//border-left: 1px solid $color-black
-			width: $triple-unit-layout
-			height: 100%
-			right: -($base-unit-layout)
-			top: 0
-
-			a:first-of-type
-				border-bottom: 1px solid $color-grey-700
-
-			+hover
-				right: 0
-
-		#manage-row
-			//border-top: 1px solid $color-black
-			height: $triple-unit-layout
-			width: 100%
-			left: 0
-			bottom: -($base-unit-layout)
-
-			a:first-of-type
-				border-right: 1px solid $color-grey-700
-
-			+hover
-				bottom: 0
-
 	.row
 		width: 100%
 		flex: 1
 		display: flex
 		position: relative
-		min-height: rem(180px)
+		min-height: rem(220px)
 
 		.resize-row
 			+z-index(resize-row)
@@ -80,7 +13,7 @@
 			left: 0
 			bottom: 0
 			width: 100%
-			height: rem(8px)
+			height: $half-unit-layout + $quarter-unit-layout
 			cursor: row-resize !important
 
 		.column
@@ -100,36 +33,6 @@
 				border-bottom: 0 !important
 
 	&.dark
-		#grid
-			#manage-column,
-			#manage-row
-				a
-					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_add-grey.svg")
-						color: white
-
-					// Not using +hover on purpose
-					&:hover
-						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_add.svg")
-
-					&.remove
-						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_remove-grey.svg")
-
-						// Not using +hover on purpose
-						&:hover
-							background:
-								image: url("#{$image-base}/icons/icon-set/icon-set_remove.svg")
-
-			#manage-column
-				a:first-of-type
-					border-bottom: 1px solid $color-grey-300
-
-			#manage-row
-				a:first-of-type
-					border-right: 1px solid $color-grey-300
-
 		.row
 			.column
 				border-right: 1px solid $color-grey-800
