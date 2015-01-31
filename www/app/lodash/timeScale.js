@@ -3,8 +3,13 @@ function timeScale(content) {
 	// but since we present a bit more complicated content,
 	// we will go for 125 wpm (avg)
 	var avgWPM = 125;
+	var words = content.match(/(\w+)/g);
 
-	var wordCount = content.match(/(\w+)/g).length;
+	if (_.isNull(words)) {
+		return "30 sec";
+	}
+
+	var wordCount = words.length;
 
 	if (wordCount < 60) {
 		return "30 sec";

@@ -37,6 +37,9 @@
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
 
 		$scope.setUI = function (type, value) {
+			type = type.toLowerCase();
+			value = value.toLowerCase();
+
 			switch (type) {
 				case "font":
 					$scope.uiSettings.font = value;
@@ -46,6 +49,9 @@
 					break;
 				case "remember":
 					$scope.uiSettings.remember[value] = $scope.uiSettings.remember[value] ? false : true;
+					break;
+				default:
+					return false;
 			}
 
 			lStorage.set("uiSettings", $scope.uiSettings);

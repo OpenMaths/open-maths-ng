@@ -13,7 +13,7 @@ describe("GlobalController", function () {
 		constants = _magicForGlobal_;
 	}));
 
-	it("should have the config constant named 'magic' defined", function() {
+	it("should have the config constant named 'magic' defined", function () {
 		expect(magic).toBeDefined();
 	});
 
@@ -31,7 +31,11 @@ describe("GlobalController", function () {
 
 		expect(magic.year).toEqual(year);
 		expect(constants.pageDefaultWelcomeLabel).toEqual("dive");
-		expect(constants.uiSettingsDefault).toEqual({theme: "light", font: "umi-font-modern"});
+		expect(constants.uiSettingsDefault).toEqual({
+			theme: "light",
+			font: "umi-font-modern",
+			remember: {boardLayout: true}
+		});
 
 		_.map(toBeDefined, function (val) {
 			expect(val).toBeDefined()
@@ -53,5 +57,26 @@ describe("GlobalController", function () {
 		});
 
 		expect(scope.path).toBe("dive");
+	});
+
+	// @TODO test localStorage?
+	it("should set UI Settings and save them to browser localStorage", function () {
+		var valid = ["font", "theme", "Font", "tHEme", "REMEMBER"];
+		var invalid = [" font", "themes", "REmember "];
+
+		_.map(valid, function (val) {
+			scope.setUI(val, "value");
+
+			if (val.toLowerCase() == "remember") {
+				expect(scope.uiSettings[val.toLowerCase()]["value"]).toBe(true);
+			} else {
+				expect(scope.uiSettings[val.toLowerCase()]).toEqual("value");
+			}
+		});
+
+		_.map(invalid, function (val) {
+			var res = scope.setUI(val, "value");
+			expect(res).toBe(false);
+		});
 	});
 });
