@@ -22,7 +22,7 @@
 			year: new Date().getFullYear()
 		});
 
-	function GlobalController($scope, $location, lStorage, sStorage, googleAnalytics, magic, magicForGlobal) {
+	function GlobalController($scope, $location, lStorage, sStorage, googleAnalytics, logger, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = magic.siteName;
@@ -46,6 +46,8 @@
 
 			if (!magic.debug) {
 				googleAnalytics.sendPageView($location.path());
+			} else {
+				logger.log("Current Location: " + $scope.path, "info");
 			}
 		}
 	}

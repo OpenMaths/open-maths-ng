@@ -5,7 +5,7 @@
 		.module("omApp")
 		.factory("googleAnalytics", gaFactory);
 
-	function gaFactory($window, logger) {
+	function gaFactory($window) {
 		var factory = {
 			sendPageView: sendPageView
 		};
@@ -16,8 +16,6 @@
 			$window.ga("send", "pageview", {
 				page: location
 			});
-
-			logger.log("GA Sent: " + location, "info");
 		}
 	}
 

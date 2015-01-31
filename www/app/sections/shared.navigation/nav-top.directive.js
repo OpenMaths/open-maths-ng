@@ -84,6 +84,14 @@
 			scope.accessUserLevel = function (url) {
 				return userLevel.access(url);
 			};
+
+			scope.accessBoard = function() {
+				if (scope.path !== "board") {
+					notification.generate("Use our search to navigate to this section :-)", "info");
+				}
+
+				return false;
+			};
 		}
 	}
 

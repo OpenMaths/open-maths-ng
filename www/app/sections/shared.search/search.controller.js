@@ -25,7 +25,7 @@
 				return false;
 			}
 
-			var searchResultsCurrentSelection = index ? index : $scope.searchResults.currentSelection;
+			var searchResultsCurrentSelection = _.isUndefined(index) ? $scope.searchResults.currentSelection : index;
 			var selectedItem = $scope.searchResults.data[searchResultsCurrentSelection];
 
 			$location.path("/board/" + selectedItem.uriFriendlyTitle);
@@ -40,25 +40,22 @@
 
 			$scope.autocompleteData[selectedItem.id] = selectedItem.title;
 
-			$scope.searchTerm = "";
-			$scope.searchResults = "";
-
-			return false;
+			return cleanSearchVars();
 		};
 
-		$scope.nConfirm = function (e) {
+		$scope.nNavigate = function(e, dive) {
 			if (e.keyCode == magicForSearch.keyReturn) {
 				e.preventDefault();
-				return pressedReturn();
+
+				return dive ? $scope.nGetUmi() : pressedReturn();
+			} else if (e.keyCode == magicForSearch.keyUp || e.keyCode == magicForSearch.keyDown) {
+				e.preventDefault();
+
+				return pressedArrows(e.keyCode);
 			}
 		};
 
 		$scope.nSearch = function (e, dive) {
-			if (e.keyCode == magicForSearch.keyUp || e.keyCode == magicForSearch.keyDown) {
-				e.preventDefault();
-				return pressedArrows(e.keyCode);
-			}
-
 			var term = $scope.searchTerm;
 			var termLength = term.length;
 
@@ -122,6 +119,10 @@
 
 			$scope.autocompleteData[selectedItem.id] = selectedItem.title;
 
+			return cleanSearchVars();
+		}
+
+		function cleanSearchVars() {
 			$scope.searchTerm = "";
 			$scope.searchResults = "";
 

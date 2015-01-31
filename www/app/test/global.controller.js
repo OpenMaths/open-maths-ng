@@ -18,15 +18,18 @@ describe("GlobalController", function () {
 	});
 
 	it("should have default values and constants predefined.", function () {
+		var year = new Date().getFullYear();
 		var toBeDefined = [
 			scope.title,
 			scope.siteName,
 			scope.siteLanguage,
 			scope.description,
 			scope.cssPath,
-			scope.uiSettings
+			scope.uiSettings,
+			scope.year
 		];
 
+		expect(magic.year).toEqual(year);
 		expect(constants.pageDefaultWelcomeLabel).toEqual("dive");
 		expect(constants.uiSettingsDefault).toEqual({theme: "light", font: "umi-font-modern"});
 

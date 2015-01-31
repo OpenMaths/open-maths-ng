@@ -1,9 +1,10 @@
-<form ng-submit="nGetUmi()" tabindex="0">
+<form tabindex="0">
 	<input type="text" placeholder="Dive into..." class="unstyled" autofocus
-		   ng-keyup="nSearch($event, true)"
+		   ng-change="nSearch(true)"
+		   ng-keydown="nNavigate($event, true)"
 		   ng-model="searchTerm">
 
-	<article class="search-umi-results" ng-show="searchResults">
+	<article id="try" class="search-umi-results" ng-show="searchResults">
 		<div class="item"
 			 ng-class="{active : $index == searchResults.currentSelection}"
 			 ng-repeat="result in searchResults.data"
