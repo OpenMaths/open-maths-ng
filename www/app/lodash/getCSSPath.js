@@ -1,5 +1,5 @@
 function getCSSPath() {
-	return document.location.hostname == "om.dev" ? "/assets/css/screen.css" : "/assets/css/screen.min.css";
+	return _.getDebug() ? "/assets/css/screen.css" : "/assets/css/screen.min.css";
 }
 
 _.mixin({

@@ -65,24 +65,16 @@
 				notification.generate("You have been successfully signed out.", "info");
 			};
 
-			scope.setUI = function (type, value) {
-				var uiSettings = scope.uiSettings;
-
-				switch (type) {
-					case "font":
-						uiSettings.font = value;
-						break;
-					case "theme":
-						uiSettings.theme = value;
-						break;
-				}
-
-				lStorage.set("uiSettings", uiSettings);
-				scope.uiSettings = uiSettings;
-			};
-
 			scope.accessUserLevel = function (url) {
 				return userLevel.access(url);
+			};
+
+			scope.accessBoard = function() {
+				if (scope.path !== "board") {
+					notification.generate("Use our search to navigate to this section :-)", "info");
+				}
+
+				return false;
 			};
 		}
 	}
