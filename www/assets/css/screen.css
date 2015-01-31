@@ -1779,7 +1779,7 @@ body.dark {
   display: -ms-flexbox;
   display: flex;
   position: relative;
-  min-height: 11.25rem; }
+  min-height: 13.75rem; }
   .page-board .row .resize-row {
     z-index: 4;
     position: absolute;
@@ -1803,19 +1803,6 @@ body.dark {
       border-right: 0 !important; }
   .page-board .row:last-of-type .column {
     border-bottom: 0 !important; }
-.page-board.dark #manage-column a,
-.page-board.dark #manage-row a {
-  background-image: url("/assets/images/icons/icon-set/icon-set_add-grey.svg");
-  background-color: white; }
-  .page-board.dark #manage-column a:hover,
-  .page-board.dark #manage-row a:hover {
-    background-image: url("/assets/images/icons/icon-set/icon-set_add.svg"); }
-  .page-board.dark #manage-column a.remove,
-  .page-board.dark #manage-row a.remove {
-    background-image: url("/assets/images/icons/icon-set/icon-set_remove-grey.svg"); }
-    .page-board.dark #manage-column a.remove:hover,
-    .page-board.dark #manage-row a.remove:hover {
-      background-image: url("/assets/images/icons/icon-set/icon-set_remove.svg"); }
 .page-board.dark .row .column {
   border-right: 1px solid #384b4b;
   border-bottom: 1px solid #384b4b; }

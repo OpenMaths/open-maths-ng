@@ -4,7 +4,7 @@
 		flex: 1
 		display: flex
 		position: relative
-		min-height: rem(180px)
+		min-height: rem(220px)
 
 		.resize-row
 			+z-index(resize-row)
@@ -33,35 +33,6 @@
 				border-bottom: 0 !important
 
 	&.dark
-		#manage-column,
-		#manage-row
-			a
-				background:
-					image: url("#{$image-base}/icons/icon-set/icon-set_add-grey.svg")
-					color: white
-
-				// Not using +hover on purpose
-				&:hover
-					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_add.svg")
-
-				&.remove
-					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_remove-grey.svg")
-
-					// Not using +hover on purpose
-					&:hover
-						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_remove.svg")
-
-		#manage-column
-			a:first-of-type
-				//border-bottom: 1px solid $color-grey-300
-
-		#manage-row
-			a:first-of-type
-				//border-right: 1px solid $color-grey-300
-
 		.row
 			.column
 				border-right: 1px solid $color-grey-800
