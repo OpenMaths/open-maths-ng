@@ -1,4 +1,7 @@
-<input type="text" ng-model="searchTerm" ng-keypress="nConfirm($event)" ng-keyup="nSearch($event)" placeholder="Prerequisite definitions">
+<input type="text" placeholder="Prerequisite definitions"
+	   ng-model="searchTerm"
+	   ng-keypress="nConfirm($event)"
+	   ng-keyup="nSearch($event)">
 
 <div class="search-results" ng-show="searchResults">
 	<span ng-repeat="result in searchResults.data"

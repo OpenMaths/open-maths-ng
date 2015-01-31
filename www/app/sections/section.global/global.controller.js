@@ -18,7 +18,8 @@
 			description: "The way Mathematics should be done.",
 			css: _.getCSSPath(),
 			api: _.getApiUrl(),
-			debug: _.getDebug()
+			debug: _.getDebug(),
+			year: new Date().getFullYear()
 		});
 
 	function GlobalController($scope, $location, lStorage, sStorage, googleAnalytics, magic, magicForGlobal) {
@@ -27,6 +28,7 @@
 		$scope.siteName = magic.siteName;
 		$scope.siteLanguage = magic.siteLanguage;
 		$scope.description = magic.description;
+		$scope.year = magic.year;
 
 		$scope.cssPath = magic.css;
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;

@@ -1,7 +1,13 @@
-<form ng-submit="getUmi(searchResults.data[searchResults.currentSelection].uriFriendlyTitle)" tabindex="0">
-	<input type="text" placeholder="Dive into..." name="umiTitle" ng-model="umiTitle" ng-change="search('umiTitle', false, true)" ng-keydown="searchResultsNavigate(searchResults, $event, ['getUmi'])" class="unstyled" autofocus />
-	<article class="search-umi-results" ng-show="searchResults.data">
-		<div class="item" ng-repeat="result in searchResults.data" ng-class="{active : $index == searchResults.currentSelection}" ng-click="getUmi(result.uriFriendlyTitle)">
+<form ng-submit="nGetUmi()" tabindex="0">
+	<input type="text" placeholder="Dive into..." class="unstyled" autofocus
+		   ng-keyup="nSearch($event, true)"
+		   ng-model="searchTerm">
+
+	<article class="search-umi-results" ng-show="searchResults">
+		<div class="item"
+			 ng-class="{active : $index == searchResults.currentSelection}"
+			 ng-repeat="result in searchResults.data"
+			 ng-click="nGetUmi($index)">
 			<aside class="title">{{ result.title }}</aside>
 			<aside class="label">{{ result.umiType }}</aside>
 		</div>
