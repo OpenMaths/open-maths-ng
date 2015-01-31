@@ -16,7 +16,7 @@
 			}
 		});
 
-	function BoardController($scope, $routeParams, $http, $timeout, $location, manageGrid, notification, sStorage, logger, magic, magicForBoard) {
+	function BoardController($scope, $routeParams, $http, $timeout, $location, manageGrid, notification, sStorage, lStorage, logger, magic, magicForBoard) {
 		$scope.$parent.title = magicForBoard.pageTitle;
 		$scope.$parent.transparentNav = magicForBoard.pageTransparentNav;
 
@@ -49,7 +49,7 @@
 					rowMeta.newRow ? $scope.grid.push(rowMeta.newRow) : $scope.grid.pop();
 
 					$scope.rows = rowMeta.newRowsNumber;
-					sStorage.set("gridRows", rowMeta.newRowsNumber);
+					$scope.uiSettings.remember.boardLayout ? sStorage.set("gridRows", rowMeta.newRowsNumber) : "";
 
 					return true;
 				case "column":
@@ -64,7 +64,7 @@
 					}
 
 					$scope.columns = columnMeta.newColumnsNumber;
-					sStorage.set("gridRows", columnMeta.newColumnsNumber);
+					$scope.uiSettings.remember.boardLayout ? sStorage.set("gridColumns", columnMeta.newColumnsNumber) : "";
 
 					return true;
 				default:

@@ -38,7 +38,6 @@
 
 		$scope.setUI = function (type, value) {
 			type = type.toLowerCase();
-			value = value.toLowerCase();
 
 			switch (type) {
 				case "font":
