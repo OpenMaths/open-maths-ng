@@ -25,13 +25,13 @@
 	ul
 		li
 			cursor: pointer
-			padding: $base-unit-layout $base-unit-layout $base-unit-layout $triple-unit-layout
+			padding: $base-unit-layout $base-unit-layout $base-unit-layout ($double-unit-layout + $half-unit-layout)
 			color: $color-grey-500
 			font:
 				size: rem(12px)
 			background:
 				image: url("#{$image-base}/icons/icon-set/icon-set_add-dark.svg")
-				size: $triple-unit-layout
+				size: $triple-unit-layout - $half-unit-layout
 				position: left center
 				repeat: no-repeat
 
@@ -56,29 +56,20 @@
 		background: white
 
 		.toggle-holder
-			color: $color-grey
+			color: $color-black
 
 			.toggle
-				border-color: $color-grey
+				border-color: $color-black
 
 				&:before
-					background: $color-grey
+					background: $color-black
 
 		ul
 			li
-				color: $color-grey
+				color: $color-black
 				background:
-					image: url("#{$image-base}/icons/icon-set/icon-set_add-grey.svg")
-
-				+hover
-					color: $color-black
-					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_add.svg")
+					image: url("#{$image-base}/icons/icon-set/icon-set_add.svg")
 
 				&.remove
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_remove-grey.svg")
-
-					+hover
-						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_remove.svg")
+						image: url("#{$image-base}/icons/icon-set/icon-set_remove.svg")

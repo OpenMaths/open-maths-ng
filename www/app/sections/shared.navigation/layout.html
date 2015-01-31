@@ -25,14 +25,6 @@
 					<strong ng-click="setUI('font', 'umi-font-modern')" ng-class="{selected : uiSettings.font == 'umi-font-modern'}">Modern</strong> &bull;
 					<strong ng-click="setUI('font', 'umi-font-traditional')" ng-class="{selected : uiSettings.font == 'umi-font-traditional'}">Traditional</strong>
 				</li>
-				<ul class="toggles">
-					<li class="flex">
-						<div class="toggle-holder flex center-vertically">
-							<div class="toggle flex" ng-click="setUI('remember', 'boardLayout')" ng-class="{active : uiSettings.remember.boardLayout}"></div>
-							<small>Board layout <span ng-hide="uiSettings.remember.boardLayout">not</span> cached</small>
-						</div>
-					</li>
-				</ul>
 			</ul>
 		</nav>
 	</li>

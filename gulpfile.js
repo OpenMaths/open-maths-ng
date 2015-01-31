@@ -49,7 +49,7 @@ gulp.task("sass", function() {
 			loadPath: process.cwd() + "/www/assets/css/include",
 			style: "nested"
 		}))
-		.pipe(autoprefixer("last 20 version", "> 1%"))
+		.pipe(autoprefixer("last 8 version", "> 1%"))
 		.pipe(gulp.dest("www/assets/css"))
 		.pipe(rename({suffix: ".min"}))
 		.pipe(minifycss())
