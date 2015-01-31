@@ -1,11 +1,19 @@
 <!--Column and Row management-->
-<nav id="manage-column" class="flex column">
-	<a class="flex-1 add" href="#" ng-click="manageGrid('column', 'add')"></a>
-	<a class="flex-1 remove" href="#" ng-click="manageGrid('column', 'remove')"></a>
-</nav>
-<nav id="manage-row" class="flex">
-	<a class="flex-1 add" href="#" ng-click="manageGrid('row', 'add')"></a>
-	<a class="flex-1 center-vertically remove" href="#" ng-click="manageGrid('row', 'remove')"></a>
+<nav id="manage-grid" class="flex">
+	<ul class="flex align-left unstyled">
+		<li class="add" ng-click="manageGrid('row', 'add')">Add row</li>
+		<li class="remove" ng-click="manageGrid('row', 'remove')">Remove row</li>
+	</ul>
+	<div class="flex flex-1 center-horizontally">
+		<div class="toggle-holder flex center-vertically">
+			<div class="toggle flex" ng-click="setUI('remember', 'boardLayout')" ng-class="{active : uiSettings.remember.boardLayout}"></div>
+			<small>Remember Board layout</small>
+		</div>
+	</div>
+	<ul class="flex align-right unstyled">
+		<li class="add" href="#" ng-click="manageGrid('column', 'add')">Add column</li>
+		<li class="remove" href="#" ng-click="manageGrid('column', 'remove')">Remove column</li>
+	</ul>
 </nav>
 
 <div class="row" ng-repeat="row in grid">

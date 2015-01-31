@@ -162,6 +162,13 @@
 						font:
 							weight: 700
 
+				ul
+					ul.toggles
+						margin-top: $half-unit-layout
+						padding-top: $half-unit-layout
+						padding-bottom: $half-unit-layout
+						border-top: 1px solid $color-grey-200
+
 .dark,
 .nav-top-transparent
 	#nav-top
@@ -261,6 +268,10 @@
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_see-more-white.svg")
 
+				ul
+					ul.toggles
+						border-top-color: $color-grey-800 !important
+
 	&.nav-top-transparent
 		#nav-top
 			border-bottom: 0
@@ -281,3 +292,15 @@
 
 						header
 							color: $color-grey-500
+
+					ul.toggles
+						border-top: 0 !important
+
+						.toggle-holder
+							margin-left: auto
+
+							.toggle
+								border-color: white
+
+								&:before
+									background: white

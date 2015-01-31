@@ -9,7 +9,10 @@
 			pageDefaultWelcomeLabel: "dive",
 			uiSettingsDefault: {
 				theme: "light",
-				font: "umi-font-modern"
+				font: "umi-font-modern",
+				remember: {
+					boardLayout: true
+				}
 			}
 		})
 		.constant("magic", {
@@ -32,6 +35,21 @@
 
 		$scope.cssPath = magic.css;
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
+
+		$scope.setUI = function (type, value) {
+			switch (type) {
+				case "font":
+					$scope.uiSettings.font = value;
+					break;
+				case "theme":
+					$scope.uiSettings.theme = value;
+					break;
+				case "remember":
+					$scope.uiSettings.remember[value] = $scope.uiSettings.remember[value] ? false : true;
+			}
+
+			lStorage.set("uiSettings", $scope.uiSettings);
+		};
 
 		$scope.$watch(function () {
 			return $location.path();

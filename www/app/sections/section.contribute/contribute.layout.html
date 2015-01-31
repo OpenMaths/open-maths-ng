@@ -82,7 +82,7 @@
 
 		<label class="flex center-vertically button-holder">
 			<!--@TODO fix this issue (probably flexbox)-->
-			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.type.formal">
+			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.formal">
 				<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
 				<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
 			</div>
@@ -150,7 +150,7 @@
 			</label>
 
 			<!--Tags-->
-			<label for="tags" class="flex flex-item">
+			<label class="flex flex-item">
 				<p class="flex-2">
 					Tags
 					<small ng-class="{active : showInstructions == 'tags'}">{{ formInstructions.tags }}
