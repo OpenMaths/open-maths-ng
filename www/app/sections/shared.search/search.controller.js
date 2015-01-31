@@ -98,7 +98,8 @@
 			} else {
 				$timeout.cancel(makeSearchCall);
 
-				makeSearchCall = $timeout(function() {}, magicForSearch.keyboardDelay);
+				makeSearchCall = $timeout(function () {
+				}, magicForSearch.keyboardDelay);
 			}
 
 			makeSearchCall.then(function () {
@@ -185,6 +186,99 @@
 				document.getElementById(magicForSearch.simulateDivingDomId).style.backgroundPositionY = percentage;
 			}
 		};
+
+		$scope.nRemoveTag = function (id) {
+			delete $scope.autocompleteData[id];
+		};
+
+		$scope.nAutocomplete = function (index) {
+			var selectedItem = $scope.searchResults.data[index];
+
+			$scope.autocompleteData[selectedItem.id] = selectedItem.title;
+
+			$scope.searchTerm = "";
+			$scope.searchResults = "";
+
+			return false;
+		};
+
+		$scope.nConfirm = function (e) {
+			if (e.keyCode == magicForSearch.keyReturn) {
+				e.preventDefault();
+				return pressedReturn();
+			}
+		};
+
+		$scope.nSearch = function (e) {
+			if (e.keyCode == magicForSearch.keyUp || e.keyCode == magicForSearch.keyDown) {
+				e.preventDefault();
+				return pressedArrows(e.keyCode);
+			}
+
+			var term = $scope.searchTerm;
+			var termLength = term.length;
+
+			if (termLength < 1) {
+				$scope.searchResults = false;
+				return false;
+			} else {
+				$timeout.cancel(makeSearchCall);
+				makeSearchCall = $timeout(function () {
+				}, magicForSearch.keyboardDelay);
+			}
+
+			makeSearchCall.then(function () {
+				$http.get(magic.api + "search/" + term).success(function (data) {
+					logger.log("Listing results for term: " + term, "info");
+
+					if (data.length > 0) {
+						$scope.searchResults = {
+							"currentSelection": 0,
+							"data": data
+						};
+					} else {
+						$scope.searchResults = false;
+
+						notification.generate("No results found :-(", "info");
+					}
+				}).error(function (data) {
+					notification.generate("There was an error with the connection to our API.", "error", data);
+				});
+			});
+		};
+
+		function pressedArrows(key) {
+			if (!$scope.searchResults) {
+				return false;
+			}
+
+			var searchResultsCount = _.keys($scope.searchResults.data).length;
+			var searchResultsCurrentSelection = $scope.searchResults.currentSelection;
+
+			if (key == magicForSearch.keyUp && searchResultsCurrentSelection > 0) {
+				$scope.searchResults.currentSelection = searchResultsCurrentSelection - 1;
+			} else if (key == magicForSearch.keyDown && searchResultsCurrentSelection < (searchResultsCount - 1)) {
+				$scope.searchResults.currentSelection = searchResultsCurrentSelection + 1;
+			}
+
+			return false;
+		}
+
+		function pressedReturn() {
+			if (!$scope.searchResults) {
+				return false;
+			}
+
+			var searchResultsCurrentSelection = $scope.searchResults.currentSelection;
+			var selectedItem = $scope.searchResults.data[searchResultsCurrentSelection];
+
+			$scope.autocompleteData[selectedItem.id] = selectedItem.title;
+
+			$scope.searchTerm = "";
+			$scope.searchResults = "";
+
+			return false;
+		}
 	}
 
 })();
