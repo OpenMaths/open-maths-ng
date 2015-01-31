@@ -43,7 +43,7 @@
 			return cleanSearchVars();
 		};
 
-		$scope.nNavigate = function(e, dive) {
+		$scope.nNavigate = function (e, dive) {
 			if (e.keyCode == magicForSearch.keyReturn) {
 				e.preventDefault();
 
@@ -55,7 +55,7 @@
 			}
 		};
 
-		$scope.nSearch = function (e, dive) {
+		$scope.nSearch = function (dive) {
 			var term = $scope.searchTerm;
 			var termLength = term.length;
 
