@@ -1,6 +1,6 @@
 // Dependencies
 var gulp =
-	require("gulp"),
+		require("gulp"),
 	sass = require("gulp-ruby-sass"),
 	autoprefixer = require("gulp-autoprefixer"),
 	uglify = require("gulp-uglify"),
@@ -25,13 +25,13 @@ var server = express();
 gulp.task("test", function (done) {
 	karma.start({
 		configFile: process.cwd() + "/www/app/karma.conf.js"
-	});
+	}, done);
 });
 
-gulp.task("staticServer", function() {
+gulp.task("staticServer", function () {
 	server.use(express.static("www"));
-	server.all("/*", function(req, res) {
-		res.sendFile("index.html", { root: "www" });
+	server.all("/*", function (req, res) {
+		res.sendFile("index.html", {root: "www"});
 	});
 
 	server.listen(expressPort);
@@ -39,12 +39,12 @@ gulp.task("staticServer", function() {
 });
 
 // Compile SASS
-gulp.task("sass", function() {
+gulp.task("sass", function () {
 	gulp.src("www/assets/css/include/screen.sass")
 		.pipe(plumber({
 			errorHandler: onError
 		}))
-		.pipe(plumber({ errorHandler: onError }))
+		.pipe(plumber({errorHandler: onError}))
 		.pipe(sass({
 			loadPath: process.cwd() + "/www/assets/css/include",
 			style: "nested"
@@ -58,7 +58,7 @@ gulp.task("sass", function() {
 });
 
 // Concatenate Vendor
-gulp.task("concat-vendor", function() {
+gulp.task("concat-vendor", function () {
 	gulp.src("www/app/vendor/*.js")
 		.pipe(concat("vendor.js"))
 		.pipe(gulp.dest("www/app/build"))
@@ -66,7 +66,7 @@ gulp.task("concat-vendor", function() {
 });
 
 // Concat angular dependencies
-var ngConcat = function(name) {
+var ngConcat = function (name) {
 	gulp.src("www/app/" + name + "/**/*.js")
 		.pipe(concat(name + ".js"))
 		.pipe(ngAnnotate({
@@ -78,17 +78,17 @@ var ngConcat = function(name) {
 };
 
 // Concatenate Sections
-gulp.task("concat-sections", function() {
+gulp.task("concat-sections", function () {
 	ngConcat("sections");
 });
 
 // Concatenate Utilities
-gulp.task("concat-lodash", function() {
+gulp.task("concat-lodash", function () {
 	ngConcat("lodash");
 });
 
 // Concatenate all resources into a single omApp.js file
-gulp.task("concat-all", function() {
+gulp.task("concat-all", function () {
 	gulp.src([
 		"www/app/build/vendor.js",
 		"www/app/config.js",
@@ -102,16 +102,16 @@ gulp.task("concat-all", function() {
 });
 
 // Watch directories and execute assigned tasks
-gulp.task("watch", function() {
+gulp.task("watch", function () {
 	gulp.watch("www/app/vendor/*.js", ["concat-vendor"]);
 	gulp.watch("www/app/sections/**/*.js", ["concat-sections"]);
 	gulp.watch("www/app/lodash/*.js", ["concat-lodash"]);
-	gulp.watch("www/app/build/*.js", ["concat-all"]);
+	gulp.watch("www/app/build/*.js", ["concat-all", "test"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
 });
 
-gulp.task("default", function() {
+gulp.task("default", function () {
 	gulp.start("watch");
 	gulp.start("staticServer");
 });
