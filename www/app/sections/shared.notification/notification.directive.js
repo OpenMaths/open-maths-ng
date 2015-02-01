@@ -3,11 +3,14 @@
 
 	angular
 		.module("omApp")
-		.directive("notificationLayout", notificationDirective);
+		.directive("notificationLayout", notificationDirective)
+		.constant("magicForNotificationDirective", {
+			notificationDisappearTimeout: 2500
+		});
 
-	function notificationDirective($timeout, notification) {
+	function notificationDirective($timeout, notification, magicForNotificationDirective) {
 		var directive = {
-			restrict: "EA",
+			restrict: "E",
 			templateUrl: "app/sections/shared.notification/layout.html",
 			scope: {},
 			replace: true,
@@ -17,16 +20,13 @@
 		return directive;
 
 		function linker(scope) {
-			var notificationDisappearTimeout = 2500;
-
 			notification.subscribe(function (notificationData) {
 				scope.notification = notificationData;
 				scope.act = true;
 
-				// @TODO clear timeout
 				$timeout(function () {
 					scope.act = false;
-				}, notificationDisappearTimeout);
+				}, magicForNotificationDirective.notificationDisappearTimeout);
 			});
 		}
 	}

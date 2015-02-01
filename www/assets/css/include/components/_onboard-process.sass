@@ -1,0 +1,96 @@
+.onboarding-indicator
+	+border-radius(100%)
+	+transition(border .25s)
+
+	cursor: pointer
+	width: $double-half-unit-layout - rem(2px)
+	height: $double-half-unit-layout - rem(2px)
+	border: 1px solid rgba(255,255,255,.1)
+	position: absolute
+	left: 50%
+	top: 50%
+	margin: (-($double-unit-layout / 2)) 0 0 (-($double-unit-layout / 2))
+
+	&:before
+		+border-radius(100%)
+		+transition(background .25s)
+
+		content: ""
+		color: white
+		width: $half-unit-layout + rem(2px)
+		height: $half-unit-layout + rem(2px)
+		display: block
+		background: rgba(255,255,255,.18)
+
+	+hover
+		border-color: rgba(255,255,255,.6)
+
+		&:before
+			background: white
+
+	&.top
+		top: -($double-half-unit-layout)
+		margin-top: 0
+
+	&.bottom
+		bottom: -($double-half-unit-layout)
+		top: auto
+		margin-top: 0
+
+.onboarding-container
+	+z-index(pop-up)
+	+transition(opacity .45s)
+
+	opacity: 0
+	background: rgba(0,0,0,.6)
+	position: fixed
+	width: 100%
+	height: 100%
+	height: 100vh
+	left: 0
+	top: 0
+	overflow-y: scroll
+
+	&.active
+		opacity: 1
+
+	.pop-up
+		+border-radius($border-radius)
+		@extend .text-center
+
+		padding: $double-unit-layout
+		max-width: rem(500px)
+		color: rgba(255,255,255,.8)
+
+		.icon
+			display: block
+			height: $quadruple-unit-layout + $base-unit-layout
+			background:
+				image: url("#{$image-base}/icons/icon-set/icon-set_bulb-white.svg")
+				size: auto ($quadruple-unit-layout * 2)
+				repeat: no-repeat
+				position: center center
+
+		p
+			margin: $base-unit-layout 0 $double-unit-layout
+			line-height: 1.85
+
+			strong
+				color: white
+
+				&.heading
+					@extend .text-uppercase
+
+					padding-bottom: $double-half-unit-layout
+					display: block
+					font:
+						weight: 500
+						size: rem(22px)
+
+		button
+			background: transparent
+			padding: $base-unit-layout $double-unit-layout
+			margin: 0
+
+			+hover
+				+animation(pulse-small .5s)

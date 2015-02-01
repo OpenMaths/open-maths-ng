@@ -1,0 +1,10 @@
+<div ng-show="data.title && data.message" class="onboarding-container flex center-horizontally center-vertically" ng-class="{active : act}">
+	<div class="pop-up">
+		<i class="icon"></i>
+		<p>
+			<strong class="heading">{{ data.title }}</strong>
+			<span ng-bind-html="data.message"></span>
+		</p>
+		<button class="primary shaking" ng-click="hide()">OK, got it!</button>
+	</div>
+</div>
