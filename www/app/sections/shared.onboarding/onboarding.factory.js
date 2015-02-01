@@ -31,8 +31,12 @@
 			subscriptions.push(callback);
 		}
 
-		function generate(type) {
-			var data = {title: magicForOnboardingFactory[type].title, message: $sce.trustAsHtml(magicForOnboardingFactory[type].message)};
+		function generate(onboardingSection) {
+			var data = {
+				title: magicForOnboardingFactory[onboardingSection].title,
+				message: $sce.trustAsHtml(magicForOnboardingFactory[onboardingSection].message),
+				section: onboardingSection
+			};
 
 			_.forEach(subscriptions, function (callback) {
 				callback(data);

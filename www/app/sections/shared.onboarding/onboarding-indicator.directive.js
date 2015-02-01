@@ -17,8 +17,10 @@
 		return directive;
 
 		function linker(scope, element, attr) {
+			var section = attr.section;
+
 			scope.initOnboardingInfo = function() {
-				onboarding.generate(attr.section);
+				onboarding.generate(section);
 			};
 		}
 	}

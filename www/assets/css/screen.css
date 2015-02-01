@@ -1504,11 +1504,12 @@ noscript #warning {
 .onboarding-indicator {
   -o-border-radius: 100%;
   border-radius: 100%;
-  transition: border 0.25s;
+  transition: opacity 0.25s;
+  opacity: 0.75;
   cursor: pointer;
   width: 1.375rem;
   height: 1.375rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #6eb3c9;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1516,17 +1517,14 @@ noscript #warning {
   .onboarding-indicator:before {
     -o-border-radius: 100%;
     border-radius: 100%;
-    transition: background 0.25s;
     content: "";
     color: white;
     width: 0.625rem;
     height: 0.625rem;
     display: block;
-    background: rgba(255, 255, 255, 0.18); }
+    background: #6eb3c9; }
   .onboarding-indicator:hover, .onboarding-indicator:focus {
-    border-color: rgba(255, 255, 255, 0.6); }
-    .onboarding-indicator:hover:before, .onboarding-indicator:focus:before {
-      background: white; }
+    opacity: 1; }
   .onboarding-indicator.top {
     top: -1.5rem;
     margin-top: 0; }
@@ -1539,7 +1537,7 @@ noscript #warning {
   z-index: 8;
   transition: opacity 0.45s;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.85);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -1580,6 +1578,14 @@ noscript #warning {
         -webkit-animation: pulse-small 0.5s;
         -ms-animation: pulse-small 0.5s;
         animation: pulse-small 0.5s; }
+
+.dark.nav-top-transparent .onboarding-indicator,
+.nav-top-transparent.nav-top-transparent .onboarding-indicator {
+  opacity: 0.65; }
+  .dark.nav-top-transparent .onboarding-indicator:hover, .dark.nav-top-transparent .onboarding-indicator:focus,
+  .nav-top-transparent.nav-top-transparent .onboarding-indicator:hover,
+  .nav-top-transparent.nav-top-transparent .onboarding-indicator:focus {
+    opacity: 1; }
 
 .search-results > ul {
   list-style-type: none;

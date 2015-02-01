@@ -35,6 +35,7 @@
 
 		$scope.cssPath = magic.css;
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
+		$scope.onboarding = lStorage.get("onboarding") ? lStorage.get("onboarding") : {};
 
 		$scope.setUI = function (type, value) {
 			type = type.toLowerCase();

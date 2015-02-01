@@ -9,26 +9,34 @@
 			popUpDisappearTimeout: 500
 		});
 
-	function onboardingDirective($timeout, onboarding, magicForOnboardingDirective) {
+	function onboardingDirective($timeout, lStorage, onboarding, magicForOnboardingDirective) {
 		var directive = {
 			restrict: "E",
 			templateUrl: "app/sections/shared.onboarding/layout.html",
 			replace: true,
-			scope: {},
+			scope: {
+				onboarding: "=onboarding"
+			},
 			link: linker
 		};
 
 		return directive;
 
 		function linker(scope) {
-			onboarding.subscribe(function (popUpData) {
-				scope.data = popUpData;
+			onboarding.subscribe(function (onboardingData) {
+				scope.data = onboardingData;
 
 				$timeout(function () {
 					scope.act = true;
 				}, magicForOnboardingDirective.popUpAppearTimeout);
 
-				scope.hide = function() {
+				scope.hide = function () {
+					var onboardingCache = lStorage.get("onboarding") ? lStorage.get("onboarding") : {};
+
+					onboardingCache[onboardingData.section] = true;
+					scope.onboarding[onboardingData.section] = true;
+					lStorage.set("onboarding", onboardingCache);
+
 					scope.act = false;
 
 					$timeout(function () {
