@@ -1537,7 +1537,7 @@ noscript #warning {
   z-index: 8;
   transition: opacity 0.45s;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -1579,6 +1579,9 @@ noscript #warning {
         -ms-animation: pulse-small 0.5s;
         animation: pulse-small 0.5s; }
 
+.dark.nav-top-transparent .onboarding-container,
+.nav-top-transparent.nav-top-transparent .onboarding-container {
+  background: rgba(0, 0, 0, 0.6); }
 .dark.nav-top-transparent .onboarding-indicator,
 .nav-top-transparent.nav-top-transparent .onboarding-indicator {
   opacity: 0.65; }
