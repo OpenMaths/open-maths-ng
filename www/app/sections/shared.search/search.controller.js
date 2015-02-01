@@ -59,17 +59,14 @@
 			var term = $scope.searchTerm;
 			var termLength = term.length;
 
-			if (dive) {
-				simulateDiving(termLength);
-			}
+			dive ? simulateDiving(termLength) : "";
 
 			if (termLength < 1) {
 				$scope.searchResults = false;
 				return false;
 			} else {
 				$timeout.cancel(makeSearchCall);
-				makeSearchCall = $timeout(function () {
-				}, magicForSearch.keyboardDelay);
+				makeSearchCall = $timeout(function () {}, magicForSearch.keyboardDelay);
 			}
 
 			makeSearchCall.then(function () {

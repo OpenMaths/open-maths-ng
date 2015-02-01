@@ -26,7 +26,8 @@ describe("GlobalController", function () {
 			scope.description,
 			scope.cssPath,
 			scope.uiSettings,
-			scope.year
+			scope.year,
+			scope.onboarding
 		];
 
 		expect(magic.year).toEqual(year);
@@ -40,6 +41,8 @@ describe("GlobalController", function () {
 		_.map(toBeDefined, function (val) {
 			expect(val).toBeDefined()
 		});
+
+		expect(_.isObject(scope.onboarding)).toBe(true);
 	});
 
 	it("should set 'path', 'omUser', and 'gapiActive' variables and assign 'dive' to 'path' variable when changing url location", function () {

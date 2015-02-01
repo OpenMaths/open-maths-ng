@@ -1,4 +1,6 @@
 <form tabindex="0">
+	<onboarding-indicator title="What is this?" ng-hide="onboarding.dive" class="top" section="dive"></onboarding-indicator>
+
 	<input type="text" placeholder="Dive into..." class="unstyled" autofocus
 		   ng-change="nSearch(true)"
 		   ng-keydown="nNavigate($event, true)"

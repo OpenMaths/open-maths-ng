@@ -25,7 +25,7 @@
 			year: new Date().getFullYear()
 		});
 
-	function GlobalController($scope, $location, lStorage, sStorage, googleAnalytics, logger, magic, magicForGlobal) {
+	function GlobalController($scope, $location, lStorage, sStorage, googleAnalytics, onboarding, logger, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = magic.siteName;
@@ -35,6 +35,7 @@
 
 		$scope.cssPath = magic.css;
 		$scope.uiSettings = lStorage.get("uiSettings") ? lStorage.get("uiSettings") : magicForGlobal.uiSettingsDefault;
+		$scope.onboarding = lStorage.get("onboarding") ? lStorage.get("onboarding") : {};
 
 		$scope.setUI = function (type, value) {
 			type = type.toLowerCase();
