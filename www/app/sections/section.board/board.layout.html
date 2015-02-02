@@ -19,7 +19,7 @@
 
 <div class="row" ng-repeat="row in grid" id="row-{{ $index }}">
 	<resize-row class="resize-row" min-height="220" row-index="{{ $index }}">
-		<onboarding-indicator ng-hide="onboarding.resizeBoardRows" class="top" section="resizeBoardRows"></onboarding-indicator>
+		<onboarding-indicator ng-hide="onboarding.resizeBoardRows || $index !== 0" class="top" section="resizeBoardRows"></onboarding-indicator>
 	</resize-row>
 	<div class="column flex-1" ng-repeat="data in row">
 
