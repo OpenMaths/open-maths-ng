@@ -12,7 +12,7 @@
 
 <ul id="controls" class="flex center-vertically align-right">
 	<li class="drop-down" ng-click="dropDownSettings = !dropDownSettings">
-		<onboarding-indicator ng-hide="onboarding.settings" stop-event class="bottom" section="settings"></onboarding-indicator>
+		<onboarding-hotspot ng-hide="onboarding.settings" stop-event class="bottom" section="settings"></onboarding-hotspot>
 
 		<a id="settings" class="flex center-vertically" href="#" ng-class="{active : dropDownSettings}"></a>
 		<nav class="contextual-menu right" ng-show="dropDownSettings">
@@ -31,7 +31,7 @@
 		</nav>
 	</li>
 	<li class="drop-down" ng-show="gapiActive" ng-click="googleSignIn()">
-		<onboarding-indicator ng-hide="onboarding.contribute" stop-event class="bottom" section="contribute"></onboarding-indicator>
+		<onboarding-hotspot ng-hide="onboarding.contribute" stop-event class="bottom" section="contribute"></onboarding-hotspot>
 
 		<a id="user" class="flex center-vertically" href="#" ng-class="{logged : omUser}">
 			<span ng-show="omUser" class="om-user-image" ng-style="omUser.avatarStyle"></span>
