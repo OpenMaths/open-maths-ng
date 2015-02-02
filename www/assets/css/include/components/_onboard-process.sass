@@ -10,7 +10,7 @@
 	position: absolute
 	left: 50%
 	top: 50%
-	margin: (-($double-unit-layout / 2)) 0 0 (-($double-unit-layout / 2))
+	margin: (-($double-half-unit-layout - rem(2px)) / 2) 0 0 (-($double-half-unit-layout - rem(2px)) / 2)
 
 	&:before
 		+border-radius(100%)
@@ -26,18 +26,28 @@
 		opacity: 1
 
 	&.top
-		top: -($double-half-unit-layout)
+		top: -($double-half-unit-layout - rem(2px))
 		margin-top: 0
 
 	&.bottom
-		bottom: -($double-half-unit-layout)
+		bottom: -($double-half-unit-layout - rem(2px))
 		top: auto
 		margin-top: 0
+
+	&.right
+		margin-left: 0
+		left: auto
+		right: -($double-unit-layout)
+
+	&.left
+		margin-left: 0
+		left: -($double-unit-layout)
 
 .onboarding-container
 	+z-index(pop-up)
 	+transition(opacity .45s)
 
+	cursor: pointer
 	opacity: 0
 	background: rgba(0, 0, 0, .9)
 	position: fixed
@@ -55,6 +65,7 @@
 		+border-radius($border-radius)
 		@extend .text-center
 
+		cursor: default
 		padding: $double-unit-layout
 		max-width: rem(500px)
 		color: rgba(255, 255, 255, .8)
@@ -67,6 +78,27 @@
 				size: auto ($quadruple-unit-layout * 2)
 				repeat: no-repeat
 				position: center center
+
+			&.dive
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_dive-white.svg")
+
+			&.contribute
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_contribute-white.svg")
+
+			&.settings
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_gear-white.svg")
+
+			// @NOTE I know, I know, camelCase
+			&.manageBoard
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_board-white.svg")
+
+			&.resizeBoardRows
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_expand-white.svg")
 
 		p
 			margin: $base-unit-layout 0 $double-unit-layout
@@ -94,10 +126,10 @@
 
 .dark,
 .nav-top-transparent
-	&.nav-top-transparent
-		.onboarding-container
-			background: rgba(0, 0, 0, .6)
+	.onboarding-container
+		background: rgba(0, 0, 0, .65)
 
+	&.nav-top-transparent
 		.onboarding-indicator
 			opacity: .65
 
