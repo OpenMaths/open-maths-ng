@@ -30,12 +30,14 @@
 					scope.act = true;
 				}, magicForOnboardingDirective.popUpAppearTimeout);
 
-				scope.hide = function () {
-					var onboardingCache = lStorage.get("onboarding") ? lStorage.get("onboarding") : {};
+				scope.hide = function (definite) {
+					if (definite) {
+						var onboardingCache = lStorage.get("onboarding") ? lStorage.get("onboarding") : {};
 
-					onboardingCache[onboardingData.section] = true;
-					scope.onboarding[onboardingData.section] = true;
-					lStorage.set("onboarding", onboardingCache);
+						onboardingCache[onboardingData.section] = true;
+						scope.onboarding[onboardingData.section] = true;
+						lStorage.set("onboarding", onboardingCache);
+					}
 
 					scope.act = false;
 

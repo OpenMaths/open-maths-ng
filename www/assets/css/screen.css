@@ -1196,6 +1196,7 @@ dl {
   opacity: 0;
   background: #1b2424; }
   #manage-grid .toggle-holder {
+    position: relative;
     color: #7e9e9e; }
     #manage-grid .toggle-holder small {
       font-size: 0.75rem; }
@@ -1270,6 +1271,9 @@ dl {
       padding: 0 0.5rem;
       height: 100%;
       font-size: 0.9375rem; }
+      #nav-top #nav > li .onboarding-indicator,
+      #nav-top #controls > li .onboarding-indicator {
+        margin-left: -0.875rem; }
       #nav-top #nav > li > a,
       #nav-top #controls > li > a {
         height: 100%;
@@ -1513,7 +1517,7 @@ noscript #warning {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin: -1rem 0 0 -1rem; }
+  margin: -0.6875rem 0 0 -0.6875rem; }
   .onboarding-indicator:before {
     -o-border-radius: 100%;
     border-radius: 100%;
@@ -1526,16 +1530,24 @@ noscript #warning {
   .onboarding-indicator:hover, .onboarding-indicator:focus {
     opacity: 1; }
   .onboarding-indicator.top {
-    top: -1.5rem;
+    top: -1.375rem;
     margin-top: 0; }
   .onboarding-indicator.bottom {
-    bottom: -1.5rem;
+    bottom: -1.375rem;
     top: auto;
     margin-top: 0; }
+  .onboarding-indicator.right {
+    margin-left: 0;
+    left: auto;
+    right: -2rem; }
+  .onboarding-indicator.left {
+    margin-left: 0;
+    left: -2rem; }
 
 .onboarding-container {
   z-index: 8;
   transition: opacity 0.45s;
+  cursor: pointer;
   opacity: 0;
   background: rgba(0, 0, 0, 0.9);
   position: fixed;
@@ -1550,6 +1562,7 @@ noscript #warning {
   .onboarding-container .pop-up {
     -o-border-radius: 4px;
     border-radius: 4px;
+    cursor: default;
     padding: 2rem;
     max-width: 31.25rem;
     color: rgba(255, 255, 255, 0.8); }
@@ -1560,6 +1573,16 @@ noscript #warning {
       background-size: auto 8rem;
       background-repeat: no-repeat;
       background-position: center center; }
+      .onboarding-container .pop-up .icon.dive {
+        background-image: url("/assets/images/icons/icon-set/icon-set_dive-white.svg"); }
+      .onboarding-container .pop-up .icon.contribute {
+        background-image: url("/assets/images/icons/icon-set/icon-set_contribute-white.svg"); }
+      .onboarding-container .pop-up .icon.settings {
+        background-image: url("/assets/images/icons/icon-set/icon-set_gear-white.svg"); }
+      .onboarding-container .pop-up .icon.manageBoard {
+        background-image: url("/assets/images/icons/icon-set/icon-set_board-white.svg"); }
+      .onboarding-container .pop-up .icon.resizeBoardRows {
+        background-image: url("/assets/images/icons/icon-set/icon-set_expand-white.svg"); }
     .onboarding-container .pop-up p {
       margin: 1rem 0 2rem;
       line-height: 1.85; }
@@ -1579,8 +1602,8 @@ noscript #warning {
         -ms-animation: pulse-small 0.5s;
         animation: pulse-small 0.5s; }
 
-.dark.nav-top-transparent .onboarding-container,
-.nav-top-transparent.nav-top-transparent .onboarding-container {
+.dark .onboarding-container,
+.nav-top-transparent .onboarding-container {
   background: rgba(0, 0, 0, 0.6); }
 .dark.nav-top-transparent .onboarding-indicator,
 .nav-top-transparent.nav-top-transparent .onboarding-indicator {

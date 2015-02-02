@@ -1,10 +1,10 @@
-<div ng-show="data.title && data.message" class="onboarding-container flex center-horizontally center-vertically" ng-class="{active : act}">
-	<div class="pop-up">
-		<i class="icon"></i>
+<div ng-click="hide(false)" ng-show="data.title && data.message" class="onboarding-container flex center-horizontally center-vertically" ng-class="{active : act}">
+	<div stop-event class="pop-up">
+		<i class="icon" ng-class="data.section"></i>
 		<p>
 			<strong class="heading">{{ data.title }}</strong>
 			<span ng-bind-html="data.message"></span>
 		</p>
-		<button class="secondary" ng-click="hide()">OK, got it!</button>
+		<button class="secondary" ng-click="hide(true)">OK, got it!</button>
 	</div>
 </div>
