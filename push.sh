@@ -25,7 +25,7 @@ select yn in "Yes" "No"; do
 		git commit -m "${1}"
 		git push origin ${branch_name}
 
-		git push -u bitbucket --all
+		git push bitbucket ${branch_name}
 
 		break;;
         No )
