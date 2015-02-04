@@ -24,7 +24,9 @@ select yn in "Yes" "No"; do
 		git add -A
 		git commit -m "${1}"
 		git push origin ${branch_name}
-		
+
+		git push -u bitbucket --all
+
 		break;;
         No )
 		echo "Ok, maybe next time :-)"
