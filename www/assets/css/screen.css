@@ -1267,8 +1267,8 @@ dl {
       padding: 0 0.5rem;
       height: 100%;
       font-size: 0.9375rem; }
-      #nav-top #nav > li .onboarding-indicator,
-      #nav-top #controls > li .onboarding-indicator {
+      #nav-top #nav > li .onboarding-hotspot,
+      #nav-top #controls > li .onboarding-hotspot {
         margin-left: -0.875rem; }
       #nav-top #nav > li > a,
       #nav-top #controls > li > a {
@@ -1929,7 +1929,7 @@ body.dark {
     width: 100%;
     height: 0.75rem;
     cursor: row-resize !important; }
-    .page-board .row .resize-row .onboarding-indicator {
+    .page-board .row .resize-row .onboarding-hotspot {
       top: 0; }
   .page-board .row .column {
     z-index: 3;
