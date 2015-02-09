@@ -1267,8 +1267,8 @@ dl {
       padding: 0 0.5rem;
       height: 100%;
       font-size: 0.9375rem; }
-      #nav-top #nav > li .onboarding-indicator,
-      #nav-top #controls > li .onboarding-indicator {
+      #nav-top #nav > li .onboarding-hotspot,
+      #nav-top #controls > li .onboarding-hotspot {
         margin-left: -0.875rem; }
       #nav-top #nav > li > a,
       #nav-top #controls > li > a {
@@ -1501,7 +1501,7 @@ noscript #warning {
   .notification.active {
     top: 0; }
 
-.onboarding-indicator {
+.onboarding-hotspot {
   -o-border-radius: 100%;
   border-radius: 100%;
   transition: opacity 0.25s;
@@ -1514,7 +1514,7 @@ noscript #warning {
   left: 50%;
   top: 50%;
   margin: -0.6875rem 0 0 -0.6875rem; }
-  .onboarding-indicator:before {
+  .onboarding-hotspot:before {
     -o-border-radius: 100%;
     border-radius: 100%;
     content: "";
@@ -1523,20 +1523,20 @@ noscript #warning {
     height: 0.625rem;
     display: block;
     background: #6eb3c9; }
-  .onboarding-indicator:hover, .onboarding-indicator:focus {
+  .onboarding-hotspot:hover, .onboarding-hotspot:focus {
     opacity: 1; }
-  .onboarding-indicator.top {
+  .onboarding-hotspot.top {
     top: -1.375rem;
     margin-top: 0; }
-  .onboarding-indicator.bottom {
+  .onboarding-hotspot.bottom {
     bottom: -1.375rem;
     top: auto;
     margin-top: 0; }
-  .onboarding-indicator.right {
+  .onboarding-hotspot.right {
     margin-left: 0;
     left: auto;
     right: -2rem; }
-  .onboarding-indicator.left {
+  .onboarding-hotspot.left {
     margin-left: 0;
     left: -2rem; }
 
@@ -1601,12 +1601,12 @@ noscript #warning {
 .dark .onboarding-container,
 .nav-top-transparent .onboarding-container {
   background: rgba(0, 0, 0, 0.65); }
-.dark.nav-top-transparent .onboarding-indicator,
-.nav-top-transparent.nav-top-transparent .onboarding-indicator {
+.dark.nav-top-transparent .onboarding-hotspot,
+.nav-top-transparent.nav-top-transparent .onboarding-hotspot {
   opacity: 0.65; }
-  .dark.nav-top-transparent .onboarding-indicator:hover, .dark.nav-top-transparent .onboarding-indicator:focus,
-  .nav-top-transparent.nav-top-transparent .onboarding-indicator:hover,
-  .nav-top-transparent.nav-top-transparent .onboarding-indicator:focus {
+  .dark.nav-top-transparent .onboarding-hotspot:hover, .dark.nav-top-transparent .onboarding-hotspot:focus,
+  .nav-top-transparent.nav-top-transparent .onboarding-hotspot:hover,
+  .nav-top-transparent.nav-top-transparent .onboarding-hotspot:focus {
     opacity: 1; }
 
 .search-results > ul {
@@ -1929,7 +1929,7 @@ body.dark {
     width: 100%;
     height: 0.75rem;
     cursor: row-resize !important; }
-    .page-board .row .resize-row .onboarding-indicator {
+    .page-board .row .resize-row .onboarding-hotspot {
       top: 0; }
   .page-board .row .column {
     z-index: 3;

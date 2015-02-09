@@ -10,14 +10,16 @@
 		$routeProvider
 			.when("/", {
 				templateUrl: _.returnLayout("dive"),
-				controller: "DiveController",
-				controllerAs: "vm"
+				controller: "DiveController"
 			}).when("/board/:uriFriendlyTitle?", {
 				templateUrl: _.returnLayout("board"),
 				controller: "BoardController"
 			}).when("/contribute", {
 				templateUrl: _.returnLayout("contribute"),
 				controller: "ContributeController"
+			}).when("/edit/:umiID?", {
+				templateUrl: _.returnLayout("edit"),
+				controller: "EditController"
 			});
 
 		$locationProvider.html5Mode(true);

@@ -1,7 +1,7 @@
 <form tabindex="0">
-	<onboarding-indicator ng-hide="onboarding.dive" class="top" section="dive"></onboarding-indicator>
+	<onboarding-hotspot ng-hide="onboarding.dive" class="top" section="dive"></onboarding-hotspot>
 
-	<input type="text" placeholder="Dive into..." class="unstyled" autofocus
+	<input type="text" placeholder="Type here to dive in..." class="unstyled" autofocus
 		   ng-change="nSearch(true)"
 		   ng-keydown="nNavigate($event, true)"
 		   ng-model="searchTerm">

@@ -3,9 +3,9 @@
 
 	angular
 		.module("omApp")
-		.controller("ContributeController", ContributeController)
-		.constant("magicForContribute", {
-			pageTitle: "Contribute",
+		.controller("EditController", EditController)
+		.constant("magicForEdit", {
+			pageTitle: "Edit",
 			pageTransparentNav: false,
 			parseContentTimeout: 2000,
 			parseContentProgressTimeout: 750,
@@ -44,11 +44,12 @@
 			]
 		});
 
-	function ContributeController($scope, $http, $timeout, logger, notification, userLevel, magic, magicForContribute) {
-		userLevel.check();
+	function EditController($scope, $http, $timeout, notification, userLevel, magic, magicForContribute) {
+		//userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
 		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
+
 
 		$scope.createUmiForm = {
 			umiType: "",
@@ -123,7 +124,8 @@
 				tags: createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
 			};
 
-			logger.log(dispatchCreateUmi, "info");
+			console.log(dispatchCreateUmi);
+			return false;
 
 			$scope.contributeData = dispatchCreateUmi;
 

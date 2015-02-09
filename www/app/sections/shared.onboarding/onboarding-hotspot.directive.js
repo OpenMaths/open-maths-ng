@@ -3,12 +3,12 @@
 
 	angular
 		.module("omApp")
-		.directive("onboardingIndicator", onboardingIndicatorDirective);
+		.directive("onboardingHotspot", onboardingHotspotDirective);
 
-	function onboardingIndicatorDirective(onboarding) {
+	function onboardingHotspotDirective(onboarding) {
 		var directive = {
 			restrict: "E",
-			templateUrl: "app/sections/shared.onboarding/onboarding-indicator.layout.html",
+			templateUrl: "app/sections/shared.onboarding/onboarding-hotspot.layout.html",
 			replace: true,
 			scope: {},
 			link: linker

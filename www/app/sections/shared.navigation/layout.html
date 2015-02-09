@@ -1,5 +1,4 @@
 <ul id="nav" class="flex center-vertically align-left">
-	<!--@TODO automate this!!-->
 	<li><a id="dive" class="flex center-vertically" ng-class="{active : path == 'dive'}" href="/">Dive</a></li>
 	<li ng-click="accessBoard()"><a id="board" class="flex center-vertically" ng-class="{active : path == 'board'}">Board</a></li>
 	<li ng-click="accessUserLevel('contribute')"><a id="contribute" class="flex center-vertically" ng-class="{active : path == 'contribute'}">Contribute</a></li>
@@ -12,7 +11,7 @@
 
 <ul id="controls" class="flex center-vertically align-right">
 	<li class="drop-down" ng-click="dropDownSettings = !dropDownSettings">
-		<onboarding-indicator ng-hide="onboarding.settings" stop-event class="bottom" section="settings"></onboarding-indicator>
+		<onboarding-hotspot ng-hide="onboarding.settings" stop-event class="bottom" section="settings"></onboarding-hotspot>
 
 		<a id="settings" class="flex center-vertically" href="#" ng-class="{active : dropDownSettings}"></a>
 		<nav class="contextual-menu right" ng-show="dropDownSettings">
@@ -31,7 +30,7 @@
 		</nav>
 	</li>
 	<li class="drop-down" ng-show="gapiActive" ng-click="googleSignIn()">
-		<onboarding-indicator ng-hide="onboarding.contribute" stop-event class="bottom" section="contribute"></onboarding-indicator>
+		<onboarding-hotspot ng-hide="onboarding.contribute" stop-event class="bottom" section="contribute"></onboarding-hotspot>
 
 		<a id="user" class="flex center-vertically" href="#" ng-class="{logged : omUser}">
 			<span ng-show="omUser" class="om-user-image" ng-style="omUser.avatarStyle"></span>
