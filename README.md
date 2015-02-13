@@ -1,3 +1,5 @@
+[![Stack Share](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/openmaths/openmaths)
+
 # OpenMaths
 
 The way Mathematics should be done...
