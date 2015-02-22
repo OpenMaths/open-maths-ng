@@ -44,6 +44,50 @@
 			.full-screen
 				opacity: 1
 
+	.voting
+		+z-index(voting)
+
+		position: absolute
+		width: 100%
+		height: $double-unit-layout
+		background: white
+		bottom: 0
+		left: 0
+
+		ul
+			li
+				cursor: pointer
+				padding: $base-unit-layout $base-unit-layout $base-unit-layout ($double-unit-layout + $half-unit-layout)
+				color: $color-grey-500
+				font:
+					size: rem(12px)
+				background:
+					image: url("#{$image-base}/icons/icon-set/icon-set_up-dark.svg")
+					size: $triple-unit-layout - $half-unit-layout
+					position: left center
+					repeat: no-repeat
+
+				+hover
+					color: white
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_up-white.svg")
+
+				&.downvote
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_down-dark.svg")
+
+					+hover
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_down-white.svg")
+
+				&.approve
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_tick-dark.svg")
+
+					+hover
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+
 	.content-holder
 		flex: 1
 		display: flex

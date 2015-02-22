@@ -23,12 +23,22 @@
 	</resize-row>
 	<div class="column flex-1" ng-repeat="data in row">
 
-		<expand-umi id="1" board="board"></expand-umi>
+		<!--<expand-umi id="1" board="board"></expand-umi>-->
 
 		<!--Unit of Mathematical Information-->
 		<div class="umi {{ data.targetClasses }}"
 			 ng-class="{'fade-in' : fadeInUmi}"
 			 ng-hide="!data.htmlContent">
+			<div class="voting flex center-vertically">
+				<ul class="flex align-left unstyled">
+					<li class="upvote" ng-click="manageGrid('row', 'add')">Upvote</li>
+					<li class="downvote" ng-click="manageGrid('row', 'remove')">Downvote</li>
+				</ul>
+
+				<ul class="flex align-right unstyled">
+					<li class="approve" ng-click="manageGrid('row', 'add')">Approve</li>
+				</ul>
+			</div>
 			<div class="content-holder">
 				<div class="title flex center-vertically">
 					<!--@FIXME This should only be displayed if a user is signed in!!-->

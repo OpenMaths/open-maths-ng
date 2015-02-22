@@ -17,8 +17,8 @@ $column-width: 100% / $column-numbers
 		flex-wrap: wrap
 		> .flex-item
 			width: 100% / $i
-			padding: 0 $base-unit-layout // Column gutters. Using padding as margin doens't work with % based widths.
-			margin-bottom: $base-unit-layout
+			//padding: 0 $base-unit-layout // Column gutters. Using padding as margin doens't work with % based widths.
+			//margin-bottom: $base-unit-layout
 
 // Creates a flex container. Negatives margins added to align child elements to side of container.
 .flex-container,
@@ -26,8 +26,8 @@ $column-width: 100% / $column-numbers
 .flex-row,
 [class^="flex-grid"]
 	display: flex
-	margin-left: -($base-unit-layout)
-	margin-right: -($base-unit-layout)
+	//margin-left: -($base-unit-layout)
+	//margin-right: -($base-unit-layout)
 
 	&.gutter-half
 		margin-left: -($half-unit-layout)
