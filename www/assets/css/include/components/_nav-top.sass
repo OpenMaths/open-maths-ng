@@ -1,4 +1,5 @@
-#nav-top
+#nav-top,
+#nav-top-customer-facing
 	height: $quadruple-unit-layout
 	border-bottom: 1px solid $color-grey-200
 	padding: 0 $half-unit-layout
@@ -165,6 +166,16 @@
 						font:
 							weight: 700
 
+	&#nav-top-customer-facing
+		position: fixed
+		width: 100%
+		
+		#logo-nav-top
+			position: relative
+			left: auto
+			top: auto
+			margin: 0
+
 .dark,
 .nav-top-transparent
 	#nav-top
@@ -265,7 +276,8 @@
 									image: url("#{$image-base}/icons/icon-set/icon-set_see-more-white.svg")
 
 	&.nav-top-transparent
-		#nav-top
+		#nav-top,
+		#nav-top-customer-facing
 			border-bottom: 0
 
 			#logo-nav-top

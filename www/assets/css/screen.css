@@ -745,71 +745,107 @@ button,
     color: #d5e0e0; }
   input.unstyled, #nav-top input#nav,
   #nav-top input#controls,
+  #nav-top-customer-facing input#nav,
+  #nav-top-customer-facing input#controls,
   select.unstyled,
   #nav-top select#nav,
   #nav-top select#controls,
+  #nav-top-customer-facing select#nav,
+  #nav-top-customer-facing select#controls,
   textarea.unstyled,
   #nav-top textarea#nav,
   #nav-top textarea#controls,
+  #nav-top-customer-facing textarea#nav,
+  #nav-top-customer-facing textarea#controls,
   button.unstyled,
   #nav-top button#nav,
   #nav-top button#controls,
+  #nav-top-customer-facing button#nav,
+  #nav-top-customer-facing button#controls,
   .button.unstyled,
   .drop-down .contextual-menu ul.button,
   #nav-top .button#nav,
   #nav-top .button#controls,
+  #nav-top-customer-facing .button#nav,
+  #nav-top-customer-facing .button#controls,
   .page-contribute .progress ul.button,
   .page-contribute .controls ul.button,
   .input.unstyled,
   .drop-down .contextual-menu ul.input,
   #nav-top .input#nav,
   #nav-top .input#controls,
+  #nav-top-customer-facing .input#nav,
+  #nav-top-customer-facing .input#controls,
   .page-contribute .progress ul.input,
   .page-contribute .controls ul.input {
     border: 0; }
     input.unstyled:hover, #nav-top input#nav:hover,
-    #nav-top input#controls:hover, input.unstyled:focus, #nav-top input#nav:focus,
+    #nav-top input#controls:hover,
+    #nav-top-customer-facing input#nav:hover,
+    #nav-top-customer-facing input#controls:hover, input.unstyled:focus, #nav-top input#nav:focus,
     #nav-top input#controls:focus,
+    #nav-top-customer-facing input#nav:focus,
+    #nav-top-customer-facing input#controls:focus,
     select.unstyled:hover,
     #nav-top select#nav:hover,
     #nav-top select#controls:hover,
+    #nav-top-customer-facing select#nav:hover,
+    #nav-top-customer-facing select#controls:hover,
     select.unstyled:focus,
     #nav-top select#nav:focus,
     #nav-top select#controls:focus,
+    #nav-top-customer-facing select#nav:focus,
+    #nav-top-customer-facing select#controls:focus,
     textarea.unstyled:hover,
     #nav-top textarea#nav:hover,
     #nav-top textarea#controls:hover,
+    #nav-top-customer-facing textarea#nav:hover,
+    #nav-top-customer-facing textarea#controls:hover,
     textarea.unstyled:focus,
     #nav-top textarea#nav:focus,
     #nav-top textarea#controls:focus,
+    #nav-top-customer-facing textarea#nav:focus,
+    #nav-top-customer-facing textarea#controls:focus,
     button.unstyled:hover,
     #nav-top button#nav:hover,
     #nav-top button#controls:hover,
+    #nav-top-customer-facing button#nav:hover,
+    #nav-top-customer-facing button#controls:hover,
     button.unstyled:focus,
     #nav-top button#nav:focus,
     #nav-top button#controls:focus,
+    #nav-top-customer-facing button#nav:focus,
+    #nav-top-customer-facing button#controls:focus,
     .button.unstyled:hover,
     .drop-down .contextual-menu ul.button:hover,
     #nav-top .button#nav:hover,
     #nav-top .button#controls:hover,
+    #nav-top-customer-facing .button#nav:hover,
+    #nav-top-customer-facing .button#controls:hover,
     .page-contribute .progress ul.button:hover,
     .page-contribute .controls ul.button:hover,
     .button.unstyled:focus,
     .drop-down .contextual-menu ul.button:focus,
     #nav-top .button#nav:focus,
     #nav-top .button#controls:focus,
+    #nav-top-customer-facing .button#nav:focus,
+    #nav-top-customer-facing .button#controls:focus,
     .page-contribute .progress ul.button:focus,
     .page-contribute .controls ul.button:focus,
     .input.unstyled:hover,
     .drop-down .contextual-menu ul.input:hover,
     #nav-top .input#nav:hover,
     #nav-top .input#controls:hover,
+    #nav-top-customer-facing .input#nav:hover,
+    #nav-top-customer-facing .input#controls:hover,
     .page-contribute .progress ul.input:hover,
     .page-contribute .controls ul.input:hover,
     .input.unstyled:focus,
     .drop-down .contextual-menu ul.input:focus,
     #nav-top .input#nav:focus,
     #nav-top .input#controls:focus,
+    #nav-top-customer-facing .input#nav:focus,
+    #nav-top-customer-facing .input#controls:focus,
     .page-contribute .progress ul.input:focus,
     .page-contribute .controls ul.input:focus {
       box-shadow: none;
@@ -1093,8 +1129,12 @@ ul, ol {
   ul:last-child, ol:last-child {
     margin-bottom: 0; }
   ul.unstyled, .drop-down .contextual-menu ul, #nav-top ul#nav,
-  #nav-top ul#controls, .page-contribute .progress ul, .page-contribute .controls ul, ol.unstyled, #nav-top ol#nav,
-  #nav-top ol#controls {
+  #nav-top ul#controls,
+  #nav-top-customer-facing ul#nav,
+  #nav-top-customer-facing ul#controls, .page-contribute .progress ul, .page-contribute .controls ul, ol.unstyled, #nav-top ol#nav,
+  #nav-top ol#controls,
+  #nav-top-customer-facing ol#nav,
+  #nav-top-customer-facing ol#controls {
     margin: 0;
     padding: 0;
     list-style: none; }
@@ -1239,12 +1279,14 @@ dl {
 .MathJax_Display {
   text-align: left !important; }
 
-#nav-top {
+#nav-top,
+#nav-top-customer-facing {
   height: 4rem;
   border-bottom: 1px solid #d5e0e0;
   padding: 0 0.5rem;
   position: relative; }
-  #nav-top #logo-nav-top {
+  #nav-top #logo-nav-top,
+  #nav-top-customer-facing #logo-nav-top {
     position: absolute;
     width: 4rem;
     height: 4rem;
@@ -1257,33 +1299,48 @@ dl {
     background-repeat: no-repeat;
     background-position: center center;
     background-color: transparent; }
-    #nav-top #logo-nav-top strong {
+    #nav-top #logo-nav-top strong,
+    #nav-top-customer-facing #logo-nav-top strong {
       opacity: 0; }
   #nav-top #nav,
-  #nav-top #controls {
+  #nav-top #controls,
+  #nav-top-customer-facing #nav,
+  #nav-top-customer-facing #controls {
     height: 100%; }
     #nav-top #nav > li,
-    #nav-top #controls > li {
+    #nav-top #controls > li,
+    #nav-top-customer-facing #nav > li,
+    #nav-top-customer-facing #controls > li {
       padding: 0 0.5rem;
       height: 100%;
       font-size: 0.9375rem; }
       #nav-top #nav > li .onboarding-hotspot,
-      #nav-top #controls > li .onboarding-hotspot {
+      #nav-top #controls > li .onboarding-hotspot,
+      #nav-top-customer-facing #nav > li .onboarding-hotspot,
+      #nav-top-customer-facing #controls > li .onboarding-hotspot {
         margin-left: -0.875rem; }
       #nav-top #nav > li > a,
-      #nav-top #controls > li > a {
+      #nav-top #controls > li > a,
+      #nav-top-customer-facing #nav > li > a,
+      #nav-top-customer-facing #controls > li > a {
         height: 100%;
         position: relative;
         padding: 0 0 0 2.5rem;
         color: #b8caca;
         text-decoration: none; }
         #nav-top #nav > li > a.active,
-        #nav-top #controls > li > a.active {
+        #nav-top #controls > li > a.active,
+        #nav-top-customer-facing #nav > li > a.active,
+        #nav-top-customer-facing #controls > li > a.active {
           color: #1b2424; }
         #nav-top #nav > li > a:before,
         #nav-top #nav > li > a > span,
         #nav-top #controls > li > a:before,
-        #nav-top #controls > li > a > span {
+        #nav-top #controls > li > a > span,
+        #nav-top-customer-facing #nav > li > a:before,
+        #nav-top-customer-facing #nav > li > a > span,
+        #nav-top-customer-facing #controls > li > a:before,
+        #nav-top-customer-facing #controls > li > a > span {
           content: "";
           width: 2rem;
           height: 2rem;
@@ -1297,69 +1354,119 @@ dl {
           background-position: center center;
           background-color: transparent; }
         #nav-top #nav > li > a#board:before,
-        #nav-top #controls > li > a#board:before {
+        #nav-top #controls > li > a#board:before,
+        #nav-top-customer-facing #nav > li > a#board:before,
+        #nav-top-customer-facing #controls > li > a#board:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_board-grey.svg"); }
         #nav-top #nav > li > a#board.active:before,
-        #nav-top #controls > li > a#board.active:before {
+        #nav-top #controls > li > a#board.active:before,
+        #nav-top-customer-facing #nav > li > a#board.active:before,
+        #nav-top-customer-facing #controls > li > a#board.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_board.svg"); }
         #nav-top #nav > li > a#contribute:before,
-        #nav-top #controls > li > a#contribute:before {
+        #nav-top #controls > li > a#contribute:before,
+        #nav-top-customer-facing #nav > li > a#contribute:before,
+        #nav-top-customer-facing #controls > li > a#contribute:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_contribute-grey.svg"); }
         #nav-top #nav > li > a#contribute.active:before,
-        #nav-top #controls > li > a#contribute.active:before {
+        #nav-top #controls > li > a#contribute.active:before,
+        #nav-top-customer-facing #nav > li > a#contribute.active:before,
+        #nav-top-customer-facing #controls > li > a#contribute.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_contribute.svg"); }
         #nav-top #nav > li > a#dive:before,
-        #nav-top #controls > li > a#dive:before {
+        #nav-top #controls > li > a#dive:before,
+        #nav-top-customer-facing #nav > li > a#dive:before,
+        #nav-top-customer-facing #controls > li > a#dive:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_dive-grey.svg");
           background-size: 175%; }
         #nav-top #nav > li > a#dive.active:before,
-        #nav-top #controls > li > a#dive.active:before {
+        #nav-top #controls > li > a#dive.active:before,
+        #nav-top-customer-facing #nav > li > a#dive.active:before,
+        #nav-top-customer-facing #controls > li > a#dive.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_dive.svg"); }
         #nav-top #nav > li > a#features:before,
-        #nav-top #controls > li > a#features:before {
+        #nav-top #controls > li > a#features:before,
+        #nav-top-customer-facing #nav > li > a#features:before,
+        #nav-top-customer-facing #controls > li > a#features:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_features-grey.svg"); }
         #nav-top #nav > li > a#features.active:before,
-        #nav-top #controls > li > a#features.active:before {
+        #nav-top #controls > li > a#features.active:before,
+        #nav-top-customer-facing #nav > li > a#features.active:before,
+        #nav-top-customer-facing #controls > li > a#features.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_features.svg"); }
         #nav-top #nav > li > a#settings:before,
-        #nav-top #controls > li > a#settings:before {
+        #nav-top #controls > li > a#settings:before,
+        #nav-top-customer-facing #nav > li > a#settings:before,
+        #nav-top-customer-facing #controls > li > a#settings:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_settings-grey.svg"); }
         #nav-top #nav > li > a#settings.active:before,
-        #nav-top #controls > li > a#settings.active:before {
+        #nav-top #controls > li > a#settings.active:before,
+        #nav-top-customer-facing #nav > li > a#settings.active:before,
+        #nav-top-customer-facing #controls > li > a#settings.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_settings.svg"); }
         #nav-top #nav > li > a#add-row:before,
-        #nav-top #controls > li > a#add-row:before {
+        #nav-top #controls > li > a#add-row:before,
+        #nav-top-customer-facing #nav > li > a#add-row:before,
+        #nav-top-customer-facing #controls > li > a#add-row:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_add-grey.svg"); }
         #nav-top #nav > li > a#add-row.active:before,
-        #nav-top #controls > li > a#add-row.active:before {
+        #nav-top #controls > li > a#add-row.active:before,
+        #nav-top-customer-facing #nav > li > a#add-row.active:before,
+        #nav-top-customer-facing #controls > li > a#add-row.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_add.svg"); }
         #nav-top #nav > li > a#user:before,
-        #nav-top #controls > li > a#user:before {
+        #nav-top #controls > li > a#user:before,
+        #nav-top-customer-facing #nav > li > a#user:before,
+        #nav-top-customer-facing #controls > li > a#user:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_user-grey.svg"); }
         #nav-top #nav > li > a#user.active:before,
-        #nav-top #controls > li > a#user.active:before {
+        #nav-top #controls > li > a#user.active:before,
+        #nav-top-customer-facing #nav > li > a#user.active:before,
+        #nav-top-customer-facing #controls > li > a#user.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_user.svg"); }
         #nav-top #nav > li > a#user.logged:before,
-        #nav-top #controls > li > a#user.logged:before {
+        #nav-top #controls > li > a#user.logged:before,
+        #nav-top-customer-facing #nav > li > a#user.logged:before,
+        #nav-top-customer-facing #controls > li > a#user.logged:before {
           display: none; }
         #nav-top #nav > li > a#user.logged span,
-        #nav-top #controls > li > a#user.logged span {
+        #nav-top #controls > li > a#user.logged span,
+        #nav-top-customer-facing #nav > li > a#user.logged span,
+        #nav-top-customer-facing #controls > li > a#user.logged span {
           -o-border-radius: 100%;
           border-radius: 100%;
           background-size: cover; }
         #nav-top #nav > li > a#see-also:before,
-        #nav-top #controls > li > a#see-also:before {
+        #nav-top #controls > li > a#see-also:before,
+        #nav-top-customer-facing #nav > li > a#see-also:before,
+        #nav-top-customer-facing #controls > li > a#see-also:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_see-more-grey.svg"); }
         #nav-top #nav > li > a#see-also.active:before,
-        #nav-top #controls > li > a#see-also.active:before {
+        #nav-top #controls > li > a#see-also.active:before,
+        #nav-top-customer-facing #nav > li > a#see-also.active:before,
+        #nav-top-customer-facing #controls > li > a#see-also.active:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_see-more.svg"); }
     #nav-top #nav#controls > li strong,
-    #nav-top #controls#controls > li strong {
+    #nav-top #controls#controls > li strong,
+    #nav-top-customer-facing #nav#controls > li strong,
+    #nav-top-customer-facing #controls#controls > li strong {
       cursor: pointer;
       font-weight: 400; }
       #nav-top #nav#controls > li strong.selected,
-      #nav-top #controls#controls > li strong.selected {
+      #nav-top #controls#controls > li strong.selected,
+      #nav-top-customer-facing #nav#controls > li strong.selected,
+      #nav-top-customer-facing #controls#controls > li strong.selected {
         font-weight: 700; }
+  #nav-top#nav-top-customer-facing,
+  #nav-top-customer-facing#nav-top-customer-facing {
+    position: fixed;
+    width: 100%; }
+    #nav-top#nav-top-customer-facing #logo-nav-top,
+    #nav-top-customer-facing#nav-top-customer-facing #logo-nav-top {
+      position: relative;
+      left: auto;
+      top: auto;
+      margin: 0; }
 
 .dark #nav-top,
 .nav-top-transparent #nav-top {
@@ -1459,10 +1566,14 @@ dl {
     .nav-top-transparent #nav-top #controls > li > a#see-also.active:before {
       background-image: url("/assets/images/icons/icon-set/icon-set_see-more-white.svg"); }
 .dark.nav-top-transparent #nav-top,
-.nav-top-transparent.nav-top-transparent #nav-top {
+.dark.nav-top-transparent #nav-top-customer-facing,
+.nav-top-transparent.nav-top-transparent #nav-top,
+.nav-top-transparent.nav-top-transparent #nav-top-customer-facing {
   border-bottom: 0; }
   .dark.nav-top-transparent #nav-top #logo-nav-top,
-  .nav-top-transparent.nav-top-transparent #nav-top #logo-nav-top {
+  .dark.nav-top-transparent #nav-top-customer-facing #logo-nav-top,
+  .nav-top-transparent.nav-top-transparent #nav-top #logo-nav-top,
+  .nav-top-transparent.nav-top-transparent #nav-top-customer-facing #logo-nav-top {
     background-image: url("/assets/images/logo/logo-glyph-white.svg"); }
 .dark.nav-top-transparent .drop-down .contextual-menu,
 .nav-top-transparent.nav-top-transparent .drop-down .contextual-menu {
@@ -2267,6 +2378,17 @@ body.dark {
           border-color: rgba(255, 255, 255, 0.5);
           color: rgba(255, 255, 255, 0.5);
           font-size: 0.75rem; }
+
+.page-is header {
+  height: 100%;
+  height: 100vh;
+  background-image: url("/assets/images/bg/cover-dive-new.jpg");
+  background-color: #002e43;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center 0%; }
+.page-is article {
+  background: white; }
 
 .page-ooops {
   background: #ff7043;

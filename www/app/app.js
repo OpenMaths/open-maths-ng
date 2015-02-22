@@ -11,6 +11,9 @@
 			.when("/", {
 				templateUrl: _.returnLayout("dive"),
 				controller: "DiveController"
+			}).when("/is", {
+				templateUrl: _.returnLayout("about"),
+				controller: "AboutController"
 			}).when("/board/:uriFriendlyTitle?", {
 				templateUrl: _.returnLayout("board"),
 				controller: "BoardController"
