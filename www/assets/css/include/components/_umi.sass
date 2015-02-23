@@ -50,17 +50,21 @@
 		position: absolute
 		width: 100%
 		height: $double-unit-layout
-		background: white
+		//background: white
 		bottom: 0
 		left: 0
 
 		ul
+			height: 100%
+
 			li
+				//@extend .text-uppercase
+
 				cursor: pointer
-				padding: $base-unit-layout $base-unit-layout $base-unit-layout ($double-unit-layout + $half-unit-layout)
+				padding: 0 $base-unit-layout 0 ($double-unit-layout + $half-unit-layout)
 				color: $color-grey-500
 				font:
-					size: rem(12px)
+					size: rem(10px)
 				background:
 					image: url("#{$image-base}/icons/icon-set/icon-set_up-dark.svg")
 					size: $triple-unit-layout - $half-unit-layout
@@ -71,6 +75,10 @@
 					color: white
 					background:
 						image: url("#{$image-base}/icons/icon-set/icon-set_up-white.svg")
+
+				&.no-label
+					width: $double-unit-layout
+					padding: 0
 
 				&.downvote
 					background:
@@ -189,14 +197,14 @@
 					width: $double-half-unit-layout
 					height: $double-half-unit-layout
 					border: 1px solid $color-black
+					display: block
+					cursor: pointer
+					opacity: 0
 					background:
 						color: white
 						repeat: no-repeat
 						position: center center
 						size: 75%
-					display: block
-					cursor: pointer
-					opacity: 0
 
 					&.expand-down,
 					&.expand-up

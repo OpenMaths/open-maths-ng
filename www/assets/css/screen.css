@@ -862,7 +862,7 @@ textarea:invalid {
   overflow: hidden;
   margin: 0 0 1rem; }
   .file-button input[type="file"] {
-    z-index: 3;
+    z-index: 2;
     position: absolute;
     left: 0;
     top: 0;
@@ -1821,33 +1821,37 @@ h6 {
   .umi:focus .title .full-screen {
     opacity: 1; }
   .umi .voting {
-    z-index: 2;
+    z-index: 5;
     position: absolute;
     width: 100%;
     height: 2rem;
-    background: white;
     bottom: 0;
     left: 0; }
-    .umi .voting ul li {
-      cursor: pointer;
-      padding: 1rem 1rem 1rem 2.5rem;
-      color: #7e9e9e;
-      font-size: 0.75rem;
-      background-image: url("/assets/images/icons/icon-set/icon-set_up-dark.svg");
-      background-size: 2.5rem;
-      background-position: left center;
-      background-repeat: no-repeat; }
-      .umi .voting ul li:hover, .umi .voting ul li:focus {
-        color: white;
-        background-image: url("/assets/images/icons/icon-set/icon-set_up-white.svg"); }
-      .umi .voting ul li.downvote {
-        background-image: url("/assets/images/icons/icon-set/icon-set_down-dark.svg"); }
-        .umi .voting ul li.downvote:hover, .umi .voting ul li.downvote:focus {
-          background-image: url("/assets/images/icons/icon-set/icon-set_down-white.svg"); }
-      .umi .voting ul li.approve {
-        background-image: url("/assets/images/icons/icon-set/icon-set_tick-dark.svg"); }
-        .umi .voting ul li.approve:hover, .umi .voting ul li.approve:focus {
-          background-image: url("/assets/images/icons/icon-set/icon-set_tick-white.svg"); }
+    .umi .voting ul {
+      height: 100%; }
+      .umi .voting ul li {
+        cursor: pointer;
+        padding: 0 1rem 0 2.5rem;
+        color: #7e9e9e;
+        font-size: 0.625rem;
+        background-image: url("/assets/images/icons/icon-set/icon-set_up-dark.svg");
+        background-size: 2.5rem;
+        background-position: left center;
+        background-repeat: no-repeat; }
+        .umi .voting ul li:hover, .umi .voting ul li:focus {
+          color: white;
+          background-image: url("/assets/images/icons/icon-set/icon-set_up-white.svg"); }
+        .umi .voting ul li.no-label {
+          width: 2rem;
+          padding: 0; }
+        .umi .voting ul li.downvote {
+          background-image: url("/assets/images/icons/icon-set/icon-set_down-dark.svg"); }
+          .umi .voting ul li.downvote:hover, .umi .voting ul li.downvote:focus {
+            background-image: url("/assets/images/icons/icon-set/icon-set_down-white.svg"); }
+        .umi .voting ul li.approve {
+          background-image: url("/assets/images/icons/icon-set/icon-set_tick-dark.svg"); }
+          .umi .voting ul li.approve:hover, .umi .voting ul li.approve:focus {
+            background-image: url("/assets/images/icons/icon-set/icon-set_tick-white.svg"); }
   .umi .content-holder {
     -webkit-flex: 1;
         -ms-flex: 1;
@@ -1938,13 +1942,13 @@ h6 {
           width: 1.5rem;
           height: 1.5rem;
           border: 1px solid #1b2424;
+          display: block;
+          cursor: pointer;
+          opacity: 0;
           background-color: white;
           background-repeat: no-repeat;
           background-position: center center;
-          background-size: 75%;
-          display: block;
-          cursor: pointer;
-          opacity: 0; }
+          background-size: 75%; }
           .umi article p strong i.expand-down, .umi article p strong i.expand-up {
             left: 50%;
             margin-left: -0.75rem; }
@@ -2035,7 +2039,7 @@ body.dark {
   position: relative;
   min-height: 13.75rem; }
   .page-board .row .resize-row {
-    z-index: 5;
+    z-index: 4;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -2045,7 +2049,7 @@ body.dark {
     .page-board .row .resize-row .onboarding-hotspot {
       top: 0; }
   .page-board .row .column {
-    z-index: 4;
+    z-index: 3;
     position: relative;
     display: -webkit-flex;
     display: -ms-flexbox;

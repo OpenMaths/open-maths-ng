@@ -29,14 +29,14 @@
 		<div class="umi {{ data.targetClasses }}"
 			 ng-class="{'fade-in' : fadeInUmi}"
 			 ng-hide="!data.htmlContent">
-			<div class="voting flex center-vertically">
+			<div class="voting flex">
 				<ul class="flex align-left unstyled">
-					<li class="upvote" ng-click="manageGrid('row', 'add')">Upvote</li>
-					<li class="downvote" ng-click="manageGrid('row', 'remove')">Downvote</li>
+					<li class="flex center-vertically upvote no-label " ng-click=""></li>
+					<li class="flex center-vertically downvote no-label " ng-click=""></li>
 				</ul>
 
 				<ul class="flex align-right unstyled">
-					<li class="approve" ng-click="manageGrid('row', 'add')">Approve</li>
+					<li class="flex center-vertically approve" ng-click="">Approve</li>
 				</ul>
 			</div>
 			<div class="content-holder">
