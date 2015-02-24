@@ -39,20 +39,24 @@
 			display: none
 
 	+hover
+		.voting
+			opacity: 1
+		
 		.title
-			.edit,
 			.full-screen
 				opacity: 1
 
 	.voting
 		+z-index(voting)
+		+transition(opacity .25s)
 
 		position: absolute
 		width: 100%
 		height: $double-unit-layout
-		//background: white
-		bottom: 0
+		background: $color-black
+		top: 0
 		left: 0
+		opacity: 0
 
 		ul
 			height: 100%
@@ -64,7 +68,7 @@
 				padding: 0 $base-unit-layout 0 ($double-unit-layout + $half-unit-layout)
 				color: $color-grey-500
 				font:
-					size: rem(10px)
+					size: rem(14px)
 				background:
 					image: url("#{$image-base}/icons/icon-set/icon-set_up-dark.svg")
 					size: $triple-unit-layout - $half-unit-layout
@@ -79,6 +83,18 @@
 				&.no-label
 					width: $double-unit-layout
 					padding: 0
+					background:
+						position: center center
+
+				&.no-icon
+					background: none
+					padding: 0
+
+				&.not-clickable
+					cursor: default
+
+					+hover
+						color: $color-grey-500
 
 				&.downvote
 					background:
@@ -88,6 +104,14 @@
 						background:
 							image: url("#{$image-base}/icons/icon-set/icon-set_down-white.svg")
 
+				&.edit
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_gear-dark.svg")
+
+					+hover
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_gear-white.svg")
+
 				&.approve
 					background:
 						image: url("#{$image-base}/icons/icon-set/icon-set_tick-dark.svg")
@@ -95,6 +119,14 @@
 					+hover
 						background:
 							image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+
+				&.expand
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_expand-dark.svg")
+
+					+hover
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_expand-white.svg")
 
 	.content-holder
 		flex: 1
@@ -141,7 +173,7 @@
 			width: $double-unit-layout
 			height: $double-unit-layout
 			background:
-				image: url("#{$image-base}/icons/icon-set/icon-set_expand.svg")
+				image: url("#{$image-base}/icons/icon-set/icon-set_tick-green.svg")
 				size: 140%
 				position: center center
 				repeat: no-repeat
@@ -165,9 +197,9 @@
 			strong
 				+transition(color .25s)
 
-				color: $color-red
+				color: $color-blue
 				position: relative
-				font-weight: 300
+				//font-weight: 300
 				cursor: pointer
 
 				&.inactive

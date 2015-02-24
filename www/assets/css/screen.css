@@ -1816,24 +1816,27 @@ h6 {
     border-bottom-color: white; }
     .umi.closes-bottom .expand-down {
       display: none; }
-  .umi:hover .title .edit,
-  .umi:hover .title .full-screen, .umi:focus .title .edit,
-  .umi:focus .title .full-screen {
+  .umi:hover .voting, .umi:focus .voting {
+    opacity: 1; }
+  .umi:hover .title .full-screen, .umi:focus .title .full-screen {
     opacity: 1; }
   .umi .voting {
     z-index: 5;
+    transition: opacity 0.25s;
     position: absolute;
     width: 100%;
     height: 2rem;
-    bottom: 0;
-    left: 0; }
+    background: #1b2424;
+    top: 0;
+    left: 0;
+    opacity: 0; }
     .umi .voting ul {
       height: 100%; }
       .umi .voting ul li {
         cursor: pointer;
         padding: 0 1rem 0 2.5rem;
         color: #7e9e9e;
-        font-size: 0.625rem;
+        font-size: 0.875rem;
         background-image: url("/assets/images/icons/icon-set/icon-set_up-dark.svg");
         background-size: 2.5rem;
         background-position: left center;
@@ -1843,15 +1846,31 @@ h6 {
           background-image: url("/assets/images/icons/icon-set/icon-set_up-white.svg"); }
         .umi .voting ul li.no-label {
           width: 2rem;
+          padding: 0;
+          background-position: center center; }
+        .umi .voting ul li.no-icon {
+          background: none;
           padding: 0; }
+        .umi .voting ul li.not-clickable {
+          cursor: default; }
+          .umi .voting ul li.not-clickable:hover, .umi .voting ul li.not-clickable:focus {
+            color: #7e9e9e; }
         .umi .voting ul li.downvote {
           background-image: url("/assets/images/icons/icon-set/icon-set_down-dark.svg"); }
           .umi .voting ul li.downvote:hover, .umi .voting ul li.downvote:focus {
             background-image: url("/assets/images/icons/icon-set/icon-set_down-white.svg"); }
+        .umi .voting ul li.edit {
+          background-image: url("/assets/images/icons/icon-set/icon-set_gear-dark.svg"); }
+          .umi .voting ul li.edit:hover, .umi .voting ul li.edit:focus {
+            background-image: url("/assets/images/icons/icon-set/icon-set_gear-white.svg"); }
         .umi .voting ul li.approve {
           background-image: url("/assets/images/icons/icon-set/icon-set_tick-dark.svg"); }
           .umi .voting ul li.approve:hover, .umi .voting ul li.approve:focus {
             background-image: url("/assets/images/icons/icon-set/icon-set_tick-white.svg"); }
+        .umi .voting ul li.expand {
+          background-image: url("/assets/images/icons/icon-set/icon-set_expand-dark.svg"); }
+          .umi .voting ul li.expand:hover, .umi .voting ul li.expand:focus {
+            background-image: url("/assets/images/icons/icon-set/icon-set_expand-white.svg"); }
   .umi .content-holder {
     -webkit-flex: 1;
         -ms-flex: 1;
@@ -1899,7 +1918,7 @@ h6 {
       position: absolute;
       width: 2rem;
       height: 2rem;
-      background-image: url("/assets/images/icons/icon-set/icon-set_expand.svg");
+      background-image: url("/assets/images/icons/icon-set/icon-set_tick-green.svg");
       background-size: 140%;
       background-position: center center;
       background-repeat: no-repeat;
@@ -1916,9 +1935,8 @@ h6 {
       font-family: "Anonymous Pro", "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
       .umi article p strong {
         transition: color 0.25s;
-        color: #ec6470;
+        color: #6eb3c9;
         position: relative;
-        font-weight: 300;
         cursor: pointer; }
         .umi article p strong.inactive {
           color: #1b2424;
