@@ -69,6 +69,9 @@
 				makeSearchCall = $timeout(function () {}, magicForSearch.keyboardDelay);
 			}
 
+			var promise = $http.get(magic.api + "search/" + term);
+			return promise;
+
 			makeSearchCall.then(function () {
 				$http.get(magic.api + "search/" + term).success(function (data) {
 					logger.log("Listing results for term: " + term, "info");
@@ -133,6 +136,91 @@
 				document.getElementById(magicForSearch.simulateDivingDomId).style.backgroundPositionY = percentage;
 			}
 		}
+
+		//@ICEBOX
+		var promise = $http.get(magic.api + "search/b");
+		var observable = Rx.Observable.fromPromise(promise);
+
+		observable.subscribe(
+			function (data) {
+				logger.log(data, "info");
+			},
+			function (err) {
+				logger.log(err.message, "error");
+			}
+		);
+
+		Rx.Observable.fromScopeFunction = function (scope, functionName) {
+			return Rx.Observable.create(function (observer) {
+				if (scope[functionName]) {
+					var origFunction = scope[functionName];
+					scope[functionName] = function (param) {
+						origFunction(param);
+						observer.onNext(param);
+					}
+				} else {
+					scope[functionName] = function (param) {
+						observer.onNext(param);
+					}
+				}
+			});
+		};
+
+		var keyStrokeStream = Rx.Observable.fromScopeFunction($scope, "nSearch")
+			.throttle(1000)
+			.select(function(d) {
+				console.log(d);
+			});
+
+		keyStrokeStream.subscribe(function (data) {
+			console.log(data);
+		});
+
+
+
+
+
+		/* Using a disposable */
+		var source = Rx.Observable.create(function (observer) {
+			observer.onNext(42);
+			//observer.onCompleted();
+
+			// Note that this is optional, you do not have to return this if you require no cleanup
+			return Rx.Disposable.create(function () {
+				console.log('disposed');
+			});
+		});
+
+		var subscription = source.subscribe(
+			function (x) {
+				console.log('Next: ' + x);
+			},
+			function (err) {
+				console.log('Error: ' + err);
+			},
+			function () {
+				console.log('Completed');
+			});
+
+
+		//
+		//Rx.Observable.$watch(scope, 'name')
+		//	.throttle(1000)
+		//	.map(function (e) {
+		//		return e.newValue;
+		//	})
+		//	.do(function () {
+		//		// Set loading and reset data
+		//		scope.isLoading = true;
+		//		scope.data = [];
+		//	})
+		//	.flatMapLatest(querySomeService)
+		//	.subscribe(function (data) {
+		//
+		//		// Set the data
+		//		scope.isLoading = false;
+		//		scope.data = data;
+		//	});
 	}
 
 })();

@@ -32,6 +32,7 @@
 			<div class="voting flex center-horizontally">
 				<ul class="flex align-left unstyled">
 					<li class="flex center-vertically edit no-label" ng-click=""></li>
+					<!--<li class="flex center-vertically approve no-label" ng-click=""></li>-->
 				</ul>
 
 				<ul class="flex unstyled">
@@ -48,8 +49,6 @@
 				<div class="title flex center-vertically">
 					<!--@FIXME This should only be displayed if a user is signed in!!-->
 					<!--@FIXME ng-show="data.author == omUser.email"-->
-					<!--<a href="/contribute/edit:{{ data.umi.uriFriendlyTitle }}"><i class="edit"></i></a>-->
-					<i class="full-screen"></i>
 					<span class="label">{{ data.umi.umiType }}</span>
 					<strong class="flex-1">{{ data.umi.title.title }}</strong>
 				</div>
