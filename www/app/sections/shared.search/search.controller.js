@@ -66,11 +66,12 @@
 				return false;
 			} else {
 				$timeout.cancel(makeSearchCall);
-				makeSearchCall = $timeout(function () {}, magicForSearch.keyboardDelay);
+				makeSearchCall = $timeout(function () {
+				}, magicForSearch.keyboardDelay);
 			}
 
-			var promise = $http.get(magic.api + "search/" + term);
-			return promise;
+			//var promise = $http.get(magic.api + "search/" + term);
+			//return promise;
 
 			makeSearchCall.then(function () {
 				$http.get(magic.api + "search/" + term).success(function (data) {
@@ -138,89 +139,136 @@
 		}
 
 		//@ICEBOX
-		var promise = $http.get(magic.api + "search/b");
-		var observable = Rx.Observable.fromPromise(promise);
+		//var promise = $http.get(magic.api + "search/b");
+		//var observable = Rx.Observable.fromPromise(promise);
+		//
+		//observable.subscribe(
+		//	function (data) {
+		//		logger.log(data, "info");
+		//	},
+		//	function (err) {
+		//		logger.log(err.message, "error");
+		//	}
+		//);
 
-		observable.subscribe(
-			function (data) {
-				logger.log(data, "info");
-			},
-			function (err) {
-				logger.log(err.message, "error");
-			}
-		);
+		//Rx.Observable.fromScopeFunction = function (scope, functionName) {
+		//	return Rx.Observable.create(function (observer) {
+		//		if (scope[functionName]) {
+		//			var origFunction = scope[functionName];
+		//			scope[functionName] = function (param) {
+		//				origFunction(param);
+		//				observer.onNext(param);
+		//			}
+		//		} else {
+		//			scope[functionName] = function (param) {
+		//				observer.onNext(param);
+		//			}
+		//		}
+		//	});
+		//};
 
-		Rx.Observable.fromScopeFunction = function (scope, functionName) {
-			return Rx.Observable.create(function (observer) {
-				if (scope[functionName]) {
-					var origFunction = scope[functionName];
-					scope[functionName] = function (param) {
-						origFunction(param);
-						observer.onNext(param);
-					}
-				} else {
-					scope[functionName] = function (param) {
-						observer.onNext(param);
-					}
-				}
-			});
-		};
-
-		var keyStrokeStream = Rx.Observable.fromScopeFunction($scope, "nSearch")
-			.throttle(1000)
-			.select(function(d) {
-				console.log(d);
-			});
-
-		keyStrokeStream.subscribe(function (data) {
-			console.log(data);
-		});
-
-
-
+		//var keyStrokeStream = Rx.Observable.fromScopeFunction($scope, "nSearch")
+		//	.throttle(1000)
+		//	.select(function(d) {
+		//		console.log(d);
+		//	});
+		//
+		//keyStrokeStream.subscribe(function (data) {
+		//	console.log(data);
+		//});
 
 
 		/* Using a disposable */
-		var source = Rx.Observable.create(function (observer) {
-			observer.onNext(42);
-			//observer.onCompleted();
-
-			// Note that this is optional, you do not have to return this if you require no cleanup
-			return Rx.Disposable.create(function () {
-				console.log('disposed');
-			});
-		});
-
-		var subscription = source.subscribe(
-			function (x) {
-				console.log('Next: ' + x);
-			},
-			function (err) {
-				console.log('Error: ' + err);
-			},
-			function () {
-				console.log('Completed');
-			});
-
-
+		//var source = Rx.Observable.create(function (observer) {
+		//	observer.onNext(42);
+		//	observer.onCompleted();
 		//
-		//Rx.Observable.$watch(scope, 'name')
-		//	.throttle(1000)
-		//	.map(function (e) {
-		//		return e.newValue;
-		//	})
-		//	.do(function () {
-		//		// Set loading and reset data
-		//		scope.isLoading = true;
-		//		scope.data = [];
-		//	})
-		//	.flatMapLatest(querySomeService)
-		//	.subscribe(function (data) {
-		//
-		//		// Set the data
-		//		scope.isLoading = false;
-		//		scope.data = data;
+		//	// Note that this is optional, you do not have to return this if you require no cleanup
+		//	return Rx.Disposable.create(function () {
+		//		logger.log("Rx Observable disposed", "info");
 		//	});
+		//});
+		//
+		//var subscription = source.subscribe(
+		//	function (x) {
+		//		console.log('Next: ' + x);
+		//	},
+		//	function (err) {
+		//		console.log('Error: ' + err);
+		//	},
+		//	function () {
+		//		console.log('Completed');
+		//	});
+
+		function omSearch(term) {
+			var promise = $http.get(magic.api + "search/" + term);
+			return Rx.Observable.fromPromise(promise).map(function (response) {
+				logger.log("Listing results for term: " + term, "info");
+
+				var searchResults = [];
+				var data = response.data;
+
+				if (data.length > 0) {
+					searchResults = {
+						"currentSelection": 0,
+						"data": data
+					};
+				} else {
+					searchResults = false;
+
+					notification.generate("No results found :-(", "info");
+				}
+
+				return searchResults;
+			});
+		}
+
+
+		Rx.Observable.$watch = function (scope, watchExpression, objectEquality) {
+			return Rx.Observable.create(function (observer) {
+				// Create function to handle old and new Value
+				function listener(newValue, oldValue) {
+					observer.onNext({oldValue: oldValue, newValue: newValue});
+				}
+
+				// Returns function which disconnects the $watch expression
+				return scope.$watch(watchExpression, listener, objectEquality);
+			});
+		};
+
+		Rx.Observable.$watch($scope, 'searchTerm')
+			.throttle(500)
+			.distinctUntilChanged()
+			.map(function (e) {
+				console.log(e);
+				return e.newValue;
+			})
+			.do(function () {
+				console.log("Doing sth");
+				// Set loading and reset data
+				//scope.isLoading = true;
+				//scope.data = [];
+			})
+			.flatMapLatest(omSearch)
+			.subscribe(function (term) {
+				console.log(term);
+				//$http.get(magic.api + "search/" + term).success(function (data) {
+				//	logger.log("Listing results for term: " + term, "info");
+				//
+				//	if (data.length > 0) {
+				//		$scope.searchResults = {
+				//			"currentSelection": 0,
+				//			"data": data
+				//		};
+				//	} else {
+				//		$scope.searchResults = false;
+				//
+				//		notification.generate("No results found :-(", "info");
+				//	}
+				//}).error(function (data) {
+				//	notification.generate("There was an error with the connection to our API.", "error", data);
+				//});
+			});
 	}
 
 })();
