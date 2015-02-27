@@ -201,6 +201,10 @@
 		//	});
 
 		function omSearch(term) {
+			if (!term) {
+				return false;
+			}
+
 			var promise = $http.get(magic.api + "search/" + term);
 			return Rx.Observable.fromPromise(promise).map(function (response) {
 				logger.log("Listing results for term: " + term, "info");
@@ -236,6 +240,8 @@
 			});
 		};
 
+		// There should be a nice way to not run this until a change actually happens. That is to say that
+		// it should not run when $scope.searchTerm is empty.
 		Rx.Observable.$watch($scope, 'searchTerm')
 			.throttle(500)
 			.distinctUntilChanged()
