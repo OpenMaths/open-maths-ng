@@ -13,7 +13,7 @@
 			keyboardDelay: 250
 		});
 
-	function SearchController($scope, $http, $timeout, $location, notification, logger, magic, magicForSearch) {
+	function SearchController($scope, $http, $timeout, $location, rx, notification, logger, magic, magicForSearch) {
 		// @NOTE This is to store the $timeout promise,
 		// so it can be reset on every keystroke.
 		var makeSearchCall;
@@ -69,9 +69,6 @@
 				makeSearchCall = $timeout(function () {
 				}, magicForSearch.keyboardDelay);
 			}
-
-			//var promise = $http.get(magic.api + "search/" + term);
-			//return promise;
 
 			makeSearchCall.then(function () {
 				$http.get(magic.api + "search/" + term).success(function (data) {
@@ -227,35 +224,24 @@
 			});
 		}
 
-
-		Rx.Observable.$watch = function (scope, watchExpression, objectEquality) {
-			return Rx.Observable.create(function (observer) {
-				// Create function to handle old and new Value
-				function listener(newValue, oldValue) {
-					observer.onNext({oldValue: oldValue, newValue: newValue});
-				}
-
-				// Returns function which disconnects the $watch expression
-				return scope.$watch(watchExpression, listener, objectEquality);
-			});
-		};
-
 		// There should be a nice way to not run this until a change actually happens. That is to say that
 		// it should not run when $scope.searchTerm is empty.
-		Rx.Observable.$watch($scope, 'searchTerm')
+		rx.watch($scope, 'searchTerm')
 			.throttle(500)
-			.distinctUntilChanged()
-			.map(function (e) {
-				console.log(e);
+			.filter(function (e) {
 				return e.newValue;
 			})
+			.map(function (e) {
+				return e.newValue;
+			})
+			.distinctUntilChanged()
 			.do(function () {
 				console.log("Doing sth");
 				// Set loading and reset data
 				//scope.isLoading = true;
 				//scope.data = [];
 			})
-			.flatMapLatest(omSearch)
+			//.flatMapLatest(omSearch)
 			.subscribe(function (term) {
 				console.log(term);
 				//$http.get(magic.api + "search/" + term).success(function (data) {
