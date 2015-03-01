@@ -198,11 +198,10 @@
 		//	});
 
 		function omSearch(term) {
-			if (!term) {
-				return false;
-			}
-
 			var promise = $http.get(magic.api + "search/" + term);
+
+			return promise;
+
 			return Rx.Observable.fromPromise(promise).map(function (response) {
 				logger.log("Listing results for term: " + term, "info");
 
@@ -228,38 +227,22 @@
 		// it should not run when $scope.searchTerm is empty.
 		rx.watch($scope, 'searchTerm')
 			.throttle(500)
-			.filter(function (e) {
-				return e.newValue;
-			})
 			.map(function (e) {
 				return e.newValue;
 			})
+			.filter(function (term) {
+				return term;
+			})
 			.distinctUntilChanged()
 			.do(function () {
-				console.log("Doing sth");
-				// Set loading and reset data
-				//scope.isLoading = true;
-				//scope.data = [];
+				console.log("Fetching results");
 			})
-			//.flatMapLatest(omSearch)
-			.subscribe(function (term) {
-				console.log(term);
-				//$http.get(magic.api + "search/" + term).success(function (data) {
-				//	logger.log("Listing results for term: " + term, "info");
-				//
-				//	if (data.length > 0) {
-				//		$scope.searchResults = {
-				//			"currentSelection": 0,
-				//			"data": data
-				//		};
-				//	} else {
-				//		$scope.searchResults = false;
-				//
-				//		notification.generate("No results found :-(", "info");
-				//	}
-				//}).error(function (data) {
-				//	notification.generate("There was an error with the connection to our API.", "error", data);
-				//});
+			.flatMapLatest(omSearch)
+			.subscribe(function (data) {
+				console.log(data);
+			},
+			function (err) {
+				console.log('Error: ' + err);
 			});
 	}
 
