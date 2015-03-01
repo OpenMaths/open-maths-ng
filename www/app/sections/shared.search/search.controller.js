@@ -197,42 +197,19 @@
 		//		console.log('Completed');
 		//	});
 
+		// @TODO consider returning a RX.Observable.fromPromise
 		function omSearch(term) {
-			var promise = $http.get(magic.api + "search/" + term);
+			logger.log("Listing results for term: " + term, "info");
 
-			return promise;
-
-			return Rx.Observable.fromPromise(promise).map(function (response) {
-				logger.log("Listing results for term: " + term, "info");
-
-				var searchResults = [];
-				var data = response.data;
-
-				if (data.length > 0) {
-					searchResults = {
-						"currentSelection": 0,
-						"data": data
-					};
-				} else {
-					searchResults = false;
-
-					notification.generate("No results found :-(", "info");
-				}
-
-				return searchResults;
-			});
+			return $http.get(magic.api + "search/" + term);
 		}
 
 		// There should be a nice way to not run this until a change actually happens. That is to say that
 		// it should not run when $scope.searchTerm is empty.
 		rx.watch($scope, 'searchTerm')
 			.throttle(500)
-			.map(function (e) {
-				return e.newValue;
-			})
-			.filter(function (term) {
-				return term;
-			})
+			.map(function (e) {return e.newValue;})
+			.filter(function (term) {return term;})
 			.distinctUntilChanged()
 			.do(function () {
 				console.log("Fetching results");
@@ -240,9 +217,24 @@
 			.flatMapLatest(omSearch)
 			.subscribe(function (data) {
 				console.log(data);
+
+				//var searchResults = [];
+				//var data = promise.data;
+				//
+				//if (data.length > 0) {
+				//	searchResults = {
+				//		"currentSelection": 0,
+				//		"data": data
+				//	};
+				//} else {
+				//	searchResults = false;
+				//	notification.generate("No results found :-(", "info");
+				//}
+				//
+				//return searchResults;
 			},
 			function (err) {
-				console.log('Error: ' + err);
+				notification.generate("There was an error with the connection to our API.", "error", err);
 			});
 	}
 
