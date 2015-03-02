@@ -44,7 +44,7 @@
 			]
 		});
 
-	function ContributeController($scope, $http, $timeout, logger, notification, userLevel, magic, magicForContribute) {
+	function ContributeController($scope, $http, $timeout, logger, rx, notification, userLevel, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -142,62 +142,82 @@
 		 * @returns {boolean}
 		 */
 		$scope.latexToHtml = function () {
-			var content = $scope.createUmiForm.content;
-
-			if (!content) {
-				$scope.parsedContent = "";
-
-				return false;
-			}
-
-			$timeout.cancel(parseContent);
-
-			$scope.parsedContent = content;
-
-			parseContent = $timeout(function () {
-			}, magicForContribute.parseContentTimeout);
-
-			parseContent.then(function () {
-				$scope.parsingContent = true;
-
-				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
-
-				$http.post(magic.api + "latex-to-html", $scope.createUmiForm.content).
-					success(function (response) {
-						var parsedContent;
-						var valid = _.first(_.keys(response)) == "parsed" ? true : false;
-
-						if (!valid) {
-							var err = _.first(_.values(response));
-
-							var substrPos = _.parseInt(err[1]) - 4; // @TODO does this need < 0 fallback??
-							var whereabouts = $scope.createUmiForm.content.substr(substrPos, 8);
-
-							// TODO consider changing to Object rather than an array (BackEnd tidying)
-							$scope.editorError = {
-								message: err[0],
-								offset: err[1],
-								where: whereabouts
-							};
-
-							parsedContent = $scope.createUmiForm.content;
-						} else {
-							$scope.editorError = false;
-							parsedContent = response.parsed;
-						}
-
-						$scope.parsedContent = parsedContent;
-
-						// @NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
-						$timeout(function () {
-							$scope.parsingContent = false;
-						}, magicForContribute.parseContentProgressTimeout);
-					}).
-					error(function (errorData) {
-						notification.generate("There was an error parsing content", "error", errorData);
-					});
-			});
+			//var content = $scope.createUmiForm.content;
+			//
+			//if (!content) {
+			//	$scope.parsedContent = "";
+			//
+			//	return false;
+			//}
+			//
+			//$timeout.cancel(parseContent);
+			//
+			//$scope.parsedContent = content;
+			//
+			//parseContent = $timeout(function () {
+			//}, magicForContribute.parseContentTimeout);
+			//
+			//parseContent.then(function () {
+			//
+			//});
 		};
+
+		// @TODO consider returning a RX.Observable.fromPromise in lieu of a normal promise
+		function latexToHtml() {
+			return $http.post(magic.api + "latex-to-html", $scope.createUmiForm.content);
+		}
+
+		var source = rx.watch($scope, "createUmiForm.content")
+			.map(function (e) {
+				return e.newValue;
+			})
+			.filter(function (term) {
+				return term;
+			})
+			.debounce(2500) // @TODO magicVars
+			.distinctUntilChanged()
+			.do(function () {
+				logger.log("LaTeX to HTML translation in progress", "info");
+
+				$scope.parsingContent = true;
+				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
+			})
+			.flatMapLatest(latexToHtml)
+			.retry(3); // @TODO magicVars
+
+		var subsription = source.subscribe(function (response) {
+				var parsedContent;
+				var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+
+				if (!valid) {
+					var err = _.first(_.values(response));
+
+					var substrPos = _.parseInt(err[1]) - 4; // @TODO does this need < 0 fallback??
+					var whereabouts = $scope.createUmiForm.content.substr(substrPos, 8);
+
+					// TODO consider changing to Object rather than an array (BackEnd tidying)
+					$scope.editorError = {
+						message: err[0],
+						offset: err[1],
+						where: whereabouts
+					};
+
+					parsedContent = $scope.createUmiForm.content;
+				} else {
+					$scope.editorError = false;
+					parsedContent = response.parsed;
+				}
+
+				$scope.parsedContent = parsedContent;
+
+				// @NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
+				$timeout(function () {
+					$scope.parsingContent = false;
+				}, magicForContribute.parseContentProgressTimeout);
+			},
+			function (errorData) {
+				notification.generate("There was an error parsing content", "error", errorData);
+			});
 	}
 
 })();

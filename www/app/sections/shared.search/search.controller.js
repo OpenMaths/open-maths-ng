@@ -109,7 +109,7 @@
 		//
 		// What if I select all and then remove? The filter set atm will ... from removing the searchResults
 		// @RESOLVED using a decent one-liner
-		var source = rx.watch($scope, 'searchTerm')
+		var source = rx.watch($scope, "searchTerm")
 			.map(function (e) {
 				return e.newValue;
 			})
@@ -118,14 +118,13 @@
 
 				return term;
 			})
-			.debounce(500)
+			.debounce(500) // @TODO magicVars
 			.distinctUntilChanged()
 			.do(function (term) {
 				logger.log("Listing results for term: " + term, "info");
 			})
 			.flatMapLatest(omSearch)
-			.retry(3)
-			.take(1);
+			.retry(3); // @TODO magicVars
 
 		var subsription = source.subscribe(function (results) {
 				var data = results.data;
@@ -140,8 +139,8 @@
 					notification.generate("No results found :-(", "info");
 				}
 			},
-			function (err) {
-				notification.generate("There was an error with the connection to our API.", "error", err);
+			function (errorData) {
+				notification.generate("There was an error with the connection to our API.", "error", errorData);
 			});
 	}
 
