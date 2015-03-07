@@ -47,11 +47,11 @@
 	<onboarding-layout onboarding="onboarding"></onboarding-layout>
 
 	<div id="page-layout" class="flex column">
-		<nav ng-hide="customerFacingPage" nav-top-layout id="nav-top" class="flex center-horizontally"></nav>
+		<nav nav-top-layout id="nav-top" class="flex center-horizontally"></nav>
 
-		<main ng-view class="flex-1" ng-class="{flex : !customerFacingPage}"></main>
+		<main ng-view class="flex-1 flex"></main>
 
-		<footer ng-hide="customerFacingPage" footer-layout class="flex center-vertically" ng-hide="path == 'board'"></footer>
+		<footer footer-layout class="flex center-vertically" ng-hide="path == 'board'"></footer>
 	</div>
 
 	<script type="text/x-mathjax-config">

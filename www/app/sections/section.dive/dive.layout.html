@@ -2,10 +2,8 @@
 	<onboarding-hotspot ng-hide="onboarding.dive" class="top" section="dive"></onboarding-hotspot>
 
 	<input type="text" placeholder="Type here to dive in..." class="unstyled" autofocus
-
 		   ng-keydown="nNavigate($event, true)"
 		   ng-model="searchTerm">
-	<!--ng-change="nSearch(true)"-->
 	<article id="try" class="search-umi-results" ng-show="searchResults">
 		<div class="item"
 			 ng-class="{active : $index == searchResults.currentSelection}"

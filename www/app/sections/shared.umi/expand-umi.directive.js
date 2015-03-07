@@ -8,6 +8,8 @@
 			directions: ["up", "right", "down", "left"]
 		});
 
+	// @TODO Investigate whether it has an impact on performance, when I "transfer" $scope.board
+	// via the directive?
 	function expandUmiDirective(magicForExpandUmiDirective) {
 		var directive = {
 			restrict: "E",
@@ -27,8 +29,8 @@
 			console.log("expandUmi directive linker init");
 			console.log(scope.id);
 
-			scope.position = function() {
-				console.log("waa");
+			scope.position = function () {
+				console.log("position init'd");
 			};
 		}
 

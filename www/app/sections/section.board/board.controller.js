@@ -16,7 +16,7 @@
 			}
 		});
 
-	function BoardController($scope, $routeParams, $http, $timeout, $location, manageGrid, notification, sStorage, lStorage, logger, magic, magicForBoard) {
+	function BoardController($scope, $routeParams, $http, $timeout, $location, manageGrid, notification, sStorage, logger, magic, magicForBoard) {
 		$scope.$parent.title = magicForBoard.pageTitle;
 		$scope.$parent.transparentNav = magicForBoard.pageTransparentNav;
 
