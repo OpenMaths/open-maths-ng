@@ -172,6 +172,7 @@
 				return e.newValue;
 			})
 			.filter(function (term) {
+				$scope.parsedContent = term;
 				return term;
 			})
 			.debounce(2500) // @TODO magicVars
@@ -185,7 +186,8 @@
 			.flatMapLatest(latexToHtml)
 			.retry(3); // @TODO magicVars
 
-		var subsription = source.subscribe(function (response) {
+		var subsription = source.subscribe(function (d) {
+				var response = d.data;
 				var parsedContent;
 				var valid = _.first(_.keys(response)) == "parsed" ? true : false;
 
