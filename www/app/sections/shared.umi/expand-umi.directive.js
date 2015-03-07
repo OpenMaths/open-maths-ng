@@ -13,7 +13,8 @@
 			restrict: "E",
 			templateUrl: "app/sections/shared.umi/expand-umi.layout.html",
 			scope: {
-				id: "="
+				id: "=",
+				board: "="
 			},
 			link: link
 		};

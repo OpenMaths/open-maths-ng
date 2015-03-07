@@ -1,5 +1,3 @@
-<expand-umi id="1"></expand-umi>
-
 <nav class="progress hide">
 	<ul id="nav" class="container-narrow flex center-vertically align-left">
 		<li ng-repeat="key in stepsKeys" ng-click="goToStep(key)"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
