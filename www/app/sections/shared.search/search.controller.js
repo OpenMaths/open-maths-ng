@@ -13,11 +13,7 @@
 			keyboardDelay: 250
 		});
 
-	function SearchController($scope, $http, $timeout, $location, notification, logger, magic, magicForSearch) {
-		// @NOTE This is to store the $timeout promise,
-		// so it can be reset on every keystroke.
-		var makeSearchCall;
-
+	function SearchController($scope, $http, $location, rx, notification, logger, magic, magicForSearch) {
 		$scope.nGetUmi = function (index) {
 			if (!$scope.searchResults) {
 				notification.generate("No URI argument present", "error");
@@ -53,40 +49,6 @@
 
 				return pressedArrows(e.keyCode);
 			}
-		};
-
-		$scope.nSearch = function (dive) {
-			var term = $scope.searchTerm;
-			var termLength = term.length;
-
-			dive ? simulateDiving(termLength) : "";
-
-			if (termLength < 1) {
-				$scope.searchResults = false;
-				return false;
-			} else {
-				$timeout.cancel(makeSearchCall);
-				makeSearchCall = $timeout(function () {}, magicForSearch.keyboardDelay);
-			}
-
-			makeSearchCall.then(function () {
-				$http.get(magic.api + "search/" + term).success(function (data) {
-					logger.log("Listing results for term: " + term, "info");
-
-					if (data.length > 0) {
-						$scope.searchResults = {
-							"currentSelection": 0,
-							"data": data
-						};
-					} else {
-						$scope.searchResults = false;
-
-						notification.generate("No results found :-(", "info");
-					}
-				}).error(function (data) {
-					notification.generate("There was an error with the connection to our API.", "error", data);
-				});
-			});
 		};
 
 		function pressedArrows(key) {
@@ -126,13 +88,60 @@
 			return false;
 		}
 
-		function simulateDiving(termLength) {
-			if (termLength < magicForSearch.simulateDivingMaxTermLength) {
-				var percentage = termLength * (100 / magicForSearch.simulateDivingMaxTermLength) + "%";
+		function simulateDiving(term) {
+			var termLength = term ? term.length : false;
 
+			if (document.getElementById(magicForSearch.simulateDivingDomId)
+				&& termLength && termLength < magicForSearch.simulateDivingMaxTermLength) {
+				var percentage = termLength * (100 / magicForSearch.simulateDivingMaxTermLength) + "%";
 				document.getElementById(magicForSearch.simulateDivingDomId).style.backgroundPositionY = percentage;
 			}
 		}
+
+		// @TODO consider returning a RX.Observable.fromPromise in lieu of a normal promise
+		function omSearch(term) {
+			return $http.get(magic.api + "search/" + term);
+		}
+
+		// There should be a nice way to not run this until a change actually happens. That is to say that
+		// it should not run when $scope.searchTerm is empty.
+		// @RESOLVED using filter
+		//
+		// What if I select all and then remove? The filter set atm will ... from removing the searchResults
+		// @RESOLVED using a decent one-liner
+		var source = rx.watch($scope, "searchTerm")
+			.map(function (e) {
+				return e.newValue;
+			})
+			.filter(function (term) {
+				!term ? cleanSearchVars() : simulateDiving(term);
+
+				return term;
+			})
+			.debounce(500) // @TODO magicVars
+			.distinctUntilChanged()
+			.do(function (term) {
+				logger.log("Listing results for term: " + term, "info");
+			})
+			.flatMapLatest(omSearch)
+			.retry(3); // @TODO magicVars
+
+		var subsription = source.subscribe(function (results) {
+				var data = results.data;
+
+				if (data.length > 0) {
+					$scope.searchResults = {
+						"currentSelection": 0,
+						"data": data
+					};
+				} else {
+					$scope.searchResults = false;
+					notification.generate("No results found :-(", "info");
+				}
+			},
+			function (errorData) {
+				notification.generate("There was an error with the connection to our API.", "error", errorData);
+			});
 	}
 
 })();

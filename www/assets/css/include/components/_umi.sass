@@ -53,7 +53,7 @@
 		position: absolute
 		width: 100%
 		height: $double-unit-layout
-		background: $color-black
+		//background: $color-black
 		top: 0
 		left: 0
 		opacity: 0
@@ -66,11 +66,11 @@
 
 				cursor: pointer
 				padding: 0 $base-unit-layout 0 ($double-unit-layout + $half-unit-layout)
-				color: $color-grey-500
+				color: $color-grey-300
 				font:
 					size: rem(14px)
 				background:
-					image: url("#{$image-base}/icons/icon-set/icon-set_up-dark.svg")
+					image: url("#{$image-base}/icons/icon-set/icon-set_up-grey.svg")
 					size: $triple-unit-layout - $half-unit-layout
 					position: left center
 					repeat: no-repeat
@@ -78,7 +78,7 @@
 				+hover
 					color: white
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_up-white.svg")
+						image: url("#{$image-base}/icons/icon-set/icon-set_up.svg")
 
 				&.no-label
 					width: $double-unit-layout
@@ -87,7 +87,7 @@
 						position: center center
 
 				&.no-icon
-					background: none
+					background-image: none !important
 					padding: 0
 
 				&.not-clickable
@@ -98,35 +98,35 @@
 
 				&.downvote
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_down-dark.svg")
+						image: url("#{$image-base}/icons/icon-set/icon-set_down-grey.svg")
 
 					+hover
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_down-white.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_down.svg")
 
 				&.edit
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_gear-dark.svg")
+						image: url("#{$image-base}/icons/icon-set/icon-set_gear-grey.svg")
 
 					+hover
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_gear-white.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_gear.svg")
 
 				&.approve
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_tick-dark.svg")
+						image: url("#{$image-base}/icons/icon-set/icon-set_tick-grey.svg")
 
 					+hover
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_tick.svg")
 
 				&.expand
 					background:
-						image: url("#{$image-base}/icons/icon-set/icon-set_expand-dark.svg")
+						image: url("#{$image-base}/icons/icon-set/icon-set_expand-grey.svg")
 
 					+hover
 						background:
-							image: url("#{$image-base}/icons/icon-set/icon-set_expand-white.svg")
+							image: url("#{$image-base}/icons/icon-set/icon-set_expand.svg")
 
 	.content-holder
 		flex: 1
@@ -161,30 +161,6 @@
 			margin: 0 ($base-unit-layout - $quarter-unit-layout) 0 0
 			font-size: rem(11px)
 
-		.edit,
-		.full-screen
-			+transition(opacity .25s)
-
-			cursor: pointer
-			opacity: 0
-			top: 0
-			right: 0
-			position: absolute
-			width: $double-unit-layout
-			height: $double-unit-layout
-			background:
-				image: url("#{$image-base}/icons/icon-set/icon-set_tick-green.svg")
-				size: 140%
-				position: center center
-				repeat: no-repeat
-				color: white
-
-		.edit
-			right: $double-unit-layout
-			background:
-				image: url("#{$image-base}/icons/icon-set/icon-set_list.svg")
-				size: 150%
-
 	article
 		width: 100%
 
@@ -197,7 +173,7 @@
 			strong
 				+transition(color .25s)
 
-				color: $color-blue
+				color: $color-red
 				position: relative
 				//font-weight: 300
 				cursor: pointer
@@ -286,18 +262,59 @@
 
 .dark
 	.umi
+		.voting
+			//background: $color-black
+
+			ul
+				li
+					color: $color-grey-500
+					background:
+						image: url("#{$image-base}/icons/icon-set/icon-set_up-dark.svg")
+
+					+hover
+						color: white
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_up-white.svg")
+
+
+					&.not-clickable
+						+hover
+							color: $color-grey-500
+
+					&.downvote
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_down-dark.svg")
+
+						+hover
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_down-white.svg")
+
+					&.edit
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_gear-dark.svg")
+
+						+hover
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_gear-white.svg")
+
+					&.approve
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_tick-dark.svg")
+
+						+hover
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_tick-white.svg")
+
+					&.expand
+						background:
+							image: url("#{$image-base}/icons/icon-set/icon-set_expand-dark.svg")
+
+						+hover
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_expand-white.svg")
+
 		.title
 			color: $color-grey-500
-
-			.edit,
-			.full-screen
-				background:
-					image: url("#{$image-base}/icons/icon-set/icon-set_expand-dark.svg")
-					color: $color-black
-
-			.edit
-				background:
-					image: url("#{$image-base}/icons/icon-set/icon-set_list-dark.svg")
 
 			.label
 				color: $color-grey-500
@@ -308,6 +325,8 @@
 
 			p
 				strong
+					//color: white
+
 					&.inactive
 						color: $color-grey-500
 
