@@ -1,5 +1,5 @@
 {
-	"name": "open-maths",
+	"name": "om-app",
 	"root": "www",
 	"clean_urls": true,
 	"prerender": true,
