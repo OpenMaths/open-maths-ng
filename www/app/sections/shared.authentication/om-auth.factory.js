@@ -48,13 +48,20 @@
 				};
 
 				return Rx.Observable.fromPromise(omLoginPromise(loginData));
-			}, function(errorData) {});
+			}, function(errorData) {
+				notification.generate("There was an error getting the anti request forgery token from our application server.", "error", errorData);
+			});
 
-			omLoginObservable.subscribe(function(data) {}, function() {});
+			omLoginObservable.subscribe(function(data) {
+				var msg = _.first(_.keys(data));
+				// @TODO this is a VERY hacky solution. Do it properly when on internet and can properly test.
+				// Also, there should be some unit tests in place
+				msg == "successMsg" ? callback(data) : notification.generate("There was an error signing you in to our application server.", "error", data);
+			}, function(errorData) {
+				notification.generate("There was an error signing you in to our application server.", "error", errorData);
+			});
 
-			//arftPromise
-
-			//console.log(googleApiRequest);
+			// @TODO test and delete ugly code
 
 			return false;
 			$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
@@ -99,13 +106,29 @@
 		 * @returns {promise}
 		 */
 		function signOut(signOutData, callback) {
-			$http.post(magic.api + "logout", signOutData).
-				success(function () {
-					callback();
-				}).
-				error(function (data, status) {
-					notification.generate("There was an error signing you out of our application server.", "error", [data, status]);
-				});
+			var signOutPromise = function() {
+				return $http.post(magic.api + "logout", signOutData)
+			};
+
+			var signOutObservable = Rx.Observable.fromPromise(signOutPromise());
+
+			signOutObservable.subscribe(function(data) {
+				console.log(data);
+				// @TODO should this even be done using a callback???? Reconsider..
+				callback();
+			}, function(errorData) {
+				// @TODO finish this and test what output it spits out. Unit tests needed
+			});
+
+			// @TODO get rid of unused ugly code below
+
+			//$http.post(magic.api + "logout", signOutData).
+			//	success(function () {
+			//
+			//	}).
+			//	error(function (data, status) {
+			//		notification.generate("There was an error signing you out of our application server.", "error", [data, status]);
+			//	});
 		}
 
 	}
