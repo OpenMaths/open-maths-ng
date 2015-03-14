@@ -13,6 +13,46 @@
 		};
 
 		function signIn(authResult, token, callback) {
+
+			var googleApiPromise = function() {
+				return $http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token);
+			};
+			var arftPromise = function(gPlusId) {
+				return $http.post(magic.api + "arft", gPlusId);
+			};
+			var omLoginPromise = function(loginData) {
+				return $http.post(magic.api + "login", loginData)
+			};
+
+			var googleApiObservable = Rx.Observable.fromPromise(googleApiPromise());
+
+			var arftObservable = googleApiObservable.subscribe(function(d) {
+				var data = d.data;
+				data.accessToken = authResult.access_token;
+				data.avatarStyle = {"background-image": "url('" + data.picture + "')"};
+
+				console.log(data);
+				return Rx.Observable.fromPromise(arftPromise(data.id));
+			}, function(errorData) {
+				notification.generate("There was an error retrieving user data from Google.", "error", errorData);
+			});
+
+			//var omLoginObservable = arftObservable.subscribe(function(data) {
+			//	var loginData = {
+			//		code: authResult.code,
+			//		gPlusId: data.id,
+			//		arfToken: token,
+			//		gmail: data.email
+			//	};
+			//
+			//	return Rx.Observable.fromPromise(omLoginPromise(data.id));
+			//}, function(errorData) {});
+
+			//arftPromise
+
+			//console.log(googleApiRequest);
+
+			return false;
 			$http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token).
 				success(function (data) {
 					data.accessToken = authResult.access_token;
