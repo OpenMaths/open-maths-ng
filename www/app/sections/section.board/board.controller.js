@@ -95,6 +95,8 @@
 						data.targetClasses = classes;
 					}
 
+					data.where = where;
+
 					$scope.grid[where.row][where.column] = data;
 					// TODO this does not work on expanding??
 					$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
@@ -106,8 +108,11 @@
 
 		getUmi("uriFriendlyTitle", initUriFriendlyTitle, magicForBoard.gridStartingPosition, false);
 
-		$scope.position = function (row, column, direction, newUmiID) {
-			var targetClasses = [];
+		$scope.position = function (direction, data) {
+			var targetClasses = [],
+				row = data.where.row,
+				column = data.where.column,
+				newUmiID = data.umi.id;
 
 			if (direction == "up") {
 				var targetPosition = [row - 1, column];

@@ -22,9 +22,6 @@
 		<onboarding-hotspot ng-hide="onboarding.resizeBoardRows || $index !== 0" class="top" section="resizeBoardRows"></onboarding-hotspot>
 	</resize-row>
 	<div class="column flex-1" ng-repeat="data in row">
-
-		<!--<expand-umi id="1" board="board"></expand-umi>-->
-
 		<!--Unit of Mathematical Information-->
 		<div class="umi {{ data.targetClasses }}"
 			 ng-class="{'fade-in' : fadeInUmi}"
@@ -55,7 +52,7 @@
 				<article stop-event>
 					<!--@FIXME THIS IS A BUG! Should be htmlContent rather than latexContent-->
 					<!--<p om-bind="data.latexContent"></p>-->
-					<p><expand-umi class="expand" label="integer"></expand-umi></p>
+					<p><a expand-umi label="integer" call="position" data="data"></a></p>
 				</article>
 			</div>
 		</div>

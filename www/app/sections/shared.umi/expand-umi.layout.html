@@ -1,3 +1,2 @@
-<!--{{ id }}-->
-<i ng-repeat="direction in directions" ng-click="position(direction)" class="expand expand-{{ direction }}"></i>
-{{ label }}
+<i ng-repeat="direction in expandData.directions" ng-click="position(direction, data)" class="expand expand-{{ direction }}"></i>
+{{ expandData.label }}

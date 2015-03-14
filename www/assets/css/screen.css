@@ -1898,25 +1898,26 @@ h6 {
       line-height: 1.75;
       font-size: 0.875rem;
       font-family: "Anonymous Pro", "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
-      .umi article p strong, .umi article p .expand {
+      .umi article p strong, .umi article p a {
         transition: color 0.25s;
+        text-decoration: none;
         color: #EC6470;
         position: relative;
         cursor: pointer; }
-        .umi article p strong.inactive, .umi article p .expand.inactive {
+        .umi article p strong.inactive, .umi article p a.inactive {
           color: #1b2424;
           cursor: default; }
-        .umi article p strong:hover i, .umi article p strong:focus i, .umi article p .expand:hover i, .umi article p .expand:focus i {
+        .umi article p strong:hover i, .umi article p strong:focus i, .umi article p a:hover i, .umi article p a:focus i {
           opacity: 1; }
-          .umi article p strong:hover i.expand-down, .umi article p strong:focus i.expand-down, .umi article p .expand:hover i.expand-down, .umi article p .expand:focus i.expand-down {
+          .umi article p strong:hover i.expand-down, .umi article p strong:focus i.expand-down, .umi article p a:hover i.expand-down, .umi article p a:focus i.expand-down {
             bottom: -1.5rem; }
-          .umi article p strong:hover i.expand-up, .umi article p strong:focus i.expand-up, .umi article p .expand:hover i.expand-up, .umi article p .expand:focus i.expand-up {
+          .umi article p strong:hover i.expand-up, .umi article p strong:focus i.expand-up, .umi article p a:hover i.expand-up, .umi article p a:focus i.expand-up {
             top: -1.5rem; }
-          .umi article p strong:hover i.expand-left, .umi article p strong:focus i.expand-left, .umi article p .expand:hover i.expand-left, .umi article p .expand:focus i.expand-left {
+          .umi article p strong:hover i.expand-left, .umi article p strong:focus i.expand-left, .umi article p a:hover i.expand-left, .umi article p a:focus i.expand-left {
             left: -1.75rem; }
-          .umi article p strong:hover i.expand-right, .umi article p strong:focus i.expand-right, .umi article p .expand:hover i.expand-right, .umi article p .expand:focus i.expand-right {
+          .umi article p strong:hover i.expand-right, .umi article p strong:focus i.expand-right, .umi article p a:hover i.expand-right, .umi article p a:focus i.expand-right {
             right: -1.75rem; }
-        .umi article p strong i, .umi article p .expand i {
+        .umi article p strong i, .umi article p a i {
           -o-border-radius: 100%;
           border-radius: 100%;
           transition: all 0.25s;
@@ -1932,22 +1933,22 @@ h6 {
           background-repeat: no-repeat;
           background-position: center center;
           background-size: 75%; }
-          .umi article p strong i.expand-down, .umi article p strong i.expand-up, .umi article p .expand i.expand-down, .umi article p .expand i.expand-up {
+          .umi article p strong i.expand-down, .umi article p strong i.expand-up, .umi article p a i.expand-down, .umi article p a i.expand-up {
             left: 50%;
             margin-left: -0.75rem; }
-          .umi article p strong i.expand-down, .umi article p .expand i.expand-down {
+          .umi article p strong i.expand-down, .umi article p a i.expand-down {
             bottom: 0;
             background-image: url("/assets/images/icons/expand-arrows/arrow-down-black.svg"); }
-          .umi article p strong i.expand-up, .umi article p .expand i.expand-up {
+          .umi article p strong i.expand-up, .umi article p a i.expand-up {
             top: 0;
             background-image: url("/assets/images/icons/expand-arrows/arrow-up-black.svg"); }
-          .umi article p strong i.expand-left, .umi article p strong i.expand-right, .umi article p .expand i.expand-left, .umi article p .expand i.expand-right {
+          .umi article p strong i.expand-left, .umi article p strong i.expand-right, .umi article p a i.expand-left, .umi article p a i.expand-right {
             top: 50%;
             margin-top: -0.75rem; }
-          .umi article p strong i.expand-left, .umi article p .expand i.expand-left {
+          .umi article p strong i.expand-left, .umi article p a i.expand-left {
             left: 0;
             background-image: url("/assets/images/icons/expand-arrows/arrow-left-black.svg"); }
-          .umi article p strong i.expand-right, .umi article p .expand i.expand-right {
+          .umi article p strong i.expand-right, .umi article p a i.expand-right {
             right: 0;
             background-image: url("/assets/images/icons/expand-arrows/arrow-right-black.svg"); }
   .umi .footer {
