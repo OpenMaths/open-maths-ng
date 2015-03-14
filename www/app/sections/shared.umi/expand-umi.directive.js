@@ -26,6 +26,7 @@
 
 		function link(scope, element, attr) {
 			scope.expandData = {
+				id: attr.id,
 				label: attr.label,
 				directions: magicForExpandUmiDirective.directions
 			};

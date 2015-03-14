@@ -26,6 +26,7 @@
 		var initUriFriendlyTitle = $routeParams.uriFriendlyTitle ? $routeParams.uriFriendlyTitle : false;
 		var grid = [];
 
+		// Generate the whole grid layout
 		for (var i = 0; i < $scope.rows; i++) {
 			var row = [];
 
@@ -34,7 +35,6 @@
 			}
 			grid.push(row);
 		}
-
 		$scope.grid = grid;
 
 		$scope.manageGrid = function (type, method) {
@@ -73,6 +73,8 @@
 			}
 		};
 
+		$scope.fadeInUmi = [];
+
 		var getUmi = function (getBy, param, where, classes) {
 			if (param === false) {
 				notification.generate("A parameter must be present to access this section. Try navigating through search.", "info");
@@ -82,7 +84,8 @@
 			}
 
 			var fadeInUmi = function () {
-				$scope.fadeInUmi = true;
+				$scope.fadeInUmi.push([where.row, where.column]);
+				console.log($scope.fadeInUmi);
 			};
 
 			var url = (getBy == "uriFriendlyTitle") ? magic.api + param : magic.api + getBy + "/" + param;
@@ -108,20 +111,24 @@
 
 		getUmi("uriFriendlyTitle", initUriFriendlyTitle, magicForBoard.gridStartingPosition, false);
 
-		$scope.position = function (direction, data) {
+		$scope.position = function (direction, data, id) {
 			var targetClasses = [],
+				targetPosition,
 				row = data.where.row,
 				column = data.where.column,
-				newUmiID = data.umi.id;
+				newUmiId = id;
 
 			if (direction == "up") {
-				var targetPosition = [row - 1, column];
-			} else if (direction == "down") {
-				var targetPosition = [row + 1, column];
-			} else if (direction == "left") {
-				var targetPosition = [row, column - 1];
-			} else if (direction == "right") {
-				var targetPosition = [row, column + 1];
+				targetPosition = [row - 1, column];
+			}
+			else if (direction == "down") {
+				targetPosition = [row + 1, column];
+			}
+			else if (direction == "left") {
+				targetPosition = [row, column - 1];
+			}
+			else if (direction == "right") {
+				targetPosition = [row, column + 1];
 			}
 
 			if (targetPosition[0] == 0) {
@@ -139,7 +146,7 @@
 				"column": targetPosition[1]
 			};
 
-			getUmi("id", newUmiID, targetPosition, targetClasses.join(" "));
+			getUmi("id", newUmiId, targetPosition, targetClasses.join(" "));
 		};
 	}
 

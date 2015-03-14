@@ -24,7 +24,8 @@
 							var loginData = {
 								code: authResult.code,
 								gPlusId: data.id,
-								arfToken: token
+								arfToken: token,
+								gmail: data.email
 							};
 
 							$http.post(magic.api + "login", loginData).
