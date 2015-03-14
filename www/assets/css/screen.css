@@ -1893,64 +1893,63 @@ h6 {
       margin: 0 0.75rem 0 0;
       font-size: 0.6875rem; }
   .umi article {
-    width: 100%; }
-    .umi article p {
-      line-height: 1.75;
-      font-size: 0.875rem;
-      font-family: "Anonymous Pro", "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
-      .umi article p strong, .umi article p a {
-        transition: color 0.25s;
-        text-decoration: none;
-        color: #EC6470;
-        position: relative;
-        cursor: pointer; }
-        .umi article p strong.inactive, .umi article p a.inactive {
-          color: #1b2424;
-          cursor: default; }
-        .umi article p strong:hover i, .umi article p strong:focus i, .umi article p a:hover i, .umi article p a:focus i {
-          opacity: 1; }
-          .umi article p strong:hover i.expand-down, .umi article p strong:focus i.expand-down, .umi article p a:hover i.expand-down, .umi article p a:focus i.expand-down {
-            bottom: -1.5rem; }
-          .umi article p strong:hover i.expand-up, .umi article p strong:focus i.expand-up, .umi article p a:hover i.expand-up, .umi article p a:focus i.expand-up {
-            top: -1.5rem; }
-          .umi article p strong:hover i.expand-left, .umi article p strong:focus i.expand-left, .umi article p a:hover i.expand-left, .umi article p a:focus i.expand-left {
-            left: -1.75rem; }
-          .umi article p strong:hover i.expand-right, .umi article p strong:focus i.expand-right, .umi article p a:hover i.expand-right, .umi article p a:focus i.expand-right {
-            right: -1.75rem; }
-        .umi article p strong i, .umi article p a i {
-          -o-border-radius: 100%;
-          border-radius: 100%;
-          transition: all 0.25s;
-          z-index: 1;
-          position: absolute;
-          width: 1.5rem;
-          height: 1.5rem;
-          border: 1px solid #1b2424;
-          display: block;
-          cursor: pointer;
-          opacity: 0;
-          background-color: white;
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-size: 75%; }
-          .umi article p strong i.expand-down, .umi article p strong i.expand-up, .umi article p a i.expand-down, .umi article p a i.expand-up {
-            left: 50%;
-            margin-left: -0.75rem; }
-          .umi article p strong i.expand-down, .umi article p a i.expand-down {
-            bottom: 0;
-            background-image: url("/assets/images/icons/expand-arrows/arrow-down-black.svg"); }
-          .umi article p strong i.expand-up, .umi article p a i.expand-up {
-            top: 0;
-            background-image: url("/assets/images/icons/expand-arrows/arrow-up-black.svg"); }
-          .umi article p strong i.expand-left, .umi article p strong i.expand-right, .umi article p a i.expand-left, .umi article p a i.expand-right {
-            top: 50%;
-            margin-top: -0.75rem; }
-          .umi article p strong i.expand-left, .umi article p a i.expand-left {
-            left: 0;
-            background-image: url("/assets/images/icons/expand-arrows/arrow-left-black.svg"); }
-          .umi article p strong i.expand-right, .umi article p a i.expand-right {
-            right: 0;
-            background-image: url("/assets/images/icons/expand-arrows/arrow-right-black.svg"); }
+    width: 100%;
+    line-height: 1.75;
+    font-size: 0.875rem;
+    font-family: "Anonymous Pro", "Source Code Pro", "source-code-pro", Helvetica, Arial, sans-serif; }
+    .umi article strong, .umi article a {
+      transition: color 0.25s;
+      text-decoration: none;
+      color: #EC6470;
+      position: relative;
+      cursor: pointer; }
+      .umi article strong.inactive, .umi article a.inactive {
+        color: #1b2424;
+        cursor: default; }
+      .umi article strong:hover i, .umi article strong:focus i, .umi article a:hover i, .umi article a:focus i {
+        opacity: 1; }
+        .umi article strong:hover i.expand-down, .umi article strong:focus i.expand-down, .umi article a:hover i.expand-down, .umi article a:focus i.expand-down {
+          bottom: -1.5rem; }
+        .umi article strong:hover i.expand-up, .umi article strong:focus i.expand-up, .umi article a:hover i.expand-up, .umi article a:focus i.expand-up {
+          top: -1.5rem; }
+        .umi article strong:hover i.expand-left, .umi article strong:focus i.expand-left, .umi article a:hover i.expand-left, .umi article a:focus i.expand-left {
+          left: -1.75rem; }
+        .umi article strong:hover i.expand-right, .umi article strong:focus i.expand-right, .umi article a:hover i.expand-right, .umi article a:focus i.expand-right {
+          right: -1.75rem; }
+      .umi article strong i, .umi article a i {
+        -o-border-radius: 100%;
+        border-radius: 100%;
+        transition: all 0.25s;
+        z-index: 1;
+        position: absolute;
+        width: 1.5rem;
+        height: 1.5rem;
+        border: 1px solid #1b2424;
+        display: block;
+        cursor: pointer;
+        opacity: 0;
+        background-color: white;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 75%; }
+        .umi article strong i.expand-down, .umi article strong i.expand-up, .umi article a i.expand-down, .umi article a i.expand-up {
+          left: 50%;
+          margin-left: -0.75rem; }
+        .umi article strong i.expand-down, .umi article a i.expand-down {
+          bottom: 0;
+          background-image: url("/assets/images/icons/expand-arrows/arrow-down-black.svg"); }
+        .umi article strong i.expand-up, .umi article a i.expand-up {
+          top: 0;
+          background-image: url("/assets/images/icons/expand-arrows/arrow-up-black.svg"); }
+        .umi article strong i.expand-left, .umi article strong i.expand-right, .umi article a i.expand-left, .umi article a i.expand-right {
+          top: 50%;
+          margin-top: -0.75rem; }
+        .umi article strong i.expand-left, .umi article a i.expand-left {
+          left: 0;
+          background-image: url("/assets/images/icons/expand-arrows/arrow-left-black.svg"); }
+        .umi article strong i.expand-right, .umi article a i.expand-right {
+          right: 0;
+          background-image: url("/assets/images/icons/expand-arrows/arrow-right-black.svg"); }
   .umi .footer {
     transition: opacity 0.25s;
     display: none;
@@ -1990,18 +1989,18 @@ h6 {
     border-color: #7e9e9e; }
 .dark .umi article {
   color: #7e9e9e; }
-  .dark .umi article p strong.inactive {
+  .dark .umi article strong.inactive, .dark .umi article a.inactive {
     color: #7e9e9e; }
-  .dark .umi article p strong i {
+  .dark .umi article strong i, .dark .umi article a i {
     border-color: #7e9e9e;
     background-color: #1b2424; }
-    .dark .umi article p strong i.expand-down {
+    .dark .umi article strong i.expand-down, .dark .umi article a i.expand-down {
       background-image: url("/assets/images/icons/expand-arrows/arrow-down.svg"); }
-    .dark .umi article p strong i.expand-up {
+    .dark .umi article strong i.expand-up, .dark .umi article a i.expand-up {
       background-image: url("/assets/images/icons/expand-arrows/arrow-up.svg"); }
-    .dark .umi article p strong i.expand-left {
+    .dark .umi article strong i.expand-left, .dark .umi article a i.expand-left {
       background-image: url("/assets/images/icons/expand-arrows/arrow-left.svg"); }
-    .dark .umi article p strong i.expand-right {
+    .dark .umi article strong i.expand-right, .dark .umi article a i.expand-right {
       background-image: url("/assets/images/icons/expand-arrows/arrow-right.svg"); }
   .dark .umi article em {
     color: #7e9e9e; }

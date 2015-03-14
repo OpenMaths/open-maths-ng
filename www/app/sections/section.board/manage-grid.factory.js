@@ -1,17 +1,18 @@
 (function () {
 	"use strict";
 
+	var magicForManageGridFactory = {
+		gridMaxRows: 6,
+		gridMinRows: 2,
+		gridMaxColumns: 6,
+		gridMinColumns: 2
+	};
+
 	angular
 		.module("omApp")
-		.factory("manageGrid", manageGridFactory)
-		.constant("magicForManageGridFactory", {
-			gridMaxRows: 6,
-			gridMinRows: 2,
-			gridMaxColumns: 6,
-			gridMinColumns: 2
-		});
+		.factory("manageGrid", manageGridFactory);
 
-	function manageGridFactory(magicForManageGridFactory) {
+	function manageGridFactory() {
 		var factory = {
 			row: manageRow,
 			column: manageColumn
