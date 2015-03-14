@@ -3,10 +3,11 @@
 describe("manageGrid", function () {
 	beforeEach(module("omApp"));
 
-	var factory;
+	var factory, magic;
 
-	beforeEach(inject(function ($rootScope, manageGrid) {
+	beforeEach(inject(function (manageGrid, magicForManageGridFactory) {
 		factory = manageGrid;
+		magic = magicForManageGridFactory;
 	}));
 
 	it("should add a row when requested", function() {
@@ -38,25 +39,25 @@ describe("manageGrid", function () {
 	});
 
 	it("should not add a row when maximum rows are set", function() {
-		var newGridSetting = factory.row("add", 6, 3);
+		var newGridSetting = factory.row("add", magic.gridMaxRows, 3);
 
 		expect(newGridSetting).toBe(false);
 	});
 
 	it("should not remove a row when minimum rows are set", function() {
-		var newGridSetting = factory.row("remove", 2, 3);
+		var newGridSetting = factory.row("remove", magic.gridMinRows, 3);
 
 		expect(newGridSetting).toBe(false);
 	});
 
 	it("should not add a column when maximum columns are set", function() {
-		var newGridSetting = factory.column("add", 6);
+		var newGridSetting = factory.column("add", magic.gridMaxColumns);
 
 		expect(newGridSetting).toBe(false);
 	});
 
 	it("should not remove a column when minimum columns are set", function() {
-		var newGridSetting = factory.column("remove", 2);
+		var newGridSetting = factory.column("remove", magic.gridMinColumns);
 
 		expect(newGridSetting).toBe(false);
 	});
