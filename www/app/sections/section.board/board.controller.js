@@ -24,9 +24,9 @@
 		$scope.columns = sStorage.get("gridColumns") ? _.parseInt(sStorage.get("gridColumns")) : magicForBoard.gridDefaultColumnCount;
 
 		var initUriFriendlyTitle = $routeParams.uriFriendlyTitle ? $routeParams.uriFriendlyTitle : false;
-		var grid = [];
 
 		// Generate the whole grid layout
+		var grid = [];
 		for (var i = 0; i < $scope.rows; i++) {
 			var row = [];
 
@@ -73,7 +73,9 @@
 			}
 		};
 
-		$scope.fadeInUmi = [];
+		var getUmiPromise = function (url) {
+			return $http.get(url);
+		};
 
 		var getUmi = function (getBy, param, where, classes) {
 			if (param === false) {
@@ -83,25 +85,24 @@
 				return false;
 			}
 
-			var url = (getBy == "uriFriendlyTitle") ? magic.api + "title/" + param : magic.api + getBy + "/" + param;
+			var url = (getBy == "uriFriendlyTitle") ? magic.api + "title/" + param : magic.api + getBy + "/" + param,
+				getUmiObservable = Rx.Observable.fromPromise(getUmiPromise(url));
 
-			$http.get(url).
-				success(function (data) {
-					logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
+			getUmiObservable.subscribe(function(d) {
+				var data = d.data;
+				logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
 
-					if (classes) {
-						data.targetClasses = classes;
-					}
+				if (classes) {
+					data.targetClasses = classes;
+				}
+				data.where = where;
 
-					data.where = where;
-
-					$scope.grid[where.row][where.column] = data;
-					// TODO this does not work on expanding??
-					//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
-				}).
-				error(function (data) {
-					notification.generate("There was an error loading requested contribution.", "error", data);
-				});
+				$scope.grid[where.row][where.column] = data;
+				// TODO this does not work on expanding??
+				//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
+			}, function(errorData) {
+				notification.generate("There was an error loading requested contribution.", "error", errorData);
+			});
 		};
 
 		getUmi("uriFriendlyTitle", initUriFriendlyTitle, magicForBoard.gridStartingPosition, false);
