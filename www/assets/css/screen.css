@@ -482,6 +482,126 @@ a,
 .margin-horizontal.triple-unit-layout {
   margin: 0 3rem; }
 
+.padding-top-quarter {
+  padding-top: 0.25rem; }
+
+.padding-top-half {
+  padding-top: 0.5rem; }
+
+.padding-top-base {
+  padding-top: 1rem; }
+
+.padding-top-double {
+  padding-top: 2rem; }
+
+.padding-right-quarter {
+  padding-right: 0.25rem; }
+
+.padding-right-half {
+  padding-right: 0.5rem; }
+
+.padding-right-base {
+  padding-right: 1rem; }
+
+.padding-right-double {
+  padding-right: 2rem; }
+
+.padding-bottom-quarter {
+  padding-bottom: 0.25rem; }
+
+.padding-bottom-half {
+  padding-bottom: 0.5rem; }
+
+.padding-bottom-base {
+  padding-bottom: 1rem; }
+
+.padding-bottom-double {
+  padding-bottom: 2rem; }
+
+.padding-left-quarter {
+  padding-left: 0.25rem; }
+
+.padding-left-half {
+  padding-left: 0.5rem; }
+
+.padding-left-base {
+  padding-left: 1rem; }
+
+.padding-left-double {
+  padding-left: 2rem; }
+
+.padding-quarter {
+  padding: 0.25rem; }
+
+.padding-half {
+  padding: 0.5rem; }
+
+.padding-base {
+  padding: 1rem; }
+
+.padding-double {
+  padding: 2rem; }
+
+.margin-top-quarter {
+  margin-top: 0.25rem; }
+
+.margin-top-half {
+  margin-top: 0.5rem; }
+
+.margin-top-base {
+  margin-top: 1rem; }
+
+.margin-top-double {
+  margin-top: 2rem; }
+
+.margin-right-quarter {
+  margin-right: 0.25rem; }
+
+.margin-right-half {
+  margin-right: 0.5rem; }
+
+.margin-right-base {
+  margin-right: 1rem; }
+
+.margin-right-double {
+  margin-right: 2rem; }
+
+.margin-bottom-quarter {
+  margin-bottom: 0.25rem; }
+
+.margin-bottom-half {
+  margin-bottom: 0.5rem; }
+
+.margin-bottom-base {
+  margin-bottom: 1rem; }
+
+.margin-bottom-double {
+  margin-bottom: 2rem; }
+
+.margin-left-quarter {
+  margin-left: 0.25rem; }
+
+.margin-left-half {
+  margin-left: 0.5rem; }
+
+.margin-left-base {
+  margin-left: 1rem; }
+
+.margin-left-double {
+  margin-left: 2rem; }
+
+.margin-quarter {
+  margin: 0.25rem; }
+
+.margin-half {
+  margin: 0.5rem; }
+
+.margin-base {
+  margin: 1rem; }
+
+.margin-double {
+  margin: 2rem; }
+
 .text-center, .close, footer nav, .onboarding-container .pop-up, .umi .footer, .page-ooops .headline {
   text-align: center; }
 

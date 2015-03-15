@@ -12,8 +12,6 @@
 	padding: 0
 
 // Need to write SASS functions to automate these.
-
-
 .padding-vertical
 	&.unit-layout
 		padding: $base-unit-layout 0
@@ -45,3 +43,18 @@
 		margin: 0 $double-unit-layout
 	&.triple-unit-layout
 		margin: 0 $triple-unit-layout
+
+$types: padding, margin
+$sides: top, right, bottom, left
+$modifiers: (quarter: $quarter-unit-layout, half: $half-unit-layout, base: $base-unit-layout, double: $double-unit-layout)
+
+@each $type in $types
+
+	@each $side in $sides
+		@each $key, $value in $modifiers
+			.#{$type}-#{$side}-#{$key}
+				#{$type}-#{$side}: $value
+
+	@each $key, $value in $modifiers
+		.#{$type}-#{$key}
+			#{$type}: $value
