@@ -8,43 +8,7 @@
 			pageTitle: "Contribute",
 			pageTransparentNav: false,
 			parseContentTimeout: 2000,
-			parseContentProgressTimeout: 750,
-			steps: {
-				"basic-settings": "Basic Settings",
-				"editor": "Editor",
-				"preview-and-publish": "Preview & Publish"
-			},
-			// @TODO load below async!!
-			formErrorMessages: {
-				required: "This field is required.",
-				maxLength: "This field is exceeding the maximum length of 128 characters.",
-				umiTitle: "The title should only consist of letters, spaces, or hyphens"
-			},
-			formInstructions: {
-				umiType: "What category of information?",
-				title: "Users will be able to search your contribution.",
-				titleSynonyms: "Comma-separated list of alternative names.",
-				content: "The actual content. You are free to use LaTeX (including text-mode macros!!).",
-				prerequisiteDefinitionIds: "Comma-separated list of valid dependency Titles.",
-				seeAlsoIds: "Comma-separated list of valid Titles which may be related.",
-				tags: "Comma-separated list of tags to help users find your contribution."
-			},
-			formUmiTypes: [
-				{id: "Definition", label: "Definition", formal: true, meta: true},
-				{id: "Notation", label: "Notation", formal: true, meta: true},
-				{id: "Axiom", label: "Axiom", formal: true},
-				{id: "AxiomScheme", label: "Axiom Scheme", formal: true},
-				{id: "Theorem", label: "Theorem"},
-				{id: "Lemma", label: "Lemma"},
-				{id: "Corollary", label: "Corollary"},
-				{id: "Conjecture", label: "Conjecture"},
-				{id: "Proof", label: "Proof"},
-				{id: "HistoricalNote", label: "Historical Note"},
-				{id: "PhilosophicalJustification", label: "Philosophical Justification"},
-				{id: "Diagram", label: "Diagram"},
-				{id: "Example", label: "Example"},
-				{id: "PartialTheorem", label: "Partial Theorem"}
-			]
+			parseContentProgressTimeout: 750
 		});
 
 	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, onboarding, magic, magicForContribute) {
@@ -63,12 +27,16 @@
 			tags: ""
 		};
 
-		$scope.formErrorMessages = magicForContribute.formErrorMessages; // CHANGE IN LAYOUT
-		$scope.formInstructions = magicForContribute.formInstructions; // CHANGE IN LAYOUT
-		$scope.formUmiTypes = magicForContribute.formUmiTypes; // CHANGE IN LAYOUT
+		$http.get("app/sections/section.contribute/contribute.magic.json").success(function(data) {
+			_.forEach(data, function(val, key) {
+				$scope[key] = val;
+			});
+		}).error(function(errData) {
+			logger(errData, "error");
+		});
 
 		// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
-		$scope.steps = magicForContribute.steps;
+		//$scope.steps = magicForContribute.steps;
 		$scope.stepsKeys = _.keys($scope.steps);
 		$scope.activeStep = 0;
 

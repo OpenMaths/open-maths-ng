@@ -5,7 +5,7 @@
 		.module("omApp")
 		.factory("onboarding", onboardingFactory);
 
-	function onboardingFactory($sce, $http) {
+	function onboardingFactory($sce, $http, logger) {
 		var subscriptions = [];
 
 		return {
@@ -26,8 +26,8 @@
 				_.forEach(subscriptions, function (callback) {
 					callback(data);
 				});
-			}).error(function(e) {
-				console.log(e);
+			}).error(function(errData) {
+				logger(errData, "error");
 			});
 		}
 
