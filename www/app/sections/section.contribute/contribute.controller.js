@@ -29,18 +29,20 @@
 				tags: "Comma-separated list of tags to help users find your contribution."
 			},
 			formUmiTypes: [
-				{id: "Definition", label: "Definition", formal: "allow"},
-				{id: "Axiom", label: "Axiom", formal: "allow"},
-				{id: "Theorem", label: "Theorem", formal: "allow"},
-				{id: "Lemma", label: "Lemma", formal: "allow"},
-				{id: "Corollary", label: "Corollary", formal: "allow"},
-				{id: "Conjecture", label: "Conjecture", formal: "allow"},
-				{id: "Proof", label: "Proof", formal: "allow"},
+				{id: "Definition", label: "Definition", formal: true, meta: true},
+				{id: "Notation", label: "Notation", formal: true, meta: true},
+				{id: "Axiom", label: "Axiom", formal: true},
+				{id: "AxiomScheme", label: "Axiom Scheme", formal: true},
+				{id: "Theorem", label: "Theorem"},
+				{id: "Lemma", label: "Lemma"},
+				{id: "Corollary", label: "Corollary"},
+				{id: "Conjecture", label: "Conjecture"},
+				{id: "Proof", label: "Proof"},
 				{id: "HistoricalNote", label: "Historical Note"},
 				{id: "PhilosophicalJustification", label: "Philosophical Justification"},
 				{id: "Diagram", label: "Diagram"},
 				{id: "Example", label: "Example"},
-				{id: "PartialTheorem", label: "Partial Theorem", formal: "allow"}
+				{id: "PartialTheorem", label: "Partial Theorem"}
 			]
 		});
 
@@ -62,7 +64,7 @@
 
 		// @NOTE This is to store the $timeout promise,
 		// so it can be reset on every keystroke.
-		var parseContent;
+		//var parseContent;
 
 		$scope.formErrorMessages = magicForContribute.formErrorMessages; // CHANGE IN LAYOUT
 		$scope.formInstructions = magicForContribute.formInstructions; // CHANGE IN LAYOUT
@@ -98,6 +100,16 @@
 				notification.generate("Your contribution is now of type Formal.", "info");
 			} else {
 				notification.generate("Your contribution is no longer of type Formal.", "info");
+			}
+		};
+
+		$scope.toggleMetaDefinition = function () {
+			$scope.metaDefinition = $scope.metaDefinition ? false : true;
+
+			if ($scope.metaDefinition) {
+				notification.generate("Your contribution is now of type Meta Definition.", "info");
+			} else {
+				notification.generate("Your contribution is no longer of type Meta Definition.", "info");
 			}
 		};
 

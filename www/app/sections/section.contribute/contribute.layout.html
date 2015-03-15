@@ -80,15 +80,21 @@
 			<div class="alert error" ng-show="formBasicSettings.titleSynonyms.$error.maxlength">{{ formErrorMessages.maxLength }}</div>
 		</div>
 
-		<label class="flex center-vertically button-holder">
+		<div class="flex center-vertically button-holder">
 			<!--@TODO fix this issue (probably flexbox)-->
-			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.formal">
-				<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
-				<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
+			<div class="flex column">
+				<div class="toggle-holder flex center-vertically margin-bottom-half" ng-show="createUmiForm.umiType.formal">
+					<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
+					<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
+				</div>
+				<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.meta">
+					<div class="toggle flex" ng-click="toggleMetaDefinition()" ng-class="{active : metaDefinition}"></div>
+					<small>This is <span ng-hide="metaDefinition">not</span> a <strong>Meta Definition</strong></small>
+				</div>
 			</div>
 
 			<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
-		</label>
+		</div>
 	</form>
 
 	<form name="formEditor" ng-show="activeStep == 1">
