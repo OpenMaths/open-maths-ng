@@ -83,11 +83,11 @@
 		<div class="flex center-vertically button-holder">
 			<!--@TODO fix this issue (probably flexbox)-->
 			<div class="flex column">
-				<div class="toggle-holder flex center-vertically margin-bottom-half" ng-show="createUmiForm.umiType.formal">
+				<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.formal">
 					<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
 					<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
 				</div>
-				<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.meta">
+				<div class="toggle-holder flex center-vertically margin-top-base" ng-show="createUmiForm.umiType.meta">
 					<div class="toggle flex" ng-click="toggleMetaDefinition()" ng-class="{active : metaDefinition}"></div>
 					<small>This is <span ng-hide="metaDefinition">not</span> a <strong>Meta Definition</strong></small>
 				</div>
@@ -109,7 +109,7 @@
 			<ul class="flex center-vertically align-right">
 				<li><span id="parsing" class="flex center-vertically" ng-show="parsingContent">Parsing</span></li>
 				<li><span id="time-scale" class="flex center-vertically" ng-show="timeScale">{{ timeScale }}</span></li>
-				<li><span id="locked" class="flex center-vertically">Locked</span></li>
+				<!--<li><span id="locked" class="flex center-vertically">Locked</span></li>-->
 			</ul>
 		</section>
 

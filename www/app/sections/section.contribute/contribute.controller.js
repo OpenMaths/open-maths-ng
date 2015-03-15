@@ -118,6 +118,8 @@
 		 */
 		$scope.createUmi = function () {
 			var createUmiForm = $scope.createUmiForm;
+			var typePrefix = $scope.formalVersion ? "Formal" : "";
+			var typeSuffix = $scope.metaDefinition ? "Meta" : "";
 
 			// @TODO this should be a factory
 			var dispatchCreateUmi = {
@@ -126,7 +128,7 @@
 					gPlusId: $scope.omUser.id
 				},
 				message: "Initialise UMI",
-				umiType: createUmiForm.umiType.id,
+				umiType: typePrefix + createUmiForm.umiType.id + typeSuffix,
 				title: _.capitalise(createUmiForm.title),
 				titleSynonyms: createUmiForm.titleSynonyms ? _.cleanseCSV(createUmiForm.titleSynonyms) : [],
 				content: createUmiForm.content,
@@ -137,7 +139,7 @@
 
 			logger.log(dispatchCreateUmi, "info");
 
-			$scope.contributeData = dispatchCreateUmi;
+			return false;
 
 			$http.post(magic.api + "add", dispatchCreateUmi).
 				success(function (data) {
