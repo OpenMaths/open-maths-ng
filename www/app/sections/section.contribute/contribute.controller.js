@@ -14,6 +14,7 @@
 				"editor": "Editor",
 				"preview-and-publish": "Preview & Publish"
 			},
+			// @TODO load below async!!
 			formErrorMessages: {
 				required: "This field is required.",
 				maxLength: "This field is exceeding the maximum length of 128 characters.",
@@ -46,7 +47,7 @@
 			]
 		});
 
-	function ContributeController($scope, $http, logger, rx, notification, userLevel, onboarding, magic, magicForContribute) {
+	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -71,7 +72,7 @@
 		$scope.stepsKeys = _.keys($scope.steps);
 		$scope.activeStep = 0;
 
-		onboarding.generate("contributeBeta");
+		onboarding.generate("contributeAlpha");
 
 		/**
 		 * Navigates through individual steps of the contribution
@@ -173,31 +174,23 @@
 			.retry(3); // @TODO magicVars
 
 		latexToHtmlObservable.subscribe(function (d) {
-				logger.log(d, "info");
 				$scope.parsingContent = false;
-				return false;
 
 				var response = d.data,
 					parsedContent,
-					valid = _.first(_.keys(response)) == "parsed" ? true : false;
+					valid = _.first(response) == "s" ? true : false;
+
+				// @TODO remove after testing
+				//logger.log(response, "info");
+				//logger.log(valid, "info");
 
 				if (!valid) {
-					var err = _.first(_.values(response));
+					var errMessage = response.substring(1);
+					logger.log(errMessage, "error");
 
-					var substrPos = _.parseInt(err[1]) - 4; // @TODO does this need < 0 fallback??
-					var whereabouts = $scope.createUmiForm.content.substr(substrPos, 8);
-
-					// TODO consider changing to Object rather than an array (BackEnd tidying)
-					$scope.editorError = {
-						message: err[0],
-						offset: err[1],
-						where: whereabouts
-					};
-
-					parsedContent = $scope.createUmiForm.content;
+					parsedContent = $sce.trustAsHtml("<pre>" + errMessage + "</pre>");
 				} else {
-					$scope.editorError = false;
-					parsedContent = response.parsed;
+					parsedContent = response.substring(1);
 				}
 
 				$scope.parsedContent = parsedContent;

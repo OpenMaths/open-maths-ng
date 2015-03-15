@@ -11,9 +11,9 @@
     "title": "Create content",
     "message": "A Google Account. <strong>That is all you need</strong> to use OpenMaths to generate content and contribute."
   },
-  "contributeBeta": {
-    "title": "This is ALPHA!",
-    "message": "Feel free to play around, but bear in mind that <strong>we are currently in ALPHA and do not allow posting content</strong>."
+  "contributeAlpha": {
+    "title": "This is an ALPHA version of OpenMaths",
+    "message": "Feel free to play around, but bear in mind that <strong>we are currently in ALPHA and do not allow unverified users to contribute content</strong>."
   },
   "manageBoard": {
     "title": "Manage your board",
@@ -22,5 +22,9 @@
   "resizeBoardRows": {
     "title": "Resize and adapt",
     "message": "Feel free to <strong>play around with the grid</strong>! Whether you are running out of space, or you simply want to customise the way it looks."
+  },
+  "formalContent": {
+    "title": "Semantic Awareness",
+    "message": "Be aware of the grammar, correctness and semantic relationships of mathematics."
   }
 }
