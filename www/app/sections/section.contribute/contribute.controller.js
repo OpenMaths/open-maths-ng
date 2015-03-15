@@ -46,7 +46,7 @@
 			]
 		});
 
-	function ContributeController($scope, $http, $timeout, logger, rx, notification, userLevel, magic, magicForContribute) {
+	function ContributeController($scope, $http, logger, rx, notification, userLevel, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -61,10 +61,6 @@
 			seeAlsoIds: {},
 			tags: ""
 		};
-
-		// @NOTE This is to store the $timeout promise,
-		// so it can be reset on every keystroke.
-		//var parseContent;
 
 		$scope.formErrorMessages = magicForContribute.formErrorMessages; // CHANGE IN LAYOUT
 		$scope.formInstructions = magicForContribute.formInstructions; // CHANGE IN LAYOUT
@@ -132,31 +128,30 @@
 			};
 		};
 
-		/**
-		 * Makes mutation request
-		 */
-		$scope.createUmi = function () {
-			var d = returnMutationData();
-
-			logger.log(dispatchCreateUmi, "info");
-
-			return false;
-
-			$http.post(magic.api + "add", dispatchCreateUmi).
-				success(function (data) {
-					notification.generate("Your contribution was successfully posted!", "success", data);
-				}).
-				error(function (errorData) {
-					notification.generate("There was an error posting your contribution.", "error", errorData);
-				});
-		};
-
-		function latexToHtml() {
+		function latexToHtmlPromise() {
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
 			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
 		}
 
-		var source = rx.watch($scope, "createUmiForm.content")
+		function createUmiPromise() {
+			return $http.post(magic.api + "add", returnMutationData());
+		}
+
+		/**
+		 * Makes mutation request
+		 */
+		$scope.createUmi = function () {
+			var createUmiObservable = Rx.observable.fromPromise(createUmiObservable);
+
+			createUmiObservable.subscribe(function(data) {
+				logger.log(returnMutationData(), "info");
+				notification.generate("Your contribution was successfully posted!", "success", data);
+			}, function(errorData) {
+				notification.generate("There was an error posting your contribution.", "error", errorData);
+			});
+		};
+
+		var latexToHtmlObservable = rx.watch($scope, "createUmiForm.content")
 			.map(function (e) {
 				return e.newValue;
 			})
@@ -172,13 +167,14 @@
 				$scope.parsingContent = true;
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
-			.flatMapLatest(latexToHtml)
+			.flatMapLatest(latexToHtmlPromise)
 			.retry(3); // @TODO magicVars
 
-		var subsription = source.subscribe(function (d) {
+		latexToHtmlObservable.subscribe(function (d) {
+				logger.log(d, "info");
 				$scope.parsingContent = false;
-				console.log(d.data);
 				return false;
+
 				var response = d.data,
 					parsedContent,
 					valid = _.first(_.keys(response)) == "parsed" ? true : false;
@@ -203,11 +199,6 @@
 				}
 
 				$scope.parsedContent = parsedContent;
-
-				// @NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
-				//$timeout(function () {
-				//	$scope.parsingContent = false;
-				//}, magicForContribute.parseContentProgressTimeout);
 			},
 			function (errorData) {
 				notification.generate("There was an error parsing content", "error", errorData);
