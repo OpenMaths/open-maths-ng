@@ -68,17 +68,17 @@ describe("GlobalController", function () {
 		var invalid = [" font", "themes", "REmember "];
 
 		_.map(valid, function (val) {
-			scope.setUI(val, "value");
+			scope.setUI(val, "board");
 
 			if (val.toLowerCase() == "remember") {
-				expect(scope.uiSettings[val.toLowerCase()]["value"]).toBe(true);
+				expect(scope.uiSettings[val.toLowerCase()]["board"]).toBe(true);
 			} else {
-				expect(scope.uiSettings[val.toLowerCase()]).toEqual("value");
+				expect(scope.uiSettings[val.toLowerCase()]).toEqual("board");
 			}
 		});
 
 		_.map(invalid, function (val) {
-			var res = scope.setUI(val, "value");
+			var res = scope.setUI(val, "board");
 			expect(res).toBe(false);
 		});
 	});
