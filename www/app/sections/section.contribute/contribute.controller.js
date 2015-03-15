@@ -46,7 +46,7 @@
 			]
 		});
 
-	function ContributeController($scope, $http, logger, rx, notification, userLevel, magic, magicForContribute) {
+	function ContributeController($scope, $http, logger, rx, notification, userLevel, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -70,6 +70,8 @@
 		$scope.steps = magicForContribute.steps;
 		$scope.stepsKeys = _.keys($scope.steps);
 		$scope.activeStep = 0;
+
+		onboarding.generate("contributeBeta");
 
 		/**
 		 * Navigates through individual steps of the contribution
@@ -141,7 +143,7 @@
 		 * Makes mutation request
 		 */
 		$scope.createUmi = function () {
-			var createUmiObservable = Rx.observable.fromPromise(createUmiObservable);
+			var createUmiObservable = Rx.observable.fromPromise(createUmiPromise());
 
 			createUmiObservable.subscribe(function(data) {
 				logger.log(returnMutationData(), "info");
