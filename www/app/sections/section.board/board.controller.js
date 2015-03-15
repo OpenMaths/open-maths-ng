@@ -83,11 +83,6 @@
 				return false;
 			}
 
-			var fadeInUmi = function () {
-				$scope.fadeInUmi.push([where.row, where.column]);
-				console.log($scope.fadeInUmi);
-			};
-
 			var url = (getBy == "uriFriendlyTitle") ? magic.api + param : magic.api + getBy + "/" + param;
 
 			$http.get(url).
@@ -102,7 +97,7 @@
 
 					$scope.grid[where.row][where.column] = data;
 					// TODO this does not work on expanding??
-					$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
+					//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
 				}).
 				error(function (data) {
 					notification.generate("There was an error loading requested contribution.", "error", data);
