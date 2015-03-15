@@ -3,9 +3,12 @@
 
 	angular
 		.module("omApp")
-		.directive("navTopLayout", navTopDirective);
+		.directive("navTopLayout", navTopDirective)
+		.constant("magicForNacTopDirective", {
+			shakeDiveInSearchTimeout: 550
+		});
 
-	function navTopDirective($window, userLevel, notification, omAuth, logger, lStorage, sStorage) {
+	function navTopDirective($window, $timeout, userLevel, notification, omAuth, logger, sStorage, magicForNacTopDirective) {
 		var directive = {
 			restrict: "A",
 			templateUrl: "app/sections/shared.navigation/layout.html",
@@ -17,7 +20,9 @@
 
 		function linker(scope) {
 			$window.initGapi = function () {
-				scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
+				scope.$apply(function() {
+					scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
+				});
 			};
 
 			scope.googleSignIn = function () {
@@ -66,11 +71,17 @@
 			};
 
 			scope.accessUserLevel = function (url) {
+				// @TODO does this need to be a return?
 				return userLevel.access(url);
 			};
 
 			scope.accessBoard = function() {
 				if (scope.path !== "board") {
+					scope.$parent.shakeDiveInSearch = true;
+					$timeout(function() {
+						scope.$parent.shakeDiveInSearch = false;
+					}, magicForNacTopDirective.shakeDiveInSearchTimeout);
+
 					notification.generate("Use our search to navigate to this section :-)", "info");
 				}
 

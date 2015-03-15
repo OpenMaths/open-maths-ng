@@ -71,22 +71,11 @@
 			var signOutObservable = Rx.Observable.fromPromise(signOutPromise());
 
 			signOutObservable.subscribe(function (data) {
-				console.log(data);
 				// @TODO should this even be done using a callback???? Reconsider..
 				callback();
 			}, function (errorData) {
-				// @TODO finish this and test what output it spits out. Unit tests needed
+				notification.generate("There was an error signing you out of our application server.", "error", errorData);
 			});
-
-			// @TODO get rid of unused ugly code below
-
-			//$http.post(magic.api + "logout", signOutData).
-			//	success(function () {
-			//
-			//	}).
-			//	error(function (data, status) {
-			//		notification.generate("There was an error signing you out of our application server.", "error", [data, status]);
-			//	});
 		}
 
 	}

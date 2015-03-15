@@ -97,6 +97,11 @@
   20%, 40%, 60%, 80% {
     -webkit-transform: translate3d(10px, 0, 0);
             transform: translate3d(10px, 0, 0); } }
+.shake {
+  -webkit-animation: shake 0.75s;
+  -ms-animation: shake 0.75s;
+  animation: shake 0.75s; }
+
 .border-top {
   border-top: 1px solid; }
 
