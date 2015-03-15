@@ -16,7 +16,7 @@
 			}
 		});
 
-	function BoardController($scope, $routeParams, $http, $timeout, $location, manageGrid, notification, sStorage, logger, magic, magicForBoard) {
+	function BoardController($scope, $routeParams, $http, $location, manageGrid, notification, sStorage, logger, magic, magicForBoard) {
 		$scope.$parent.title = magicForBoard.pageTitle;
 		$scope.$parent.transparentNav = magicForBoard.pageTransparentNav;
 
@@ -83,7 +83,7 @@
 				return false;
 			}
 
-			var url = (getBy == "uriFriendlyTitle") ? magic.api + param : magic.api + getBy + "/" + param;
+			var url = (getBy == "uriFriendlyTitle") ? magic.api + "title/" + param : magic.api + getBy + "/" + param;
 
 			$http.get(url).
 				success(function (data) {

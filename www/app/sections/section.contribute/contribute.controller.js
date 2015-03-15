@@ -113,20 +113,14 @@
 			}
 		};
 
-		/**
-		 * Makes mutation request
-		 */
-		$scope.createUmi = function () {
-			var createUmiForm = $scope.createUmiForm;
-			var typePrefix = $scope.formalVersion ? "Formal" : "";
-			var typeSuffix = $scope.metaDefinition ? "Meta" : "";
+		var returnMutationData = function () {
+			var createUmiForm = $scope.createUmiForm,
+				typePrefix = $scope.formalVersion ? "Formal" : "",
+				typeSuffix = $scope.metaDefinition ? "Meta" : "";
 
-			// @TODO this should be a factory
-			var dispatchCreateUmi = {
-				auth: {
-					accessToken: $scope.omUser.accessToken,
-					gPlusId: $scope.omUser.id
-				},
+			// @TODO should this be a factory?
+			return {
+				auth: {accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id},
 				message: "Initialise UMI",
 				umiType: typePrefix + createUmiForm.umiType.id + typeSuffix,
 				title: _.capitalise(createUmiForm.title),
@@ -136,6 +130,13 @@
 				seeAlsoIds: createUmiForm.seeAlsoIds ? _.keys(createUmiForm.seeAlsoIds) : [],
 				tags: createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
 			};
+		};
+
+		/**
+		 * Makes mutation request
+		 */
+		$scope.createUmi = function () {
+			var d = returnMutationData();
 
 			logger.log(dispatchCreateUmi, "info");
 
@@ -150,35 +151,9 @@
 				});
 		};
 
-		/**
-		 * Updates latex to HTML
-		 *
-		 * @returns {boolean}
-		 */
-		$scope.latexToHtml = function () {
-			//var content = $scope.createUmiForm.content;
-			//
-			//if (!content) {
-			//	$scope.parsedContent = "";
-			//
-			//	return false;
-			//}
-			//
-			//$timeout.cancel(parseContent);
-			//
-			//$scope.parsedContent = content;
-			//
-			//parseContent = $timeout(function () {
-			//}, magicForContribute.parseContentTimeout);
-			//
-			//parseContent.then(function () {
-			//
-			//});
-		};
-
-		// @TODO consider returning a RX.Observable.fromPromise in lieu of a normal promise
 		function latexToHtml() {
-			return $http.post(magic.api + "latex-to-html", $scope.createUmiForm.content);
+			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
+			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
 		}
 
 		var source = rx.watch($scope, "createUmiForm.content")
@@ -201,9 +176,12 @@
 			.retry(3); // @TODO magicVars
 
 		var subsription = source.subscribe(function (d) {
-				var response = d.data;
-				var parsedContent;
-				var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+				$scope.parsingContent = false;
+				console.log(d.data);
+				return false;
+				var response = d.data,
+					parsedContent,
+					valid = _.first(_.keys(response)) == "parsed" ? true : false;
 
 				if (!valid) {
 					var err = _.first(_.values(response));
@@ -227,9 +205,9 @@
 				$scope.parsedContent = parsedContent;
 
 				// @NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
-				$timeout(function () {
-					$scope.parsingContent = false;
-				}, magicForContribute.parseContentProgressTimeout);
+				//$timeout(function () {
+				//	$scope.parsingContent = false;
+				//}, magicForContribute.parseContentProgressTimeout);
 			},
 			function (errorData) {
 				notification.generate("There was an error parsing content", "error", errorData);
