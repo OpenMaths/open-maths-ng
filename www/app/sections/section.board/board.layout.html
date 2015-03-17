@@ -23,13 +23,15 @@
 	</resize-row>
 	<div class="column flex-1" ng-repeat="data in row">
 		<!--Unit of Mathematical Information-->
-		<div class="umi {{ data.targetClasses }}"
+		<div class="umi fade-in {{ data.targetClasses }}"
 			 ng-class="{'fade-in' : fadeInUmi}"
 			 ng-hide="!data.htmlContent">
 			<div class="voting flex center-horizontally">
+				<!--@FIXME This should only be displayed if a user is signed in!!-->
+				<!--@FIXME ng-show="data.author == omUser.email"-->
 				<ul class="flex align-left unstyled">
 					<li class="flex center-vertically edit no-label" ng-click=""></li>
-					<!--<li class="flex center-vertically approve no-label" ng-click=""></li>-->
+					<li class="flex center-vertically approve no-label" ng-click=""></li>
 				</ul>
 
 				<ul class="flex unstyled">
@@ -44,13 +46,10 @@
 			</div>
 			<div class="content-holder">
 				<div class="title flex center-vertically">
-					<!--@FIXME This should only be displayed if a user is signed in!!-->
-					<!--@FIXME ng-show="data.author == omUser.email"-->
 					<span class="label">{{ data.umi.umiType }}</span>
 					<strong class="flex-1">{{ data.umi.title.title }}</strong>
 				</div>
-				<!--@FIXME THIS IS A BUG! Should be htmlContent rather than latexContent-->
-				<article stop-event om-bind="data.latexContent"></article>
+				<article stop-event om-bind="data.htmlContent"></article>
 			</div>
 		</div>
 

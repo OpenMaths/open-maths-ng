@@ -106,6 +106,10 @@
 
 			li
 				cursor: default
+				padding: 0
+
+				&:first-of-type
+					padding-right: $half-unit-layout
 
 				&:first-of-type
 					margin-left: 0
@@ -117,18 +121,31 @@
 						background:
 							size: 130%
 
+					&#parsed-valid
+						color: $color-alert-success
+						&:before
+							background:
+								image: url("#{$image-base}/icons/icon-set/icon-set_tick-green.svg")
+
+						&.invalid
+							color: $color-alert-error
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_cross-red.svg")
+
 					&#parsing
 						&:before
 							@extend .rotating
 
 							background:
 								image: url("#{$image-base}/icons/icon-set/icon-set_progress.svg")
+								size: 135%
 
 					&#time-scale
 						&:before
 							background:
 								image: url("#{$image-base}/icons/icon-set/icon-set_clock.svg")
-								size: 150%
+								size: 165%
 
 					&#locked
 						&:before
@@ -375,6 +392,16 @@
 							&:before
 								background:
 									image: url("#{$image-base}/icons/icon-set/icon-set_clock-dark.svg")
+
+						&#parsed-valid
+							&:before
+								background:
+									image: url("#{$image-base}/icons/icon-set/icon-set_tick-green.svg")
+
+							&.invalid
+								&:before
+									background:
+										image: url("#{$image-base}/icons/icon-set/icon-set_cross-red.svg")
 
 						&#parsing
 							&:before

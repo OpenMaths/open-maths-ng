@@ -31,15 +31,15 @@
 			_.forEach(data, function(val, key) {
 				$scope[key] = val;
 			});
+
+			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
+			$scope.stepsKeys = _.keys($scope.steps);
+			$scope.activeStep = 0;
 		}).error(function(errData) {
 			logger(errData, "error");
 		});
 
-		// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
-		//$scope.steps = magicForContribute.steps;
-		$scope.stepsKeys = _.keys($scope.steps);
-		$scope.activeStep = 0;
-
+		// @TODO hide when in SESSION storage
 		onboarding.generate("contributeAlpha");
 
 		/**
@@ -105,6 +105,7 @@
 		}
 
 		function createUmiPromise() {
+			console.log(returnMutationData());
 			return $http.post(magic.api + "add", returnMutationData());
 		}
 
@@ -112,9 +113,11 @@
 		 * Makes mutation request
 		 */
 		$scope.createUmi = function () {
-			var createUmiObservable = Rx.observable.fromPromise(createUmiPromise());
+			var createUmiObservable = Rx.Observable.fromPromise(createUmiPromise());
 
-			createUmiObservable.subscribe(function(data) {
+			createUmiObservable.subscribe(function(d) {
+				var data = d.data;
+
 				logger.log(returnMutationData(), "info");
 				notification.generate("Your contribution was successfully posted!", "success", data);
 			}, function(errorData) {
@@ -149,8 +152,8 @@
 					valid = _.first(response) == "s" ? true : false;
 
 				// @TODO remove after testing
-				//logger.log(response, "info");
-				//logger.log(valid, "info");
+				logger.log(response, "info");
+				logger.log(valid, "info");
 
 				if (!valid) {
 					var errMessage = response.substring(1);
@@ -162,8 +165,20 @@
 				}
 
 				$scope.parsedContent = parsedContent;
+				$scope.parsed = {
+					valid: valid,
+					message: valid ? "You are the man!" : "Error parsing, check stack trace"
+				};
 			},
 			function (errorData) {
+				$scope.parsingContent = false;
+				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution: " + errorData + "</pre>");
+
+				$scope.parsed = {
+					valid: false,
+					message: "Error parsing."
+				};
+
 				notification.generate("There was an error parsing content", "error", errorData);
 			});
 	}

@@ -765,7 +765,7 @@ footer {
       color: white; }
 
 .nav-top-transparent footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 0;
   color: rgba(255, 255, 255, 0.4);
   background: transparent; }
   .nav-top-transparent footer a {
@@ -2265,18 +2265,30 @@ body.dark {
   .page-contribute .controls ul {
     margin-right: 0; }
     .page-contribute .controls ul li {
-      cursor: default; }
+      cursor: default;
+      padding: 0; }
+      .page-contribute .controls ul li:first-of-type {
+        padding-right: 0.5rem; }
       .page-contribute .controls ul li:first-of-type {
         margin-left: 0; }
       .page-contribute .controls ul li span {
         color: #1b2424; }
         .page-contribute .controls ul li span:before {
           background-size: 130%; }
+        .page-contribute .controls ul li span#parsed-valid {
+          color: #A9CE03; }
+          .page-contribute .controls ul li span#parsed-valid:before {
+            background-image: url("/assets/images/icons/icon-set/icon-set_tick-green.svg"); }
+          .page-contribute .controls ul li span#parsed-valid.invalid {
+            color: #FF7043; }
+            .page-contribute .controls ul li span#parsed-valid.invalid:before {
+              background-image: url("/assets/images/icons/icon-set/icon-set_cross-red.svg"); }
         .page-contribute .controls ul li span#parsing:before {
-          background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg"); }
+          background-image: url("/assets/images/icons/icon-set/icon-set_progress.svg");
+          background-size: 135%; }
         .page-contribute .controls ul li span#time-scale:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_clock.svg");
-          background-size: 150%; }
+          background-size: 165%; }
         .page-contribute .controls ul li span#locked:before {
           background-image: url("/assets/images/icons/icon-set/icon-set_enclosed.svg"); }
 .page-contribute .button-holder {
@@ -2446,6 +2458,12 @@ body.dark {
     .page-contribute.dark .progress ul li span#time-scale:before,
     .page-contribute.dark .controls ul li span#time-scale:before {
       background-image: url("/assets/images/icons/icon-set/icon-set_clock-dark.svg"); }
+    .page-contribute.dark .progress ul li span#parsed-valid:before,
+    .page-contribute.dark .controls ul li span#parsed-valid:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_tick-green.svg"); }
+    .page-contribute.dark .progress ul li span#parsed-valid.invalid:before,
+    .page-contribute.dark .controls ul li span#parsed-valid.invalid:before {
+      background-image: url("/assets/images/icons/icon-set/icon-set_cross-red.svg"); }
     .page-contribute.dark .progress ul li span#parsing:before,
     .page-contribute.dark .controls ul li span#parsing:before {
       background-image: url("/assets/images/icons/icon-set/icon-set_progress-dark.svg"); }
