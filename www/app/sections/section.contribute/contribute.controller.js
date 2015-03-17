@@ -8,10 +8,11 @@
 			pageTitle: "Contribute",
 			pageTransparentNav: false,
 			parseContentTimeout: 2000,
-			parseContentProgressTimeout: 750
+			parseContentProgressTimeout: 750,
+			latexToHtmlRetry: 3
 		});
 
-	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, onboarding, magic, magicForContribute) {
+	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, mutation, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -27,15 +28,15 @@
 			tags: ""
 		};
 
-		$http.get("app/sections/section.contribute/contribute.magic.json").success(function(data) {
-			_.forEach(data, function(val, key) {
+		$http.get("app/sections/section.contribute/contribute.magic.json").success(function (data) {
+			_.forEach(data, function (val, key) {
 				$scope[key] = val;
 			});
 
 			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
 			$scope.stepsKeys = _.keys($scope.steps);
 			$scope.activeStep = 0;
-		}).error(function(errData) {
+		}).error(function (errData) {
 			logger(errData, "error");
 		});
 
@@ -81,22 +82,13 @@
 		};
 
 		var returnMutationData = function () {
-			var createUmiForm = $scope.createUmiForm,
-				typePrefix = $scope.formalVersion ? "Formal" : "",
-				typeSuffix = $scope.metaDefinition ? "Meta" : "";
+			var formData = $scope.createUmiForm,
+				authObject = {accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id};
 
-			// @TODO should this be a factory?
-			return {
-				auth: {accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id},
-				message: "Initialise UMI",
-				umiType: typePrefix + createUmiForm.umiType.id + typeSuffix,
-				title: _.capitalise(createUmiForm.title),
-				titleSynonyms: createUmiForm.titleSynonyms ? _.cleanseCSV(createUmiForm.titleSynonyms) : [],
-				content: createUmiForm.content,
-				prerequisiteDefinitionIds: createUmiForm.prerequisiteDefinitionIds ? _.keys(createUmiForm.prerequisiteDefinitionIds) : [],
-				seeAlsoIds: createUmiForm.seeAlsoIds ? _.keys(createUmiForm.seeAlsoIds) : [],
-				tags: createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
-			};
+			formData.formalVersion = $scope.formalVersion;
+			formData.metaDefinition = $scope.metaDefinition;
+
+			return mutation.returnStructure(formData, authObject);
 		};
 
 		function latexToHtmlPromise() {
@@ -105,22 +97,21 @@
 		}
 
 		function createUmiPromise() {
-			console.log(returnMutationData());
 			return $http.post(magic.api + "add", returnMutationData());
 		}
 
 		/**
-		 * Makes mutation request
+		 * Makes contribute request
 		 */
 		$scope.createUmi = function () {
 			var createUmiObservable = Rx.Observable.fromPromise(createUmiPromise());
 
-			createUmiObservable.subscribe(function(d) {
+			createUmiObservable.subscribe(function (d) {
 				var data = d.data;
 
 				logger.log(returnMutationData(), "info");
 				notification.generate("Your contribution was successfully posted!", "success", data);
-			}, function(errorData) {
+			}, function (errorData) {
 				notification.generate("There was an error posting your contribution.", "error", errorData);
 			});
 		};
@@ -133,7 +124,7 @@
 				$scope.parsedContent = term;
 				return term;
 			})
-			.debounce(2500) // @TODO magicVars
+			.debounce(magicForContribute.parseContentTimeout)
 			.distinctUntilChanged()
 			.do(function () {
 				logger.log("LaTeX to HTML translation in progress", "info");
@@ -142,7 +133,7 @@
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
 			.flatMapLatest(latexToHtmlPromise)
-			.retry(3); // @TODO magicVars
+			.retry(magicForContribute.latexToHtmlRetry);
 
 		latexToHtmlObservable.subscribe(function (d) {
 				$scope.parsingContent = false;
@@ -151,13 +142,10 @@
 					parsedContent,
 					valid = _.first(response) == "s" ? true : false;
 
-				// @TODO remove after testing
-				logger.log(response, "info");
-				logger.log(valid, "info");
+				logger.log([response, valid], "info");
 
 				if (!valid) {
 					var errMessage = response.substring(1);
-					logger.log(errMessage, "error");
 
 					parsedContent = $sce.trustAsHtml("<pre>" + errMessage + "</pre>");
 				} else {
@@ -167,16 +155,16 @@
 				$scope.parsedContent = parsedContent;
 				$scope.parsed = {
 					valid: valid,
-					message: valid ? "You are the man!" : "Error parsing, check stack trace"
+					message: valid ? "Parsed" : "Something went wrong"
 				};
 			},
 			function (errorData) {
 				$scope.parsingContent = false;
-				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution: " + errorData + "</pre>");
+				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
 
 				$scope.parsed = {
 					valid: false,
-					message: "Error parsing."
+					message: "Error parsing"
 				};
 
 				notification.generate("There was an error parsing content", "error", errorData);
