@@ -9,42 +9,10 @@
 			pageTransparentNav: false,
 			parseContentTimeout: 2000,
 			parseContentProgressTimeout: 750,
-			steps: {
-				"basic-settings": "Basic Settings",
-				"editor": "Editor",
-				"preview-and-publish": "Preview & Publish"
-			},
-			formErrorMessages: {
-				required: "This field is required.",
-				maxLength: "This field is exceeding the maximum length of 128 characters.",
-				umiTitle: "The title should only consist of letters, spaces, or hyphens"
-			},
-			formInstructions: {
-				umiType: "What category of information?",
-				title: "Users will be able to search your contribution.",
-				titleSynonyms: "Comma-separated list of alternative names.",
-				content: "The actual content. You are free to use LaTeX (including text-mode macros!!).",
-				prerequisiteDefinitionIds: "Comma-separated list of valid dependency Titles.",
-				seeAlsoIds: "Comma-separated list of valid Titles which may be related.",
-				tags: "Comma-separated list of tags to help users find your contribution."
-			},
-			formUmiTypes: [
-				{id: "Definition", label: "Definition", formal: "allow"},
-				{id: "Axiom", label: "Axiom", formal: "allow"},
-				{id: "Theorem", label: "Theorem", formal: "allow"},
-				{id: "Lemma", label: "Lemma", formal: "allow"},
-				{id: "Corollary", label: "Corollary", formal: "allow"},
-				{id: "Conjecture", label: "Conjecture", formal: "allow"},
-				{id: "Proof", label: "Proof", formal: "allow"},
-				{id: "HistoricalNote", label: "Historical Note"},
-				{id: "PhilosophicalJustification", label: "Philosophical Justification"},
-				{id: "Diagram", label: "Diagram"},
-				{id: "Example", label: "Example"},
-				{id: "PartialTheorem", label: "Partial Theorem", formal: "allow"}
-			]
+			latexToHtmlRetry: 3
 		});
 
-	function ContributeController($scope, $http, $timeout, logger, rx, notification, userLevel, magic, magicForContribute) {
+	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, mutation, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -60,18 +28,20 @@
 			tags: ""
 		};
 
-		// @NOTE This is to store the $timeout promise,
-		// so it can be reset on every keystroke.
-		var parseContent;
+		$http.get("app/sections/section.contribute/contribute.magic.json").success(function (data) {
+			_.forEach(data, function (val, key) {
+				$scope[key] = val;
+			});
 
-		$scope.formErrorMessages = magicForContribute.formErrorMessages; // CHANGE IN LAYOUT
-		$scope.formInstructions = magicForContribute.formInstructions; // CHANGE IN LAYOUT
-		$scope.formUmiTypes = magicForContribute.formUmiTypes; // CHANGE IN LAYOUT
+			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
+			$scope.stepsKeys = _.keys($scope.steps);
+			$scope.activeStep = 0;
+		}).error(function (errData) {
+			logger(errData, "error");
+		});
 
-		// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
-		$scope.steps = magicForContribute.steps;
-		$scope.stepsKeys = _.keys($scope.steps);
-		$scope.activeStep = 0;
+		// @TODO hide when in SESSION storage
+		$scope.onboarding.contributeAlpha ? "" : onboarding.generate("contributeAlpha");
 
 		/**
 		 * Navigates through individual steps of the contribution
@@ -101,73 +71,55 @@
 			}
 		};
 
-		/**
-		 * Makes mutation request
-		 */
-		$scope.createUmi = function () {
-			var createUmiForm = $scope.createUmiForm;
+		$scope.toggleMetaDefinition = function () {
+			$scope.metaDefinition = $scope.metaDefinition ? false : true;
 
-			// @TODO this should be a factory
-			var dispatchCreateUmi = {
-				auth: {
-					accessToken: $scope.omUser.accessToken,
-					gPlusId: $scope.omUser.id
-				},
-				message: "Initialise UMI",
-				umiType: createUmiForm.umiType.id,
-				title: _.capitalise(createUmiForm.title),
-				titleSynonyms: createUmiForm.titleSynonyms ? _.cleanseCSV(createUmiForm.titleSynonyms) : [],
-				content: createUmiForm.content,
-				prerequisiteDefinitionIds: createUmiForm.prerequisiteDefinitionIds ? _.keys(createUmiForm.prerequisiteDefinitionIds) : [],
-				seeAlsoIds: createUmiForm.seeAlsoIds ? _.keys(createUmiForm.seeAlsoIds) : [],
-				tags: createUmiForm.tags ? _.cleanseCSV(createUmiForm.tags) : []
-			};
-
-			logger.log(dispatchCreateUmi, "info");
-
-			$scope.contributeData = dispatchCreateUmi;
-
-			$http.post(magic.api + "add", dispatchCreateUmi).
-				success(function (data) {
-					notification.generate("Your contribution was successfully posted!", "success", data);
-				}).
-				error(function (errorData) {
-					notification.generate("There was an error posting your contribution.", "error", errorData);
-				});
+			if ($scope.metaDefinition) {
+				notification.generate("Your contribution is now of type Meta Definition.", "info");
+			} else {
+				notification.generate("Your contribution is no longer of type Meta Definition.", "info");
+			}
 		};
 
-		/**
-		 * Updates latex to HTML
-		 *
-		 * @returns {boolean}
-		 */
-		$scope.latexToHtml = function () {
-			//var content = $scope.createUmiForm.content;
-			//
-			//if (!content) {
-			//	$scope.parsedContent = "";
-			//
-			//	return false;
-			//}
-			//
-			//$timeout.cancel(parseContent);
-			//
-			//$scope.parsedContent = content;
-			//
-			//parseContent = $timeout(function () {
-			//}, magicForContribute.parseContentTimeout);
-			//
-			//parseContent.then(function () {
-			//
-			//});
+		var returnMutationData = function () {
+			var formData = {},
+				authObject = {accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id};
+
+			formData.data = $scope.createUmiForm;
+			formData.formalVersion = $scope.formalVersion;
+			formData.metaDefinition = $scope.metaDefinition;
+
+			return mutation.returnStructure(formData, authObject);
 		};
 
-		// @TODO consider returning a RX.Observable.fromPromise in lieu of a normal promise
-		function latexToHtml() {
-			return $http.post(magic.api + "latex-to-html", $scope.createUmiForm.content);
+		returnMutationData();
+
+		function latexToHtmlPromise() {
+			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
+			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
 		}
 
-		var source = rx.watch($scope, "createUmiForm.content")
+		function createUmiPromise() {
+			return $http.post(magic.api + "add", returnMutationData());
+		}
+
+		/**
+		 * Makes contribute request
+		 */
+		$scope.createUmi = function () {
+			var createUmiObservable = Rx.Observable.fromPromise(createUmiPromise());
+
+			createUmiObservable.subscribe(function (d) {
+				var data = d.data;
+
+				logger.log(returnMutationData(), "info");
+				notification.generate("Your contribution was successfully posted!", "success", data);
+			}, function (errorData) {
+				notification.generate("There was an error posting your contribution.", "error", errorData);
+			});
+		};
+
+		rx.watch($scope, "createUmiForm.content")
 			.map(function (e) {
 				return e.newValue;
 			})
@@ -175,7 +127,7 @@
 				$scope.parsedContent = term;
 				return term;
 			})
-			.debounce(2500) // @TODO magicVars
+			.debounce(magicForContribute.parseContentTimeout)
 			.distinctUntilChanged()
 			.do(function () {
 				logger.log("LaTeX to HTML translation in progress", "info");
@@ -183,41 +135,39 @@
 				$scope.parsingContent = true;
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
-			.flatMapLatest(latexToHtml)
-			.retry(3); // @TODO magicVars
+			.flatMapLatest(latexToHtmlPromise)
+			.retry(magicForContribute.latexToHtmlRetry)
+			.subscribe(function (d) {
+				$scope.parsingContent = false;
 
-		var subsription = source.subscribe(function (d) {
-				var response = d.data;
-				var parsedContent;
-				var valid = _.first(_.keys(response)) == "parsed" ? true : false;
+				var response = d.data,
+					parsedContent,
+					valid = _.first(response) == "s" ? true : false;
+
+				logger.log({response: response, valid: valid}, "info");
 
 				if (!valid) {
-					var err = _.first(_.values(response));
+					var errMessage = response.substring(1);
 
-					var substrPos = _.parseInt(err[1]) - 4; // @TODO does this need < 0 fallback??
-					var whereabouts = $scope.createUmiForm.content.substr(substrPos, 8);
-
-					// TODO consider changing to Object rather than an array (BackEnd tidying)
-					$scope.editorError = {
-						message: err[0],
-						offset: err[1],
-						where: whereabouts
-					};
-
-					parsedContent = $scope.createUmiForm.content;
+					parsedContent = $sce.trustAsHtml("<pre>" + errMessage + "</pre>");
 				} else {
-					$scope.editorError = false;
-					parsedContent = response.parsed;
+					parsedContent = response.substring(1);
 				}
 
 				$scope.parsedContent = parsedContent;
+				$scope.parsed = {
+					valid: valid,
+					message: valid ? "Parsed" : "Something went wrong"
+				};
+			}, function (errorData) {
+				$scope.parsingContent = false;
+				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
 
-				// @NOTE This timeout is to replicate the actual parsing in production (may take about 1 sec.)
-				$timeout(function () {
-					$scope.parsingContent = false;
-				}, magicForContribute.parseContentProgressTimeout);
-			},
-			function (errorData) {
+				$scope.parsed = {
+					valid: false,
+					message: "Error parsing"
+				};
+
 				notification.generate("There was an error parsing content", "error", errorData);
 			});
 	}
