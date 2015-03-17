@@ -58,7 +58,7 @@
 				values = _.values(umiForm);
 
 			_.map(requiredKeys, function(k) {
-				//console.log(_.includes(values, k));
+				//console.log(_.contains(values, k));
 			});
 		}
 

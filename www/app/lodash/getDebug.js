@@ -3,10 +3,10 @@ function getDebug() {
 	var localHosts = [
 		"localhost",
 		"om.dev",
-		"development.open-maths.divshot.io"
+		"app.openmaths.io"
 	];
 
-	return (_.indexOf(localHosts, host) == -1) ? false : true;
+	return (_.contains(localHosts, host)) ? true : false;
 }
 
 _.mixin({
