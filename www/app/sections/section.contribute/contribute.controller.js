@@ -82,14 +82,17 @@
 		};
 
 		var returnMutationData = function () {
-			var formData = $scope.createUmiForm,
+			var formData = {},
 				authObject = {accessToken: $scope.omUser.accessToken, gPlusId: $scope.omUser.id};
 
+			formData.data = $scope.createUmiForm;
 			formData.formalVersion = $scope.formalVersion;
 			formData.metaDefinition = $scope.metaDefinition;
 
 			return mutation.returnStructure(formData, authObject);
 		};
+
+		returnMutationData();
 
 		function latexToHtmlPromise() {
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];

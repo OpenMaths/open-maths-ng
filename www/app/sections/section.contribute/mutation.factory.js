@@ -1,4 +1,10 @@
 // @WRITE A UNIT TEST FOR THIS!
+// This is a crucial factory, as it returns the data structure needed for the whole app to operate.
+// I need to make sure that:
+//
+// 1. The data it receives in parameters follow the correct structure
+// 2. formalVersion and metaDefinition can only be booleans
+// 3. Formal and Meta depend on each other, and there are rules which it needs to follow (see contribute.magic.json)
 
 (function () {
 	"use strict";
@@ -18,6 +24,8 @@
 				typePrefix = form.formalVersion ? "Formal" : "",
 				typeSuffix = form.metaDefinition ? "Meta" : "";
 
+			checkData(umiForm);
+
 			return {
 				auth: auth,
 				message: "Initialise UMI",
@@ -29,8 +37,20 @@
 				seeAlsoIds: umiForm.seeAlsoIds ? _.keys(umiForm.seeAlsoIds) : [],
 				tags: umiForm.tags ? _.cleanseCSV(umiForm.tags) : []
 			};
-
 		}
+
+		function checkData(umiForm) {
+			var requiredKeys = ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
+				values = _.values(umiForm);
+
+			_.map(requiredKeys, function(k) {
+				//console.log(_.includes(values, k));
+			});
+		}
+
+		function checkFormalMeta() {}
+
+		function checkAuth() {}
 
 	}
 
