@@ -36,7 +36,5 @@
 })();
 
 var initGapiAsync = function () {
-	_.delay(function() {
-		window.initGapi();
-	}, 100);
+	window.initGapi();
 };

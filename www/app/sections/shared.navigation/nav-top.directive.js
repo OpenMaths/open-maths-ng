@@ -24,6 +24,7 @@
 					scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
 				});
 			};
+			
 
 			scope.googleSignIn = function () {
 				if (scope.omUser) {
