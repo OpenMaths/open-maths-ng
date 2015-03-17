@@ -16,12 +16,14 @@
 		return factory;
 
 		function logEvent(dataOrMessage, type) {
-			if (_.indexOf(magicForLoggerFactory.allowedTypes, type) == -1) {
+			if (!_.contains(magicForLoggerFactory.allowedTypes, type)) {
 				$log.debug("$log type " + type + " not allowed");
 				return false;
 			}
 
-			magic.debug ? $log[type](dataOrMessage) : "";
+			// @TODO temporarily removed to enable logging in production in Alpha
+			$log[type](dataOrMessage);
+			//magic.debug ? $log[type](dataOrMessage) : "";
 		}
 	}
 

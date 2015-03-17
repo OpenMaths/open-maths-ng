@@ -2,8 +2,7 @@ function getDebug() {
 	var host = document.location.hostname;
 	var localHosts = [
 		"localhost",
-		"om.dev",
-		"app.openmaths.io"
+		"om.dev"
 	];
 
 	return (_.contains(localHosts, host)) ? true : false;
