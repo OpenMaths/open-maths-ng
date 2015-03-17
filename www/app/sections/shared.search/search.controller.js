@@ -10,7 +10,8 @@
 			keyReturn: 13,
 			simulateDivingMaxTermLength: 40,
 			simulateDivingDomId: "page-layout",
-			keyboardDelay: 250
+			searchTimeout: 250,
+			searchRetry: 3
 		});
 
 	function SearchController($scope, $http, $location, rx, notification, logger, magic, magicForSearch) {
@@ -109,25 +110,23 @@
 		//
 		// What if I select all and then remove? The filter set atm will ... from removing the searchResults
 		// @RESOLVED using a decent one-liner
-		var source = rx.watch($scope, "searchTerm")
+		rx.watch($scope, "searchTerm")
 			.map(function (e) {
 				return e.newValue;
 			})
 			.filter(function (term) {
 				!term ? cleanSearchVars() : simulateDiving(term);
-
 				return term;
 			})
-			.debounce(500) // @TODO magicVars
+			.debounce(magicForSearch.searchTimeout)
 			.distinctUntilChanged()
 			.do(function (term) {
 				logger.log("Listing results for term: " + term, "info");
 			})
 			.flatMapLatest(omSearch)
-			.retry(3); // @TODO magicVars
-
-		var subsription = source.subscribe(function (results) {
-				var data = results.data;
+			.retry(magicForSearch.searchRetry)
+			.subscribe(function (d) {
+				var data = d.data;
 
 				if (data.length > 0) {
 					$scope.searchResults = {

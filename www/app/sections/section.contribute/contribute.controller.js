@@ -41,7 +41,7 @@
 		});
 
 		// @TODO hide when in SESSION storage
-		onboarding.generate("contributeAlpha");
+		$scope.onboarding.contributeAlpha ? "" : onboarding.generate("contributeAlpha");
 
 		/**
 		 * Navigates through individual steps of the contribution
@@ -119,7 +119,7 @@
 			});
 		};
 
-		var latexToHtmlObservable = rx.watch($scope, "createUmiForm.content")
+		rx.watch($scope, "createUmiForm.content")
 			.map(function (e) {
 				return e.newValue;
 			})
@@ -136,16 +136,15 @@
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
 			.flatMapLatest(latexToHtmlPromise)
-			.retry(magicForContribute.latexToHtmlRetry);
-
-		latexToHtmlObservable.subscribe(function (d) {
+			.retry(magicForContribute.latexToHtmlRetry)
+			.subscribe(function (d) {
 				$scope.parsingContent = false;
 
 				var response = d.data,
 					parsedContent,
 					valid = _.first(response) == "s" ? true : false;
 
-				logger.log([response, valid], "info");
+				logger.log({response: response, valid: valid}, "info");
 
 				if (!valid) {
 					var errMessage = response.substring(1);
@@ -160,8 +159,7 @@
 					valid: valid,
 					message: valid ? "Parsed" : "Something went wrong"
 				};
-			},
-			function (errorData) {
+			}, function (errorData) {
 				$scope.parsingContent = false;
 				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
 

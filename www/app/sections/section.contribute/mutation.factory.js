@@ -39,6 +39,20 @@
 			};
 		}
 
+
+
+		// @TODO This whole bit needs proper doing -> should reflect of the above
+
+		//{
+		//	umiType: "",
+		//	title: "",
+		//	titleSynonyms: "",
+		//	content: "",
+		//	prerequisiteDefinitionIds: {},
+		//	seeAlsoIds: {},
+		//	tags: ""
+		//}
+
 		function checkData(umiForm) {
 			var requiredKeys = ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
 				values = _.values(umiForm);

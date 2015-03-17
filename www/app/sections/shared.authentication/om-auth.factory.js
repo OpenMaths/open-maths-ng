@@ -3,9 +3,12 @@
 
 	angular
 		.module("omApp")
-		.factory("omAuth", omAuth);
+		.factory("omAuth", omAuth)
+		.constant("magicForOmAuth", {
+			authRetry: 3
+		});
 
-	function omAuth($http, notification, magic) {
+	function omAuth($http, notification, magic, magicForOmAuth) {
 
 		return {
 			signIn: signIn,
@@ -51,9 +54,11 @@
 						});
 				})
 				.switch()
+				.retry(magicForOmAuth.authRetry)
 				.subscribe(function (d) {
 					var login = d.loginResult,
 						data = d.data;
+
 					// @TODO this is a VERY hacky solution (is it though?). Do it properly when on internet and can properly test.
 					// Also, there should be some unit tests in place
 					login.status == 200 ? callback(data) : notification.generate("There was an error signing you in to our application server.", "error", login);
@@ -67,9 +72,10 @@
 				return $http.post(magic.api + "logout", signOutData)
 			};
 
+			// @TODO should this even be done using a callback???? Reconsider..
+			// Maybe it could return the observable itself and then controller would subscribe
 			Rx.Observable.fromPromise(signOutPromise())
 				.subscribe(function () {
-					// @TODO should this even be done using a callback???? Reconsider..
 					callback();
 				}, function (errorData) {
 					notification.generate("There was an error signing you out of our application server.", "error", errorData);
