@@ -19,12 +19,12 @@
 		return directive;
 
 		function linker(scope) {
-			$window.initGapi = function () {
-				scope.$apply(function() {
-					scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
-				});
-			};
-			
+			//$window.initGapi = function () {
+			//	scope.$apply(function() {
+			//		scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
+			//	});
+			//};
+
 
 			scope.googleSignIn = function () {
 				if (scope.omUser) {
