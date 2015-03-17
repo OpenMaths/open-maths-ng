@@ -13,7 +13,8 @@
 				remember: {
 					boardLayout: true
 				}
-			}
+			},
+			gapiArtificialTimeout: 200
 		})
 		.constant("magic", {
 			siteName: "OpenMaths",
@@ -25,7 +26,7 @@
 			year: new Date().getFullYear()
 		});
 
-	function GlobalController($scope, $location, $window, lStorage, sStorage, googleAnalytics, onboarding, logger, magic, magicForGlobal) {
+	function GlobalController($scope, $location, $window, $timeout, lStorage, sStorage, googleAnalytics, onboarding, logger, magic, magicForGlobal) {
 		$scope.title = magicForGlobal.pageTitle;
 
 		$scope.siteName = magic.siteName;
@@ -38,9 +39,13 @@
 		$scope.onboarding = lStorage.get("onboarding") ? lStorage.get("onboarding") : {};
 
 		$window.initGapi = function () {
-			$scope.$apply(function() {
-				$scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
-			});
+			$timeout(function() {
+				// @TODO not sure whether to store to Browser Session Storage?
+				// sStorage.set("gapiActive", {status: "active"});
+				$scope.$apply(function() {
+					$scope.gapiActive = true;
+				});
+			}, magicForGlobal.gapiArtificialTimeout);
 		};
 
 		$scope.setUI = function (type, value) {

@@ -12,7 +12,7 @@
 			latexToHtmlRetry: 3
 		});
 
-	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, mutation, onboarding, magic, magicForContribute) {
+	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -41,7 +41,7 @@
 		});
 
 		// @TODO hide when in SESSION storage
-		$scope.onboarding.contributeAlpha ? "" : onboarding.generate("contributeAlpha");
+		lStorage.get("onboarding").contributeAlpha ? "" : onboarding.generate("contributeAlpha");
 
 		/**
 		 * Navigates through individual steps of the contribution
@@ -91,8 +91,6 @@
 
 			return mutation.returnStructure(formData, authObject);
 		};
-
-		returnMutationData();
 
 		function latexToHtmlPromise() {
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
