@@ -49,8 +49,8 @@
 						};
 
 					return Rx.Observable.fromPromise(omLoginPromise(loginData))
-						.map(function (loginResult) {
-							return {loginResult: loginResult, data: data};
+						.map(function (loginResponse) {
+							return {loginResult: loginResponse, data: data};
 						});
 				})
 				.switch()

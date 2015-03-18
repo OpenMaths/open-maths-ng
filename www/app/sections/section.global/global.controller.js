@@ -14,7 +14,7 @@
 					boardLayout: true
 				}
 			},
-			gapiArtificialTimeout: 200
+			gapiArtificialTimeout: 100
 		})
 		.constant("magic", {
 			siteName: "OpenMaths",

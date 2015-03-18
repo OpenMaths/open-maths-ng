@@ -55,10 +55,12 @@
 
 		function checkData(umiForm) {
 			var requiredKeys = ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
-				values = _.values(umiForm);
+				values = _.keys(umiForm);
 
 			_.map(requiredKeys, function(k) {
-				//console.log(_.contains(values, k));
+				console.log(k);
+				console.log(values);
+				console.log(_.contains(values, k));
 			});
 		}
 
