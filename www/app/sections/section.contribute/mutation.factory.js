@@ -20,11 +20,12 @@
 		};
 
 		function returnStructure(form, auth) {
+			// @TODO try catch
+			checkDataStructure(form, auth);
+
 			var umiForm = form.data,
 				typePrefix = form.formalVersion ? "Formal" : "",
 				typeSuffix = form.metaDefinition ? "Meta" : "";
-
-			checkData(umiForm);
 
 			return {
 				auth: auth,
@@ -40,7 +41,6 @@
 		}
 
 
-
 		// @TODO This whole bit needs proper doing -> should reflect of the above
 
 		//{
@@ -53,20 +53,37 @@
 		//	tags: ""
 		//}
 
-		function checkData(umiForm) {
-			var requiredKeys = ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
-				values = _.keys(umiForm);
+		function checkDataStructure(formData, auth) {
+			var structures = {
+				genericStructure: {
+					required: ["data", "formalVersion", "metaDefinition"], // @TODO testing missing data as a first item
+					reality: _.keys(formData)
+				},
+				dataStructure: {
+					required: ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
+					reality: _.keys(formData.data)
+				},
+				authStructure: {
+					required: ["accessToken", "gPlusId"],
+					reality: _.keys(auth)
+				}
+			};
 
-			_.map(requiredKeys, function(k) {
-				console.log(k);
-				console.log(values);
-				console.log(_.contains(values, k));
+			_.forEach(structures, function(data) {
+				checkKeys(data.required, data.reality);
 			});
 		}
 
-		function checkFormalMeta() {}
+		// @TODO abstract into a lodash library?
+		function checkKeys(requiredKeys, keys) {
+			_.map(requiredKeys, function (k) {
+				var contains = _.contains(keys, k);
 
-		function checkAuth() {}
+				if (!contains) {
+					throw {message: k + " does not appear in [" + keys + "]", cause: "uts"};
+				}
+			});
+		}
 
 	}
 
