@@ -13,7 +13,7 @@
 		.module("omApp")
 		.factory("mutation", mutationFactory);
 
-	function mutationFactory() {
+	function mutationFactory(logger) {
 
 		return {
 			returnStructure: returnStructure
@@ -80,7 +80,7 @@
 				var contains = _.contains(keys, k);
 
 				if (!contains) {
-					throw {message: k + " does not appear in [" + keys + "]", cause: "uts"};
+					logger.log(k + " does not appear in [" + keys + "]", "error");
 				}
 			});
 		}
