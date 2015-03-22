@@ -2034,6 +2034,7 @@ h6 {
       text-decoration: none;
       color: #EC6470;
       position: relative;
+      display: inline-block;
       cursor: pointer; }
       .umi article strong.inactive, .umi article a.inactive {
         color: #1b2424;

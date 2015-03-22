@@ -21,7 +21,7 @@
 
 		function returnStructure(form, auth) {
 			// @TODO try catch
-			checkDataStructure(form, auth);
+			//checkDataStructure(form, auth);
 
 			var umiForm = form.data,
 				typePrefix = form.formalVersion ? "Formal" : "",
