@@ -14,7 +14,7 @@
 					boardLayout: true
 				}
 			},
-			gapiArtificialTimeout: 200
+			gapiArtificialTimeout: 100
 		})
 		.constant("magic", {
 			siteName: "OpenMaths",
@@ -40,10 +40,8 @@
 
 		$window.initGapi = function () {
 			$timeout(function() {
-				// @TODO not sure whether to store to Browser Session Storage?
-				// sStorage.set("gapiActive", {status: "active"});
 				$scope.$apply(function() {
-					$scope.gapiActive = true;
+					$scope.gapiActive = sStorage.set("gapiActive", {status: "active"});
 				});
 			}, magicForGlobal.gapiArtificialTimeout);
 		};

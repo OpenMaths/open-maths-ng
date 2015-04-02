@@ -72,6 +72,7 @@
 			scope.accessBoard = function() {
 				if (scope.path !== "board") {
 					scope.$parent.shakeDiveInSearch = true;
+
 					$timeout(function() {
 						scope.$parent.shakeDiveInSearch = false;
 					}, magicForNacTopDirective.shakeDiveInSearchTimeout);

@@ -97,6 +97,9 @@
 			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
 		}
 
+		// @TODO testing
+		//returnMutationData();
+
 		function createUmiPromise() {
 			return $http.post(magic.api + "add", returnMutationData());
 		}
@@ -105,16 +108,17 @@
 		 * Makes contribute request
 		 */
 		$scope.createUmi = function () {
-			var createUmiObservable = Rx.Observable.fromPromise(createUmiPromise());
+			Rx.Observable
+				.fromPromise(createUmiPromise())
+				.retry(3)
+				.subscribe(function (d) {
+					var data = d.data;
 
-			createUmiObservable.subscribe(function (d) {
-				var data = d.data;
-
-				logger.log(returnMutationData(), "info");
-				notification.generate("Your contribution was successfully posted!", "success", data);
-			}, function (errorData) {
-				notification.generate("There was an error posting your contribution.", "error", errorData);
-			});
+					logger.log(returnMutationData(), "info");
+					notification.generate("Your contribution was successfully posted!", "success", data);
+				}, function (errorData) {
+					notification.generate("There was an error posting your contribution.", "error", errorData);
+				});
 		};
 
 		rx.watch($scope, "createUmiForm.content")

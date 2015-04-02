@@ -17,7 +17,8 @@
 
 		function logEvent(dataOrMessage, type) {
 			if (!_.contains(magicForLoggerFactory.allowedTypes, type)) {
-				$log.debug("$log type " + type + " not allowed");
+				throw {message: "$log type " + type + " not allowed"};
+				//$log.debug("$log type " + type + " not allowed");
 				return false;
 			}
 
