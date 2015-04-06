@@ -5,6 +5,7 @@
 		.module("omApp")
 		.directive("resizeColumn", resizeColumnDirective)
 		.constant("magicForResizeColumn", {
+			defaultWindowWidth: 100,
 			makeResizeSmoother: 9
 		});
 
@@ -17,7 +18,7 @@
 		return directive;
 
 		function linker(scope, element, attrs) {
-			var minWidth = _.parseInt(100 / attrs.columns),
+			var minWidth = _.parseInt(magicForResizeColumn.defaultWindowWidth / attrs.columns),
 				targetColumnClass = "column-" + attrs.columnIndex,
 				targetColumn = document.getElementsByClassName(targetColumnClass),
 				currentMinWidth,
