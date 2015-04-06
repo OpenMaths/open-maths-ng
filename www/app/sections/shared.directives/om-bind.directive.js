@@ -5,7 +5,7 @@
 		.module("omApp")
 		.directive("omBind", omBindDirective);
 
-	function omBindDirective($compile) {
+	function omBindDirective() {
 		var directive = {
 			restrict: "A",
 			link: linker
@@ -16,7 +16,6 @@
 		function linker(scope, ele, attrs) {
 			scope.$watch(attrs.omBind, function (html) {
 				ele.html(html);
-				$compile(ele.contents())(scope);
 
 				MathJax.Hub.Queue(["Typeset", MathJax.Hub, ele[0]]);
 			});

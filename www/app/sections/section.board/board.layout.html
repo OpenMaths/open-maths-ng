@@ -50,7 +50,7 @@
 					<span class="label">{{ data.umi.umiType }}</span>
 					<strong class="flex-1">{{ data.umi.title.title }}</strong>
 				</div>
-				<article stop-event om-bind="data.htmlContent"></article>
+				<article stop-event om-ng-bind="data.htmlContent" position="position" data="data"></article>
 			</div>
 		</div>
 
