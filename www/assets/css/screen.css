@@ -1421,7 +1421,7 @@ noscript #warning {
         background-image: url("/assets/images/icons/icon-set/icon-set_gear-white.svg"); }
       .onboarding-container .pop-up .icon.manageBoard {
         background-image: url("/assets/images/icons/icon-set/icon-set_board-white.svg"); }
-      .onboarding-container .pop-up .icon.resizeBoardRows {
+      .onboarding-container .pop-up .icon.resizeBoard {
         background-image: url("/assets/images/icons/icon-set/icon-set_expand-white.svg"); }
     .onboarding-container .pop-up p {
       margin: 1rem 0 2rem;
@@ -1833,6 +1833,14 @@ body.dark {
     border-bottom: 1px solid #d5e0e0; }
     .page-board .row .column:last-of-type {
       border-right: 0 !important; }
+    .page-board .row .column .resize-column {
+      z-index: 4;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 0.75rem;
+      cursor: col-resize !important; }
   .page-board .row:last-of-type .column {
     border-bottom: 0 !important; }
 .page-board.dark .row .column {

@@ -114,23 +114,23 @@
 		getUmi("uriFriendlyTitle", initUriFriendlyTitle, gridStartingPosition, false);
 
 		$scope.position = function (direction, data, id) {
-			var targetClasses = [],
-				targetPosition,
-				row = data.where.row,
+			var row = data.where.row,
 				column = data.where.column,
+				targetPosition = {row: row, column: column},
+				targetClasses = [],
 				newUmiId = id;
 
 			if (direction == "up") {
-				targetPosition = [row - 1, column];
+				targetPosition.row = row - 1;
 			}
 			else if (direction == "down") {
-				targetPosition = [row + 1, column];
+				targetPosition.row = row + 1;
 			}
 			else if (direction == "left") {
-				targetPosition = [row, column - 1];
+				targetPosition.column = column - 1;
 			}
 			else if (direction == "right") {
-				targetPosition = [row, column + 1];
+				targetPosition.column = column + 1;
 			}
 
 			if (targetPosition[0] == 0) {
@@ -142,11 +142,6 @@
 			} else if (targetPosition[1] == ($scope.columns - 1)) {
 				targetClasses.push("closes-right");
 			}
-
-			var targetPosition = {
-				"row": targetPosition[0],
-				"column": targetPosition[1]
-			};
 
 			getUmi("id", newUmiId, targetPosition, targetClasses.join(" "));
 		};
