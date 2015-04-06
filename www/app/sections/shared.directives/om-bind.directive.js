@@ -8,8 +8,9 @@
 	function omBindDirective($compile) {
 		var directive = {
 			restrict: "A",
-			replace: true,
-			link: linker
+			//replace: true,
+			link: linker,
+			//scope: {}
 		};
 
 		return directive;
