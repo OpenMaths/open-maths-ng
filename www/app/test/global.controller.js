@@ -32,7 +32,7 @@ describe("GlobalController", function () {
 
 		expect(magic.year).toEqual(year);
 		expect(constants.pageDefaultWelcomeLabel).toEqual("dive");
-		expect(constants.gapiArtificialTimeout).toEqual(200);
+		expect(constants.gapiArtificialTimeout).toEqual(100);
 		expect(constants.uiSettingsDefault).toEqual({
 			theme: "light",
 			font: "umi-font-modern",

@@ -88,7 +88,7 @@
 			var url = (getBy == "uriFriendlyTitle") ? magic.api + "title/" + param : magic.api + getBy + "/" + param,
 				getUmiObservable = Rx.Observable.fromPromise(getUmiPromise(url));
 
-			getUmiObservable.subscribe(function(d) {
+			getUmiObservable.subscribe(function (d) {
 				var data = d.data;
 				logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
 
@@ -100,12 +100,18 @@
 				$scope.grid[where.row][where.column] = data;
 				// TODO this does not work on expanding??
 				//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
-			}, function(errorData) {
+			}, function (errorData) {
 				notification.generate("There was an error loading requested contribution.", "error", errorData);
 			});
 		};
 
-		getUmi("uriFriendlyTitle", initUriFriendlyTitle, magicForBoard.gridStartingPosition, false);
+		// @TODO refactor a tad I guess.. bit of a hacky way
+		var gridStartingPosition = $scope.rows < 3 || $scope.columns < 3 ? {
+			"row": 0,
+			"column": 0
+		} : magicForBoard.gridStartingPosition;
+
+		getUmi("uriFriendlyTitle", initUriFriendlyTitle, gridStartingPosition, false);
 
 		$scope.position = function (direction, data, id) {
 			var targetClasses = [],

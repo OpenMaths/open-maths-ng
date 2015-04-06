@@ -6,9 +6,9 @@
 		.factory("manageGrid", manageGridFactory)
 		.constant("magicForManageGridFactory", {
 			gridMaxRows: 6,
-			gridMinRows: 2,
+			gridMinRows: 1,
 			gridMaxColumns: 6,
-			gridMinColumns: 2
+			gridMinColumns: 1
 		});
 
 	function manageGridFactory(magicForManageGridFactory) {
