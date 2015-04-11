@@ -582,13 +582,13 @@ a, .link, .link-primary, .link-secondary {
 .margin-double {
   margin: 2rem; }
 
-.text-center, .close, footer nav, .onboarding-container .pop-up, .umi .footer, .page-ooops .headline {
+.text-center, .close, #page-layout > footer nav, .onboarding-container .pop-up, .umi .footer, .page-ooops .headline {
   text-align: center; }
 
-.text-right, footer strong, .nav-top-transparent.nav-top-transparent .drop-down .contextual-menu {
+.text-right, #page-layout > footer strong, .nav-top-transparent.nav-top-transparent .drop-down .contextual-menu {
   text-align: right; }
 
-.text-left, footer {
+.text-left, #page-layout > footer {
   text-align: left; }
 
 .text-justify {
@@ -703,7 +703,7 @@ blockquote {
     color: rgba(0, 0, 0, 0.2);
     text-decoration: none; }
 
-footer {
+#page-layout > footer {
   transition: background .25s;
   width: 100%;
   height: 3.5rem;
@@ -711,33 +711,33 @@ footer {
   color: #b8caca;
   padding: 0;
   background: white; }
-  footer a {
+  #page-layout > footer a {
     color: #b8caca;
     text-decoration: none; }
-    footer a:hover, footer a:focus {
+    #page-layout > footer a:hover, #page-layout > footer a:focus {
       color: #1b2424; }
-  footer small, footer nav, footer strong {
+  #page-layout > footer small, #page-layout > footer nav, #page-layout > footer strong {
     font-size: 0.6875rem; }
-  footer small, footer strong {
+  #page-layout > footer small, #page-layout > footer strong {
     padding: 0 1rem; }
 
-.dark footer {
+.dark #page-layout > footer {
   border-top: 1px solid #384b4b;
   background: #1b2424;
   color: #4e6868; }
-  .dark footer a {
+  .dark #page-layout > footer a {
     color: #4e6868; }
-    .dark footer a:hover, .dark footer a:focus {
+    .dark #page-layout > footer a:hover, .dark #page-layout > footer a:focus {
       color: white; }
 
-.nav-top-transparent footer {
+.nav-top-transparent #page-layout > footer {
   border-top: 0;
   color: rgba(255, 255, 255, 0.4);
   background: transparent; }
-  .nav-top-transparent footer a {
+  .nav-top-transparent #page-layout > footer a {
     color: rgba(255, 255, 255, 0.4);
     text-decoration: none; }
-    .nav-top-transparent footer a:hover, .nav-top-transparent footer a:focus {
+    .nav-top-transparent #page-layout > footer a:hover, .nav-top-transparent #page-layout > footer a:focus {
       color: white; }
 
 label {
@@ -990,6 +990,9 @@ input:invalid, textarea:invalid {
   padding: 0.25rem 0.5rem;
   border: 1px solid #b8caca;
   color: #b8caca; }
+  .label.black {
+    border-color: #1b2424;
+    color: #1b2424; }
   .label.primary, .label.red {
     border-color: #EC6470;
     color: #EC6470; }

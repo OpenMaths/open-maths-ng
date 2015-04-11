@@ -40,7 +40,6 @@
 			logger(errData, "error");
 		});
 
-		// @TODO hide when in SESSION storage
 		lStorage.get("onboarding").contributeAlpha ? "" : onboarding.generate("contributeAlpha");
 
 		/**
@@ -96,9 +95,6 @@
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
 			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
 		}
-
-		// @TODO testing
-		//returnMutationData();
 
 		function createUmiPromise() {
 			return $http.post(magic.api + "add", returnMutationData());
