@@ -1,19 +1,20 @@
 {
-	"name": "om-app",
-	"root": "www",
-	"clean_urls": true,
-	"prerender": true,
-	"error_page": "error.html",
-	"routes": {
-		"**": "index.html"
-	},
-	"exclude": [
-		"/node_modules",
-		"gulpfile.js",
-		"package.json",
-		"LICENSE",
-		"README.md",
-		".idea",
-		".sass-cache"
-	]
+  "name": "om-app",
+  "root": "dist",
+  "clean_urls": true,
+  "prerender": true,
+  "error_page": "error.html",
+  "routes": {
+    "**": "index.html"
+  },
+  "exclude": [
+    "node_modules",
+    "package.json",
+    "gulpfile.js",
+    ".sass-cache",
+    "README.md",
+    "LICENSE",
+    ".idea",
+    "www"
+  ]
 }

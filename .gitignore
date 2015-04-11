@@ -8,6 +8,6 @@ node_modules
 .Trashes
 Thumbs.db
 
-www/assets/images/bg/cover-dive-source.psd
+www/app/omApp.js
 
 /dist

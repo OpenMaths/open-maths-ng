@@ -106,15 +106,15 @@ gulp.task("concat-all", function () {
 
 // Watch directories and execute assigned tasks
 gulp.task("watch", function () {
-	gulp.watch("www/app/vendor/*.js", ["concat-vendor"]);
-	gulp.watch("www/app/sections/**/*.js", ["concat-sections"]);
-	gulp.watch("www/app/lodash/*.js", ["concat-lodash"]);
-	gulp.watch(["www/app/dist/*.js", "www/app/app.js"], ["concat-all", "test"]);
+	gulp.watch("www/app/vendor/*.js", ["concat-vendor", "concat-sections", "concat-lodash"]);
+	gulp.watch("www/app/sections/**/*.js", ["concat-vendor", "concat-sections", "concat-lodash"]);
+	gulp.watch("www/app/lodash/*.js", ["concat-vendor", "concat-sections", "concat-lodash"]);
+	gulp.watch("www/app/dist/*.js", ["concat-all", "test"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
 });
 
-gulp.task("default", function () {
+gulp.task("default", ["concat-vendor", "concat-sections", "concat-lodash", "concat-all"], function () {
 	gulp.start("watch");
 	gulp.start("staticServer");
 });

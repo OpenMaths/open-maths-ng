@@ -30,7 +30,7 @@
 
 		formInit();
 
-		//lStorage.get("onboarding").contributeAlpha ? "" : onboarding.generate("contributeAlpha");
+		lStorage.get("onboarding").contributeAlpha ? "" : onboarding.generate("contributeAlpha");
 
 		/**
 		 * Navigates through individual steps of the contribution
