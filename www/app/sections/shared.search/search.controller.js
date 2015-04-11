@@ -84,7 +84,7 @@
 
 		function cleanSearchVars() {
 			$scope.searchTerm = "";
-			$scope.searchResults = "";
+			$scope.searchResults = false;
 
 			return false;
 		}
@@ -119,7 +119,8 @@
 				return term;
 			})
 			.debounce(magicForSearch.searchTimeout)
-			.distinctUntilChanged()
+			// @NOTE we do NOT use .distinctUntilChanged() because it causes issues of not returning new data sets
+			// in auto-complete when consecutive search terms begin with the same letters.
 			.do(function (term) {
 				logger.log("Listing results for term: " + term, "info");
 			})

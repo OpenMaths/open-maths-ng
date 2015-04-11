@@ -1578,7 +1578,7 @@ h6 {
     opacity: 1; }
   .umi:hover .title .full-screen, .umi:focus .title .full-screen {
     opacity: 1; }
-  .umi .voting {
+  .umi header {
     z-index: 5;
     transition: opacity .25s;
     position: absolute;
@@ -1587,9 +1587,9 @@ h6 {
     top: 0;
     left: 0;
     opacity: 0; }
-    .umi .voting ul {
+    .umi header ul {
       height: 100%; }
-      .umi .voting ul li {
+      .umi header ul li {
         cursor: pointer;
         padding: 0 1rem 0 2.5rem;
         color: #b8caca;
@@ -1598,35 +1598,34 @@ h6 {
         background-size: 2.5rem;
         background-position: left center;
         background-repeat: no-repeat; }
-        .umi .voting ul li:hover, .umi .voting ul li:focus {
-          color: white;
+        .umi header ul li.active, .umi header ul li:hover {
           background-image: url("/assets/images/icons/icon-set/icon-set_up.svg"); }
-        .umi .voting ul li.no-label {
+        .umi header ul li.no-label {
           width: 2rem;
           padding: 0;
           background-position: center center; }
-        .umi .voting ul li.no-icon {
+        .umi header ul li.no-icon {
           background-image: none !important;
           padding: 0; }
-        .umi .voting ul li.not-clickable {
+        .umi header ul li.not-clickable {
           cursor: default; }
-          .umi .voting ul li.not-clickable:hover, .umi .voting ul li.not-clickable:focus {
+          .umi header ul li.not-clickable.active, .umi header ul li.not-clickable:hover {
             color: #7e9e9e; }
-        .umi .voting ul li.downvote {
+        .umi header ul li.downvote {
           background-image: url("/assets/images/icons/icon-set/icon-set_down-grey.svg"); }
-          .umi .voting ul li.downvote:hover, .umi .voting ul li.downvote:focus {
+          .umi header ul li.downvote.active, .umi header ul li.downvote:hover {
             background-image: url("/assets/images/icons/icon-set/icon-set_down.svg"); }
-        .umi .voting ul li.edit {
+        .umi header ul li.edit {
           background-image: url("/assets/images/icons/icon-set/icon-set_gear-grey.svg"); }
-          .umi .voting ul li.edit:hover, .umi .voting ul li.edit:focus {
+          .umi header ul li.edit.active, .umi header ul li.edit:hover {
             background-image: url("/assets/images/icons/icon-set/icon-set_gear.svg"); }
-        .umi .voting ul li.approve {
+        .umi header ul li.approve {
           background-image: url("/assets/images/icons/icon-set/icon-set_tick-grey.svg"); }
-          .umi .voting ul li.approve:hover, .umi .voting ul li.approve:focus {
+          .umi header ul li.approve.active, .umi header ul li.approve:hover {
             background-image: url("/assets/images/icons/icon-set/icon-set_tick.svg"); }
-        .umi .voting ul li.expand {
+        .umi header ul li.expand {
           background-image: url("/assets/images/icons/icon-set/icon-set_expand-grey.svg"); }
-          .umi .voting ul li.expand:hover, .umi .voting ul li.expand:focus {
+          .umi header ul li.expand.active, .umi header ul li.expand:hover {
             background-image: url("/assets/images/icons/icon-set/icon-set_expand.svg"); }
   .umi .content-holder {
     -webkit-flex: 1;
@@ -1735,26 +1734,26 @@ h6 {
 .dark .umi .voting ul li {
   color: #7e9e9e;
   background-image: url("/assets/images/icons/icon-set/icon-set_up-dark.svg"); }
-  .dark .umi .voting ul li:hover, .dark .umi .voting ul li:focus {
+  .dark .umi .voting ul li.active, .dark .umi .voting ul li:hover {
     color: white;
     background-image: url("/assets/images/icons/icon-set/icon-set_up-white.svg"); }
-  .dark .umi .voting ul li.not-clickable:hover, .dark .umi .voting ul li.not-clickable:focus {
+  .dark .umi .voting ul li.not-clickable.active, .dark .umi .voting ul li.not-clickable:hover {
     color: #7e9e9e; }
   .dark .umi .voting ul li.downvote {
     background-image: url("/assets/images/icons/icon-set/icon-set_down-dark.svg"); }
-    .dark .umi .voting ul li.downvote:hover, .dark .umi .voting ul li.downvote:focus {
+    .dark .umi .voting ul li.downvote.active, .dark .umi .voting ul li.downvote:hover {
       background-image: url("/assets/images/icons/icon-set/icon-set_down-white.svg"); }
   .dark .umi .voting ul li.edit {
     background-image: url("/assets/images/icons/icon-set/icon-set_gear-dark.svg"); }
-    .dark .umi .voting ul li.edit:hover, .dark .umi .voting ul li.edit:focus {
+    .dark .umi .voting ul li.edit.active, .dark .umi .voting ul li.edit:hover {
       background-image: url("/assets/images/icons/icon-set/icon-set_gear-white.svg"); }
   .dark .umi .voting ul li.approve {
     background-image: url("/assets/images/icons/icon-set/icon-set_tick-dark.svg"); }
-    .dark .umi .voting ul li.approve:hover, .dark .umi .voting ul li.approve:focus {
+    .dark .umi .voting ul li.approve.active, .dark .umi .voting ul li.approve:hover {
       background-image: url("/assets/images/icons/icon-set/icon-set_tick-white.svg"); }
   .dark .umi .voting ul li.expand {
     background-image: url("/assets/images/icons/icon-set/icon-set_expand-dark.svg"); }
-    .dark .umi .voting ul li.expand:hover, .dark .umi .voting ul li.expand:focus {
+    .dark .umi .voting ul li.expand.active, .dark .umi .voting ul li.expand:hover {
       background-image: url("/assets/images/icons/icon-set/icon-set_expand-white.svg"); }
 .dark .umi .title {
   color: #7e9e9e; }

@@ -18,24 +18,12 @@
 		$scope.$parent.title = magicForContribute.pageTitle;
 		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
 
-		$scope.createUmiForm = {
-			umiType: "",
-			title: "",
-			titleSynonyms: "",
-			content: "",
-			prerequisiteDefinitionIds: {},
-			seeAlsoIds: {},
-			tags: ""
-		};
-
 		$http.get("app/sections/section.contribute/contribute.magic.json").success(function (data) {
 			_.forEach(data, function (val, key) {
 				$scope[key] = val;
 			});
 
-			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
-			$scope.stepsKeys = _.keys($scope.steps);
-			$scope.activeStep = 0;
+			formInit();
 		}).error(function (errData) {
 			logger(errData, "error");
 		});
@@ -113,8 +101,7 @@
 					logger.log(returnMutationData(), "info");
 					notification.generate("Your contribution was successfully posted!", "success", data);
 
-					$scope.createUmiForm = {};
-					$scope.activeStep = 0;
+					formInit();
 				}, function (errorData) {
 					notification.generate("There was an error posting your contribution.", "error", errorData);
 				});
@@ -171,6 +158,22 @@
 
 				notification.generate("There was an error parsing content", "error", errorData);
 			});
+
+		function formInit() {
+			$scope.createUmiForm = {
+				umiType: "",
+				title: "",
+				titleSynonyms: "",
+				content: "",
+				prerequisiteDefinitionIds: {},
+				seeAlsoIds: {},
+				tags: ""
+			};
+
+			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
+			$scope.stepsKeys = _.keys($scope.steps);
+			$scope.activeStep = 0;
+		}
 	}
 
 })();
