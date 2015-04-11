@@ -19,7 +19,7 @@
     "title": "Manage your board",
     "message": "Use the plus and minus indicators to <strong>manage rows and columns</strong>. We remember your preferences by default, but you can always disable it."
   },
-  "resizeBoardRows": {
+  "resizeBoard": {
     "title": "Resize and adapt",
     "message": "Feel free to <strong>play around with the grid</strong>! Whether you are running out of space, or you simply want to customise the way it looks."
   },

@@ -1,7 +1,6 @@
 // Dependencies
-var gulp =
-		require("gulp"),
-	sass = require("gulp-ruby-sass"),
+var gulp = require("gulp"),
+	sass = require("gulp-sass"),
 	autoprefixer = require("gulp-autoprefixer"),
 	uglify = require("gulp-uglify"),
 	rename = require("gulp-rename"),
@@ -47,7 +46,8 @@ gulp.task("sass", function () {
 		.pipe(plumber({errorHandler: onError}))
 		.pipe(sass({
 			loadPath: process.cwd() + "/www/assets/css/include",
-			style: "nested"
+			style: "nested",
+			indentedSyntax: true
 		}))
 		.pipe(autoprefixer("last 8 version", "> 1%"))
 		.pipe(gulp.dest("www/assets/css"))

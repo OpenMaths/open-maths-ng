@@ -88,7 +88,7 @@
 			var url = (getBy == "uriFriendlyTitle") ? magic.api + "title/" + param : magic.api + getBy + "/" + param,
 				getUmiObservable = Rx.Observable.fromPromise(getUmiPromise(url));
 
-			getUmiObservable.subscribe(function(d) {
+			getUmiObservable.subscribe(function (d) {
 				var data = d.data;
 				logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
 
@@ -100,31 +100,37 @@
 				$scope.grid[where.row][where.column] = data;
 				// TODO this does not work on expanding??
 				//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
-			}, function(errorData) {
+			}, function (errorData) {
 				notification.generate("There was an error loading requested contribution.", "error", errorData);
 			});
 		};
 
-		getUmi("uriFriendlyTitle", initUriFriendlyTitle, magicForBoard.gridStartingPosition, false);
+		// @TODO refactor a tad I guess.. bit of a hacky way
+		var gridStartingPosition = $scope.rows < 3 || $scope.columns < 3 ? {
+			"row": 0,
+			"column": 0
+		} : magicForBoard.gridStartingPosition;
+
+		getUmi("uriFriendlyTitle", initUriFriendlyTitle, gridStartingPosition, false);
 
 		$scope.position = function (direction, data, id) {
-			var targetClasses = [],
-				targetPosition,
-				row = data.where.row,
+			var row = data.where.row,
 				column = data.where.column,
+				targetPosition = {row: row, column: column},
+				targetClasses = [],
 				newUmiId = id;
 
 			if (direction == "up") {
-				targetPosition = [row - 1, column];
+				targetPosition.row = row - 1;
 			}
 			else if (direction == "down") {
-				targetPosition = [row + 1, column];
+				targetPosition.row = row + 1;
 			}
 			else if (direction == "left") {
-				targetPosition = [row, column - 1];
+				targetPosition.column = column - 1;
 			}
 			else if (direction == "right") {
-				targetPosition = [row, column + 1];
+				targetPosition.column = column + 1;
 			}
 
 			if (targetPosition[0] == 0) {
@@ -136,11 +142,6 @@
 			} else if (targetPosition[1] == ($scope.columns - 1)) {
 				targetClasses.push("closes-right");
 			}
-
-			var targetPosition = {
-				"row": targetPosition[0],
-				"column": targetPosition[1]
-			};
 
 			getUmi("id", newUmiId, targetPosition, targetClasses.join(" "));
 		};

@@ -17,16 +17,17 @@
 	</ul>
 </nav>
 
-<div class="row" ng-repeat="row in grid" id="row-{{ $index }}">
+<div class="row" ng-repeat="row in grid" id="row-{{ $index }}" style="min-height: 220px">
 	<resize-row class="resize-row" min-height="220" row-index="{{ $index }}">
-		<onboarding-hotspot ng-hide="onboarding.resizeBoardRows || $index !== 0" class="top" section="resizeBoardRows"></onboarding-hotspot>
+		<onboarding-hotspot ng-hide="onboarding.resizeBoard || $index !== 1" class="top" section="resizeBoard"></onboarding-hotspot>
 	</resize-row>
-	<div class="column flex-1" ng-repeat="data in row">
+	<div class="column flex-1 column-{{ $index }}" ng-repeat="data in row">
+		<resize-column class="resize-column" min-width="{{ 100 / columns | number:0 }}" columns="{{ columns }}" column-index="{{ $index }}"></resize-column>
 		<!--Unit of Mathematical Information-->
 		<div class="umi fade-in {{ data.targetClasses }}"
 			 ng-class="{'fade-in' : fadeInUmi}"
 			 ng-hide="!data.htmlContent">
-			<div class="voting flex center-horizontally">
+			<div class="voting flex center-horizontally hide">
 				<!--@FIXME This should only be displayed if a user is signed in!!-->
 				<!--@FIXME ng-show="data.author == omUser.email"-->
 				<ul class="flex align-left unstyled">
@@ -49,7 +50,7 @@
 					<span class="label">{{ data.umi.umiType }}</span>
 					<strong class="flex-1">{{ data.umi.title.title }}</strong>
 				</div>
-				<article stop-event om-bind="data.htmlContent"></article>
+				<article stop-event om-ng-bind="data.htmlContent" position="position" data="data"></article>
 			</div>
 		</div>
 

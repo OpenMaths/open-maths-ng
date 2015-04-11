@@ -116,6 +116,9 @@
 
 					logger.log(returnMutationData(), "info");
 					notification.generate("Your contribution was successfully posted!", "success", data);
+
+					$scope.createUmiForm = {};
+					$scope.activeStep = 0;
 				}, function (errorData) {
 					notification.generate("There was an error posting your contribution.", "error", errorData);
 				});

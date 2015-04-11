@@ -31,6 +31,17 @@
 			&:last-of-type
 				border-right: 0 !important
 
+			.resize-column
+				+z-index(resize-row) // @TODO change to resize-column?
+
+				position: absolute
+				right: 0
+				top: 0
+				height: 100%
+				width: $half-unit-layout + $quarter-unit-layout
+				cursor: col-resize !important
+
+
 		&:last-of-type
 			.column
 				border-bottom: 0 !important
