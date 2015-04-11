@@ -59,62 +59,46 @@ gulp.task("sass", function () {
 		.pipe(notify("SASS successfully compiled!"));
 });
 
-// Concatenate Vendor
-gulp.task("concat-vendor", function () {
-	gulp.src("www/app/vendor/*.js")
-		.pipe(concat("vendor.js"))
-		.pipe(gulp.dest("www/app/dist"))
-		.pipe(notify("Vendors successfully concatenated!"));
-});
-
-// Concat angular dependencies
-var ngConcat = function (name) {
-	gulp.src("www/app/" + name + "/**/*.js")
-		.pipe(concat(name + ".js"))
+// Concatenate our AngularJS App into a single omApp.js file
+gulp.task("concat-ng", function () {
+	gulp.src([
+		"www/app/app.js",
+		"www/app/lodash/**/*.js",
+		"www/app/sections/**/*.js"
+	])
+		.pipe(concat("omApp.js"))
 		.pipe(ngAnnotate({
 			add: true
 		}))
 		.pipe(uglify())
 		.pipe(gulp.dest("www/app/dist"))
-		.pipe(notify(name + ".js successfully concatenated!"));
-};
-
-// Concatenate Sections
-gulp.task("concat-sections", function () {
-	ngConcat("sections");
+		.pipe(notify("omApp.js successfully concatenated!"));
 });
 
-// Concatenate Utilities
-gulp.task("concat-lodash", function () {
-	ngConcat("lodash");
-});
-
-// Concatenate all resources into a single omApp.js file
+// Concatenate all resources (including vendor) into a single om.js file
 gulp.task("concat-all", function () {
 	gulp.src([
-		"www/app/dist/vendor.js",
-		"www/app/config.js",
-		"www/app/app.js",
-		"www/app/dist/lodash.js",
-		"www/app/dist/sections.js"
+		"www/app/vendor/*.js",
+		"www/app/dist/*.js"
 	])
-		.pipe(concat("omApp.js"))
+		.pipe(concat("om.js"))
 		.pipe(gulp.dest("www/app"))
-		.pipe(size())
-		.pipe(notify("omApp.js successfully concatenated!"));
+		.pipe(notify("om.js successfully concatenated!"));
 });
 
 // Watch directories and execute assigned tasks
 gulp.task("watch", function () {
-	gulp.watch("www/app/vendor/*.js", ["concat-vendor", "concat-sections", "concat-lodash"]);
-	gulp.watch("www/app/sections/**/*.js", ["concat-vendor", "concat-sections", "concat-lodash"]);
-	gulp.watch("www/app/lodash/*.js", ["concat-vendor", "concat-sections", "concat-lodash"]);
+	gulp.watch("www/app/vendor/*.js", ["concat-ng", "test"]);
+	gulp.watch("www/app/sections/**/*.js", ["concat-ng", "test"]);
+	gulp.watch("www/app/lodash/*.js", ["concat-ng", "test"]);
+	gulp.watch("www/app/test/*.js", ["concat-ng", "test"]);
 	gulp.watch("www/app/dist/*.js", ["concat-all", "test"]);
 
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
 });
 
-gulp.task("default", ["sass", "concat-vendor", "concat-sections", "concat-lodash", "concat-all"], function () {
+gulp.task("default", ["sass"], function () {
 	gulp.start("watch");
+	gulp.start("concat-ng");
 	gulp.start("staticServer");
 });

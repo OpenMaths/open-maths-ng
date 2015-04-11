@@ -8,7 +8,7 @@ node_modules
 .Trashes
 Thumbs.db
 
-www/app/omApp.js
+www/app/om.js
 www/assets/css/*.css
 www/assets/css/*.map
 

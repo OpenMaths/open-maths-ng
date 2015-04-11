@@ -18,15 +18,15 @@
 		$scope.$parent.title = magicForContribute.pageTitle;
 		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
 
-		//$http.get("app/sections/section.contribute/contribute.magic.json").success(function (data) {
-		//	_.forEach(data, function (val, key) {
-		//		$scope[key] = val;
-		//	});
-		//
-		//	formInit();
-		//}).error(function (errData) {
-		//	logger(errData, "error");
-		//});
+		$http.get("app/sections/section.contribute/contribute.magic.json").success(function (data) {
+			_.forEach(data, function (val, key) {
+				$scope[key] = val;
+			});
+
+			formInit();
+		}).error(function (errData) {
+			logger(errData, "error");
+		});
 
 		formInit();
 
