@@ -1,10 +1,10 @@
-<nav class="progress hide">
+<nav class="progress">
 	<ul id="nav" class="container-narrow flex center-vertically align-left">
 		<li ng-repeat="key in stepsKeys" ng-click="goToStep(key)"><span id="{{ key }}" class="flex center-vertically" ng-class="{active : stepsKeys[activeStep] == key}">{{ steps[key] }}</span></li>
 	</ul>
 </nav>
 
-<article class="hide">
+<article>
 	<!--NOTE the name attr is needed for error messages-->
 	<form name="formBasicSettings" class="container-narrow" ng-show="activeStep == 0">
 		<header>
@@ -18,8 +18,7 @@
 		<label class="flex">
 			<p class="flex-2">
 				Type
-				<small ng-class="{active : showInstructions == 'umiType'}">{{ formInstructions.umiType }}
-				</small>
+				<small ng-class="{active : showInstructions == 'umiType'}">{{ formInstructions.umiType }}</small>
 			</p>
 			<div class="flex-7">
 				<select ng-focus="showInstructions = 'umiType'"
@@ -40,8 +39,7 @@
 		<label class="flex">
 			<p class="flex-2">
 				Title
-				<small ng-class="{active : showInstructions == 'title'}">{{ formInstructions.title }}
-				</small>
+				<small ng-class="{active : showInstructions == 'title'}">{{ formInstructions.title }}</small>
 			</p>
 			<div class="flex-7">
 				<input ng-focus="showInstructions = 'title'"
@@ -63,8 +61,7 @@
 		<label class="flex flex-item">
 			<p class="flex-2">
 				Title Synonyms
-				<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ formInstructions.titleSynonyms }}
-				</small>
+				<small ng-class="{active : showInstructions == 'titleSynonyms'}">{{ formInstructions.titleSynonyms }}</small>
 			</p>
 			<div class="flex-7">
 				<input ng-focus="showInstructions = 'titleSynonyms'"
@@ -80,15 +77,23 @@
 			<div class="alert error" ng-show="formBasicSettings.titleSynonyms.$error.maxlength">{{ formErrorMessages.maxLength }}</div>
 		</div>
 
-		<label class="flex center-vertically button-holder">
+		<div class="flex center-vertically button-holder">
 			<!--@TODO fix this issue (probably flexbox)-->
-			<div class="toggle-holder flex center-vertically" ng-show="createUmiForm.umiType.formal">
-				<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
-				<small>This is <span ng-hide="formalVersion">not</span> a <strong>Formal Version</strong></small>
+			<div class="flex">
+				<div class="toggle-holder flex center-vertically relative" ng-show="createUmiForm.umiType.formal">
+					<onboarding-hotspot ng-hide="onboarding.formalContent" stop-event class="left" section="formalContent"></onboarding-hotspot>
+
+					<div class="toggle flex" ng-click="toggleFormalVersion()" ng-class="{active : formalVersion}"></div>
+					<small><span ng-hide="formalVersion">Not a </span><strong>Formal Version</strong></small>
+				</div>
+				<div class="toggle-holder flex center-vertically margin-left-base" ng-show="createUmiForm.umiType.meta && formalVersion">
+					<div class="toggle flex" ng-click="toggleMetaDefinition()" ng-class="{active : metaDefinition}"></div>
+					<small><span ng-hide="metaDefinition">Not a </span><strong>Meta Definition</strong></small>
+				</div>
 			</div>
 
 			<button name="next" class="button primary align-right" ng-disabled="!formBasicSettings.$valid" ng-click="activeStep = activeStep + 1">Proceed to <strong>{{ steps[stepsKeys[activeStep + 1]] }}</strong></button>
-		</label>
+		</div>
 	</form>
 
 	<form name="formEditor" ng-show="activeStep == 1">
@@ -100,9 +105,13 @@
 		</header>
 
 		<section class="controls flex">
-			<ul class="flex center-vertically align-right">
-				<li><span id="parsing" class="flex center-vertically" ng-show="parsingContent">Parsing</span></li>
-				<li><span id="time-scale" class="flex center-vertically" ng-show="timeScale">{{ timeScale }}</span></li>
+			<ul class="flex flex-1 center-vertically">
+				<li ng-show="parsed"><span id="parsed-valid" class="flex center-vertically" ng-class="{valid : parsed.valid, invalid : !parsed.valid}">{{ parsed.message }}</span></li>
+				<li ng-show="parsingContent"><span id="parsing" class="flex center-vertically">Parsing</span></li>
+			</ul>
+
+			<ul class="flex flex-1 center-vertically">
+				<li class="align-right" ng-show="timeScale"><span id="time-scale" class="flex center-vertically">{{ timeScale }}</span></li>
 				<li><span id="locked" class="flex center-vertically">Locked</span></li>
 			</ul>
 		</section>
@@ -112,20 +121,16 @@
 			<div class="flex-1">
 				<textarea ng-focus="showInstructions = 'content'"
 						  ng-model="createUmiForm.content" name="content"
-						  placeholder="Contents of your contribution" required ng-change="latexToHtml()"></textarea>
+						  placeholder="Start typing here..." required ng-change="latexToHtml()"></textarea>
 			</div>
 
 			<div class="flex-1">
-				<p class="latex-content-preview" om-bind="parsedContent || 'Parsed content will be displayed here'"></p>
+				<main class="latex-content-preview" om-bind="parsedContent || 'Parsed content will be displayed here'"></main>
 			</div>
 
 			<!--Error messages for LaTeX Content-->
 			<div class="error-messages full-screen" ng-show="showInstructions == 'content'">
 				<div class="alert error" ng-show="formEditor.content.$error.required">{{ formErrorMessages.required }}</div>
-			</div>
-
-			<div class="error-messages full-screen" ng-show="editorError.message">
-				<div class="alert error">{{ editorError.message }} <strong>near</strong> "{{ editorError.where }}"</div>
 			</div>
 		</div>
 
@@ -136,7 +141,7 @@
 					Prerequisite definitions
 					<small ng-class="{active : showInstructions == 'prerequisiteDefinitionIds'}">{{ formInstructions.prerequisiteDefinitionIds }}</small>
 				</p>
-				<div class="flex-7" autocomplete model="createUmiForm.prerequisiteDefinitionIds"></div>
+				<div class="flex-7" autocomplete placeholder="Prerequisite definitions" model="createUmiForm.prerequisiteDefinitionIds"></div>
 			</label>
 
 			<!--See also-->
@@ -146,15 +151,14 @@
 					<small ng-class="{active : showInstructions == 'seeAlsoIds'}">{{ formInstructions.seeAlsoIds }}</small>
 				</p>
 
-				<div class="flex-7" autocomplete model="createUmiForm.seeAlsoIds"></div>
+				<div class="flex-7" autocomplete placeholder="See Also" model="createUmiForm.seeAlsoIds"></div>
 			</label>
 
 			<!--Tags-->
 			<label class="flex flex-item">
 				<p class="flex-2">
 					Tags
-					<small ng-class="{active : showInstructions == 'tags'}">{{ formInstructions.tags }}
-					</small>
+					<small ng-class="{active : showInstructions == 'tags'}">{{ formInstructions.tags }}</small>
 				</p>
 
 				<div class="flex-7">
