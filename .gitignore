@@ -9,5 +9,7 @@ node_modules
 Thumbs.db
 
 www/app/omApp.js
+www/assets/css/*.css
+www/assets/css/*.map
 
 /dist

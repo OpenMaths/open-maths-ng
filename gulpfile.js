@@ -114,7 +114,7 @@ gulp.task("watch", function () {
 	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
 });
 
-gulp.task("default", ["concat-vendor", "concat-sections", "concat-lodash", "concat-all"], function () {
+gulp.task("default", ["sass", "concat-vendor", "concat-sections", "concat-lodash", "concat-all"], function () {
 	gulp.start("watch");
 	gulp.start("staticServer");
 });
