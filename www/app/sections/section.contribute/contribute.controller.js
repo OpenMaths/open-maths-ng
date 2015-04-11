@@ -174,6 +174,13 @@
 			$scope.stepsKeys = _.keys($scope.steps);
 			$scope.activeStep = 0;
 		}
+
+		$scope.$watch("createUmiForm.umiType.formal", function(v) {
+			if (!v) {
+				$scope.formalVersion = false;
+				$scope.metaDefinition = false;
+			}
+		});
 	}
 
 })();
