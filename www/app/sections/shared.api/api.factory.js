@@ -31,13 +31,13 @@
 				headers: d.config.headers,
 				method: d.config.method,
 				url: d.config.url,
-				status: d.status,
-				rType: _.first(_.keys(d.data)),
-				rData: _.first(_.values(d.data))
+				statusCode: d.status,
+				status: _.first(_.keys(d.data)),
+				data: _.first(_.values(d.data))
 			};
 
-			if (response.rType !== "success") {
-				notification.generate("There was an " + reponse.rType + " in our API (Status: " + reponse.status + ").", "error", response);
+			if (response.status !== "success") {
+				notification.generate("There was an " + response.status + " in our API (Status: " + response.statusCode + ").", "error", response);
 
 				return false;
 			}

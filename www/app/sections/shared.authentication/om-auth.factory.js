@@ -8,7 +8,7 @@
 			authRetry: 3
 		});
 
-	function omAuth($http, notification, magic, magicForOmAuth) {
+	function omAuth($http, omApi, notification, magic, magicForOmAuth) {
 
 		return {
 			signIn: signIn,
@@ -20,10 +20,10 @@
 				return $http.get("https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=" + token.access_token);
 			};
 			var arftPromise = function (gPlusId) {
-				return $http.post(magic.api + "arft", gPlusId);
+				return omApi.post("arft", gPlusId);
 			};
 			var omLoginPromise = function (loginData) {
-				return $http.post(magic.api + "login", loginData);
+				return omApi.post("login", loginData);
 			};
 
 			Rx.Observable.fromPromise(googleApiPromise())
@@ -34,6 +34,13 @@
 
 					return Rx.Observable.fromPromise(arftPromise(data.id))
 						.map(function (arftResponse) {
+							var response = omApi.response(arftResponse);
+							return response ? response.data : false;
+						})
+						.where(function(arftResponse) {
+							return arftResponse;
+						})
+						.map(function(arftResponse) {
 							return {arftResponse: arftResponse.data, data: data};
 						});
 				})

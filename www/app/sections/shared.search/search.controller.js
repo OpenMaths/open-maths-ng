@@ -114,7 +114,7 @@
 			.map(function (e) {
 				return e.newValue;
 			})
-			.filter(function (term) {
+			.where(function (term) {
 				!term ? cleanSearchVars() : simulateDiving(term);
 				return term;
 			})
@@ -127,9 +127,10 @@
 			.flatMapLatest(omSearch)
 			.retry(magicForSearch.searchRetry)
 			.map(function (d) {
-				return omApi.response(d).rData;
+				var response =  omApi.response(d);
+				return response ? response.data : false;
 			})
-			.filter(function (data) {
+			.where(function (data) {
 				var validResults = data && data.length > 0;
 
 				if (!validResults) {

@@ -16,7 +16,7 @@
 			}
 		});
 
-	function BoardController($scope, $routeParams, $http, $location, manageGrid, notification, sStorage, logger, magic, magicForBoard) {
+	function BoardController($scope, $routeParams, omApi, $location, manageGrid, notification, sStorage, logger, magic, magicForBoard) {
 		$scope.$parent.title = magicForBoard.pageTitle;
 		$scope.$parent.transparentNav = magicForBoard.pageTransparentNav;
 
@@ -74,7 +74,7 @@
 		};
 
 		var getUmiPromise = function (url) {
-			return $http.get(url);
+			return omApi.get(url);
 		};
 
 		var getUmi = function (getBy, param, where, classes) {
@@ -85,24 +85,31 @@
 				return false;
 			}
 
-			var url = (getBy == "uriFriendlyTitle") ? magic.api + "title/" + param : magic.api + getBy + "/" + param,
+			var url = (getBy == "uriFriendlyTitle") ? "title/" + param : getBy + "/" + param,
 				getUmiObservable = Rx.Observable.fromPromise(getUmiPromise(url));
 
-			getUmiObservable.subscribe(function (d) {
-				var data = d.data;
-				logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
+			getUmiObservable
+				.map(function (d) {
+					var response = omApi.response(d);
+					return response ? response.data : false;
+				})
+				.where(function (data) {
+					return data;
+				})
+				.subscribe(function (data) {
+					logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
 
-				if (classes) {
-					data.targetClasses = classes;
-				}
-				data.where = where;
+					if (classes) {
+						data.targetClasses = classes;
+					}
+					data.where = where;
 
-				$scope.grid[where.row][where.column] = data;
-				// TODO this does not work on expanding??
-				//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
-			}, function (errorData) {
-				notification.generate("There was an error loading requested contribution.", "error", errorData);
-			});
+					$scope.grid[where.row][where.column] = data;
+					// TODO this does not work on expanding??
+					//$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
+				}, function (errorData) {
+					notification.generate("There was an error loading requested contribution.", "error", errorData);
+				});
 		};
 
 		// @TODO refactor a tad I guess.. bit of a hacky way
@@ -148,7 +155,7 @@
 
 		// We can possibly store the data in a temporary sessionStorage and given that user will click through,
 		// rather than navigate via URL, we can save one HTTP call.
-		$scope.edit = function(uriFriendlyTitle) {
+		$scope.edit = function (uriFriendlyTitle) {
 			$location.url("/edit/" + uriFriendlyTitle);
 		}
 	}
