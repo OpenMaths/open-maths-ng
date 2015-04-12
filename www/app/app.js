@@ -18,7 +18,7 @@
 			}).when("/contribute", {
 				templateUrl: _.returnLayout("contribute"),
 				controller: "ContributeController"
-			}).when("/edit/:umiID?", {
+			}).when("/edit/:uriFriendlyTitle?", {
 				templateUrl: _.returnLayout("edit"),
 				controller: "EditController"
 			});

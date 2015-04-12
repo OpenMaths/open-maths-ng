@@ -12,10 +12,15 @@
 			scope: {
 				autocompleteData: "=model"
 			},
-			controller: "SearchController"
+			controller: "SearchController",
+			link: linker
 		};
 
 		return directive;
+
+		function linker(scope, element, attrs) {
+			scope.placeholder = attrs.placeholder;
+		}
 	}
 
 })();

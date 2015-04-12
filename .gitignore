@@ -8,4 +8,8 @@ node_modules
 .Trashes
 Thumbs.db
 
-www/assets/images/bg/cover-dive-source.psd
+www/app/om.js
+www/assets/css/*.css
+www/assets/css/*.map
+
+/dist
