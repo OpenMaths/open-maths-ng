@@ -75,6 +75,7 @@
 			formData.data = $scope.createUmiForm;
 			formData.formalVersion = $scope.formalVersion;
 			formData.metaDefinition = $scope.metaDefinition;
+			formData.mutationType = "Contribute";
 
 			return mutation.returnStructure(formData, authObject);
 		};
@@ -170,12 +171,14 @@
 				tags: ""
 			};
 
+			$scope.parsed = false;
+
 			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
 			$scope.stepsKeys = _.keys($scope.steps);
 			$scope.activeStep = 0;
 		}
 
-		$scope.$watch("createUmiForm.umiType.formal", function(v) {
+		$scope.$watch("createUmiForm.umiType.formal", function (v) {
 			if (!v) {
 				$scope.formalVersion = false;
 				$scope.metaDefinition = false;

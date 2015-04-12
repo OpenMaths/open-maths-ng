@@ -24,12 +24,13 @@
 			//checkDataStructure(form, auth);
 
 			var umiForm = form.data,
+				message = form.mutationType == "Contribute" ? "Initialise UMI" : "UMI Mutation",
 				typePrefix = form.formalVersion ? "Formal" : "",
 				typeSuffix = form.metaDefinition ? "Meta" : "";
 
-			return {
+			return form.mutationType == "Contribute" ? {
 				auth: auth,
-				message: "Initialise UMI",
+				message: message,
 				umiType: typePrefix + umiForm.umiType.id + typeSuffix,
 				title: _.capitalise(umiForm.title),
 				titleSynonyms: umiForm.titleSynonyms ? _.cleanseCSV(umiForm.titleSynonyms) : [],
@@ -37,6 +38,11 @@
 				prerequisiteDefinitionIds: umiForm.prerequisiteDefinitionIds ? _.keys(umiForm.prerequisiteDefinitionIds) : [],
 				seeAlsoIds: umiForm.seeAlsoIds ? _.keys(umiForm.seeAlsoIds) : [],
 				tags: umiForm.tags ? _.cleanseCSV(umiForm.tags) : []
+			} : {
+				auth: auth,
+				message: message,
+				umiId: umiForm.umiId,
+				newLatex: umiForm.content
 			};
 		}
 

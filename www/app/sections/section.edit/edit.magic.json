@@ -1,0 +1,16 @@
+{
+  "steps": {
+    "editor": "Editor",
+    "preview-and-publish": "Preview & Publish"
+  },
+  "formErrorMessages": {
+    "required": "This field is required.",
+    "maxLength": "This field is exceeding the maximum length of 128 characters."
+  },
+  "formInstructions": {
+    "content": "The actual content. You are free to use LaTeX (including text-mode macros!!).",
+    "prerequisiteDefinitionIds": "Comma-separated list of valid dependency Titles.",
+    "seeAlsoIds": "Comma-separated list of valid Titles which may be related.",
+    "tags": "Comma-separated list of tags to help users find your contribution."
+  }
+}

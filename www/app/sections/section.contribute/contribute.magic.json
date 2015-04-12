@@ -19,19 +19,67 @@
     "tags": "Comma-separated list of tags to help users find your contribution."
   },
   "formUmiTypes": [
-    {"id": "Definition", "label": "Definition", "formal": true, "meta": true},
-    {"id": "Notation", "label": "Notation", "formal": true, "meta": true},
-    {"id": "Axiom", "label": "Axiom", "formal": true},
-    {"id": "AxiomScheme", "label": "Axiom Scheme", "formal": true},
-    {"id": "Theorem", "label": "Theorem"},
-    {"id": "Lemma", "label": "Lemma"},
-    {"id": "Corollary", "label": "Corollary"},
-    {"id": "Conjecture", "label": "Conjecture"},
-    {"id": "Proof", "label": "Proof"},
-    {"id": "HistoricalNote", "label": "Historical Note"},
-    {"id": "PhilosophicalJustification", "label": "Philosophical Justification"},
-    {"id": "Diagram", "label": "Diagram"},
-    {"id": "Example", "label": "Example"},
-    {"id": "PartialTheorem", "label": "Partial Theorem"}
+    {
+      "id": "Definition",
+      "label": "Definition",
+      "formal": true,
+      "meta": true
+    },
+    {
+      "id": "Notation",
+      "label": "Notation",
+      "formal": true,
+      "meta": true
+    },
+    {
+      "id": "Axiom",
+      "label": "Axiom",
+      "formal": true
+    },
+    {
+      "id": "AxiomScheme",
+      "label": "Axiom Scheme",
+      "formal": true
+    },
+    {
+      "id": "Theorem",
+      "label": "Theorem"
+    },
+    {
+      "id": "Lemma",
+      "label": "Lemma"
+    },
+    {
+      "id": "Corollary",
+      "label": "Corollary"
+    },
+    {
+      "id": "Conjecture",
+      "label": "Conjecture"
+    },
+    {
+      "id": "Proof",
+      "label": "Proof"
+    },
+    {
+      "id": "HistoricalNote",
+      "label": "Historical Note"
+    },
+    {
+      "id": "PhilosophicalJustification",
+      "label": "Philosophical Justification"
+    },
+    {
+      "id": "Diagram",
+      "label": "Diagram"
+    },
+    {
+      "id": "Example",
+      "label": "Example"
+    },
+    {
+      "id": "PartialTheorem",
+      "label": "Partial Theorem"
+    }
   ]
 }
