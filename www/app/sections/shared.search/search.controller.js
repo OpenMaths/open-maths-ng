@@ -14,7 +14,7 @@
 			searchRetry: 3
 		});
 
-	function SearchController($scope, $http, $location, rx, notification, logger, magic, magicForSearch) {
+	function SearchController($scope, $location, rx, omApi, notification, logger, magicForSearch) {
 		$scope.nGetUmi = function (index) {
 			if (!$scope.searchResults) {
 				notification.generate("No URI argument present", "error");
@@ -101,7 +101,7 @@
 
 		// @TODO consider returning a RX.Observable.fromPromise in lieu of a normal promise
 		function omSearch(term) {
-			return $http.get(magic.api + "search/" + term);
+			return omApi.get("search/" + term);
 		}
 
 		// There should be a nice way to not run this until a change actually happens. That is to say that
@@ -127,7 +127,9 @@
 			.flatMapLatest(omSearch)
 			.retry(magicForSearch.searchRetry)
 			.subscribe(function (d) {
-				var data = d.data;
+				var data = omApi.response(d);
+				//console.log(d);
+				return;
 
 				if (data.length > 0) {
 					$scope.searchResults = {

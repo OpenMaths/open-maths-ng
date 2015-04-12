@@ -3,7 +3,7 @@
 // I need to make sure that:
 //
 // 1. The data it receives in parameters follow the correct structure
-// 2. formalVersion and metaDefinition can only be booleans
+// @DONE 2. formalVersion and metaDefinition can only be booleans
 // 3. Formal and Meta depend on each other, and there are rules which it needs to follow (see contribute.magic.json)
 
 (function () {
@@ -20,17 +20,17 @@
 		};
 
 		function returnStructure(form, auth) {
-			// @TODO try / catch / log
-			checkDataStructure(form, auth);
-
 			var umiForm = form.data,
-				message = form.mutationType == "Contribute" ? "Initialise UMI" : "UMI Mutation",
+				mutationType = form.mutationType == "add" ? "add" : "update",
 				typePrefix = form.formalVersion ? "Formal" : "",
 				typeSuffix = form.metaDefinition ? "Meta" : "";
 
-			return form.mutationType == "Contribute" ? {
+			// @TODO try / catch / log
+			checkDataStructure(mutationType, form, auth);
+
+			var object = mutationType == "add" ? {
 				auth: auth,
-				message: message,
+				message: "Initialise UMI",
 				umiType: typePrefix + umiForm.umiType.id + typeSuffix,
 				title: _.capitalise(umiForm.title),
 				titleSynonyms: umiForm.titleSynonyms ? _.cleanseCSV(umiForm.titleSynonyms) : [],
@@ -40,33 +40,27 @@
 				tags: umiForm.tags ? _.cleanseCSV(umiForm.tags) : []
 			} : {
 				auth: auth,
-				message: message,
+				message: "UMI Mutation",
 				umiId: umiForm.umiId,
 				newLatex: umiForm.content
 			};
+
+			return object;
 		}
 
+		function checkDataStructure(mutationType, formData, auth) {
+			var mutationDependentDataStructure = {
+				add: ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
+				update: ["umiId", "newLatex"]
+			};
 
-		// @TODO This whole bit needs proper doing -> should reflect of the above
-
-		//{
-		//	umiType: "",
-		//	title: "",
-		//	titleSynonyms: "",
-		//	content: "",
-		//	prerequisiteDefinitionIds: {},
-		//	seeAlsoIds: {},
-		//	tags: ""
-		//}
-
-		function checkDataStructure(formData, auth) {
 			var structures = {
 				genericStructure: {
 					required: ["data", "formalVersion", "metaDefinition", "mutationType"],
 					reality: _.keys(formData)
 				},
 				dataStructure: {
-					required: ["umiType", "title", "titleSynonyms", "content", "prerequisiteDefinitionIds", "seeAlsoIds", "tags"],
+					required: mutationDependentDataStructure[mutationType],
 					reality: _.keys(formData.data)
 				},
 				authStructure: {
@@ -76,7 +70,8 @@
 			};
 
 			_.forEach(structures, function (data) {
-				_.checkKeys(data.required, data.reality);
+				var a = _.checkKeys(data.required, data.reality);
+				logger.log(a, "info");
 			});
 		}
 	}
