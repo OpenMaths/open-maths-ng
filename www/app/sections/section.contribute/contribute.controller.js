@@ -75,6 +75,7 @@
 			formData.data = $scope.createUmiForm;
 			formData.formalVersion = $scope.formalVersion;
 			formData.metaDefinition = $scope.metaDefinition;
+			formData.mutationType = "Contribute";
 
 			return mutation.returnStructure(formData, authObject);
 		};
@@ -92,9 +93,6 @@
 		 * Makes contribute request
 		 */
 		$scope.createUmi = function () {
-			console.log(returnMutationData());
-			return false;
-
 			Rx.Observable
 				.fromPromise(createUmiPromise())
 				.retry(3)

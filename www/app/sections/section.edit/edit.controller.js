@@ -55,6 +55,7 @@
 			formData.data = $scope.createUmiForm;
 			formData.formalVersion = $scope.formalVersion;
 			formData.metaDefinition = $scope.metaDefinition;
+			formData.mutationType = "Edit";
 
 			return mutation.returnStructure(formData, authObject);
 		};
@@ -64,26 +65,27 @@
 			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
 		}
 
-		function createUmiPromise() {
-			return $http.post(magic.api + "add", returnMutationData());
+		// @TODO rename everything to update?
+		function editUmiPromise() {
+			return $http.put(magic.api + "update-latex", returnMutationData());
 		}
 
 		/**
 		 * Makes contribute request
 		 */
-		$scope.createUmi = function () {
+		$scope.editUmi = function () {
 			Rx.Observable
-				.fromPromise(createUmiPromise())
+				.fromPromise(editUmiPromise())
 				.retry(3)
 				.subscribe(function (d) {
 					var data = d.data;
 
 					logger.log(returnMutationData(), "info");
-					notification.generate("Your contribution was successfully posted!", "success", data);
+					notification.generate("Your contribution was successfully updated!", "success", data);
 
 					formInit();
 				}, function (errorData) {
-					notification.generate("There was an error posting your contribution.", "error", errorData);
+					notification.generate("There was an error updating your contribution.", "error", errorData);
 				});
 		};
 
@@ -149,7 +151,6 @@
 			getUmiObservable.subscribe(function (d) {
 					var data = d.data;
 					logger.log("UMI title => " + param + " loaded.", "info");
-					logger.log(data, "info");
 
 					// @BEWARE CRUFT below
 					var prereq = {},
@@ -164,15 +165,17 @@
 
 					// @TODO make this MUCH better
 					$scope.createUmiForm = {
+						umiId: data.umi.id,
 						umiType: {
+							id: data.umi.umiType,
 							label: data.umi.title.umiType
 						},
 						title: data.umi.title.title,
-						titleSynonyms: data.umi.titleSynonyms,
+						titleSynonyms: data.umi.titleSynonyms.join(", "),
 						content: data.latexContent,
 						prerequisiteDefinitionIds: prereq,
 						seeAlsoIds: seeAlso,
-						tags: data.umi.tags
+						tags: data.umi.tags.join(", ")
 					};
 
 					// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
