@@ -12,13 +12,16 @@
 			latexToHtmlRetry: 3
 		});
 
-	function EditController($scope, $http, $sce, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForContribute) {
+	function EditController($scope, $http, $sce, $routeParams, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForEdit) {
 		userLevel.check();
 
-		$scope.$parent.title = magicForContribute.pageTitle;
-		$scope.$parent.transparentNav = magicForContribute.pageTransparentNav;
+		var param = $routeParams.uriFriendlyTitle;
+		logger.log(param, "info");
 
-		$http.get("app/sections/section.contribute/contribute.magic.json").success(function (data) {
+		$scope.$parent.title = magicForEdit.pageTitle;
+		$scope.$parent.transparentNav = magicForEdit.pageTransparentNav;
+
+		$http.get("app/sections/section.edit/edit.magic.json").success(function (data) {
 			_.forEach(data, function (val, key) {
 				$scope[key] = val;
 			});
@@ -27,8 +30,6 @@
 		}).error(function (errData) {
 			logger(errData, "error");
 		});
-
-		formInit();
 
 		lStorage.get("onboarding").contributeAlpha ? "" : onboarding.generate("contributeAlpha");
 
@@ -44,29 +45,6 @@
 				$scope.activeStep = keyIndex;
 			} else {
 				notification.generate("Please complete the current step first before proceeding further.", "info");
-			}
-		};
-
-		/**
-		 * Toggles Formal Version of a contribution
-		 */
-		$scope.toggleFormalVersion = function () {
-			$scope.formalVersion = $scope.formalVersion ? false : true;
-
-			if ($scope.formalVersion) {
-				notification.generate("Your contribution is now of type Formal.", "info");
-			} else {
-				notification.generate("Your contribution is no longer of type Formal.", "info");
-			}
-		};
-
-		$scope.toggleMetaDefinition = function () {
-			$scope.metaDefinition = $scope.metaDefinition ? false : true;
-
-			if ($scope.metaDefinition) {
-				notification.generate("Your contribution is now of type Meta Definition.", "info");
-			} else {
-				notification.generate("Your contribution is no longer of type Meta Definition.", "info");
 			}
 		};
 
@@ -117,7 +95,7 @@
 				$scope.parsedContent = term;
 				return term;
 			})
-			.debounce(magicForContribute.parseContentTimeout)
+			.debounce(magicForEdit.parseContentTimeout)
 			.distinctUntilChanged()
 			.do(function () {
 				logger.log("LaTeX to HTML translation in progress", "info");
@@ -126,7 +104,7 @@
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
 			.flatMapLatest(latexToHtmlPromise)
-			.retry(magicForContribute.latexToHtmlRetry)
+			.retry(magicForEdit.latexToHtmlRetry)
 			.subscribe(function (d) {
 				$scope.parsingContent = false;
 
@@ -162,27 +140,54 @@
 			});
 
 		function formInit() {
-			$scope.createUmiForm = {
-				umiType: "",
-				title: "",
-				titleSynonyms: "",
-				content: "",
-				prerequisiteDefinitionIds: {},
-				seeAlsoIds: {},
-				tags: ""
+			var getUmiPromise = function () {
+				return $http.get(magic.api + "title/" + param);
 			};
 
-			// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
-			$scope.stepsKeys = _.keys($scope.steps);
-			$scope.activeStep = 0;
-		}
+			var getUmiObservable = Rx.Observable.fromPromise(getUmiPromise());
 
-		$scope.$watch("createUmiForm.umiType.formal", function(v) {
-			if (!v) {
-				$scope.formalVersion = false;
-				$scope.metaDefinition = false;
-			}
-		});
+			getUmiObservable.subscribe(function (d) {
+					var data = d.data;
+					logger.log("UMI title => " + param + " loaded.", "info");
+					logger.log(data, "info");
+
+					// @BEWARE CRUFT below
+					var prereq = {},
+						seeAlso = {};
+
+					_.forEach(data.umi.prerequisiteDefinitions, function (v) {
+						prereq[v.id] = v.title;
+					});
+					_.forEach(data.umi.seeAlso, function (v) {
+						seeAlso[v.id] = v.title;
+					});
+
+					// @TODO make this MUCH better
+					$scope.createUmiForm = {
+						umiType: {
+							label: data.umi.title.umiType
+						},
+						title: data.umi.title.title,
+						titleSynonyms: data.umi.titleSynonyms,
+						content: data.latexContent,
+						prerequisiteDefinitionIds: prereq,
+						seeAlsoIds: seeAlso,
+						tags: data.umi.tags
+					};
+
+					// NOTE I realise this is a hacky way, but I need to override JS's alphabetical ordering
+					$scope.stepsKeys = _.keys($scope.steps);
+					$scope.activeStep = 0;
+				}
+
+				,
+				function (errorData) {
+					notification.generate("There was an error loading requested contribution.", "error", errorData);
+				}
+			)
+			;
+		}
 	}
 
-})();
+})
+();

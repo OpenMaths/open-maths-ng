@@ -30,7 +30,7 @@
 			<header class="voting flex center-horizontally">
 				<!--@FIXME This should only be displayed if a user is signed in!!-->
 				<ul class="flex align-left unstyled">
-					<li class="flex center-vertically edit no-label" ng-click="" ng-show="data.creator == omUser.id"></li>
+					<li class="flex center-vertically edit no-label" ng-click="edit(data.umi.title.uriFriendlyTitle)" ng-show="data.creator == omUser.id"></li>
 					<!--Allowing / Disallowing this will require returning user role-->
 					<li class="flex center-vertically approve no-label hide" ng-click=""></li>
 				</ul>

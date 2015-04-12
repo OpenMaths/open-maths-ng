@@ -92,6 +92,9 @@
 		 * Makes contribute request
 		 */
 		$scope.createUmi = function () {
+			console.log(returnMutationData());
+			return false;
+
 			Rx.Observable
 				.fromPromise(createUmiPromise())
 				.retry(3)
@@ -177,7 +180,7 @@
 			$scope.activeStep = 0;
 		}
 
-		$scope.$watch("createUmiForm.umiType.formal", function(v) {
+		$scope.$watch("createUmiForm.umiType.formal", function (v) {
 			if (!v) {
 				$scope.formalVersion = false;
 				$scope.metaDefinition = false;

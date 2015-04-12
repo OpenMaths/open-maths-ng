@@ -145,6 +145,12 @@
 
 			getUmi("id", newUmiId, targetPosition, targetClasses.join(" "));
 		};
+
+		// We can possibly store the data in a temporary sessionStorage and given that user will click through,
+		// rather than navigate via URL, we can save one HTTP call.
+		$scope.edit = function(uriFriendlyTitle) {
+			$location.url("/edit/" + uriFriendlyTitle);
+		}
 	}
 
 })();
