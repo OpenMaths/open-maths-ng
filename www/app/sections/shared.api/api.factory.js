@@ -32,16 +32,18 @@
 				method: d.config.method,
 				url: d.config.url,
 				status: d.status,
-				// OpenMaths-specific
 				rType: _.first(_.keys(d.data)),
 				rData: _.first(_.values(d.data))
 			};
 
 			if (response.rType !== "success") {
-				notification.generate("There was an error with our API.", "error", response);
+				notification.generate("There was an " + reponse.rType + " in our API (Status: " + reponse.status + ").", "error", response);
+
+				return false;
 			}
 
 			logger.log(response, "info");
+
 			return response;
 		}
 

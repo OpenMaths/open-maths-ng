@@ -126,20 +126,24 @@
 			})
 			.flatMapLatest(omSearch)
 			.retry(magicForSearch.searchRetry)
-			.subscribe(function (d) {
-				var data = omApi.response(d);
-				//console.log(d);
-				return;
+			.map(function (d) {
+				return omApi.response(d).rData;
+			})
+			.filter(function (data) {
+				var validResults = data && data.length > 0;
 
-				if (data.length > 0) {
-					$scope.searchResults = {
-						"currentSelection": 0,
-						"data": data
-					};
-				} else {
+				if (!validResults) {
 					$scope.searchResults = false;
 					notification.generate("No results found :-(", "info");
 				}
+
+				return data && data.length > 0;
+			})
+			.subscribe(function (data) {
+				$scope.searchResults = {
+					"currentSelection": 0,
+					"data": data
+				};
 			},
 			function (errorData) {
 				notification.generate("There was an error with the connection to our API.", "error", errorData);
