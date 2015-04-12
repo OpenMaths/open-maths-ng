@@ -20,8 +20,8 @@
 		};
 
 		function returnStructure(form, auth) {
-			// @TODO try catch
-			//checkDataStructure(form, auth);
+			// @TODO try / catch / log
+			checkDataStructure(form, auth);
 
 			var umiForm = form.data,
 				message = form.mutationType == "Contribute" ? "Initialise UMI" : "UMI Mutation",
@@ -62,7 +62,7 @@
 		function checkDataStructure(formData, auth) {
 			var structures = {
 				genericStructure: {
-					required: ["data", "formalVersion", "metaDefinition"], // @TODO testing missing data as a first item
+					required: ["data", "formalVersion", "metaDefinition", "mutationType"],
 					reality: _.keys(formData)
 				},
 				dataStructure: {
@@ -75,22 +75,10 @@
 				}
 			};
 
-			_.forEach(structures, function(data) {
-				checkKeys(data.required, data.reality);
+			_.forEach(structures, function (data) {
+				_.checkKeys(data.required, data.reality);
 			});
 		}
-
-		// @TODO abstract into a lodash library?
-		function checkKeys(requiredKeys, keys) {
-			_.map(requiredKeys, function (k) {
-				var contains = _.contains(keys, k);
-
-				if (!contains) {
-					logger.log(k + " does not appear in [" + keys + "]", "error");
-				}
-			});
-		}
-
 	}
 
 })();

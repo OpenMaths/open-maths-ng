@@ -69,10 +69,37 @@ describe("Time Scale", function () {
 		var longTime = _.timeScale(longString);
 		var longerTime = _.timeScale(longerString);
 
-		_.map(shortTime, function(val) {
+		_.map(shortTime, function (val) {
 			expect(val).toEqual("30 sec");
 		});
 		expect(longTime).toEqual("1 min");
 		expect(longerTime).toEqual("2 min");
+	});
+});
+
+describe("_.checkKeys()", function () {
+	it("should check whether specified object keys are really present in a given object", function () {
+		var required = ["key1", "key3", "key2"],
+			reality = _.keys({
+				key1: "testContent1",
+				key2: "testContent2",
+				key3: "testContent3"
+			});
+
+		var result = checkKeys(required, reality);
+
+		expect(result).toBe(true);
+	});
+
+	it("should return false when a key does not appear in required keys", function () {
+		var required = ["key1", "key3", "key2"],
+			reality = _.keys({
+				key1: "testContent1",
+				key2: "testContent2"
+			});
+
+		var result = checkKeys(required, reality);
+
+		expect(result).toBe(false);
 	});
 });
