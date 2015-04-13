@@ -28,47 +28,54 @@
 
 			Rx.Observable.fromPromise(googleApiPromise())
 				.map(function (d) {
-					var data = d.data;
-					data.accessToken = authResult.access_token;
-					data.avatarStyle = {"background-image": "url('" + data.picture + "')"};
+					var userData = d.data;
+					userData.accessToken = authResult.access_token;
+					userData.avatarStyle = {"background-image": "url('" + userData.picture + "')"};
 
-					return Rx.Observable.fromPromise(arftPromise(data.id))
+					return Rx.Observable.fromPromise(arftPromise(userData.id))
 						.map(function (arftResponse) {
 							var response = omApi.response(arftResponse);
 							return response ? response.data : false;
 						})
-						.where(function(arftResponse) {
+						.where(function (arftResponse) {
 							return arftResponse;
 						})
-						.map(function(arftResponse) {
-							return {arftResponse: arftResponse.data, data: data};
+						.map(function (arftResponse) {
+							return {arftResponse: arftResponse, userData: userData};
 						});
 				})
 				.switch()
 				.map(function (d) {
 					var arft = d.arftResponse,
-						data = d.data,
+						userData = d.userData,
 						loginData = {
 							arfToken: arft,
 							code: authResult.code,
-							gmail: data.email,
-							gPlusId: data.id
+							gmail: userData.email,
+							gPlusId: userData.id
 						};
 
 					return Rx.Observable.fromPromise(omLoginPromise(loginData))
 						.map(function (loginResponse) {
-							return {loginResult: loginResponse, data: data};
+							var response = omApi.response(loginResponse);
+							return response ? response.data : false;
+						})
+						.where(function(loginResponse) {
+							return loginResponse;
+						})
+						.map(function (loginResponse) {
+							return {loginResult: loginResponse, userData: userData};
 						});
 				})
 				.switch()
 				.retry(magicForOmAuth.authRetry)
 				.subscribe(function (d) {
-					var login = d.loginResult,
-						data = d.data;
+					var userData = d.userData;
 
 					// @TODO this is a VERY hacky solution (is it though?). Do it properly when on internet and can properly test.
 					// Also, there should be some unit tests in place
-					login.status == 200 ? callback(data) : notification.generate("There was an error signing you in to our application server.", "error", login);
+					//login.status == 200 ? callback(data) : notification.generate("There was an error signing you in to our application server.", "error", login);
+					callback(userData);
 				}, function (errorData) {
 					notification.generate("There was an error signing you in to our application server.", "error", errorData);
 				});
@@ -76,12 +83,19 @@
 
 		function signOut(signOutData, callback) {
 			var signOutPromise = function () {
-				return $http.post(magic.api + "logout", signOutData)
+				return omApi.post("logout", signOutData)
 			};
 
 			// @TODO should this even be done using a callback???? Reconsider..
 			// Maybe it could return the observable itself and then controller would subscribe
 			Rx.Observable.fromPromise(signOutPromise())
+				.map(function (signOutResponse) {
+					var response = omApi.response(signOutResponse);
+					return response ? response.data : false;
+				})
+				.where(function(signOutResponse) {
+					return signOutResponse;
+				})
 				.subscribe(function () {
 					callback();
 				}, function (errorData) {

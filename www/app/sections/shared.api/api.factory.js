@@ -19,11 +19,11 @@
 		}
 
 		function post(url, data) {
-			return $http.get(magic.api + url, data);
+			return $http.post(magic.api + url, data);
 		}
 
 		function put(url, data) {
-			return $http.get(magic.api + url, data);
+			return $http.put(magic.api + url, data);
 		}
 
 		function response(d) {
