@@ -12,7 +12,7 @@
 			latexToHtmlRetry: 3
 		});
 
-	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForContribute) {
+	function ContributeController($scope, $http, omApi, $sce, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -81,12 +81,14 @@
 		};
 
 		function latexToHtmlPromise() {
+			//@TODO change to object
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
-			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
+			console.log(wtfHack);
+			return omApi.post(wtfHack[0], wtfHack[1]);
 		}
 
 		function createUmiPromise() {
-			return $http.post(magic.api + "add", returnMutationData());
+			return omApi.post("add", returnMutationData());
 		}
 
 		/**
@@ -96,9 +98,15 @@
 			Rx.Observable
 				.fromPromise(createUmiPromise())
 				.retry(3)
-				.subscribe(function (d) {
-					var data = d.data;
-
+				.map(function (d) {
+					var response =  omApi.response(d);
+					return response ? response.data : false;
+				})
+				.where(function(data) {
+					logger.log(data, "debug");
+					return data;
+				})
+				.subscribe(function (data) {
 					logger.log(returnMutationData(), "info");
 					notification.generate("Your contribution was successfully posted!", "success", data);
 
@@ -126,24 +134,26 @@
 			})
 			.flatMapLatest(latexToHtmlPromise)
 			.retry(magicForContribute.latexToHtmlRetry)
+			.map(function(d) {
+				var response =  omApi.response(d);
+
+				return response ? {
+					data: response.data,
+					status: response.status
+				} : false;
+			})
+			.where(function(response) {
+				return response;
+			})
 			.subscribe(function (d) {
 				$scope.parsingContent = false;
 
 				var response = d.data,
-					parsedContent,
-					valid = _.first(response) == "s" ? true : false;
+					valid = d.status == "success" ? true : false;
 
 				logger.log({response: response, valid: valid}, "info");
 
-				if (!valid) {
-					var errMessage = response.substring(1);
-
-					parsedContent = $sce.trustAsHtml("<pre>" + errMessage + "</pre>");
-				} else {
-					parsedContent = response.substring(1);
-				}
-
-				$scope.parsedContent = parsedContent;
+				$scope.parsedContent = valid ? response : $sce.trustAsHtml("<pre>" + response + "</pre>");
 				$scope.parsed = {
 					valid: valid,
 					message: valid ? "Parsed" : "Something went wrong"
