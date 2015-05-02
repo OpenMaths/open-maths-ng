@@ -36,11 +36,11 @@
 				data: _.first(_.values(d.data))
 			};
 
-			if (response.status !== "success") {
-				notification.generate("There was an " + response.status + " in our API (Status: " + response.statusCode + ").", "error", response);
-
-				return false;
-			}
+			//if (response.status !== "success") {
+			//	notification.generate("There was an " + response.status + " in our API (Status: " + response.statusCode + ").", "error", response);
+			//
+			//	return false;
+			//}
 
 			logger.log(response, "info");
 

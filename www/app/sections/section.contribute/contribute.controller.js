@@ -83,7 +83,6 @@
 		function latexToHtmlPromise() {
 			//@TODO change to object
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
-			console.log(wtfHack);
 			return omApi.post(wtfHack[0], wtfHack[1]);
 		}
 
@@ -99,10 +98,10 @@
 				.fromPromise(createUmiPromise())
 				.retry(3)
 				.map(function (d) {
-					var response =  omApi.response(d);
+					var response = omApi.response(d);
 					return response ? response.data : false;
 				})
-				.where(function(data) {
+				.where(function (data) {
 					logger.log(data, "debug");
 					return data;
 				})
@@ -120,7 +119,7 @@
 			.map(function (e) {
 				return e.newValue;
 			})
-			.filter(function (term) {
+			.where(function (term) {
 				$scope.parsedContent = term;
 				return term;
 			})
@@ -132,36 +131,38 @@
 				$scope.parsingContent = true;
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
-			.flatMapLatest(latexToHtmlPromise)
+			.map(function () {
+				return Rx.Observable.fromPromise(latexToHtmlPromise())
+					.catch(function (e) {
+						var err = e.data.error;
+
+						$scope.parsingContent = false;
+						$scope.parsedContent = $sce.trustAsHtml("<pre>" + err + "</pre>");
+						$scope.parsed = {
+							valid: false,
+							message: "Error parsing"
+						};
+
+						return Rx.Observable.empty();
+					})
+					.map(function (d) {
+						var response = omApi.response(d);
+
+						return response.data;
+					});
+			})
+			.switch()
 			.retry(magicForContribute.latexToHtmlRetry)
-			.map(function(d) {
-				var response =  omApi.response(d);
-
-				return response ? {
-					data: response.data,
-					status: response.status
-				} : false;
-			})
-			.where(function(response) {
-				return response;
-			})
-			.subscribe(function (d) {
+			.subscribe(function (response) {
 				$scope.parsingContent = false;
-
-				var response = d.data,
-					valid = d.status == "success" ? true : false;
-
-				logger.log({response: response, valid: valid}, "info");
-
-				$scope.parsedContent = valid ? response : $sce.trustAsHtml("<pre>" + response + "</pre>");
+				$scope.parsedContent = response;
 				$scope.parsed = {
-					valid: valid,
-					message: valid ? "Parsed" : "Something went wrong"
+					valid: true,
+					message: "Parsed"
 				};
 			}, function (errorData) {
 				$scope.parsingContent = false;
 				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
-
 				$scope.parsed = {
 					valid: false,
 					message: "Error parsing"
