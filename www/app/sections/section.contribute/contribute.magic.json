@@ -26,12 +26,6 @@
       "meta": true
     },
     {
-      "id": "Notation",
-      "label": "Notation",
-      "formal": true,
-      "meta": true
-    },
-    {
       "id": "Axiom",
       "label": "Axiom",
       "formal": true

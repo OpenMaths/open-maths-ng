@@ -115,6 +115,53 @@
 				});
 		};
 
+		$scope.$watch("createUmiForm.prerequisiteDefinitionIds", function (n, o) {
+			if (_.keys(n).length > 0) {
+				Rx.Observable.fromPromise(latexToHtmlPromise())
+					.do(function () {
+						logger.log("LaTeX to HTML translation in progress", "info");
+
+						$scope.parsingContent = true;
+						$scope.timeScale = _.timeScale($scope.createUmiForm.content);
+					})
+					.catch(function (e) {
+						var err = e.data.error;
+
+						$scope.parsingContent = false;
+						$scope.parsedContent = $sce.trustAsHtml("<pre>" + err + "</pre>");
+						$scope.parsed = {
+							valid: false,
+							message: "Error parsing"
+						};
+
+						return Rx.Observable.empty();
+					})
+					.map(function (d) {
+						var response = omApi.response(d);
+
+						return response.data;
+					})
+					.retry(magicForContribute.latexToHtmlRetry)
+					.subscribe(function (response) {
+						$scope.parsingContent = false;
+						$scope.parsedContent = response;
+						$scope.parsed = {
+							valid: true,
+							message: "Parsed"
+						};
+					}, function (errorData) {
+						$scope.parsingContent = false;
+						$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
+						$scope.parsed = {
+							valid: false,
+							message: "Error parsing"
+						};
+
+						notification.generate("There was an error parsing content", "error", errorData);
+					});
+			}
+		}, true);
+
 		rx.watch($scope, "createUmiForm.content")
 			.map(function (e) {
 				return e.newValue;

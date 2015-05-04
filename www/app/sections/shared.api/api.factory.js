@@ -5,7 +5,7 @@
 		.module("omApp")
 		.factory("omApi", omApi);
 
-	function omApi($http, notification, logger, magic) {
+	function omApi($http, logger, magic) {
 
 		return {
 			response: response,
@@ -35,12 +35,6 @@
 				status: _.first(_.keys(d.data)),
 				data: _.first(_.values(d.data))
 			};
-
-			//if (response.status !== "success") {
-			//	notification.generate("There was an " + response.status + " in our API (Status: " + response.statusCode + ").", "error", response);
-			//
-			//	return false;
-			//}
 
 			logger.log(response, "info");
 

@@ -127,7 +127,7 @@
 			.flatMapLatest(omSearch)
 			.retry(magicForSearch.searchRetry)
 			.map(function (d) {
-				var response =  omApi.response(d);
+				var response = omApi.response(d);
 				return response ? response.data : false;
 			})
 			.where(function (data) {
