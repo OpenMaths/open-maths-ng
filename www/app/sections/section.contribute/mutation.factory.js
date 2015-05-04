@@ -21,7 +21,7 @@
 
 		function returnStructure(form, auth) {
 			var umiForm = form.data,
-				mutationType = form.mutationType == "add" ? "add" : "update",
+				mutationType = form.mutationType == "Contribute" ? "add" : "update",
 				typePrefix = form.formalVersion ? "Formal" : "",
 				typeSuffix = form.metaDefinition ? "Meta" : "";
 
@@ -71,7 +71,6 @@
 
 			_.forEach(structures, function (data) {
 				var a = _.checkKeys(data.required, data.reality);
-				logger.log(a, "info");
 			});
 		}
 	}

@@ -12,7 +12,7 @@
 			latexToHtmlRetry: 3
 		});
 
-	function ContributeController($scope, $http, $sce, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForContribute) {
+	function ContributeController($scope, $http, omApi, $sce, logger, rx, notification, userLevel, lStorage, mutation, onboarding, magic, magicForContribute) {
 		userLevel.check();
 
 		$scope.$parent.title = magicForContribute.pageTitle;
@@ -81,12 +81,13 @@
 		};
 
 		function latexToHtmlPromise() {
+			//@TODO change to object
 			var wtfHack = $scope.formalVersion ? ["check", returnMutationData()] : ["latex-to-html", $scope.createUmiForm.content];
-			return $http.post(magic.api + wtfHack[0], wtfHack[1]);
+			return omApi.post(wtfHack[0], wtfHack[1]);
 		}
 
 		function createUmiPromise() {
-			return $http.post(magic.api + "add", returnMutationData());
+			return omApi.post("add", returnMutationData());
 		}
 
 		/**
@@ -96,9 +97,15 @@
 			Rx.Observable
 				.fromPromise(createUmiPromise())
 				.retry(3)
-				.subscribe(function (d) {
-					var data = d.data;
-
+				.map(function (d) {
+					var response = omApi.response(d);
+					return response ? response.data : false;
+				})
+				.where(function (data) {
+					logger.log(data, "debug");
+					return data;
+				})
+				.subscribe(function (data) {
 					logger.log(returnMutationData(), "info");
 					notification.generate("Your contribution was successfully posted!", "success", data);
 
@@ -108,11 +115,58 @@
 				});
 		};
 
+		$scope.$watch("createUmiForm.prerequisiteDefinitionIds", function (n, o) {
+			if (_.keys(n).length > 0) {
+				Rx.Observable.fromPromise(latexToHtmlPromise())
+					.do(function () {
+						logger.log("LaTeX to HTML translation in progress", "info");
+
+						$scope.parsingContent = true;
+						$scope.timeScale = _.timeScale($scope.createUmiForm.content);
+					})
+					.catch(function (e) {
+						var err = e.data.error;
+
+						$scope.parsingContent = false;
+						$scope.parsedContent = $sce.trustAsHtml("<pre>" + err + "</pre>");
+						$scope.parsed = {
+							valid: false,
+							message: "Error parsing"
+						};
+
+						return Rx.Observable.empty();
+					})
+					.map(function (d) {
+						var response = omApi.response(d);
+
+						return response.data;
+					})
+					.retry(magicForContribute.latexToHtmlRetry)
+					.subscribe(function (response) {
+						$scope.parsingContent = false;
+						$scope.parsedContent = response;
+						$scope.parsed = {
+							valid: true,
+							message: "Parsed"
+						};
+					}, function (errorData) {
+						$scope.parsingContent = false;
+						$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
+						$scope.parsed = {
+							valid: false,
+							message: "Error parsing"
+						};
+
+						notification.generate("There was an error parsing content", "error", errorData);
+					});
+			}
+		}, true);
+
 		rx.watch($scope, "createUmiForm.content")
 			.map(function (e) {
 				return e.newValue;
 			})
-			.filter(function (term) {
+			.where(function (term) {
 				$scope.parsedContent = term;
 				return term;
 			})
@@ -124,34 +178,38 @@
 				$scope.parsingContent = true;
 				$scope.timeScale = _.timeScale($scope.createUmiForm.content);
 			})
-			.flatMapLatest(latexToHtmlPromise)
+			.map(function () {
+				return Rx.Observable.fromPromise(latexToHtmlPromise())
+					.catch(function (e) {
+						var err = e.data.error;
+
+						$scope.parsingContent = false;
+						$scope.parsedContent = $sce.trustAsHtml("<pre>" + err + "</pre>");
+						$scope.parsed = {
+							valid: false,
+							message: "Error parsing"
+						};
+
+						return Rx.Observable.empty();
+					})
+					.map(function (d) {
+						var response = omApi.response(d);
+
+						return response.data;
+					});
+			})
+			.switch()
 			.retry(magicForContribute.latexToHtmlRetry)
-			.subscribe(function (d) {
+			.subscribe(function (response) {
 				$scope.parsingContent = false;
-
-				var response = d.data,
-					parsedContent,
-					valid = _.first(response) == "s" ? true : false;
-
-				logger.log({response: response, valid: valid}, "info");
-
-				if (!valid) {
-					var errMessage = response.substring(1);
-
-					parsedContent = $sce.trustAsHtml("<pre>" + errMessage + "</pre>");
-				} else {
-					parsedContent = response.substring(1);
-				}
-
-				$scope.parsedContent = parsedContent;
+				$scope.parsedContent = response;
 				$scope.parsed = {
-					valid: valid,
-					message: valid ? "Parsed" : "Something went wrong"
+					valid: true,
+					message: "Parsed"
 				};
 			}, function (errorData) {
 				$scope.parsingContent = false;
 				$scope.parsedContent = $sce.trustAsHtml("<pre>There was an error parsing contribution, try refreshing the page and contributing again.</pre>");
-
 				$scope.parsed = {
 					valid: false,
 					message: "Error parsing"

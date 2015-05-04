@@ -8,7 +8,7 @@
 			authRetry: 3
 		});
 
-	function omAuth($http, omApi, notification, magic, magicForOmAuth) {
+	function omAuth($http, omApi, notification, magicForOmAuth) {
 
 		return {
 			signIn: signIn,
