@@ -1,104 +1,105 @@
 // Dependencies
-var gulp = require("gulp"),
-	sass = require("gulp-sass"),
-	autoprefixer = require("gulp-autoprefixer"),
-	uglify = require("gulp-uglify"),
-	rename = require("gulp-rename"),
-	minifycss = require("gulp-minify-css"),
-	size = require("gulp-filesize"),
-	concat = require("gulp-concat"),
-	ngAnnotate = require("gulp-ng-annotate"),
-	plumber = require("gulp-plumber"),
-	notify = require("gulp-notify"),
-	karma = require("karma").server,
-	express = require("express"),
-	expressPort = 9000;
+var concat = require('gulp-concat'),
+	express = require('express'),
+	gulp = require('gulp'),
+	karma = require('karma'),
+	notify = require('gulp-notify'),
+	plumber = require('gulp-plumber'),
+	sourcemaps = require('gulp-sourcemaps'), // @TODO revisit
+	typescript = require('gulp-tsc');
 
-var onError = notify.onError({
-	title: "Your SASS is broken!",
-	subtitle: "<%= file %> did not compile!",
-	message: "<%= error.message %>"
+gulp.task('default', function () {
+	gulp.start('watch');
+	gulp.start('staticServer');
 });
 
-var server = express();
+gulp.task('staticServer', function () {
+	var server = express(),
+		port = 9000;
 
-gulp.task("test", function (done) {
-	karma.start({
-		configFile: process.cwd() + "/www/app/karma.conf.js"
+	server.use(express.static('./'));
+	server.all('/*', function (req, res) {
+		res.sendFile('index.html', {root: './'});
+	});
+
+	server.listen(port);
+	console.log('Express static server running for openmaths on port ' + port);
+});
+
+gulp.task('watch', function () {
+	gulp.watch('app/**/*.ts', ['typescript']);
+	gulp.watch('app/test/*.js', ['test']);
+});
+
+gulp.task('concatVendor', function () {
+	gulp.src([
+		'bower_components/angular/angular.min.js',
+		'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+		'bower_components/angular-loading-bar/build/loading-bar.min.js',
+		'bower_components/lodash/lodash.min.js',
+		'bower_components/rxjs/dist/rx.all.min.js'
+	])
+		.pipe(plumber({errorHandler: onError}))
+		.pipe(concat('vendor.js'))
+		.pipe(gulp.dest('app/dist'))
+		.pipe(notify('Vendor compiled'));
+});
+
+gulp.task('test', function (done) {
+	karma.server.start({
+		configFile: process.cwd() + '/app/test/karma.conf.js'
 	}, done);
 });
 
-gulp.task("staticServer", function () {
-	server.use(express.static("www"));
-	server.all("/*", function (req, res) {
-		res.sendFile("index.html", {root: "www"});
-	});
-
-	server.listen(expressPort);
-	console.log("Express static server running for open-maths-ng on port " + expressPort);
+gulp.task('typescript', function () {
+	tsc('app');
 });
 
-// Compile SASS
-gulp.task("sass", function () {
-	gulp.src("www/assets/css/include/screen.sass")
-		.pipe(plumber({
-			errorHandler: onError
-		}))
+function tsc(path) {
+	gulp.src([
+		path + '/**/*.ts',
+
+		// Ignore specs, dist, and typings
+		'!' + path + '/**/*.specs.ts',
+		'!' + path + '/dist/**/*',
+		'!' + path + '/typings/**/*'
+	], {base: path})
 		.pipe(plumber({errorHandler: onError}))
-		.pipe(sass({
-			loadPath: process.cwd() + "/www/assets/css/include",
-			style: "nested",
-			indentedSyntax: true
+		.pipe(typescript({
+			target: 'ES5',
+			sortOutput: true,
+			sourcemap: false,
+			removeComments: true
 		}))
-		.pipe(autoprefixer("last 8 version", "> 1%"))
-		.pipe(gulp.dest("www/assets/css"))
-		.pipe(rename({suffix: ".min"}))
-		.pipe(minifycss())
-		.pipe(gulp.dest("www/assets/css"))
-		.pipe(size())
-		.pipe(notify("SASS successfully compiled!"));
-});
+		.pipe(concat('app.js'))
+		.pipe(gulp.dest(path + '/dist'))
+		.pipe(notify('Typescript compiled'));
 
-// Concatenate our AngularJS App into a single omApp.js file
-gulp.task("concat-ng", function () {
+	tscTest(path);
+}
+
+function tscTest(path) {
 	gulp.src([
-		"www/app/app.js",
-		"www/app/lodash/**/*.js",
-		"www/app/sections/**/*.js"
-	])
-		.pipe(concat("omApp.js"))
-		.pipe(ngAnnotate({
-			add: true
+		path + '/**/*.specs.ts'
+	], {base: path})
+		.pipe(plumber({errorHandler: onError}))
+		.pipe(typescript({
+			target: 'ES5',
+			sortOutput: true,
+			sourceMap: false,
+			removeComments: true
 		}))
-		.pipe(uglify())
-		.pipe(gulp.dest("www/app/dist"))
-		.pipe(notify("omApp.js successfully concatenated!"));
-});
+		.pipe(concat('all.js'))
+		.pipe(gulp.dest(path + '/test'))
+		.pipe(notify('Tests compiled'))
+}
 
-// Concatenate all resources (including vendor) into a single om.js file
-gulp.task("concat-all", function () {
-	gulp.src([
-		"www/app/vendor/*.js",
-		"www/app/dist/*.js"
-	])
-		.pipe(concat("om.js"))
-		.pipe(gulp.dest("www/app"))
-		.pipe(notify("om.js successfully concatenated!"));
-});
+function onError(err) {
+	notify.onError({
+		title: 'Gulp',
+		subtitle: 'Failure!',
+		message: 'Error: <%= error.message %>'
+	})(err);
 
-// Watch directories and execute assigned tasks
-gulp.task("watch", function () {
-	gulp.watch("www/app/vendor/*.js", ["concat-ng", "test"]);
-	gulp.watch("www/app/sections/**/*.js", ["concat-ng", "test"]);
-	gulp.watch("www/app/lodash/*.js", ["concat-ng", "test"]);
-	gulp.watch("www/app/test/*.js", ["concat-ng", "test"]);
-	gulp.watch("www/app/dist/*.js", ["concat-all", "test"]);
-
-	gulp.watch("www/assets/css/include/**/*.sass", ["sass"]);
-});
-
-gulp.task("default", ["sass"], function () {
-	gulp.start("watch");
-	gulp.start("concat-ng");
-	gulp.start("staticServer");
-});
+	this.emit('end');
+}
