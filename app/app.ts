@@ -30,6 +30,6 @@ module openmaths {
 	}
 
 	function run() {
-		console.debug('openmaths app is now running');
+		console.debug(new Date() + ' openmaths app is now running');
 	}
 }

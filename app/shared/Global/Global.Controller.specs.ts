@@ -23,11 +23,15 @@ module openmaths.specs {
 		}));
 
 		it('should create a new controller', () => {
+			expect(controller).toBeDefined();
+		});
+
+		it('should assign corresponding state properties (url, name) and classes on body when states get changed', () => {
 			$state.go('dive');
 			$rootScope.$digest();
 
-			var state = $state.current;
-			var bodyClass = $scope.bodyClass;
+			var state: ng.ui.IState = $state.current;
+			var bodyClass: string = $scope.bodyClass;
 
 			expect(state.url).toEqual('/dive');
 			expect(state.name).toEqual('dive');
