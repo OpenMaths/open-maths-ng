@@ -17,7 +17,7 @@ module openmaths.specs {
 			$state = _$state_;
 			$rootScope = _$rootScope_;
 			$scope = <any>$rootScope.$new();
-			$templateCache.put('/app/components/Dive/Dive.html', '');
+			$templateCache.put('app/components/Dive/Dive.html', '');
 
 			controller = new openmaths.GlobalController($scope, $rootScope);
 		}));

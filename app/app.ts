@@ -12,15 +12,17 @@ module openmaths {
 
 		$stateProvider
 			.state('home', {
-				url: '/'
+				url: '',
+				templateUrl: 'app/components/Home/Home.html',
+				controller: HomeController
 			})
 			.state('dive', {
 				url: '/dive',
-				templateUrl: '/app/components/Dive/Dive.html'
+				templateUrl: 'app/components/Dive/Dive.html'
 			})
 			.state('dive.list', {
 				url: '/list',
-				templateUrl: '/app/components/Dive/Dive.List.html',
+				templateUrl: 'app/components/Dive/Dive.List.html',
 				controller: DiveController
 			});
 
