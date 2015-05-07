@@ -27,29 +27,29 @@ module openmaths {
             this.api = 'http://api.om.dev/';
         }
 
-        get = (url: string, ignoreApi?: boolean): ng.IHttpPromise<void> => {
-            return this.http.get((ignoreApi ? '' : this.api) + url);
+        get = (url: string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
+            return this.http.get((ignoreOpenMathsApi ? '' : this.api) + url);
         };
 
-        post = (url: string, data: Object | string, ignoreApi?: boolean): ng.IHttpPromise<void> => {
-            return this.http.post((ignoreApi ? '' : this.api) + url, data);
+        post = (url: string, data: Object | string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
+            return this.http.post((ignoreOpenMathsApi ? '' : this.api) + url, data);
         };
 
-        put = (url: string, data: Object | string, ignoreApi?: boolean): ng.IHttpPromise<void> => {
-            return this.http.put((ignoreApi ? '' : this.api) + url, data);
+        put = (url: string, data: Object | string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
+            return this.http.put((ignoreOpenMathsApi ? '' : this.api) + url, data);
         };
 
         // @TODO
         // We can possibly add all the verbs, but I guess there is no point in doing so unless we actually use them.
 
-        static response = (d: ng.IHttpPromiseCallbackArg<any>, ignoreApi?: boolean): ApiResponse => {
+        static response = (d: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): ApiResponse => {
             return {
                 headers: d.config.headers,
                 method: d.config.method,
                 url: d.config.url,
                 statusCode: d.status,
-                status: ignoreApi ? d.statusText : _.first(_.keys(d.data)),
-                data: ignoreApi ? d.data : _.first(_.values(d.data))
+                status: ignoreOpenMathsApi ? d.statusText : _.first(_.keys(d.data)),
+                data: ignoreOpenMathsApi ? d.data : _.first(_.values(d.data))
             };
         }
     }
