@@ -22,9 +22,11 @@ module openmaths {
         private http: any;
         private api: string;
 
-        constructor($http: ng.IHttpService) {
+        constructor($http: ng.IHttpService, $location: ng.ILocationService) {
             this.http = $http;
             this.api = 'http://api.om.dev/';
+
+            console.log($location);
         }
 
         get = (url: string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
@@ -51,7 +53,7 @@ module openmaths {
                 status: ignoreOpenMathsApi ? d.statusText : _.first(_.keys(d.data)),
                 data: ignoreOpenMathsApi ? d.data : _.first(_.values(d.data))
             };
-        }
+        };
     }
 
     angular
