@@ -1,4 +1,5 @@
 /// <reference path='Global.Controller.ts' />
+/// <reference path='../Notification/Notification.ts' />
 
 module openmaths.specs {
 	'use strict';

@@ -1,24 +1,23 @@
 /// <reference path="../../_ref.ts" />
 
 module openmaths {
-	'use strict';
+    'use strict';
 
-	export interface GlobalControllerScope extends ng.IScope {
-		bodyClass: string;
-	}
+    export interface GlobalControllerScope extends ng.IScope {
+        bodyClass: string;
+    }
 
-	export class GlobalController {
-		constructor($scope: GlobalControllerScope, $rootScope: ng.IRootScopeService) {
+    export class GlobalController {
+        constructor($scope: GlobalControllerScope, $rootScope: ng.IRootScopeService) {
+            $rootScope.$on('$stateChangeSuccess', function (e, toState) {
+                var states: Array<string> = toState.name.split(".");
 
-			$rootScope.$on('$stateChangeSuccess', function (e, toState) {
-				var states: Array<string> = toState.name.split(".");
+                $scope.bodyClass = "page-" + _.first(states);
+            });
+        }
+    }
 
-				$scope.bodyClass = "page-" + _.first(states);
-			});
-		}
-	}
-
-	angular
-		.module('openmaths')
-		.controller('GlobalController', GlobalController);
+    angular
+        .module('openmaths')
+        .controller('GlobalController', GlobalController);
 }
