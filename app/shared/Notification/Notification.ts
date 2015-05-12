@@ -37,7 +37,7 @@ module openmaths {
         .module('openmaths')
         .service('NotificationFactory', NotificationFactory);
 
-    export interface NotificationDirectiveScope extends ng.IScope {
+    export interface INotificationDirectiveScope extends ng.IScope {
         notification: any; // Revisit
         act: boolean;
     }
@@ -48,7 +48,7 @@ module openmaths {
             templateUrl: 'app/shared/Notification/template.html',
             scope: {},
             replace: true,
-            link: (scope: NotificationDirectiveScope) => {
+            link: (scope: INotificationDirectiveScope) => {
                 NotificationFactory.subscribe(function (notificationData) {
                     scope.notification = notificationData;
                     scope.act = true;

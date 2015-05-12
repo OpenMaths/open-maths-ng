@@ -1,5 +1,4 @@
 /// <reference path='Global.Controller.ts' />
-/// <reference path='../Notification/Notification.ts' />
 
 module openmaths.specs {
 	'use strict';
@@ -8,7 +7,7 @@ module openmaths.specs {
 		beforeEach(module('openmaths'));
 
 		var controller: openmaths.GlobalController;
-		var $scope: openmaths.GlobalControllerScope;
+		var $scope: openmaths.IGlobalControllerScope;
 		var $rootScope;
 		var $state;
 

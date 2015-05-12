@@ -1,4 +1,4 @@
-/// <reference path="_ref.ts" />
+/// <reference path='_ref.ts' />
 
 module openmaths {
 	'use strict';
@@ -8,7 +8,7 @@ module openmaths {
 		.run(run);
 
 	function config($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, cfpLoadingBarProvider) {
-		$urlRouterProvider.otherwise("/dive");
+		$urlRouterProvider.otherwise('/dive');
 
 		$stateProvider
 			.state('home', {

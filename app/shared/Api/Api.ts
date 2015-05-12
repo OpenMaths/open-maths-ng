@@ -9,7 +9,7 @@
 module openmaths {
     'use strict';
 
-    export interface ApiResponse {
+    export interface IApiResponse {
         headers: Object;
         method: string;
         url: string;
@@ -44,7 +44,7 @@ module openmaths {
         // @TODO
         // We can possibly add all the verbs, but I guess there is no point in doing so unless we actually use them.
 
-        static response = (d: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): ApiResponse => {
+        static response = (d: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): IApiResponse => {
             return {
                 headers: d.config.headers,
                 method: d.config.method,

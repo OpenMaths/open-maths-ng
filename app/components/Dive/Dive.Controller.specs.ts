@@ -7,7 +7,7 @@ module openmaths.specs {
 		beforeEach(module('openmaths'));
 
 		var controller: openmaths.DiveController;
-		var $scope: openmaths.DiveControllerScope;
+		var $scope: openmaths.IDiveControllerScope;
 		var $rootScope;
 		var $state;
 

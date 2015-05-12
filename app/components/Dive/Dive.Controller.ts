@@ -3,12 +3,12 @@
 module openmaths {
 	'use strict';
 
-	export interface DiveControllerScope extends ng.IScope {
+	export interface IDiveControllerScope extends ng.IScope {
 		items: Array<string>;
 	}
 
 	export class DiveController {
-		private scope: DiveControllerScope;
+		private scope: IDiveControllerScope;
 
 		constructor($scope) {
 			this.scope = $scope;
