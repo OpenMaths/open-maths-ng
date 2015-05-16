@@ -36,6 +36,11 @@
       "formal": true
     },
     {
+      "id": "Notation",
+      "label": "Notation",
+      "formal": true
+    },
+    {
       "id": "Theorem",
       "label": "Theorem"
     },
@@ -70,6 +75,10 @@
     {
       "id": "Example",
       "label": "Example"
+    },
+    {
+      "id": "Special",
+      "label": "Special"
     },
     {
       "id": "PartialTheorem",

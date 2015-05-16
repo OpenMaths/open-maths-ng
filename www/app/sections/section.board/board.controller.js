@@ -99,6 +99,8 @@
 				.subscribe(function (data) {
 					logger.log("UMI " + getBy + " => " + param + " loaded.", "info");
 
+					//data.umi.type = data.umi.type == "Special" ? "" : data.umi.type;
+
 					if (classes) {
 						data.targetClasses = classes;
 					}
