@@ -1,5 +1,3 @@
-/// <reference path="../../_ref.ts" />
-
 // @TODO
 // This service can only be used in combination with RxJS. I think we need an Rx intermediary,
 // which will be responsible for creating observables from angular event streams (model change),

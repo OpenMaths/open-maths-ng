@@ -6,87 +6,58 @@ module openmaths.specs {
 
         let $compile: ng.ICompileService;
         let $rootScope;
-        //let $scope: openmaths.INotificationDirectiveScope;
+        let $scope: INotificationDirectiveScope;
+        let $templateCache;
 
-        let Notification: openmaths.NotificationFactory;
+        let element: ng.IAugmentedJQuery;
+        let NotificationFactory: openmaths.NotificationFactory;
 
         beforeEach(inject((_$compile_: ng.ICompileService,
                            _$rootScope_: ng.IRootScopeService,
-                           $templateCache: ng.ITemplateCacheService) => {
+                           _$templateCache_: ng.ITemplateCacheService,
+                           _NotificationFactory_: openmaths.NotificationFactory) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-
+            $templateCache = _$templateCache_;
+            NotificationFactory = _NotificationFactory_;
+            $scope = $rootScope.$new();
 
             $templateCache.put('app/shared/Notification/Template.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
 
-            //$scope = <any>$rootScope.$new();
-            let ele = angular.element('<notification></notification>');
-            ele = $compile(ele)($rootScope);
-            //$scope.$digest();
-            //$templateCache.put('app/shared/Notification/Template.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
+            element = angular.element('<notification></notification>');
 
-
-            Notification = new openmaths.NotificationFactory;
+            $compile(element)($scope);
+            $scope.$digest();
         }));
 
         it('should replace the element with the appropriate content', () => {
+            let allowedTypes = ['info', 'warning', 'error', 'success'];
 
+            _.map(allowedTypes, (type) => {
+                NotificationFactory.generate('Hello World', type);
 
-            //$scope = $rootScope;
-            //let ele = angular.element('<notification></notification>');
-            //console.log('compile process');
-            //let ele = $compile('<notification></notification>')($rootScope);
+                $compile(element)($scope);
+                $scope.$digest();
 
-            //$scope.$digest();
-
-            expect(true).toBe(true);
+                expect(element.hasClass(type)).toBe(true);
+                expect(element.hasClass('active')).toBe(true);
+                expect(element.html()).toEqual('Hello World');
+            });
         });
 
-        //it('should add a callback to subscriptions', () => {
-        //    var subscribe = Notification.subscribe((data) => {
-        //        return data
-        //    });
-        //
-        //    console.log(Notification.subscriptions);
-        //});
+        it('should not parse appropriately if invalid data are provided', () => {
+            let invalidTypes = ['foo', 'bar'];
 
-        // A directive gets created, adds a callback to NotificationFactory subscriptions.
-        //it('should create a directive template and add a callback to NotificationFactory subscriptions');
+            _.map(invalidTypes, (type) => {
+                NotificationFactory.generate('Foo Bar', type);
 
-        // NotificationFactory.generate gets called with certain data and that same callback is triggered.
-        //it('should execute the very callback with data provided to NotificationFactory.generate()');
+                $compile(element)($scope);
+                $scope.$digest();
 
-
-        //var controller: openmaths.GlobalController;
-        //var $scope: openmaths.IGlobalControllerScope;
-        //var $rootScope;
-        //var $state;
-        //
-        //beforeEach(inject((_$rootScope_: ng.IRootScopeService,
-        //                   _$state_: ng.ui.IStateProvider,
-        //                   $templateCache: ng.ITemplateCacheService) => {
-        //    $state = _$state_;
-        //    $rootScope = _$rootScope_;
-        //    $scope = <any>$rootScope.$new();
-        //    $templateCache.put('app/components/Dive/Dive.html', '');
-        //
-        //    controller = new openmaths.GlobalController($scope, $rootScope);
-        //}));
-        //
-        //it('should create a new controller', () => {
-        //    expect(controller).toBeDefined();
-        //});
-        //
-        //it('should assign corresponding state properties (url, name) and classes on body when states get changed', () => {
-        //    $state.go('dive');
-        //    $rootScope.$digest();
-        //
-        //    var state: ng.ui.IState = $state.current;
-        //    var bodyClass: string = $scope.bodyClass;
-        //
-        //    expect(state.url).toEqual('/dive');
-        //    expect(state.name).toEqual('dive');
-        //    expect(bodyClass).toEqual('page-dive');
-        //});
+                expect(element.hasClass(type)).toBe(false);
+                expect(element.hasClass('active')).toBe(true);
+                expect(element.html()).toEqual('Foo Bar');
+            });
+        });
     });
 }

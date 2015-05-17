@@ -1,6 +1,8 @@
 module openmaths {
     'use strict';
 
+    let hideNotificationAfter: number = 2500;
+
     export interface INotificationData {
         message: string;
         type: string;
@@ -8,9 +10,7 @@ module openmaths {
     }
 
     export class NotificationFactory {
-        // @TODO
-        // should this be private?
-        public subscriptions = [];
+        private subscriptions = [];
 
         subscribe(callback: any) {
             this.subscriptions.push(callback);
@@ -46,10 +46,6 @@ module openmaths {
         public link;
 
         constructor($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) {
-            // @TODO
-            // get rid of the log later, this is merely for testing
-            console.log('construct NotificationD');
-
             this.link = (scope: INotificationDirectiveScope) => {
                 NotificationFactory.subscribe(function (notificationData) {
                     scope.notification = notificationData;
@@ -57,7 +53,7 @@ module openmaths {
 
                     $timeout(function () {
                         scope.act = false;
-                    }, 2500);
+                    }, hideNotificationAfter);
                 });
             };
         }
