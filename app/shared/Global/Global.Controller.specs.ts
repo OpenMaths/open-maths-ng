@@ -1,5 +1,3 @@
-/// <reference path='Global.Controller.ts' />
-
 module openmaths.specs {
 	'use strict';
 

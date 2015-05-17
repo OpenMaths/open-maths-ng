@@ -68,7 +68,7 @@ function tsc(path) {
 		.pipe(typescript({
 			target: 'ES5',
 			sortOutput: true,
-			sourcemap: false,
+			sourceMap: false,
 			removeComments: true
 		}))
 		.pipe(concat('app.js'))
@@ -80,7 +80,9 @@ function tsc(path) {
 
 function tscTest(path) {
 	gulp.src([
-		path + '/**/*.specs.ts'
+		path + '/**/*.ts',
+		'!' + path + '/dist/**/*',
+		'!' + path + '/typings/**/*'
 	], {base: path})
 		.pipe(plumber({errorHandler: onError}))
 		.pipe(typescript({

@@ -1,4 +1,4 @@
-/// <reference path='Controller.ts' />
+/// <reference path='../../_ref.ts' />
 
 module openmaths.specs {
 	'use strict';

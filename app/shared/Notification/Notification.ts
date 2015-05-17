@@ -1,5 +1,3 @@
-/// <reference path='../../_ref.ts' />
-
 module openmaths {
     'use strict';
 
@@ -40,7 +38,7 @@ module openmaths {
         act: boolean;
     }
 
-    export class NotificationD {
+    export class NotificationDirective {
         public restrict = 'E';
         public templateUrl = 'app/shared/Notification/Template.html';
         public scope = {};
@@ -48,7 +46,10 @@ module openmaths {
         public link;
 
         constructor($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) {
+            // @TODO
+            // get rid of the log later, this is merely for testing
             console.log('construct NotificationD');
+
             this.link = (scope: INotificationDirectiveScope) => {
                 NotificationFactory.subscribe(function (notificationData) {
                     scope.notification = notificationData;
@@ -61,14 +62,14 @@ module openmaths {
             };
         }
 
-        public static directive() {
+        public static init() {
             return ($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) => {
-                return new NotificationD($timeout, NotificationFactory);
+                return new NotificationDirective($timeout, NotificationFactory);
             };
         }
     }
 
     angular
         .module('openmaths')
-        .directive('notification', NotificationD.directive());
+        .directive('notification', NotificationDirective.init());
 }

@@ -1,5 +1,3 @@
-/// <reference path='Notification.ts' />
-
 module openmaths.specs {
     'use strict';
 
@@ -8,26 +6,25 @@ module openmaths.specs {
 
         let $compile: ng.ICompileService;
         let $rootScope;
-        let $scope: openmaths.INotificationDirectiveScope;
-        let $templateCache: ng.ITemplateCacheService;
+        //let $scope: openmaths.INotificationDirectiveScope;
 
         let Notification: openmaths.NotificationFactory;
 
         beforeEach(inject((_$compile_: ng.ICompileService,
                            _$rootScope_: ng.IRootScopeService,
-                           _$templateCache_: ng.ITemplateCacheService) => {
+                           $templateCache: ng.ITemplateCacheService) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
 
-            $templateCache = _$templateCache_;
+
+            $templateCache.put('app/shared/Notification/Template.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
 
             //$scope = <any>$rootScope.$new();
-            //let ele = angular.element('<notification></notification>');
-            //ele = $compile(ele)($scope);
+            let ele = angular.element('<notification></notification>');
+            ele = $compile(ele)($rootScope);
             //$scope.$digest();
             //$templateCache.put('app/shared/Notification/Template.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
 
-            $templateCache.put('app/shared/Notification/Template.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
 
             Notification = new openmaths.NotificationFactory;
         }));
@@ -37,8 +34,8 @@ module openmaths.specs {
 
             //$scope = $rootScope;
             //let ele = angular.element('<notification></notification>');
-            console.log('compile process');
-            let ele = $compile('<notification></notification>')($rootScope);
+            //console.log('compile process');
+            //let ele = $compile('<notification></notification>')($rootScope);
 
             //$scope.$digest();
 

@@ -5,7 +5,6 @@ module.exports = function (config) {
 		files: [
 			'../dist/vendor.js',
 			'../../bower_components/angular-mocks/angular-mocks.js',
-			'../dist/app.js',
 			'all.js'
 		],
 		exclude: [],
