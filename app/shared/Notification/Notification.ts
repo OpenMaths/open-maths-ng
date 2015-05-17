@@ -41,7 +41,7 @@ module openmaths {
 
     export class NotificationDirective {
         public restrict = 'E';
-        public templateUrl = 'app/shared/Notification/Template.html';
+        public templateUrl = 'app/shared/Notification/notification.html';
         public scope = {};
         public replace = true;
         public link;

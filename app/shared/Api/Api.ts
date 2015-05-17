@@ -20,11 +20,9 @@ module openmaths {
         private http: any;
         private api: string;
 
-        constructor($http: ng.IHttpService, $location: ng.ILocationService) {
+        constructor($http: ng.IHttpService) {
             this.http = $http;
             this.api = 'http://api.om.dev/';
-
-            console.log($location);
         }
 
         get = (url: string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {

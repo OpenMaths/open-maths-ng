@@ -22,7 +22,7 @@ module openmaths.specs {
             NotificationFactory = _NotificationFactory_;
             $scope = $rootScope.$new();
 
-            $templateCache.put('app/shared/Notification/Template.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
+            $templateCache.put('app/shared/Notification/notification.html', '<div class="notification" ng-class="{active : act, info : notification.type == \'info\', warning : notification.type == \'warning\', error : notification.type == \'error\', success : notification.type == \'success\'}">{{ notification.message }}</div>');
 
             element = angular.element('<notification></notification>');
 
