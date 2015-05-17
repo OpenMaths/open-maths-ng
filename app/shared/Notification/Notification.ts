@@ -10,11 +10,9 @@ module openmaths {
     }
 
     export class NotificationFactory {
-        subscriptions = [];
-
-        constructor() {
-            console.debug('NotificationFactory constructed');
-        }
+        // @TODO
+        // should this be private?
+        public subscriptions = [];
 
         subscribe(callback: any) {
             this.subscriptions.push(callback);
@@ -38,17 +36,20 @@ module openmaths {
         .service('NotificationFactory', NotificationFactory);
 
     export interface INotificationDirectiveScope extends ng.IScope {
-        notification: any; // Revisit
+        notification: INotificationData;
         act: boolean;
     }
 
-    export function NotificationDirective($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory): ng.IDirective {
-        return {
-            restrict: 'E',
-            templateUrl: 'app/shared/Notification/template.html',
-            scope: {},
-            replace: true,
-            link: (scope: INotificationDirectiveScope) => {
+    export class NotificationD {
+        public restrict = 'E';
+        public templateUrl = 'app/shared/Notification/Template.html';
+        public scope = {};
+        public replace = true;
+        public link;
+
+        constructor($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) {
+            console.log('construct NotificationD');
+            this.link = (scope: INotificationDirectiveScope) => {
                 NotificationFactory.subscribe(function (notificationData) {
                     scope.notification = notificationData;
                     scope.act = true;
@@ -57,11 +58,17 @@ module openmaths {
                         scope.act = false;
                     }, 2500);
                 });
-            }
-        };
+            };
+        }
+
+        public static directive() {
+            return ($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) => {
+                return new NotificationD($timeout, NotificationFactory);
+            };
+        }
     }
 
     angular
         .module('openmaths')
-        .directive('notification', NotificationDirective);
+        .directive('notification', NotificationD.directive());
 }

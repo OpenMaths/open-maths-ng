@@ -1,4 +1,4 @@
-/// <reference path='Dive.Controller.ts' />
+/// <reference path='Controller.ts' />
 
 module openmaths.specs {
 	'use strict';
