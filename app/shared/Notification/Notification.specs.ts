@@ -1,7 +1,7 @@
 module openmaths.specs {
     'use strict';
 
-    describe('NotificationFactory', function () {
+    describe('NotificationDirective', function () {
         beforeEach(module('openmaths'));
 
         let $compile: ng.ICompileService;
@@ -30,6 +30,13 @@ module openmaths.specs {
             $scope.$digest();
         }));
 
+        it ('should put one callback of type function into DirectiveFactory subscriptions array', () => {
+            let subscriptions = NotificationFactory.subscriptions;
+
+            expect(subscriptions.length).toEqual(1);
+            expect(typeof(_.first(subscriptions))).toEqual('function');
+        });
+
         it('should replace the element with the appropriate content', () => {
             let allowedTypes = ['info', 'warning', 'error', 'success'];
 
@@ -45,7 +52,7 @@ module openmaths.specs {
             });
         });
 
-        it('should not parse appropriately if invalid data are provided', () => {
+        it('should not add inappropriate classes if invalid data are provided', () => {
             let invalidTypes = ['foo', 'bar'];
 
             _.map(invalidTypes, (type) => {
@@ -55,6 +62,7 @@ module openmaths.specs {
                 $scope.$digest();
 
                 expect(element.hasClass(type)).toBe(false);
+                expect(element.hasClass('info')).toBe(true);
                 expect(element.hasClass('active')).toBe(true);
                 expect(element.html()).toEqual('Foo Bar');
             });

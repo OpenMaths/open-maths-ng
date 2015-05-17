@@ -2,6 +2,7 @@ module openmaths {
     'use strict';
 
     let hideNotificationAfter: number = 2500;
+    let allowedTypes: Array<string> = ['info', 'warning', 'error', 'success'];
 
     export interface INotificationData {
         message: string;
@@ -10,16 +11,16 @@ module openmaths {
     }
 
     export class NotificationFactory {
-        private subscriptions = [];
+        public subscriptions = [];
 
         subscribe(callback: any) {
             this.subscriptions.push(callback);
         }
 
         generate(message: string, type: string, stackTrace?: any) {
-            var notificationData: INotificationData = {
+            let notificationData: INotificationData = {
                 message: message,
-                type: type,
+                type: _.contains(allowedTypes, type) ? type : _.first(allowedTypes),
                 trace: stackTrace ? stackTrace : false
             };
 
