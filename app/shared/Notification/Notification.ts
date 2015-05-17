@@ -24,7 +24,7 @@ module openmaths {
                 trace: stackTrace ? stackTrace : false
             };
 
-            _.forEach(this.subscriptions, function (callback) {
+            _.forEach(this.subscriptions, (callback) => {
                 callback(notificationData);
             });
         }
@@ -48,11 +48,11 @@ module openmaths {
 
         constructor($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) {
             this.link = (scope: INotificationDirectiveScope) => {
-                NotificationFactory.subscribe(function (notificationData) {
+                NotificationFactory.subscribe((notificationData) => {
                     scope.notification = notificationData;
                     scope.act = true;
 
-                    $timeout(function () {
+                    $timeout(() => {
                         scope.act = false;
                     }, hideNotificationAfter);
                 });

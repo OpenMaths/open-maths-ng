@@ -1,13 +1,13 @@
 module openmaths.specs {
 	'use strict';
 
-	describe('GlobalController', function () {
+	describe('GlobalController', () => {
 		beforeEach(module('openmaths'));
 
-		var controller: openmaths.GlobalController;
-		var $scope: openmaths.IGlobalControllerScope;
-		var $rootScope;
-		var $state;
+		let controller: openmaths.GlobalController;
+		let $scope: openmaths.IGlobalControllerScope;
+		let $rootScope;
+		let $state;
 
 		beforeEach(inject((_$rootScope_: ng.IRootScopeService,
 		                   _$state_: ng.ui.IStateProvider,
@@ -28,8 +28,8 @@ module openmaths.specs {
 			$state.go('dive');
 			$rootScope.$digest();
 
-			var state: ng.ui.IState = $state.current;
-			var bodyClass: string = $scope.bodyClass;
+			let state: ng.ui.IState = $state.current;
+			let bodyClass: string = $scope.bodyClass;
 
 			expect(state.url).toEqual('/dive');
 			expect(state.name).toEqual('dive');

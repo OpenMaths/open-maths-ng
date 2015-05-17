@@ -1,7 +1,7 @@
 module openmaths.specs {
     'use strict';
 
-    describe('Api', function () {
+    describe('Api', () => {
         beforeEach(module('openmaths'));
 
         let Api: openmaths.Api;

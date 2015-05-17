@@ -1,13 +1,13 @@
 module openmaths.specs {
 	'use strict';
 
-	describe('DiveController', function () {
+	describe('DiveController', () => {
 		beforeEach(module('openmaths'));
 
-		var controller: openmaths.DiveController;
-		var $scope: openmaths.IDiveControllerScope;
-		var $rootScope;
-		var $state;
+		let controller: openmaths.DiveController;
+		let $scope: openmaths.IDiveControllerScope;
+		let $rootScope;
+		let $state;
 
 		beforeEach(inject((_$rootScope_: ng.IRootScopeService,
 		                   _$state_: ng.ui.IStateProvider) => {
@@ -23,7 +23,7 @@ module openmaths.specs {
 		});
 
 		it('should contain items array in its scope', () => {
-			var items: Array<string> = $scope.items;
+			let items: Array<string> = $scope.items;
 
 			expect(items).toEqual(['Item 1', 'Item 2']);
 		});

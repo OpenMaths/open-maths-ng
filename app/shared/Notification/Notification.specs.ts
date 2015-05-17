@@ -1,7 +1,7 @@
 module openmaths.specs {
     'use strict';
 
-    describe('NotificationDirective', function () {
+    describe('NotificationDirective', () => {
         beforeEach(module('openmaths'));
 
         let $compile: ng.ICompileService;

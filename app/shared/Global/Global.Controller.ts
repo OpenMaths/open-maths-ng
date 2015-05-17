@@ -7,8 +7,8 @@ module openmaths {
 
     export class GlobalController {
         constructor($scope: IGlobalControllerScope, $rootScope: ng.IRootScopeService) {
-            $rootScope.$on('$stateChangeSuccess', function (e, toState) {
-                var states: Array<string> = toState.name.split(".");
+            $rootScope.$on('$stateChangeSuccess', (e, toState) => {
+                let states: Array<string> = toState.name.split(".");
 
                 $scope.bodyClass = "page-" + _.first(states);
             });
