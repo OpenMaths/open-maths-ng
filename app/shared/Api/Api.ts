@@ -20,7 +20,7 @@ module openmaths {
         private http: any;
         private api: string;
 
-        constructor($http: ng.IHttpService) {
+        constructor(private $http: ng.IHttpService) {
             this.http = $http;
             this.api = 'http://api.om.dev/';
         }

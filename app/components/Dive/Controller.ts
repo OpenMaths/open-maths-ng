@@ -1,21 +1,17 @@
 module openmaths {
-	'use strict';
+    'use strict';
 
-	export interface IDiveControllerScope extends ng.IScope {
-		items: Array<string>;
-	}
+    export interface IDiveControllerScope extends ng.IScope {
+        items: Array<string>;
+    }
 
-	export class DiveController {
-		private scope: IDiveControllerScope;
+    export class DiveController {
+        constructor(private $scope: IDiveControllerScope) {
+            $scope.items = ['Item 1', 'Item 2'];
+        }
+    }
 
-		constructor($scope) {
-			this.scope = $scope;
-
-			this.scope.items = ['Item 1', 'Item 2'];
-		}
-	}
-
-	angular
-		.module('openmaths')
-		.controller('DiveController', DiveController);
+    angular
+        .module('openmaths')
+        .controller('DiveController', DiveController);
 }

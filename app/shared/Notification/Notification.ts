@@ -46,7 +46,8 @@ module openmaths {
         public replace = true;
         public link;
 
-        constructor($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) {
+        constructor(private $timeout: ng.ITimeoutService,
+                    private NotificationFactory: openmaths.NotificationFactory) {
             this.link = (scope: INotificationDirectiveScope) => {
                 NotificationFactory.subscribe((notificationData) => {
                     scope.notification = notificationData;

@@ -7,7 +7,9 @@ module openmaths {
     }
 
     export class HomeController {
-        constructor($scope: HomeControllerScope, Api: openmaths.Api, NotificationFactory: openmaths.NotificationFactory) {
+        constructor(private $scope: HomeControllerScope,
+                    private Api: openmaths.Api,
+                    private NotificationFactory: openmaths.NotificationFactory) {
             NotificationFactory.generate('Hello World!', 'info');
 
             $scope.name = 'Test';

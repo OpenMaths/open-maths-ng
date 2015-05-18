@@ -6,7 +6,8 @@ module openmaths {
     }
 
     export class GlobalController {
-        constructor($scope: IGlobalControllerScope, $rootScope: ng.IRootScopeService) {
+        constructor(private $scope: IGlobalControllerScope,
+                    private $rootScope: ng.IRootScopeService) {
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
                 let states: Array<string> = toState.name.split(".");
 
