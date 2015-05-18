@@ -11,7 +11,7 @@ module openmaths {
     }
 
     export class NotificationFactory {
-        public subscriptions = [];
+        subscriptions = [];
 
         subscribe(callback: any) {
             this.subscriptions.push(callback);
@@ -40,11 +40,11 @@ module openmaths {
     }
 
     export class NotificationDirective {
-        public restrict = 'E';
-        public templateUrl = 'app/shared/Notification/notification.html';
-        public scope = {};
-        public replace = true;
-        public link;
+        restrict = 'E';
+        templateUrl = 'app/shared/Notification/notification.html';
+        scope = {};
+        replace = true;
+        link;
 
         constructor(private $timeout: ng.ITimeoutService,
                     private NotificationFactory: openmaths.NotificationFactory) {
@@ -60,7 +60,7 @@ module openmaths {
             };
         }
 
-        public static init() {
+        static init() {
             return ($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) => {
                 return new NotificationDirective($timeout, NotificationFactory);
             };

@@ -31,9 +31,7 @@ module openmaths.specs {
         });
 
         it('should be able to tell we are in production environment when on production host', () => {
-            // @TODO
-            // Abstract into cofig
-            let prodHost = 'openmaths.io',
+            let prodHost = Config.getProductionHost(),
                 environment = openmaths.Debug.getEnvironment(prodHost);
 
             expect(environment).toEqual('production');

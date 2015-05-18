@@ -22,34 +22,34 @@ module openmaths {
 
         constructor(private $http: ng.IHttpService) {
             this.http = $http;
-            this.api = 'http://api.om.dev/';
+            this.api = openmaths.Config.getApiUrl();
         }
 
-        get = (url: string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
+        get(url: string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> {
             return this.http.get((ignoreOpenMathsApi ? '' : this.api) + url);
-        };
+        }
 
-        post = (url: string, data: Object | string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
+        post(url: string, data: Object | string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> {
             return this.http.post((ignoreOpenMathsApi ? '' : this.api) + url, data);
-        };
+        }
 
-        put = (url: string, data: Object | string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> => {
+        put(url: string, data: Object | string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> {
             return this.http.put((ignoreOpenMathsApi ? '' : this.api) + url, data);
-        };
+        }
 
         // @TODO
         // We can possibly add all the verbs, but I guess there is no point in doing so unless we actually use them.
 
-        static response = (d: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): IApiResponse => {
+        static response(response: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): IApiResponse {
             return {
-                headers: d.config.headers,
-                method: d.config.method,
-                url: d.config.url,
-                statusCode: d.status,
-                status: ignoreOpenMathsApi ? d.statusText : _.first(_.keys(d.data)),
-                data: ignoreOpenMathsApi ? d.data : _.first(_.values(d.data))
+                headers: response.config.headers,
+                method: response.config.method,
+                url: response.config.url,
+                statusCode: response.status,
+                status: ignoreOpenMathsApi ? response.statusText : _.first(_.keys(response.data)),
+                data: ignoreOpenMathsApi ? response.data : _.first(_.values(response.data))
             };
-        };
+        }
     }
 
     angular

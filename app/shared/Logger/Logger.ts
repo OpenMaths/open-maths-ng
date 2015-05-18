@@ -2,7 +2,7 @@ module openmaths {
     'use strict';
 
     export class Logger {
-        public static log(data: any) {
+        static log(data: any) {
             if (openmaths.Debug.getEnvironment() !== 'development') {
                 return false;
             }
@@ -10,7 +10,7 @@ module openmaths {
             console.log(data);
         }
 
-        public static info(data: any) {
+        static info(data: any) {
             if (openmaths.Debug.getEnvironment() !== 'development') {
                 return false;
             }
@@ -18,7 +18,7 @@ module openmaths {
             console.info(data);
         }
 
-        public static error(data: any) {
+        static error(data: any) {
             if (openmaths.Debug.getEnvironment() !== 'development') {
                 return false;
             }
@@ -26,7 +26,7 @@ module openmaths {
             console.error(data);
         }
 
-        public static debug(message: string) {
+        static debug(message: string) {
             if (openmaths.Debug.getEnvironment() !== 'development') {
                 return false;
             }
