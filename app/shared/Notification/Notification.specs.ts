@@ -40,7 +40,7 @@ module openmaths.specs {
         it('should replace the element with the appropriate content', () => {
             let allowedTypes = ['info', 'warning', 'error', 'success'];
 
-            _.map(allowedTypes, (type) => {
+            _.forEach(allowedTypes, (type) => {
                 NotificationFactory.generate('Hello World', type);
 
                 $compile(element)($scope);
@@ -55,7 +55,7 @@ module openmaths.specs {
         it('should not add inappropriate classes if invalid data are provided', () => {
             let invalidTypes = ['foo', 'bar'];
 
-            _.map(invalidTypes, (type) => {
+            _.forEach(invalidTypes, (type) => {
                 NotificationFactory.generate('Foo Bar', type);
 
                 $compile(element)($scope);

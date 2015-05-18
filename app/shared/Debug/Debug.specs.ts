@@ -2,10 +2,41 @@ module openmaths.specs {
     'use strict';
 
     describe('Debug', () => {
-        // It should be able to get the current host (localhost, or otherwise)
+        it('should be able to get the current host (localhost:9000, ...)', () => {
+            let getHost = openmaths.Debug.getHost();
 
-        // It should be able to determine whether we are in a production environment
+            expect(getHost).toBeDefined();
+        });
 
-        // It should be able to say whether we are or are not in a debug mode
+        it('should be able to get the current host name (localhost, ...)', () => {
+            let getHostName = openmaths.Debug.getHostName();
+
+            expect(getHostName).toBeDefined();
+        });
+
+        it('should tell that we are in test environment when running tests', () => {
+            let environment = openmaths.Debug.getEnvironment();
+
+            expect(environment).toEqual('test');
+        });
+
+        it('should be able to tell we are not in production environment when on non-production host', () => {
+            let devHosts = ['server', 'localhost:9000', 'om.dev', 'staging.openmaths.io', 'localhost'];
+
+            _.forEach(devHosts, (host) => {
+                let environment = openmaths.Debug.getEnvironment(host);
+
+                expect(environment).toEqual('development');
+            });
+        });
+
+        it('should be able to tell we are in production environment when on production host', () => {
+            // @TODO
+            // Abstract into cofig
+            let prodHost = 'openmaths.io',
+                environment = openmaths.Debug.getEnvironment(prodHost);
+
+            expect(environment).toEqual('production');
+        });
     });
 }
