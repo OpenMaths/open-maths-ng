@@ -37,9 +37,6 @@ module openmaths {
             return this.http.put((ignoreOpenMathsApi ? '' : this.api) + url, data);
         }
 
-        // @TODO
-        // We can possibly add all the verbs, but I guess there is no point in doing so unless we actually use them.
-
         static response(response: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): IApiResponse {
             return {
                 headers: response.config.headers,

@@ -9,9 +9,9 @@ module openmaths {
         constructor(private $scope: IGlobalControllerScope,
                     private $rootScope: ng.IRootScopeService) {
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
-                let states: Array<string> = toState.name.split(".");
+                let states: Array<string> = toState.name.split('.');
 
-                $scope.bodyClass = "page-" + _.first(states);
+                $scope.bodyClass = 'page-' + _.first(states);
             });
         }
     }
