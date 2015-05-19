@@ -5,17 +5,12 @@ module openmaths.specs {
 		beforeEach(module('openmaths'));
 
 		let controller: openmaths.DiveController;
-		let $scope: openmaths.IDiveControllerScope;
-		let $rootScope;
 		let $state;
 
-		beforeEach(inject((_$rootScope_: ng.IRootScopeService,
-		                   _$state_: ng.ui.IStateProvider) => {
+		beforeEach(inject((_$state_: ng.ui.IStateProvider) => {
 			$state = _$state_;
-			$rootScope = _$rootScope_;
-			$scope = <any>$rootScope.$new();
 
-			controller = new openmaths.DiveController($scope);
+			controller = new openmaths.DiveController;
 		}));
 
 		it('should create a new controller', () => {
@@ -23,7 +18,7 @@ module openmaths.specs {
 		});
 
 		it('should contain items array in its scope', () => {
-			let items: Array<string> = $scope.items;
+			let items: Array<string> = controller.items;
 
 			expect(items).toEqual(['Item 1', 'Item 2']);
 		});

@@ -25,6 +25,9 @@ module openmaths {
             this.api = openmaths.Config.getApiUrl();
         }
 
+        // @TODO
+        // The below need to be properly testable
+
         get(url: string, ignoreOpenMathsApi?: boolean): ng.IHttpPromise<void> {
             return this.http.get((ignoreOpenMathsApi ? '' : this.api) + url);
         }

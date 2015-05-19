@@ -14,7 +14,8 @@ module openmaths {
             .state('home', {
                 url: '',
                 templateUrl: 'app/components/Home/home.html',
-                controller: HomeController
+                controller: 'HomeController',
+                controllerAs: 'HomeCtr'
             })
             .state('dive', {
                 url: '/dive',
@@ -23,7 +24,8 @@ module openmaths {
             .state('dive.list', {
                 url: '/list',
                 templateUrl: 'app/components/Dive/dive.list.html',
-                controller: DiveController
+                controller: 'DiveController',
+                controllerAs: 'DiveCtr'
             });
 
         cfpLoadingBarProvider.includeSpinner = false;

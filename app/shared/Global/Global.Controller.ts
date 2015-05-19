@@ -1,17 +1,14 @@
 module openmaths {
     'use strict';
 
-    export interface IGlobalControllerScope extends ng.IScope {
-        bodyClass: string;
-    }
-
     export class GlobalController {
-        constructor(private $scope: IGlobalControllerScope,
-                    private $rootScope: ng.IRootScopeService) {
+        bodyClass: string;
+
+        constructor(private $rootScope: ng.IRootScopeService) {
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
                 let states: Array<string> = toState.name.split('.');
 
-                $scope.bodyClass = 'page-' + _.first(states);
+                this.bodyClass = 'page-' + _.first(states);
             });
         }
     }

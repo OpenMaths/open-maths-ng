@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="openmaths" ng-controller="GlobalController">
+<html ng-app="openmaths" ng-controller="GlobalController as GlobalCtrl">
 <head lang="en">
-	<meta charset="UTF-8">
-	<title>openmaths</title>
-	<link rel="stylesheet" href="/public/css/loading-bar.css"/>
+    <meta charset="UTF-8">
+    <title>openmaths</title>
+    <link rel="stylesheet" href="/public/css/loading-bar.css"/>
 </head>
-<body ng-class="bodyClass">
+<body ng-class="GlobalCtrl.bodyClass">
 
 <a ui-sref="dive">Dive</a>
 <a ui-sref="board">Board</a>

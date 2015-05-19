@@ -5,7 +5,7 @@ module openmaths.specs {
 		beforeEach(module('openmaths'));
 
 		let controller: openmaths.GlobalController;
-		let $scope: openmaths.IGlobalControllerScope;
+
 		let $rootScope;
 		let $state;
 		let $templateCache: ng.ITemplateCacheService;
@@ -15,14 +15,13 @@ module openmaths.specs {
 		                   _$templateCache_: ng.ITemplateCacheService) => {
 			$state = _$state_;
 			$rootScope = _$rootScope_;
-			$scope = <any>$rootScope.$new();
 			$templateCache = _$templateCache_;
 
 			$templateCache.put('app/components/Home/home.html', '');
 			$templateCache.put('app/components/Dive/dive.html', '');
 			$templateCache.put('app/components/Dive/dive.list.html', '');
 
-			controller = new openmaths.GlobalController($scope, $rootScope);
+			controller = new openmaths.GlobalController($rootScope);
 		}));
 
 		it('should create a new controller', () => {
@@ -38,7 +37,7 @@ module openmaths.specs {
 
 				let newState: ng.ui.IState = $state.current,
 					newStates: Array<string> = newState.name.split('.'),
-					bodyClass: string = $scope.bodyClass;
+					bodyClass: string = controller.bodyClass;
 
 				expect(bodyClass).toEqual('page-' + _.first(newStates));
 			});
