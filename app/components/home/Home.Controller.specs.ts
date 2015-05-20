@@ -5,16 +5,12 @@ module openmaths.specs {
         beforeEach(module('openmaths'));
 
         let controller: openmaths.HomeController;
-
-        let Api: openmaths.Api;
         let NotificationFactory: openmaths.NotificationFactory;
 
-        beforeEach(inject((_Api_: openmaths.Api,
-                           _NotificationFactory_: openmaths.NotificationFactory) => {
-            Api = _Api_;
+        beforeEach(inject((_NotificationFactory_: openmaths.NotificationFactory) => {
             NotificationFactory = _NotificationFactory_;
 
-            controller = new openmaths.HomeController(NotificationFactory, Api);
+            controller = new openmaths.HomeController(NotificationFactory);
         }));
 
         it('should create a new controller', () => {

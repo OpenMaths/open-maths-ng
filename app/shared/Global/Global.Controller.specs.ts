@@ -5,7 +5,6 @@ module openmaths.specs {
 		beforeEach(module('openmaths'));
 
 		let controller: openmaths.GlobalController;
-
 		let $rootScope;
 		let $state;
 		let $templateCache: ng.ITemplateCacheService;
