@@ -14,7 +14,7 @@ module openmaths.specs {
             Api = _Api_;
             NotificationFactory = _NotificationFactory_;
 
-            controller = new openmaths.HomeController(NotificationFactory);
+            controller = new openmaths.HomeController(NotificationFactory, Api);
         }));
 
         it('should create a new controller', () => {
@@ -25,6 +25,12 @@ module openmaths.specs {
             let name = controller.name;
 
             expect(name).toEqual('Test');
+        });
+
+        it('should contain changeName() model in its scope', () => {
+            let changeName = controller.changeName;
+
+            expect(changeName).toBeDefined();
         });
     });
 }

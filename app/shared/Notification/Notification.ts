@@ -39,7 +39,7 @@ module openmaths {
         act: boolean;
     }
 
-    export class NotificationDirective {
+    export class NotificationDirective implements ng.IDirective {
         restrict = 'E';
         templateUrl = 'app/shared/Notification/notification.html';
         scope = {};

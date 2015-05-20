@@ -27,5 +27,31 @@ module openmaths.specs {
 
             expect(put).toBeDefined();
         });
+
+        it('should format Http response correctly', () => {
+            let originalResponse = {
+                config: {
+                    headers: {
+                        Accept: 'application/json, text/plain, */*'
+                    },
+                    method: 'GET',
+                    url: 'https://api.github.com/users/slavomirvojacek/repos'
+                },
+                data: 'Hello World',
+                status: 200,
+                statusText: 'OK'
+            };
+
+            let parsedResponse = openmaths.Api.response(originalResponse, true);
+
+            expect(parsedResponse).toEqual({
+                headers: originalResponse.config.headers,
+                method: originalResponse.config.method,
+                url: originalResponse.config.url,
+                statusCode: originalResponse.status,
+                status: originalResponse.statusText,
+                data: originalResponse.data
+            });
+        });
     });
 }
