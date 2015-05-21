@@ -5,6 +5,13 @@
 <div class="search" ng-controller="SearchController as SearchCtr">
     <label for="greeting">Greeting name:</label>
     <input id="greeting" type="text" ng-model="HomeCtr.name" ng-keydown="SearchCtr.trigger($event)"/>
+
+    <ul>
+        <li ng-repeat="result in SearchCtr.searchResults.data">
+            <strong ng-show="$index == SearchCtr.searchResults.selected">active: </strong>
+            {{result}}
+        </li>
+    </ul>
 </div>
 
 <p ng-click="HomeCtr.changeName('World')" style="cursor:pointer;">Change <strong>greeting name</strong> to World.</p>

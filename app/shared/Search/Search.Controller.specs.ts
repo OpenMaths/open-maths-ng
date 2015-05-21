@@ -13,9 +13,8 @@ module openmaths.specs {
         beforeEach(inject((_Api_: openmaths.Api,
                            _$httpBackend_: ng.IHttpBackendService,
                            _$rootScope_: ng.IRootScopeService) => {
-            $httpBackend = _$httpBackend_;
-
             Api = _Api_;
+            $httpBackend = _$httpBackend_;
             $rootScope = _$rootScope_;
 
             controller = new openmaths.SearchController(Api, $rootScope.$new());

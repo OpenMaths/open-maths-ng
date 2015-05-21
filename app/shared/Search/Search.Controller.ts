@@ -37,35 +37,37 @@ module openmaths {
             };
 
             this.trigger = (event) => {
-                // @TODO
-                // Get rid of this after development
-                console.log(event);
-
                 switch (event.keyCode) {
                     case navigationKeys.keyReturn:
                         // Trigger Callback with current model
                         event.preventDefault();
+                        console.log('Return key pressed!');
                         break;
                     case navigationKeys.keyArrowDown:
-                        // Trigger results navigation downwards
                         event.preventDefault();
                         this.navigate('down');
                         break;
                     case navigationKeys.keyArrowUp:
-                        // Trigger results navigation upwards
                         event.preventDefault();
                         this.navigate('up');
                         break;
                     default:
-                        //this.search('t');
                         break;
                 }
             };
 
+            // @TODO
+            // potentially think about whether inheritance from another controller is going to affect the model
+            // targeting. Should it only be something like SearchCtr.term?
             openmaths.ReactiveX.watchModel($scope, 'HomeCtr.name')
                 .map(function (e: IReactiveXWatchModelCallbackArgs) {
                     return e.newValue;
                 })
+                .where((value) => {
+                    return value;
+                })
+                // @TODO
+                // abstract into magic vars
                 .throttle(250)
                 .map((term) => {
                     return Rx.Observable.fromPromise(this.searchPromise(term))
@@ -82,15 +84,16 @@ module openmaths {
                 .map((data) => {
                     return openmaths.Api.response(data);
                 })
+                // @TODO
+                // abstract into magic vars
                 .retry(3)
                 .subscribe((results) => {
                     openmaths.Logger.info(results);
+
                     this.searchResults = {
                         selected: 0,
                         data: results.data
                     }
-
-                    console.log(this.searchResults);
                 }, (errorData) => {
                     openmaths.Logger.error(errorData);
                 });
