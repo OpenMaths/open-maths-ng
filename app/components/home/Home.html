@@ -4,7 +4,7 @@
 
 <div class="search" ng-controller="SearchController as SearchCtr">
     <label for="greeting">Greeting name:</label>
-    <input id="greeting" type="text" ng-model="HomeCtr.name" ng-keydown="SearchCtr.navigate($event)"/>
+    <input id="greeting" type="text" ng-model="HomeCtr.name" ng-keydown="SearchCtr.trigger($event)"/>
 </div>
 
 <p ng-click="HomeCtr.changeName('World')" style="cursor:pointer;">Change <strong>greeting name</strong> to World.</p>

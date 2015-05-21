@@ -11,7 +11,7 @@ module openmaths {
         keyCode: number;
     }
 
-    interface ISearchResults {
+    export interface ISearchResults {
         selected: number;
         data: Array<Object>;
     }
@@ -25,7 +25,7 @@ module openmaths {
     export class SearchController {
         private Api: openmaths.Api;
 
-        navigate: (event: IKeyboardEvent) => void;
+        trigger: (event: IKeyboardEvent) => void;
         searchResults: ISearchResults;
 
         constructor(private _Api_: openmaths.Api, private $scope: ng.IScope) {
@@ -36,7 +36,7 @@ module openmaths {
                 data: []
             };
 
-            this.navigate = (event) => {
+            this.trigger = (event) => {
                 // @TODO
                 // Get rid of this after development
                 console.log(event);
@@ -49,10 +49,12 @@ module openmaths {
                     case navigationKeys.keyArrowDown:
                         // Trigger results navigation downwards
                         event.preventDefault();
+                        this.navigate('down');
                         break;
                     case navigationKeys.keyArrowUp:
                         // Trigger results navigation upwards
                         event.preventDefault();
+                        this.navigate('up');
                         break;
                     default:
                         //this.search('t');
@@ -92,6 +94,25 @@ module openmaths {
                 }, (errorData) => {
                     openmaths.Logger.error(errorData);
                 });
+        }
+
+        navigate(direction: string) {
+            let searchResultsCount: number = this.searchResults.data.length,
+                searchResultSelected: number = this.searchResults.selected,
+                minimumResults: number = 0,
+                maximumResults: number = searchResultsCount - 1,
+                updateSelectedTo: number;
+
+            switch (direction) {
+                case 'up':
+                    updateSelectedTo = searchResultSelected > minimumResults ? searchResultSelected - 1 : searchResultSelected;
+                    break;
+                default:
+                    updateSelectedTo = searchResultSelected < maximumResults ? searchResultSelected + 1 : searchResultSelected;
+                    break;
+            }
+
+            this.searchResults.selected = updateSelectedTo;
         }
 
         searchPromise(term: string): ng.IHttpPromise<void> {
