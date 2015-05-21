@@ -35,22 +35,24 @@ module openmaths.specs {
                         Accept: 'application/json, text/plain, */*'
                     },
                     method: 'GET',
-                    url: 'https://api.github.com/users/slavomirvojacek/repos'
+                    url: 'http://api.om.dev/search/hello-world'
                 },
-                data: 'Hello World',
+                data: {
+                    success: []
+                },
                 status: 200,
                 statusText: 'OK'
             };
 
-            let parsedResponse = openmaths.Api.response(originalResponse, true);
+            let parsedResponse = openmaths.Api.response(originalResponse);
 
             expect(parsedResponse).toEqual({
                 headers: originalResponse.config.headers,
                 method: originalResponse.config.method,
                 url: originalResponse.config.url,
                 statusCode: originalResponse.status,
-                status: originalResponse.statusText,
-                data: originalResponse.data
+                status: _.first(_.keys(originalResponse.data)),
+                data: originalResponse.data.success
             });
         });
     });
