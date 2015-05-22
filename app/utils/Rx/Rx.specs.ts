@@ -3,9 +3,7 @@ module openmaths.specs {
 
     describe('ReactiveX', () => {
         it('should have the watchModel method', () => {
-            let watchModel = openmaths.ReactiveX.watchModel;
-
-            expect(watchModel).toBeDefined();
+            expect(openmaths.ReactiveX.watchModel).toBeDefined();
         });
     });
 }

@@ -44,16 +44,12 @@ module openmaths.specs {
         });
 
         it('should be able to return a search promise', () => {
-            // @TODO
-            // abstract the response into magic var
-            $httpBackend.expectGET('http://api.om.dev/search/hello').respond(200, {});
+            $httpBackend.expectGET('http://api.om.dev/search/hello').respond(200, searchResult.data);
 
             let promise = controller.searchPromise('hello');
 
             promise.then((result) => {
-                // @TODO
-                // abstract the response into magic var
-                expect(result.data).toEqual({});
+                expect(result.data).toEqual(searchResult.data);
             });
 
             $httpBackend.flush();

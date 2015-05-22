@@ -51,7 +51,7 @@ module openmaths {
                     case navigationKeys.keyReturn:
                         // Trigger Callback with current model
                         event.preventDefault();
-                        console.log('Return key pressed!');
+                        this.updateAutocomplete('add');
                         break;
                     case navigationKeys.keyArrowDown:
                         event.preventDefault();
@@ -129,9 +129,7 @@ module openmaths {
         }
 
         searchPromise(term: string): ng.IHttpPromise<void> {
-            // @TODO
-            // abstract the search url into magic var
-            return this.Api.get('search/' + term);
+            return this.Api.get(openmaths.Config.getApiRoutes().search + term);
         }
 
         updateAutocomplete(action: string, id?: string) {
