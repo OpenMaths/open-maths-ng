@@ -11,8 +11,6 @@ module openmaths {
         search: string;
     }
 
-    let productionHost: string = 'openmaths.io';
-    let testHost: string = 'localhost:3100';
     let apiUrls: IApiUrls = {
         production: 'https://api.openmaths.io/',
         development: 'http://api.om.dev/',
@@ -21,6 +19,8 @@ module openmaths {
     let apiRoutes: IApiRoutes = {
         search: 'search/'
     };
+    let productionHost: string = 'openmaths.io';
+    let testHost: string = 'localhost:3100';
 
     export class Config {
         static getApiUrl(): string {
@@ -40,3 +40,11 @@ module openmaths {
         }
     }
 }
+
+interface Window {
+    gApiInitialised: () => void;
+}
+
+let gApiAsync = () => {
+    window.gApiInitialised();
+};
