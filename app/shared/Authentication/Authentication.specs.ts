@@ -2,9 +2,18 @@ module openmaths.specs {
     'use strict';
 
     let Api: openmaths.Api;
+    let arftGPlusId = '';
+    let arftResponse = {};
     let googleApiToken = {access_token: 'helloWorld'};
     let googleApiResponse = {};
     let $httpBackend: ng.IHttpBackendService;
+    let loginData = {
+        arfToken: '',
+        code: '',
+        gmail: '',
+        gPlusId: ''
+    };
+    let loginResponse = {};
 
     describe('Authentication', () => {
         beforeEach(module('openmaths'));
@@ -31,6 +40,32 @@ module openmaths.specs {
 
             promise.then((result) => {
                 expect(result.data).toEqual(googleApiResponse);
+            });
+
+            $httpBackend.flush();
+        });
+
+        it('should be able to return Anti Request Forgery Token promise', () => {
+            $httpBackend.expectPOST('http://api.om.dev/arft', arftGPlusId)
+                .respond(200, arftResponse);
+
+            let promise = openmaths.Authentication.arftPromise(arftGPlusId, Api);
+
+            promise.then((result) => {
+                expect(result.data).toEqual(arftResponse);
+            });
+
+            $httpBackend.flush();
+        });
+
+        it('should be able to return Login promise', () => {
+            $httpBackend.expectPOST('http://api.om.dev/login', loginData)
+                .respond(200, loginResponse);
+
+            let promise = openmaths.Authentication.loginPromise(loginData, Api);
+
+            promise.then((result) => {
+                expect(result.data).toEqual(loginResponse);
             });
 
             $httpBackend.flush();

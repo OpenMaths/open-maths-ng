@@ -41,5 +41,13 @@ module openmaths {
         static googleApiPromise(token: {access_token: string}, Api: openmaths.Api) {
             return Api.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + token.access_token, true);
         }
+
+        static arftPromise(gPlusId: string, Api: openmaths.Api) {
+            return Api.post('arft', gPlusId);
+        }
+
+        static loginPromise(loginData, Api: openmaths.Api) {
+            return Api.post('login', loginData);
+        }
     }
 }
