@@ -43,27 +43,26 @@ module openmaths {
     }
 
     export class Authentication {
-        constructor(public Api: openmaths.Api) {
+        constructor(public Api: openmaths.Api,
+                    public NotificationFactory: openmaths.NotificationFactory) {
         }
 
         gApiLogin() {
             // @TODO
-            // when I've got time to faff around with mocking gapi, I will refactor this
+            // when I've got time to faff about with mocking gapi, I will refactor this
             if (openmaths.Debug.getEnvironment() == 'test') {
                 return false;
             }
 
             gapi.auth.signIn({
                 callback: (authResult: IGApiAuthResponse) => {
-                    this.login(authResult, this.userLoggedInCallback);
+                    this.login(authResult);
                 }
             });
         }
 
         userLoggedInCallback(userInfo: IGApiUserInfoResponse) {
-            console.log('callback ok');
-            console.log(userInfo);
-
+            this.NotificationFactory.generate('Callback OK!', 'success', userInfo);
         }
 
         googleApiPromise(accessToken: string) {
@@ -78,10 +77,9 @@ module openmaths {
             return this.Api.post('login', loginData);
         }
 
-        login(gApiAuthResult: IGApiAuthResponse, callback: (userInfo: IGApiUserInfoResponse) => void) {
+        login(gApiAuthResult: IGApiAuthResponse) {
             // @TODO
             // Think about gapi error handling here
-            console.log(gApiAuthResult);
 
             // gApiUserData stream
             Rx.Observable.fromPromise(this.googleApiPromise(gApiAuthResult.access_token))
@@ -136,7 +134,7 @@ module openmaths {
                 .subscribe((d: ILoginResponseData) => {
                     openmaths.Logger.info(d);
 
-                    callback(d.userInfo);
+                    this.userLoggedInCallback(d.userInfo);
                 }, (d) => {
                     openmaths.Logger.error(d);
                 });

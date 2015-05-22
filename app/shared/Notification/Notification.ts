@@ -7,7 +7,6 @@ module openmaths {
     export interface INotificationData {
         message: string;
         type: string;
-        trace: boolean;
     }
 
     export class NotificationFactory {
@@ -20,9 +19,12 @@ module openmaths {
         generate(message: string, type: string, stackTrace?: any) {
             let notificationData: INotificationData = {
                 message: message,
-                type: _.contains(allowedTypes, type) ? type : _.first(allowedTypes),
-                trace: stackTrace ? stackTrace : false
+                type: _.contains(allowedTypes, type) ? type : _.first(allowedTypes)
             };
+
+            if(stackTrace) {
+                openmaths.Logger.info(stackTrace);
+            }
 
             _.forEach(this.subscriptions, (callback) => {
                 callback(notificationData);
