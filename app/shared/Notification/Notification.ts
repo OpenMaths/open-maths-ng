@@ -60,7 +60,7 @@ module openmaths {
             };
         }
 
-        static init() {
+        static init(): ng.IDirectiveFactory {
             return ($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) => {
                 return new NotificationDirective($timeout, NotificationFactory);
             };

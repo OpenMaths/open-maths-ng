@@ -9,11 +9,15 @@ module openmaths {
         bodyClass: string;
         gApiInitialised: boolean = false;
 
-        constructor(private $rootScope: ng.IRootScopeService,
+        constructor(private Authentication: openmaths.Authentication,
+                    private $rootScope: ng.IRootScopeService,
                     private $window: IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
                 this.gApiInitialised = true;
-                openmaths.Authentication.gApiLogin();
+
+                // @TODO
+                // different location for this after development
+                Authentication.gApiLogin();
 
                 openmaths.Logger.debug('gApi successfully initialised');
             };

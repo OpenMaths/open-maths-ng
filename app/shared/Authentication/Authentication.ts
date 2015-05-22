@@ -12,10 +12,11 @@ module openmaths {
         };
     }
 
-    //declare var gapi;
-
     export class Authentication {
-        static gApiLogin() {
+        constructor(public Api: openmaths.Api) {
+        }
+
+        gApiLogin() {
             // @TODO
             // when I've got time to faff around with mocking gapi, I will refactor this
             if (openmaths.Debug.getEnvironment() == 'test') {
@@ -24,30 +25,36 @@ module openmaths {
 
             gapi.auth.signIn({
                 callback: (authResult: IGApiAuthResult) => {
-                    openmaths.Authentication.login(authResult, () => {
+                    this.login(authResult, () => {
                         console.log('callback ok');
                     });
                 }
             });
         }
 
-        static login(gApiAuthResult: IGApiAuthResult, callback) {
+        googleApiPromise(accessToken: string) {
+            return this.Api.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken, true);
+        }
+
+        arftPromise(gPlusId: string) {
+            return this.Api.post('arft', gPlusId);
+        }
+
+        loginPromise(loginData) {
+            return this.Api.post('login', loginData);
+        }
+
+        login(gApiAuthResult: IGApiAuthResult, callback) {
             // @TODO
             // Think about gapi error handling here
             console.log(gApiAuthResult);
+
+            //Rx.Observable.fromPromise();
             callback();
         }
-
-        static googleApiPromise(token: {access_token: string}, Api: openmaths.Api) {
-            return Api.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + token.access_token, true);
-        }
-
-        static arftPromise(gPlusId: string, Api: openmaths.Api) {
-            return Api.post('arft', gPlusId);
-        }
-
-        static loginPromise(loginData, Api: openmaths.Api) {
-            return Api.post('login', loginData);
-        }
     }
+
+    angular
+        .module('openmaths')
+        .service('Authentication', openmaths.Authentication);
 }

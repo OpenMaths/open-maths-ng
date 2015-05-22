@@ -10,7 +10,11 @@ module openmaths.specs {
         let $templateCache: ng.ITemplateCacheService;
         let $window: IGlobalControllerWindow;
 
-        beforeEach(inject((_$rootScope_: ng.IRootScopeService,
+        // @TODO
+        // Authentication to be removed after development
+
+        beforeEach(inject((Authentication: openmaths.Authentication,
+                           _$rootScope_: ng.IRootScopeService,
                            _$state_: ng.ui.IStateProvider,
                            _$templateCache_: ng.ITemplateCacheService,
                            _$window_: IGlobalControllerWindow) => {
@@ -23,7 +27,7 @@ module openmaths.specs {
             $templateCache.put('app/components/Dive/dive.html', '');
             $templateCache.put('app/components/Dive/dive.list.html', '');
 
-            controller = new openmaths.GlobalController($rootScope, $window);
+            controller = new openmaths.GlobalController(Authentication, $rootScope, $window);
         }));
 
         it('should create a new controller', () => {

@@ -1,10 +1,10 @@
 module openmaths.specs {
     'use strict';
 
-    let Api: openmaths.Api;
+    let Authentication: openmaths.Authentication;
     let arftGPlusId = '';
     let arftResponse = {};
-    let googleApiToken = {access_token: 'helloWorld'};
+    let googleApiToken = 'helloWorld';
     let googleApiResponse = {};
     let $httpBackend: ng.IHttpBackendService;
     let loginData = {
@@ -18,25 +18,25 @@ module openmaths.specs {
     describe('Authentication', () => {
         beforeEach(module('openmaths'));
 
-        beforeEach(inject((_Api_: openmaths.Api,
+        beforeEach(inject((_Authentication_: openmaths.Authentication,
                            _$httpBackend_: ng.IHttpBackendService) => {
-            Api = _Api_;
+            Authentication = _Authentication_;
             $httpBackend = _$httpBackend_;
         }));
 
         it('should have the gApiLogin method', () => {
-            expect(openmaths.Authentication.gApiLogin).toBeDefined();
+            expect(Authentication.gApiLogin).toBeDefined();
         });
 
         it('should have the login method', () => {
-            expect(openmaths.Authentication.login).toBeDefined();
+            expect(Authentication.login).toBeDefined();
         });
 
         it('should be able to return Google API promise', () => {
-            $httpBackend.expectGET('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + googleApiToken.access_token)
+            $httpBackend.expectGET('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + googleApiToken)
                 .respond(200, googleApiResponse);
 
-            let promise = openmaths.Authentication.googleApiPromise(googleApiToken, Api);
+            let promise = Authentication.googleApiPromise(googleApiToken);
 
             promise.then((result) => {
                 expect(result.data).toEqual(googleApiResponse);
@@ -49,7 +49,7 @@ module openmaths.specs {
             $httpBackend.expectPOST('http://api.om.dev/arft', arftGPlusId)
                 .respond(200, arftResponse);
 
-            let promise = openmaths.Authentication.arftPromise(arftGPlusId, Api);
+            let promise = Authentication.arftPromise(arftGPlusId);
 
             promise.then((result) => {
                 expect(result.data).toEqual(arftResponse);
@@ -62,7 +62,7 @@ module openmaths.specs {
             $httpBackend.expectPOST('http://api.om.dev/login', loginData)
                 .respond(200, loginResponse);
 
-            let promise = openmaths.Authentication.loginPromise(loginData, Api);
+            let promise = Authentication.loginPromise(loginData);
 
             promise.then((result) => {
                 expect(result.data).toEqual(loginResponse);
