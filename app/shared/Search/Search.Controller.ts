@@ -77,9 +77,7 @@ module openmaths {
                 .map(function (e: IReactiveXWatchModelCallbackArgs) {
                     return e.newValue;
                 })
-                .where((value) => {
-                    return value;
-                })
+                .where(Rx.helpers.identity)
                 // @TODO
                 // abstract into magic vars
                 .throttle(250)
