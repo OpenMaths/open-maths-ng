@@ -1,15 +1,25 @@
 module openmaths.specs {
     'use strict';
 
+    interface IFakeAutocompleteScope extends ng.IScope {
+        SearchCtr: {
+            autocompleteData: IAutocompleteData;
+        };
+    }
+
     describe('Autocomplete', () => {
         beforeEach(module('openmaths'));
 
-        let $compile: ng.ICompileService;
-        let $rootScope;
-        let $scope: INotificationDirectiveScope;
-        let $templateCache;
+        let autocompleteData: IAutocompleteData = {
+            a1: {id: 'a1', title: 'Hello World a1', uriFriendlyTitle: 'hello-world-a1', umiType: 'test'},
+            f3: {id: 'f3', title: 'Hello World f3', uriFriendlyTitle: 'hello-world-f3', umiType: 'test'}
+        };
 
+        let $compile: ng.ICompileService;
         let element: ng.IAugmentedJQuery;
+        let $rootScope;
+        let $scope: IFakeAutocompleteScope;
+        let $templateCache;
 
         beforeEach(inject((_$compile_: ng.ICompileService,
                            _$rootScope_: ng.IRootScopeService,
@@ -19,12 +29,22 @@ module openmaths.specs {
             $templateCache = _$templateCache_;
             $scope = $rootScope.$new();
 
-            $templateCache.put('app/shared/Autocomplete/autocomplete.html', '');
+            $scope.SearchCtr = {
+                autocompleteData: autocompleteData
+            };
+
+            $templateCache.put('app/shared/Autocomplete/autocomplete.html', '<ul><li ng-repeat="tag in SearchCtr.autocompleteData">{{tag}} &bull;<small ng-click="SearchCtr.updateAutocomplete(\'remove\', tag.id)">&times;</small></li></ul>');
 
             element = angular.element('<autocomplete></autocomplete>');
 
             $compile(element)($scope);
             $scope.$digest();
         }));
+
+        it('should replace the element with the appropriate content', () => {
+            let li = element.find('li');
+            
+            expect(li.length).toEqual(2);
+        });
     });
 }

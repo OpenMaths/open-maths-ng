@@ -23,6 +23,10 @@ module openmaths {
         data: Array<ISearchResult>;
     }
 
+    export interface IAutocompleteData {
+        [id: string]: ISearchResult;
+    }
+
     let navigationKeys: INavigationKeys = {
         keyArrowDown: 40,
         keyArrowUp: 38,
@@ -34,7 +38,7 @@ module openmaths {
 
         trigger: (event: IKeyboardEvent) => void;
         searchResults: ISearchResults;
-        autocompleteData: Object;
+        autocompleteData: IAutocompleteData;
 
         constructor(private _Api_: openmaths.Api, private $scope: ng.IScope) {
             this.Api = _Api_;
