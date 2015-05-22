@@ -13,8 +13,9 @@ module openmaths {
                     private $window: IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
                 this.gApiInitialised = true;
+                openmaths.Authentication.gApiLogin();
 
-                openmaths.Logger.debug('gApi successfully initialised')
+                openmaths.Logger.debug('gApi successfully initialised');
             };
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {

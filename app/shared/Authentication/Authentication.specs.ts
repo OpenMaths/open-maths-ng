@@ -15,6 +15,10 @@ module openmaths.specs {
             $httpBackend = _$httpBackend_;
         }));
 
+        it('should have the gApiLogin method', () => {
+            expect(openmaths.Authentication.gApiLogin).toBeDefined();
+        });
+
         it('should have the login method', () => {
             expect(openmaths.Authentication.login).toBeDefined();
         });
