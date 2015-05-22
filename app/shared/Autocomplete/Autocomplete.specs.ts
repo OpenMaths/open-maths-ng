@@ -33,7 +33,7 @@ module openmaths.specs {
                 autocompleteData: autocompleteData
             };
 
-            $templateCache.put('app/shared/Autocomplete/autocomplete.html', '<ul><li ng-repeat="tag in SearchCtr.autocompleteData">{{tag}} &bull;<small ng-click="SearchCtr.updateAutocomplete(\'remove\', tag.id)">&times;</small></li></ul>');
+            $templateCache.put('app/shared/Autocomplete/autocomplete.html', '<ul><li ng-repeat="tag in SearchCtr.autocompleteData">{{tag}}</li></ul>');
 
             element = angular.element('<autocomplete></autocomplete>');
 
@@ -43,7 +43,7 @@ module openmaths.specs {
 
         it('should replace the element with the appropriate content', () => {
             let li = element.find('li');
-            
+
             expect(li.length).toEqual(2);
         });
     });
