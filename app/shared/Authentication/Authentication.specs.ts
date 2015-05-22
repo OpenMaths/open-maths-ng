@@ -2,18 +2,32 @@ module openmaths.specs {
     'use strict';
 
     let Authentication: openmaths.Authentication;
-    let arftGPlusId = '';
-    let arftResponse = {};
-    let googleApiToken = 'helloWorld';
-    let googleApiResponse = {};
     let $httpBackend: ng.IHttpBackendService;
-    let loginData = {
-        arfToken: '',
+
+    let googleApiToken = 'helloWorld';
+    let googleApiResponse: IGApiUserInfoResponse = {
+        email: '',
+        family_name: '',
+        gender: '',
+        given_name: '',
+        id: '',
+        link: '',
+        locale: '',
+        name: '',
+        picture: '',
+        verified_email: true
+    };
+
+    let arftGPlusId: string = googleApiResponse.id;
+    let arftResponse: string = '';
+
+    let loginData: ILoginData = {
+        arfToken: arftResponse,
         code: '',
         gmail: '',
         gPlusId: ''
     };
-    let loginResponse = {};
+    let loginResponse: string = '';
 
     describe('Authentication', () => {
         beforeEach(module('openmaths'));
@@ -30,6 +44,10 @@ module openmaths.specs {
 
         it('should have the login method', () => {
             expect(Authentication.login).toBeDefined();
+        });
+
+        it('should have the userLoggedInCallback method', () => {
+            expect(Authentication.userLoggedInCallback).toBeDefined();
         });
 
         it('should be able to return Google API promise', () => {

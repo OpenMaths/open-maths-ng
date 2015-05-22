@@ -1,7 +1,7 @@
 module openmaths {
     'use strict';
 
-    export interface IGApiAuthResult {
+    export interface IGApiAuthResponse {
         access_token: string;
         code: string;
         error: any; // @TODO investigate
@@ -10,6 +10,36 @@ module openmaths {
             method: string;
             signed_in: boolean;
         };
+    }
+
+    export interface IGApiUserInfoResponse {
+        email: string;
+        family_name: string;
+        gender: string;
+        given_name: string;
+        id: string;
+        link: string;
+        locale: string;
+        name: string;
+        picture: string;
+        verified_email: boolean;
+    }
+
+    export interface IArftResponseData {
+        arftResponse: string;
+        userInfo: IGApiUserInfoResponse;
+    }
+
+    export interface ILoginResponseData {
+        loginResponse: string;
+        userInfo: IGApiUserInfoResponse;
+    }
+
+    export interface ILoginData {
+        arfToken: string;
+        code: string;
+        gmail: string;
+        gPlusId: string;
     }
 
     export class Authentication {
@@ -24,12 +54,16 @@ module openmaths {
             }
 
             gapi.auth.signIn({
-                callback: (authResult: IGApiAuthResult) => {
-                    this.login(authResult, () => {
-                        console.log('callback ok');
-                    });
+                callback: (authResult: IGApiAuthResponse) => {
+                    this.login(authResult, this.userLoggedInCallback);
                 }
             });
+        }
+
+        userLoggedInCallback(userInfo: IGApiUserInfoResponse) {
+            console.log('callback ok');
+            console.log(userInfo);
+
         }
 
         googleApiPromise(accessToken: string) {
@@ -44,13 +78,68 @@ module openmaths {
             return this.Api.post('login', loginData);
         }
 
-        login(gApiAuthResult: IGApiAuthResult, callback) {
+        login(gApiAuthResult: IGApiAuthResponse, callback: (userInfo: IGApiUserInfoResponse) => void) {
             // @TODO
             // Think about gapi error handling here
             console.log(gApiAuthResult);
 
-            //Rx.Observable.fromPromise();
-            callback();
+            // gApiUserData stream
+            Rx.Observable.fromPromise(this.googleApiPromise(gApiAuthResult.access_token))
+                .map((d) => {
+                    let response = openmaths.Api.response(d, true),
+                        userInfo: IGApiUserInfoResponse = response.data;
+
+                    // ARFT Stream
+                    return Rx.Observable.fromPromise(this.arftPromise(userInfo.id))
+                        .map((d) => {
+                            let response = openmaths.Api.response(d),
+                                arftResponse: string = response.data;
+
+                            return arftResponse;
+                        })
+                        .where(Rx.helpers.identity)
+                        .map((arftResponse): IArftResponseData => {
+                            return {
+                                arftResponse: arftResponse,
+                                userInfo: userInfo
+                            };
+                        });
+                })
+                .switch()
+                .map((d: IArftResponseData) => {
+                    let arftResponse = d.arftResponse,
+                        userInfo = d.userInfo,
+                        loginData: ILoginData = {
+                            arfToken: arftResponse,
+                            code: gApiAuthResult.code,
+                            gmail: userInfo.email,
+                            gPlusId: userInfo.id
+                        };
+
+                    // Login stream
+                    return Rx.Observable.fromPromise(this.loginPromise(loginData))
+                        .map((d) => {
+                            let response = openmaths.Api.response(d),
+                                loginResponse: string = response.data;
+
+                            return loginResponse;
+                        })
+                        .where(Rx.helpers.identity)
+                        .map((loginResponse): ILoginResponseData => {
+                            return {
+                                loginResponse: loginResponse,
+                                userInfo: userInfo
+                            };
+                        });
+                })
+                .switch()
+                .subscribe((d: ILoginResponseData) => {
+                    openmaths.Logger.info(d);
+
+                    callback(d.userInfo);
+                }, (d) => {
+                    openmaths.Logger.error(d);
+                });
         }
     }
 
