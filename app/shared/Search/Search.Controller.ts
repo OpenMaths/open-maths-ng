@@ -11,9 +11,16 @@ module openmaths {
         keyCode: number;
     }
 
+    export interface ISearchResult {
+        id: string;
+        title: string;
+        uriFriendlyTitle: string;
+        umiType: string;
+    }
+
     export interface ISearchResults {
         selected: number;
-        data: Array<Object>;
+        data: Array<ISearchResult>;
     }
 
     let navigationKeys: INavigationKeys = {
@@ -27,6 +34,7 @@ module openmaths {
 
         trigger: (event: IKeyboardEvent) => void;
         searchResults: ISearchResults;
+        autocompleteData: Object;
 
         constructor(private _Api_: openmaths.Api, private $scope: ng.IScope) {
             this.Api = _Api_;
@@ -35,6 +43,8 @@ module openmaths {
                 selected: 0,
                 data: []
             };
+
+            this.autocompleteData = {};
 
             this.trigger = (event) => {
                 switch (event.keyCode) {
@@ -122,6 +132,19 @@ module openmaths {
             // @TODO
             // abstract the search url into magic var
             return this.Api.get('search/' + term);
+        }
+
+        updateAutocomplete(action: string, id?: string) {
+            let selectedSearchResult = this.searchResults.data[this.searchResults.selected];
+
+            switch (action) {
+                case 'add':
+                    this.autocompleteData[selectedSearchResult.id] = selectedSearchResult;
+                    break;
+                default:
+                    delete this.autocompleteData[id];
+                    break;
+            }
         }
     }
 

@@ -20,7 +20,13 @@ module openmaths.specs {
             controller = new openmaths.SearchController(Api, $rootScope.$new());
             searchResult = {
                 selected: 2,
-                data: [{}, {}, {}, {}, {}]
+                data: [
+                    {id: '2', title: 'Hello World 2', uriFriendlyTitle: 'hello-world-2', umiType: 'test'},
+                    {id: '1', title: 'Hello World 1', uriFriendlyTitle: 'hello-world-1', umiType: 'test'},
+                    {id: 'a1', title: 'Hello World a1', uriFriendlyTitle: 'hello-world-a1', umiType: 'test'},
+                    {id: '3', title: 'Hello World 3', uriFriendlyTitle: 'hello-world-3', umiType: 'test'},
+                    {id: 'f3', title: 'Hello World f3', uriFriendlyTitle: 'hello-world-f3', umiType: 'test'}
+                ]
             };
         }));
 
@@ -93,6 +99,42 @@ module openmaths.specs {
             controller.navigate('down');
 
             expect(controller.searchResults.selected).toBe(4);
+        });
+
+        it('should have autocompleteData collection (of empty Object form) attached to its scope', () => {
+            expect(controller.autocompleteData).toBeDefined();
+            expect(controller.autocompleteData).toEqual({});
+        });
+
+        it('should have a method that updates autocompleteData collection', () => {
+            expect(controller.updateAutocomplete).toBeDefined();
+        });
+
+        it('should be able to add new search result to autocompleteData collection based on selected search result', () => {
+            controller.searchResults = searchResult;
+
+            let selectedSearchResult = controller.searchResults.data[controller.searchResults.selected];
+
+            controller.updateAutocomplete('add');
+
+            expect(controller.autocompleteData[selectedSearchResult.id]).toEqual(selectedSearchResult);
+        });
+
+        it('should be able to remove search result from autocompleteData collection based on its id', () => {
+            controller.searchResults = searchResult;
+            controller.updateAutocomplete('add');
+
+            let selectedSearchResultOriginal = controller.searchResults.data[controller.searchResults.selected];
+
+            controller.searchResults.selected = 4;
+            controller.updateAutocomplete('add');
+
+            let selectedSearchResult = controller.searchResults.data[controller.searchResults.selected];
+
+            controller.updateAutocomplete('remove', selectedSearchResult.id);
+
+            expect(controller.autocompleteData[selectedSearchResult.id]).toBeUndefined();
+            expect(controller.autocompleteData[selectedSearchResultOriginal.id]).toEqual(selectedSearchResultOriginal);
         });
     });
 }
