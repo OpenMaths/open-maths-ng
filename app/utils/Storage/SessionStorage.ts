@@ -1,4 +1,6 @@
 module openmaths {
+    'use strict';
+
     export class SessionStorage {
         static set(key: string, value: any): boolean {
             let setValue: string = JSON.stringify(value);

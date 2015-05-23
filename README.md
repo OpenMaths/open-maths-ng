@@ -4,4 +4,4 @@ World's first mathematical IDE
 
 ## Installation
 
-```npm install```
+```bash install.sh```
