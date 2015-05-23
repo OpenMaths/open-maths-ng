@@ -11,9 +11,7 @@ module openmaths.specs {
 
     describe('SessionStorage', () => {
         afterEach(() => {
-            _.forEach(testData, (value, key) => {
-                window.sessionStorage.removeItem(key);
-            });
+            window.sessionStorage.clear();
         });
 
         it('should have the set method', () => {

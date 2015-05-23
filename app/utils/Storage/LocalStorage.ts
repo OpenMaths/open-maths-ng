@@ -1,21 +1,23 @@
 module openmaths {
-    export class SessionStorage {
+    'use strict';
+
+    export class LocalStorage {
         static set(key: string, value: any): boolean {
             let setValue: string = JSON.stringify(value);
 
-            window.sessionStorage.setItem(key, setValue);
+            window.localStorage.setItem(key, setValue);
             return true;
         }
 
         static get(key: string): any {
-            let getValue = window.sessionStorage.getItem(key);
+            let getValue = window.localStorage.getItem(key);
 
             return getValue ? JSON.parse(getValue) : false;
         }
 
         static remove(key: string): boolean {
-            if (openmaths.SessionStorage.get(key)) {
-                window.sessionStorage.removeItem(key);
+            if (openmaths.LocalStorage.get(key)) {
+                window.localStorage.removeItem(key);
                 return true;
             }
 
