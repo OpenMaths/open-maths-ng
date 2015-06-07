@@ -6,6 +6,7 @@ module openmaths {
     }
 
     export class GlobalController {
+        currentBaseState: string;
         bodyClass: string;
         gApiInitialised: boolean = false;
 
@@ -17,7 +18,7 @@ module openmaths {
 
                 // @TODO
                 // different location for this after development
-                Authentication.gApiLogin();
+                //Authentication.gApiLogin();
 
                 openmaths.Logger.debug('gApi successfully initialised');
             };
@@ -25,7 +26,8 @@ module openmaths {
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
                 let states: Array<string> = toState.name.split('.');
 
-                this.bodyClass = 'page-' + _.first(states);
+                this.currentBaseState = _.first(states);
+                this.bodyClass = 'page-' + this.currentBaseState;
             });
         }
     }

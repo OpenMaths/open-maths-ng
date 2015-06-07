@@ -43,9 +43,12 @@ module openmaths.specs {
 
                 let newState: ng.ui.IState = $state.current,
                     newStates: Array<string> = newState.name.split('.'),
+                    currentBaseState: string = controller.currentBaseState,
                     bodyClass: string = controller.bodyClass;
 
-                expect(bodyClass).toEqual('page-' + _.first(newStates));
+
+                expect(currentBaseState).toEqual(_.first(newStates));
+                expect(bodyClass).toEqual('page-' + currentBaseState);
             });
         });
 
