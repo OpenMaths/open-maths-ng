@@ -8,7 +8,7 @@ module.exports = function (config) {
 			'all.js'
 		],
 		exclude: [],
-		port: 3100,
+		port: 8087,
 		logLevel: config.LOG_INFO,
 		autoWatch: false,
 		colors: true,

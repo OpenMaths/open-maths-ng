@@ -20,7 +20,7 @@ module openmaths {
         search: 'search/'
     };
     let productionHost: string = 'openmaths.io';
-    let testHost: string = 'localhost:3100';
+    let testHost: string = 'localhost:8087';
 
     export class Config {
         static getApiUrl(): string {

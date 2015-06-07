@@ -14,7 +14,7 @@ gulp.task('default', function () {
 
 gulp.task('staticServer', function () {
     var server = express(),
-        port = 9000;
+        port = 8088;
 
     server.use(express.static('./'));
     server.all('/*', function (req, res) {
