@@ -31,7 +31,7 @@ module openmaths {
                 return false;
             }
 
-            console.debug(message);
+            console.debug(new Date() + ' ' + message);
         }
     }
 }

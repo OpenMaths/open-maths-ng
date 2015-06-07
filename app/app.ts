@@ -32,6 +32,6 @@ module openmaths {
     }
 
     function run() {
-        openmaths.Logger.debug(new Date() + ' openmaths app is now running');
+        openmaths.Logger.debug('openmaths app is now running');
     }
 }
