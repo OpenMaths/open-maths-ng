@@ -11,6 +11,22 @@ module openmaths {
         search: string;
     }
 
+    export interface IUiConfig {
+        theme: string;
+        font: string;
+        currentState?: {
+            navigation: {
+                hiding: boolean;
+                transparent: boolean;
+            }
+        }
+    }
+
+    let uiConfig: IUiConfig = {
+        theme: 'light',
+        font: 'modern',
+    };
+
     let apiUrls: IApiUrls = {
         production: 'https://api.openmaths.io/',
         development: 'http://api.om.dev/',
@@ -37,6 +53,10 @@ module openmaths {
 
         static getApiRoutes(): IApiRoutes {
             return apiRoutes;
+        }
+
+        static getUiConfig(): IUiConfig {
+            return uiConfig;
         }
     }
 }

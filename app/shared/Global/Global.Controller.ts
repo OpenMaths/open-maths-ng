@@ -6,9 +6,10 @@ module openmaths {
     }
 
     export class GlobalController {
-        currentBaseState: string;
         bodyClass: string;
+        currentBaseState: string;
         gApiInitialised: boolean = false;
+        uiConfig: IUiConfig;
 
         constructor(private Authentication: openmaths.Authentication,
                     private $rootScope: ng.IRootScopeService,
@@ -28,6 +29,9 @@ module openmaths {
 
                 this.currentBaseState = _.first(states);
                 this.bodyClass = 'page-' + this.currentBaseState;
+
+                this.uiConfig = openmaths.Config.getUiConfig();
+                this.uiConfig.currentState = toState.uiConfig;
             });
         }
     }

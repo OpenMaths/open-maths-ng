@@ -10,6 +10,9 @@ module openmaths.specs {
         let $templateCache: ng.ITemplateCacheService;
         let $window: IGlobalControllerWindow;
 
+        let testStates = ['home', 'dive', 'dive.list'];
+        let testStatesWithUiConfig = ['home', 'dive'];
+
         // @TODO
         // Authentication to be removed after development
 
@@ -34,10 +37,20 @@ module openmaths.specs {
             expect(controller).toBeDefined();
         });
 
-        it('should assign correct state properties and add correct class on body when state changes', () => {
-            let states = ['home', 'dive', 'dive.list'];
+        // TODO Buy Sam beer
+        it('should have the uiConfig Object attached to each state', () => {
+            _.forEach(testStatesWithUiConfig, (state) => {
+                $state.go(state);
+                $rootScope.$digest();
 
-            _.forEach(states, (state) => {
+                let uiConfig: IUiConfig = controller.uiConfig;
+
+                expect(uiConfig).toBeDefined();
+            });
+        });
+
+        it('should assign correct state properties and add correct class on body when state changes', () => {
+            _.forEach(testStates, (state) => {
                 $state.go(state);
                 $rootScope.$digest();
 

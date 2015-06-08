@@ -7,6 +7,15 @@
 
 declare module angular.ui {
 
+	interface ICurrentStateUiNavigationConfig {
+		hiding: boolean;
+		transparent: boolean;
+	}
+
+	interface ICurrentStateUiConfig {
+		navigation?: ICurrentStateUiNavigationConfig;
+	}
+
 	interface IState {
 		name?: string;
 		/**
@@ -62,6 +71,10 @@ declare module angular.ui {
 		 * Boolean (default true). If false will not retrigger the same state just because a search/query parameter has changed. Useful for when you'd like to modify $location.search() without triggering a reload.
 		 */
 		reloadOnSearch?: boolean;
+		/**
+		 * Our custom uiConfig Object containing UI settings
+		 */
+		uiConfig?: ICurrentStateUiConfig;
 	}
 
 	interface IStateProvider extends ng.IServiceProvider {

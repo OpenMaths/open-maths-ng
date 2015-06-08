@@ -15,17 +15,29 @@ module openmaths {
                 url: '',
                 templateUrl: 'app/components/Home/home.html',
                 controller: 'HomeController',
-                controllerAs: 'HomeCtr'
+                controllerAs: 'HomeCtr',
+                uiConfig: {
+                    navigation: {
+                        hiding: false,
+                        transparent: true
+                    }
+                }
             })
             .state('dive', {
                 url: '/dive',
-                templateUrl: 'app/components/Dive/dive.html'
+                templateUrl: 'app/components/Dive/dive.html',
+                uiConfig: {
+                    navigation: {
+                        hiding: false,
+                        transparent: false
+                    }
+                }
             })
             .state('dive.list', {
                 url: '/list',
                 templateUrl: 'app/components/Dive/dive.list.html',
                 controller: 'DiveController',
-                controllerAs: 'DiveCtr'
+                controllerAs: 'DiveCtr',
             });
 
         cfpLoadingBarProvider.includeSpinner = false;
