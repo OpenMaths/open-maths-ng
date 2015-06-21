@@ -38,6 +38,30 @@ module openmaths {
                 templateUrl: 'app/components/Dive/dive.list.html',
                 controller: 'DiveController',
                 controllerAs: 'DiveCtr',
+            })
+            .state('explore', {
+                url: '/explore',
+                templateUrl: 'app/components/Explore/explore.html',
+                controller: 'ExploreController',
+                controllerAs: 'ExploreCtr',
+                uiConfig: {
+                    navigation: {
+                        hiding: false,
+                        transparent: true
+                    }
+                }
+            })
+            .state('explore.board', {
+                url: '/explore/board',
+                //templateUrl: 'app/components/Explore/explore.html',
+                //controller: 'ExploreController',
+                //controllerAs: 'ExploreCtr',
+                uiConfig: {
+                    navigation: {
+                        hiding: true,
+                        transparent: false
+                    }
+                }
             });
 
         cfpLoadingBarProvider.includeSpinner = false;

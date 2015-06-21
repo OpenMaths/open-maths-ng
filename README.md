@@ -15,3 +15,8 @@ Tests run on port 8087
 static.* should run on 8089
 
 api.* should run on 8080
+
+### Random TODOs
+
+use jscs jshint in gulp
+traverse

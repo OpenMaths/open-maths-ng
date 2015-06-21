@@ -1,0 +1,41 @@
+<nav ng-class="{'transparent': ui.transparent, 'hiding': ui.hiding}">
+    <!--This navigation module should have a collection of classes depending on the current ui settings.-->
+    <ul>
+        <li ui-sref-active="active">
+            <a href ui-sref="explore">
+                <i class="icon dive" ng-class="{'grey': uri !== 'home', 'white': transparent && uri == 'home'}"></i>
+                Explore
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a href ui-sref="dive">
+                <i class="icon contribute" ng-class="{'grey': uri !== 'contribute', 'white': transparent && uri == 'contribute'}"></i>
+                Contribute
+            </a>
+        </li>
+    </ul>
+
+    <a href="/" class="logo">
+        <strong>openmaths</strong>
+    </a>
+
+    <ul class="actions">
+        <li>
+            <a href="#">
+                <i class="icon gear grey"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="icon user grey"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div class="ui-show-nav">
+        <!--If someone finds this name and is wondering "WTF?" - send me an email, I will explain :)-->
+        <div class="ui-jalousie">
+            <i></i><i></i><i></i>
+        </div>
+    </div>
+</nav>

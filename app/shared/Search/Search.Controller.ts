@@ -50,7 +50,7 @@ module openmaths {
 
             this.autocompleteData = {};
 
-            this.trigger = (event) => {
+            this.trigger = event => {
                 switch (event.keyCode) {
                     case navigationKeys.keyReturn:
                         // Trigger Callback with current model
@@ -74,14 +74,14 @@ module openmaths {
             // potentially think about whether inheritance from another controller is going to affect the model
             // targeting. Should it only be something like SearchCtr.term?
             openmaths.ReactiveX.watchModel($scope, 'HomeCtr.name')
-                .map(function (e: IReactiveXWatchModelCallbackArgs) {
+                .map((e: IReactiveXWatchModelCallbackArgs) => {
                     return e.newValue;
                 })
                 .where(Rx.helpers.identity)
                 // @TODO
                 // abstract into magic vars
                 .throttle(250)
-                .map((term) => {
+                .map(term => {
                     return Rx.Observable.fromPromise(this.searchPromise(term))
                         .do(() => {
                             openmaths.Logger.debug('Listing results for ' + term);
@@ -93,20 +93,20 @@ module openmaths {
                         });
                 })
                 .switch()
-                .map((data) => {
+                .map(data => {
                     return openmaths.Api.response(data);
                 })
                 // @TODO
                 // abstract into magic vars
                 .retry(3)
-                .subscribe((results) => {
+                .subscribe(results => {
                     openmaths.Logger.info(results);
 
                     this.searchResults = {
                         selected: 0,
                         data: results.data
                     }
-                }, (errorData) => {
+                }, errorData => {
                     openmaths.Logger.error(errorData);
                 });
         }

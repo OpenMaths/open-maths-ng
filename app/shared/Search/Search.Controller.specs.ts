@@ -48,7 +48,7 @@ module openmaths.specs {
 
             let promise = controller.searchPromise('hello');
 
-            promise.then((result) => {
+            promise.then(result => {
                 expect(result.data).toEqual(searchResult.data);
             });
 
