@@ -4,7 +4,7 @@
 
 <div class="search" ng-controller="SearchController as SearchCtr">
     <label for="greeting">Greeting name:</label>
-    <input id="greeting" type="text" ng-model="HomeCtr.name" ng-keydown="SearchCtr.trigger($event)"/>
+    <input id="greeting" type="text" ng-model="SearchCtr.term" ng-keydown="SearchCtr.trigger($event)"/>
 
     <ul>
         <li ng-repeat="result in SearchCtr.searchResults.data">

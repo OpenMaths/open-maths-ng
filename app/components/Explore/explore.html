@@ -1,17 +1,24 @@
 <div class="dive-view-port">
     <div class="ui-diver"></div>
 
-    <div class="dive-actions hide">
+    <div class="dive-actions" ng-controller="SearchController as SearchCtr">
         <form action="">
-            <input class="unstyled" type="text" autofocus placeholder="Type here to dive in..."/>
+            <input class="unstyled" type="text" autofocus placeholder="Type here to dive in..."
+                   ng-model="SearchCtr.term" ng-keydown="SearchCtr.trigger($event)"/>
         </form>
 
-        <ul class="search-results is-hidden">
-            <li class="active">
-                <strong>Set Membership Infix Notation</strong>
-                <span class="details">
-                    <small class="label">Formal Definition</small>
-                    <em class="label">Sam Savage</em>
+        <ul class="search-results">
+            <li ng-repeat="result in SearchCtr.searchResults.data"
+                ng-class="{active: $index == SearchCtr.searchResults.selected}">
+
+                {{result}}
+
+                <span class="is-hidden">
+                    <strong>Set Membership Infix Notation</strong>
+                    <span class="details">
+                        <small class="label">Formal Definition</small>
+                        <em class="label">Sam Savage</em>
+                    </span>
                 </span>
             </li>
         </ul>

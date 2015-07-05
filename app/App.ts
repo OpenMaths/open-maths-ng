@@ -64,6 +64,9 @@ module openmaths {
                 }
             });
 
+        // @TODO
+        // investigate whether it's not possible to set it somewhere in the module config
+        cfpLoadingBarProvider.latencyThreshold = 1;
         cfpLoadingBarProvider.includeSpinner = false;
     }
 
