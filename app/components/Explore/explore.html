@@ -1,4 +1,4 @@
-<div class="dive-view-port">
+<div class="dive-view-port" ng-class="{inactive: ExploreCtr.view == 'board'}">
     <div class="ui-diver"></div>
 
     <div class="dive-actions" ng-controller="SearchController as SearchCtr">
@@ -8,19 +8,95 @@
         </form>
 
         <ul class="search-results">
-            <li ng-repeat="result in SearchCtr.searchResults.data"
+            <li ng-repeat="result in SearchCtr.searchResults.data" ng-click="ExploreCtr.triggerBoard(result.uriFriendlyTitle)"
                 ng-class="{active: $index == SearchCtr.searchResults.selected}">
-
-                {{result}}
-
-                <span class="is-hidden">
-                    <strong>Set Membership Infix Notation</strong>
-                    <span class="details">
-                        <small class="label">Formal Definition</small>
-                        <em class="label">Sam Savage</em>
-                    </span>
+                <strong>{{result.title}}</strong>
+                <span class="details">
+                    <small class="label">{{result.umiType}}</small>
+                    <em class="label">@TODO Author ID</em>
                 </span>
             </li>
         </ul>
+    </div>
+</div>
+
+<div class="board rows-3 columns-3">
+    <div class="row">
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+        <div class="column">
+            <div class="controls-holder top">
+                <div class="controls details">
+                    <i class="icon list white" size="2"></i>
+                    <small>Details</small>
+                </div>
+                <div class="controls expand">
+                    <i class="icon expand white" size="2"></i>
+                    <small>Full-Screen</small>
+                </div>
+            </div>
+            <!--<div class="controls-holder bottom">-->
+            <!--<div class="controls search">-->
+            <!--<i class="icon search white" size="2"></i>-->
+            <!--<small>Search</small>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="controls-holder left top">
+                <div class="controls upvote">
+                    <i class="icon up" size="2"></i>
+                    <small>Upvote</small>
+                </div>
+            </div>
+            <div class="controls-holder left bottom">
+                <div class="controls downvote">
+                    <i class="icon down" size="2"></i>
+                    <small>Downvote</small>
+                </div>
+            </div>
+
+            <div class="content">
+                <article class="flex center-vertically">
+                    <div>
+                        <small class="label">Formal Definition</small>
+                        <strong class="heading block">Set Membership Infix Notation</strong>
+                        <main>
+                            \forall t_1 \forall t_2 \text{Term}(t_1) \wedge \text{Term}(t_2) \rightarrow
+                            ``t_1 \in t_2" := ``\in(t_1, t_2)"
+                        </main>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+        <div class="column">
+            <div class="add-content"></div>
+        </div>
+        <div class="column">
+            <div class="add-content">
+                <form action="">
+                    <input type="text" placeholder="Type here to search OpenMaths"/>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

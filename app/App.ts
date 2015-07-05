@@ -52,10 +52,11 @@ module openmaths {
                 }
             })
             .state('explore.board', {
-                url: '/explore/board',
+                url: '/:uriFriendlyTitle',
                 //templateUrl: 'app/components/Explore/explore.html',
                 //controller: 'ExploreController',
                 //controllerAs: 'ExploreCtr',
+                //params: ['uriFriendlyTitle'],
                 uiConfig: {
                     navigation: {
                         hiding: true,
