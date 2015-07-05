@@ -1,33 +1,33 @@
-<nav ng-class="{'transparent': ui.transparent, 'hiding': ui.hiding}">
+<nav ng-class="{'transparent': config.currentState.navigation.transparent, 'hiding': config.currentState.navigation.hiding}">
     <!--This navigation module should have a collection of classes depending on the current ui settings.-->
     <ul>
         <li ui-sref-active="active">
             <a href ui-sref="explore">
-                <i class="icon dive" ng-class="{'grey': uri !== 'home', 'white': transparent && uri == 'home'}"></i>
+                <i class="icon dive"></i>
                 Explore
             </a>
         </li>
         <li ui-sref-active="active">
             <a href ui-sref="dive">
-                <i class="icon contribute" ng-class="{'grey': uri !== 'contribute', 'white': transparent && uri == 'contribute'}"></i>
+                <i class="icon contribute"></i>
                 Contribute
             </a>
         </li>
     </ul>
 
-    <a href="/" class="logo">
+    <a href ui-sref="explore" class="logo">
         <strong>openmaths</strong>
     </a>
 
     <ul class="actions">
         <li>
             <a href="#">
-                <i class="icon gear grey"></i>
+                <i class="icon gear"></i>
             </a>
         </li>
         <li>
             <a href="#">
-                <i class="icon user grey"></i>
+                <i class="icon user"></i>
             </a>
         </li>
     </ul>

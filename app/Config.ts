@@ -14,17 +14,13 @@ module openmaths {
     export interface IUiConfig {
         theme: string;
         font: string;
-        currentState?: {
-            navigation: {
-                hiding: boolean;
-                transparent: boolean;
-            }
-        }
+        currentState: ng.ui.ICurrentStateUiConfig;
     }
 
     let uiConfig: IUiConfig = {
         theme: 'light',
         font: 'modern',
+        currentState: {}
     };
 
     let apiUrls: IApiUrls = {

@@ -25,6 +25,7 @@ module openmaths {
             };
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
+                // The type of states needs to be declared
                 let states: Array<string> = toState.name.split('.');
 
                 this.currentBaseState = _.first(states);

@@ -5,9 +5,7 @@ module openmaths {
     }
 
     export interface INavigationDirectiveScope extends ng.IScope {
-        //config: ng.ui.IUiConfig;
-        //currentState: string;
-        //ui: ng.ui.IUiNavigationConfig;
+        config: IUiConfig;
     }
 
     angular
@@ -25,14 +23,6 @@ module openmaths {
 
         constructor(private NavigationFactory: openmaths.NavigationFactory) {
             this.link = (scope: INavigationDirectiveScope) => {
-                //scope.ui = scope.config.navigation;
-                //console.log(scope);
-                //scope.hidingOn = true;
-                //scope.transparent = true;
-                //NotificationFactory.subscribe((notificationData) => {
-                //scope.notification = notificationData;
-                //scope.act = true;
-                //});
             };
         }
 
