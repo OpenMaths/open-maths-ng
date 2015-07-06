@@ -15,6 +15,16 @@ module openmaths {
 
     class Board implements IBoard {
         state = 'explore.board';
+        grid: Array<Array<{}>>;
+
+        constructor() {
+            //let row: Array<{}> =  _.fill(Array(3), {});
+
+            this.grid = _.fill(Array(3), _.fill(Array(3), {}));
+
+            console.log(this.grid);
+
+        }
     }
 
     export class ExploreController {
@@ -29,7 +39,6 @@ module openmaths {
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
                 this.updateState(toState.name);
-                console.log(this.view);
             });
 
             this.triggerBoard = (uriFriendlyTitle: string) => {
