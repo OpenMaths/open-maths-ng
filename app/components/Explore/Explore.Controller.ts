@@ -1,48 +1,12 @@
 module openmaths {
     'use strict';
 
-    interface IDive {
-        state: string;
-    }
-
-    class Dive implements IDive {
-        state: string;
-
-        constructor() {
-            this.state = 'explore';
-        }
-    }
-
-    interface IBoard {
-        columns: number;
-        rows: number;
-        grid: Array<Array<{}>>;
-        state: string;
-    }
-
-    class Board implements IBoard {
-        columns: number;
-        rows: number;
-        grid: Array<Array<{}>>;
-        state: string;
-
-        constructor() {
-            this.columns = 3;
-            this.rows = 3;
-            this.state = 'explore.board';
-
-            this.grid = _.fill(Array(3), _.fill(Array(3), {}));
-
-            console.log(this.grid);
-        }
-    }
-
     export class ExploreController {
-        private Board = new Board();
-        private Dive = new Dive();
+        Board = new openmaths.Board();
+        Dive = new openmaths.Dive();
 
-        triggerBoard: (uriFriendlyTitle: string) => void;
         view: string;
+        triggerBoard: (uriFriendlyTitle: string) => void;
 
         constructor($rootScope: ng.IScope, $state: ng.ui.IStateService) {
             this.updateState($state.current.name);
@@ -53,7 +17,7 @@ module openmaths {
 
             this.triggerBoard = (uriFriendlyTitle: string) => {
                 $state.go('explore.board', {uriFriendlyTitle: uriFriendlyTitle});
-            }
+            };
         }
 
         updateState(toState: string) {

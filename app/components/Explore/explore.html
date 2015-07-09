@@ -21,8 +21,8 @@
 </div>
 
 <div class="board rows-3 columns-3">
-    <div class="row">
-        <div class="column">
+    <div class="row" ng-repeat="row in ExploreCtr.Board.grid track by $index">
+        <div class="column" ng-repeat="column in row track by $index">
             <div class="controls-holder top">
                 <div class="controls details">
                     <i class="icon list white" size="2"></i>
