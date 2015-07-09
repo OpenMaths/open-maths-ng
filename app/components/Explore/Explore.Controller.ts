@@ -6,30 +6,40 @@ module openmaths {
     }
 
     class Dive implements IDive {
-        state = 'explore';
+        state: string;
+
+        constructor() {
+            this.state = 'explore';
+        }
     }
 
     interface IBoard {
+        columns: number;
+        rows: number;
+        grid: Array<Array<{}>>;
         state: string;
     }
 
     class Board implements IBoard {
-        state = 'explore.board';
+        columns: number;
+        rows: number;
         grid: Array<Array<{}>>;
+        state: string;
 
         constructor() {
-            //let row: Array<{}> =  _.fill(Array(3), {});
+            this.columns = 3;
+            this.rows = 3;
+            this.state = 'explore.board';
 
             this.grid = _.fill(Array(3), _.fill(Array(3), {}));
 
             console.log(this.grid);
-
         }
     }
 
     export class ExploreController {
-        Board = new Board();
-        Dive = new Dive();
+        private Board = new Board();
+        private Dive = new Dive();
 
         triggerBoard: (uriFriendlyTitle: string) => void;
         view: string;
