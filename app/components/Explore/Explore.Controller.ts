@@ -8,7 +8,7 @@ module openmaths {
         view: string;
         triggerBoard: (uriFriendlyTitle: string) => void;
 
-        constructor($rootScope: ng.IScope, $state: ng.ui.IStateService) {
+        constructor(Api: openmaths.Api, $rootScope: ng.IScope, $state: ng.ui.IStateService) {
             this.updateState($state.current.name);
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
@@ -17,6 +17,8 @@ module openmaths {
 
             this.triggerBoard = (uriFriendlyTitle: string) => {
                 $state.go('explore.board', {uriFriendlyTitle: uriFriendlyTitle});
+
+                //new openmaths.Umi(Api);
             };
         }
 

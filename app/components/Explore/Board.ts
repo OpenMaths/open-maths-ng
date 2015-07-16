@@ -1,6 +1,14 @@
 module openmaths {
     'use strict';
 
+    export enum UpdateGridOperator {
+        ADD, REMOVE
+    }
+
+    export enum GridSection {
+        Column, Row
+    }
+
     interface IBoard {
         columns: {
             current: number;
@@ -46,35 +54,41 @@ module openmaths {
             this.grid = _.fill(Array(this.columns.current), _.fill(Array(this.rows.current), {}));
         }
 
-        updateGrid(type: string, action: string) {
-            switch (type) {
-                case 'column':
-                    Column[action](this.grid);
+        updateGrid(section: GridSection, action: UpdateGridOperator) {
+            switch (section) {
+                case GridSection.Column:
+                    this.updateColumn(action);
                     break;
-                case 'row':
-                    Row[action](this.grid);
+                case GridSection.Row:
+                    this.updateRow(action);
                     break;
             }
         }
-    }
 
-    class Column {
-        static add(grid: Array<Array<{}>>) {
-            console.log('Adding a column to the grid');
+        updateColumn(action: UpdateGridOperator) {
+            let current = this.columns.current;
+
+            switch (action) {
+                case UpdateGridOperator.ADD:
+                    console.log('Adding a column to the grid');
+                    this.columns.current = (current == this.columns.max) ? current : current + 1;
+                    break;
+                case UpdateGridOperator.REMOVE:
+                    console.log('Removing a column from the grid');
+                    this.columns.current = (current == this.columns.min) ? current : current - 1;
+                    break;
+            }
         }
 
-        static remove(grid: Array<Array<{}>>) {
-            console.log('Removing a column from the grid');
-        }
-    }
-
-    class Row {
-        static add(grid: Array<Array<{}>>) {
-            console.log('Adding a row to the grid');
-        }
-
-        static remove(grid: Array<Array<{}>>) {
-            console.log('Removing a row from the grid');
+        updateRow(action: UpdateGridOperator) {
+            switch (action) {
+                case UpdateGridOperator.ADD:
+                    console.log('Adding a row to the grid');
+                    break;
+                case UpdateGridOperator.REMOVE:
+                    console.log('Removing a row from the grid');
+                    break;
+            }
         }
     }
 }
