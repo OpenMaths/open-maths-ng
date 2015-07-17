@@ -53,6 +53,37 @@ module openmaths.specs {
 
             expect(model.columns.current).toEqual(model.columns.min);
         });
-        
+
+        it('should add a row to the grid when instructed', () => {
+            let originalNumberOfRows = model.rows.current;
+
+            model.updateRow(UpdateGridOperator.ADD);
+
+            expect(model.rows.current).toEqual(originalNumberOfRows + 1);
+        });
+
+        it('should not add a row to the grid if a maximum number of rows is already set', () => {
+            model.rows.current = model.rows.max;
+
+            model.updateRow(UpdateGridOperator.ADD);
+
+            expect(model.rows.current).toEqual(model.rows.max);
+        });
+
+        it('should remove a row from the grid when instructed', () => {
+            let originalNumberOfRows = model.rows.current;
+
+            model.updateRow(UpdateGridOperator.REMOVE);
+
+            expect(model.rows.current).toEqual(originalNumberOfRows - 1);
+        });
+
+        it('should not remove a row from the grid if a minimum number of rows is set', () => {
+            model.rows.current = model.rows.min;
+
+            model.updateRow(UpdateGridOperator.REMOVE);
+
+            expect(model.rows.current).toEqual(model.rows.min);
+        });
     });
 }

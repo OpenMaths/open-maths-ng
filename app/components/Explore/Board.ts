@@ -81,12 +81,16 @@ module openmaths {
         }
 
         updateRow(action: UpdateGridOperator) {
+            let current = this.rows.current;
+
             switch (action) {
                 case UpdateGridOperator.ADD:
                     console.log('Adding a row to the grid');
+                    this.rows.current = (current == this.rows.max) ? current : current + 1;
                     break;
                 case UpdateGridOperator.REMOVE:
                     console.log('Removing a row from the grid');
+                    this.rows.current = (current == this.rows.min) ? current : current - 1;
                     break;
             }
         }
