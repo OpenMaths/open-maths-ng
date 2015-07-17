@@ -20,7 +20,7 @@ module openmaths {
             max: number;
             min: number;
         };
-        grid: Array<Array<{}>>;
+        grid: Array<Array<openmaths.Umi>>;
         state: string;
     }
 
@@ -35,7 +35,7 @@ module openmaths {
             max: number;
             min: number;
         };
-        grid: Array<Array<{}>>;
+        grid: Array<Array<openmaths.Umi>>;
         state: string;
 
         constructor() {
@@ -50,8 +50,11 @@ module openmaths {
                 min: 1
             };
             this.state = 'explore.board';
+            this.grid = this.initGrid();
+        }
 
-            this.grid = _.fill(Array(this.columns.current), _.fill(Array(this.rows.current), {}));
+        initGrid(): Array<Array<openmaths.Umi>> {
+            return _.map(_.range(this.rows.current), row => _.map(_.range(this.columns.current), box => new openmaths.Umi()));
         }
 
         updateGrid(section: GridSection, action: UpdateGridOperator) {
@@ -71,11 +74,23 @@ module openmaths {
             switch (action) {
                 case UpdateGridOperator.ADD:
                     console.log('Adding a column to the grid');
+                    if (current == this.columns.max) return false;
+
                     this.columns.current = (current == this.columns.max) ? current : current + 1;
+
+                    _.forEach(this.grid, row => {
+                        row.push(new openmaths.Umi());
+                    });
+
                     break;
                 case UpdateGridOperator.REMOVE:
                     console.log('Removing a column from the grid');
+                    if (current == this.columns.min) return false;
+
                     this.columns.current = (current == this.columns.min) ? current : current - 1;
+
+                    // It should not be possible to remove a column if something is in there
+
                     break;
             }
         }

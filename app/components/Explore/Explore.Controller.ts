@@ -2,13 +2,16 @@ module openmaths {
     'use strict';
 
     export class ExploreController {
-        Board = new openmaths.Board();
-        Dive = new openmaths.Dive();
+        Board: openmaths.Board;
+        Dive: openmaths.Dive;
 
         view: string;
         triggerBoard: (uriFriendlyTitle: string) => void;
 
         constructor(Api: openmaths.Api, $rootScope: ng.IScope, $state: ng.ui.IStateService) {
+            this.Board = new openmaths.Board();
+            this.Dive = new openmaths.Dive();
+
             this.updateState($state.current.name);
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
@@ -19,6 +22,14 @@ module openmaths {
                 $state.go('explore.board', {uriFriendlyTitle: uriFriendlyTitle});
 
                 //new openmaths.Umi(Api);
+
+
+                //this.Api.get('title/set-membership-infix-notation').then(d => {
+                //    let response = openmaths.Api.response(d);
+                //    this.umi = response.data;
+                //
+                //    console.log(this.umi);
+                //});
             };
         }
 

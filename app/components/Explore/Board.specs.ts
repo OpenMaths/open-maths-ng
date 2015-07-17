@@ -7,6 +7,8 @@ module openmaths.specs {
         afterEach(() => {
             model.columns.current = 3;
             model.rows.current = 3;
+
+            model.initGrid();
         });
 
         it('should have the correct state set', () => {
@@ -26,6 +28,10 @@ module openmaths.specs {
             let originalNumberOfColumns = model.columns.current;
 
             model.updateColumn(UpdateGridOperator.ADD);
+
+            _.forEach(model.grid, row => {
+                expect(row.length).toEqual(originalNumberOfColumns + 1);
+            });
 
             expect(model.columns.current).toEqual(originalNumberOfColumns + 1);
         });
