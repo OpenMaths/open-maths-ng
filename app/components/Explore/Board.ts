@@ -14,11 +14,13 @@ module openmaths {
             current: number;
             max: number;
             min: number;
+            uiClass: string;
         };
         rows: {
             current: number;
             max: number;
             min: number;
+            uiClass: string;
         };
         grid: Array<Array<openmaths.Umi>>;
         state: string;
@@ -29,11 +31,13 @@ module openmaths {
             current: number;
             max: number;
             min: number;
+            uiClass: string;
         };
         rows: {
             current: number;
             max: number;
             min: number;
+            uiClass: string;
         };
         grid: Array<Array<openmaths.Umi>>;
         state: string;
@@ -42,12 +46,14 @@ module openmaths {
             this.columns = {
                 current: 3,
                 max: 6,
-                min: 1
+                min: 1,
+                uiClass: 'columns-' + 3,
             };
             this.rows = {
                 current: 3,
                 max: 6,
-                min: 1
+                min: 1,
+                uiClass: 'rows-' + 3,
             };
             this.state = 'explore.board';
             this.grid = this.initGrid();
@@ -96,6 +102,8 @@ module openmaths {
 
                     break;
             }
+
+            this.columns.uiClass = 'columns-' + this.columns.current;
         }
 
         updateRow(action: UpdateGridOperator) {
@@ -122,6 +130,8 @@ module openmaths {
 
                     break;
             }
+
+            this.rows.uiClass = 'rows-' + this.rows.current;
         }
     }
 }

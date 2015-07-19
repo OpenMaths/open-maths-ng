@@ -21,7 +21,7 @@ module openmaths.specs {
             expect(model.updateGrid).toBeDefined();
         });
 
-        it('should add a column to the grid when instructed', () => {
+        it('should add a column to the grid when instructed and set a new column-{x} class on .board', () => {
             let originalNumberOfColumns = model.columns.current;
 
             model.updateColumn(UpdateGridOperator.ADD);
@@ -31,6 +31,7 @@ module openmaths.specs {
             });
 
             expect(model.columns.current).toEqual(originalNumberOfColumns + 1);
+            expect(model.columns.uiClass).toEqual('columns-' + (originalNumberOfColumns + 1));
         });
 
         it('should not add a column to the grid if a maximum number of columns is already set', () => {
@@ -42,7 +43,7 @@ module openmaths.specs {
             expect(model.columns.current).toEqual(model.columns.max);
         });
 
-        it('should remove a column from the grid when instructed', () => {
+        it('should remove a column from the grid when instructed and set a new column-{x} class on .board', () => {
             let originalNumberOfColumns = model.columns.current;
 
             model.updateColumn(UpdateGridOperator.REMOVE);
@@ -52,6 +53,7 @@ module openmaths.specs {
             });
 
             expect(model.columns.current).toEqual(originalNumberOfColumns - 1);
+            expect(model.columns.uiClass).toEqual('columns-' + (originalNumberOfColumns - 1));
         });
 
         it('should not remove a column from the grid if a minimum number of columns is set', () => {
@@ -63,7 +65,7 @@ module openmaths.specs {
             expect(model.columns.current).toEqual(model.columns.min);
         });
 
-        it('should add a row to the grid when instructed', () => {
+        it('should add a row to the grid when instructed and set a new row-{x} class on .board', () => {
             let originalNumberOfRows = model.rows.current;
 
             model.updateRow(UpdateGridOperator.ADD);
@@ -71,6 +73,7 @@ module openmaths.specs {
             expect(model.grid.length).toEqual(model.rows.current);
             expect(_.last(model.grid).length).toEqual(model.columns.current);
             expect(model.rows.current).toEqual(originalNumberOfRows + 1);
+            expect(model.rows.uiClass).toEqual('rows-' + (originalNumberOfRows + 1));
         });
 
         it('should not add a row to the grid if a maximum number of rows is already set', () => {
@@ -82,13 +85,14 @@ module openmaths.specs {
             expect(model.rows.current).toEqual(model.rows.max);
         });
 
-        it('should remove a row from the grid when instructed', () => {
+        it('should remove a row from the grid when instructed and set a new row-{x} class on .board', () => {
             let originalNumberOfRows = model.rows.current;
 
             model.updateRow(UpdateGridOperator.REMOVE);
 
             expect(model.grid.length).toEqual(model.rows.current);
             expect(model.rows.current).toEqual(originalNumberOfRows - 1);
+            expect(model.rows.uiClass).toEqual('rows-' + (originalNumberOfRows - 1));
         });
 
         it('should not remove a row from the grid if a minimum number of rows is set', () => {

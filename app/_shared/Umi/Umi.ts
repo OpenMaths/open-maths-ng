@@ -26,17 +26,27 @@ module openmaths {
 
     export class Umi implements IUmi {
         creator = '';
-        htmlContent = '';
+        htmlContent = 'Default UMI Content';
         id = '';
         latexContent = '';
         latexContentId = '';
         prerequisiteDefinitions = [];
         seeAlso = [];
         tags = [];
-        title = '';
+        title = 'Default UMI Title';
         titleSynonyms = [];
         ts = 0;
-        umiType = '';
+        umiType = 'Default UMI Type';
         uriFriendlyTitle = '';
+
+        empty: boolean;
+
+        constructor() {
+            this.empty = this.isEmpty();
+        }
+
+        isEmpty() {
+            return _.isEmpty(this.id) || _.isEmpty(this.uriFriendlyTitle);
+        }
     }
 }
