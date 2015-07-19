@@ -22,7 +22,7 @@ module openmaths.specs {
             NavigationFactory = _NavigationFactory_;
             $scope = $rootScope.$new();
 
-            $templateCache.put('app/shared/Navigation/navigation.html', '');
+            $templateCache.put('app/_shared/Navigation/navigation.html', '');
 
             element = angular.element('<navigation></navigation>');
 

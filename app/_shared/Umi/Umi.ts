@@ -38,21 +38,5 @@ module openmaths {
         ts = 0;
         umiType = '';
         uriFriendlyTitle = '';
-
-        //constructor() {
-            //this.creator = '';
-            //this.htmlContent = '';
-            //this.id = '';
-            //this.latexContent = '';
-            //this.latexContentId = '';
-            //this.prerequisiteDefinitions = [];
-            //this.seeAlso = [];
-            //this.tags = [];
-            //this.title = '';
-            //this.titleSynonyms = [];
-            //this.ts = 0;
-            //this.umiType = '';
-            //this.uriFriendlyTitle = '';
-        //}
     }
 }

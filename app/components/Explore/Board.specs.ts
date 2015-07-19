@@ -2,13 +2,10 @@ module openmaths.specs {
     'use strict';
 
     describe('Board model', () => {
-        let model = new openmaths.Board();
+        let model: openmaths.Board;
 
-        afterEach(() => {
-            model.columns.current = 3;
-            model.rows.current = 3;
-
-            model.initGrid();
+        beforeEach(() => {
+            model = new openmaths.Board();
         });
 
         it('should have the correct state set', () => {
@@ -39,8 +36,9 @@ module openmaths.specs {
         it('should not add a column to the grid if a maximum number of columns is already set', () => {
             model.columns.current = model.columns.max;
 
-            model.updateColumn(UpdateGridOperator.ADD);
+            let update = model.updateColumn(UpdateGridOperator.ADD);
 
+            expect(update).toEqual(false);
             expect(model.columns.current).toEqual(model.columns.max);
         });
 
@@ -49,14 +47,19 @@ module openmaths.specs {
 
             model.updateColumn(UpdateGridOperator.REMOVE);
 
+            _.forEach(model.grid, row => {
+                expect(row.length).toEqual(originalNumberOfColumns - 1);
+            });
+
             expect(model.columns.current).toEqual(originalNumberOfColumns - 1);
         });
 
         it('should not remove a column from the grid if a minimum number of columns is set', () => {
             model.columns.current = model.columns.min;
 
-            model.updateColumn(UpdateGridOperator.REMOVE);
+            let update = model.updateColumn(UpdateGridOperator.REMOVE);
 
+            expect(update).toEqual(false);
             expect(model.columns.current).toEqual(model.columns.min);
         });
 
@@ -65,14 +68,17 @@ module openmaths.specs {
 
             model.updateRow(UpdateGridOperator.ADD);
 
+            expect(model.grid.length).toEqual(model.rows.current);
+            expect(_.last(model.grid).length).toEqual(model.columns.current);
             expect(model.rows.current).toEqual(originalNumberOfRows + 1);
         });
 
         it('should not add a row to the grid if a maximum number of rows is already set', () => {
             model.rows.current = model.rows.max;
 
-            model.updateRow(UpdateGridOperator.ADD);
+            let update = model.updateRow(UpdateGridOperator.ADD);
 
+            expect(update).toEqual(false);
             expect(model.rows.current).toEqual(model.rows.max);
         });
 
@@ -81,14 +87,16 @@ module openmaths.specs {
 
             model.updateRow(UpdateGridOperator.REMOVE);
 
+            expect(model.grid.length).toEqual(model.rows.current);
             expect(model.rows.current).toEqual(originalNumberOfRows - 1);
         });
 
         it('should not remove a row from the grid if a minimum number of rows is set', () => {
             model.rows.current = model.rows.min;
 
-            model.updateRow(UpdateGridOperator.REMOVE);
+            let update = model.updateRow(UpdateGridOperator.REMOVE);
 
+            expect(update).toEqual(false);
             expect(model.rows.current).toEqual(model.rows.min);
         });
     });

@@ -14,7 +14,7 @@ module openmaths {
 
     export class NavigationDirective implements ng.IDirective {
         restrict = 'E';
-        templateUrl = 'app/shared/Navigation/navigation.html';
+        templateUrl = 'app/_shared/Navigation/navigation.html';
         scope = {
             config: '='
         };

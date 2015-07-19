@@ -76,7 +76,7 @@ module openmaths {
                     console.log('Adding a column to the grid');
                     if (current == this.columns.max) return false;
 
-                    this.columns.current = (current == this.columns.max) ? current : current + 1;
+                    this.columns.current = current + 1;
 
                     _.forEach(this.grid, row => {
                         row.push(new openmaths.Umi());
@@ -87,9 +87,12 @@ module openmaths {
                     console.log('Removing a column from the grid');
                     if (current == this.columns.min) return false;
 
-                    this.columns.current = (current == this.columns.min) ? current : current - 1;
+                    this.columns.current = current - 1;
 
                     // It should not be possible to remove a column if something is in there
+                    _.forEach(this.grid, row => {
+                        row.pop();
+                    });
 
                     break;
             }
@@ -101,11 +104,22 @@ module openmaths {
             switch (action) {
                 case UpdateGridOperator.ADD:
                     console.log('Adding a row to the grid');
-                    this.rows.current = (current == this.rows.max) ? current : current + 1;
+                    if (current == this.rows.max) return false;
+
+                    this.rows.current = current + 1;
+
+                    this.grid.push(_.map(_.range(this.columns.current), box => new openmaths.Umi()));
+
                     break;
                 case UpdateGridOperator.REMOVE:
                     console.log('Removing a row from the grid');
-                    this.rows.current = (current == this.rows.min) ? current : current - 1;
+                    if (current == this.rows.min) return false;
+
+                    this.rows.current = current - 1;
+
+                    // It should not be possible to remove a column if something is in there
+                    this.grid.pop();
+
                     break;
             }
         }
