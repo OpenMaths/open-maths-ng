@@ -61,6 +61,10 @@ module openmaths {
             };
             this.state = 'explore.board';
             this.grid = this.initGrid();
+
+            // @TODO
+            // remove after testing
+            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'set-intersection');
         }
 
         initGrid(): Array<Array<openmaths.Umi>> {
@@ -144,7 +148,33 @@ module openmaths {
             let apiRoutes = openmaths.Config.getApiRoutes();
 
             let getUmiPromise = (getBy == GetUmiBy.Id)
-                ? this.getUmiPromise(apiRoutes.getUmiById) : this.getUmiPromise(apiRoutes.getUmiByTitle);
+                ? this.getUmiPromise(apiRoutes.getUmiById + value) : this.getUmiPromise(apiRoutes.getUmiByTitle + value);
+
+            Rx.Observable.fromPromise(getUmiPromise)
+                .map(d => openmaths.Api.response(d))
+                .where(Rx.helpers.identity)
+                .subscribe((d: IApiResponse) => {
+                    let response: IUmi = d.data;
+                    response.where = [row, column];
+
+                    //this.grid[row][column] = new openmaths.Umi(response);
+
+                    console.log(new openmaths.Umi(response));
+                    openmaths.Logger.debug('UMI ' + getBy + ' => ' + value + ' loaded.');
+
+                    //data.umi.umiType = data.umi.umiType  == "Special" ? "" : data.umi.umiType;
+
+                    //if (classes) {
+                    //    data.targetClasses = classes;
+                    //}
+                    //data.where = where;
+
+                    //$scope.grid[where.row][where.column] = data;
+                    // TODO this does not work on expanding??
+                    //$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
+                }, function (errorData) {
+                    //notification.generate("There was an error loading requested contribution.", "error", errorData);
+                });
         }
 
         getUmiPromise(url): ng.IHttpPromise<void> {

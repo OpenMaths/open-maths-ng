@@ -11,6 +11,8 @@ module openmaths.specs {
                            _$httpBackend_: ng.IHttpBackendService) => {
             model = new openmaths.Board(Api);
             $httpBackend = _$httpBackend_;
+
+            spyOn(Rx.Observable, 'fromPromise').and.callFake(e => Rx.Observable.empty());
         }));
 
         afterEach(function () {
@@ -126,6 +128,14 @@ module openmaths.specs {
             promise.then(result => {
                 expect(result.data).toEqual({});
             });
+
+            $httpBackend.flush();
+        });
+
+        it('should expandInto the correct row and column when instructed to', () => {
+            $httpBackend.expectGET(openmaths.Config.getApiUrl() + 'id/0').respond(200, {});
+
+            model.expandInto(1, 1, GetUmiBy.Id, '0');
 
             $httpBackend.flush();
         });

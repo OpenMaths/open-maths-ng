@@ -22,6 +22,7 @@ module openmaths {
         ts: number;
         umiType: string;
         uriFriendlyTitle: string;
+        where?: number[];
     }
 
     export class Umi implements IUmi {
@@ -41,7 +42,9 @@ module openmaths {
 
         empty: boolean;
 
-        constructor() {
+        constructor(initObject?: IUmi) {
+            if (initObject) _.forEach(initObject, (value: any, key: string) => this[key] = value);
+
             this.empty = this.isEmpty();
         }
 

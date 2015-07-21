@@ -1,6 +1,23 @@
 module openmaths.specs {
     'use strict';
 
+    let initObject: IUmi = {
+        creator: 'testCreator',
+        htmlContent: 'testContent',
+        id: 'testId',
+        latexContent: 'testLatexContent',
+        latexContentId: 'testLatexContentId',
+        prerequisiteDefinitions: [],
+        seeAlso: [],
+        tags: [],
+        title: 'testTitle',
+        titleSynonyms: [],
+        ts: 1,
+        umiType: 'testType',
+        uriFriendlyTitle: 'testUriFriendlyTitle',
+        where: [1, 1]
+    };
+
     describe('Umi model', () => {
         let model: openmaths.Umi;
 
@@ -23,6 +40,14 @@ module openmaths.specs {
 
             model.id = '';
             expect(model.isEmpty()).toEqual(true);
+        });
+
+        it('should set the correct values if initObject has been provided', () => {
+            let modelWithInitObject = new openmaths.Umi(initObject);
+
+            _.forEach(initObject, (value: any, key: string) => {
+                expect(modelWithInitObject[key]).toEqual(value);
+            });
         });
     });
 }
