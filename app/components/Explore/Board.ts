@@ -96,9 +96,7 @@ module openmaths {
 
                     this.columns.current = current + 1;
 
-                    _.forEach(this.grid, row => {
-                        row.push(new openmaths.Umi());
-                    });
+                    _.forEach(this.grid, row => row.push(new openmaths.Umi()));
 
                     break;
                 case UpdateGridOperator.REMOVE:
@@ -109,9 +107,7 @@ module openmaths {
 
                     // @TODO
                     // It should not be possible to remove a column if something is in there
-                    _.forEach(this.grid, row => {
-                        row.pop();
-                    });
+                    _.forEach(this.grid, row => row.pop());
 
                     break;
             }

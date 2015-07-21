@@ -13,13 +13,13 @@ module openmaths {
         .service('NavigationFactory', NavigationFactory);
 
     export class NavigationDirective implements ng.IDirective {
+        link;
         restrict = 'E';
-        templateUrl = 'app/_shared/Navigation/navigation.html';
+        replace = true;
         scope = {
             config: '='
         };
-        replace = true;
-        link;
+        templateUrl = 'app/_shared/Navigation/navigation.html';
 
         constructor(private NavigationFactory: openmaths.NavigationFactory) {
             this.link = (scope: INavigationDirectiveScope) => {

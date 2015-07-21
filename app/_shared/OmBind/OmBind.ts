@@ -1,24 +1,24 @@
 module openmaths {
     'use strict';
 
-    export interface IOmBindDirectiveScope extends ng.IScope {
+    interface IOmBindDirectiveScope extends ng.IScope {
         umi: openmaths.Umi
     }
 
     export class OmBindDirective implements ng.IDirective {
+        link;
         restrict = 'A';
+        replace = true;
         scope = {
             umi: '='
         };
-        replace = true;
-        link;
 
         constructor($compile: ng.ICompileService) {
             this.link = (scope: IOmBindDirectiveScope, ele) => {
-                scope.$watch('umi.htmlContent', html => {
+                scope.$watch('umi.htmlContent', htmlContent => {
                     if (scope.umi.empty) return false;
 
-                    ele.html(html);
+                    ele.html(htmlContent);
                     $compile(ele.contents())(scope);
 
                     // @TODO

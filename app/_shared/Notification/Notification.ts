@@ -40,11 +40,11 @@ module openmaths {
     }
 
     export class NotificationDirective implements ng.IDirective {
-        restrict = 'E';
-        templateUrl = 'app/_shared/Notification/notification.html';
-        scope = {};
-        replace = true;
         link;
+        restrict = 'E';
+        replace = true;
+        scope = {};
+        templateUrl = 'app/_shared/Notification/notification.html';
 
         constructor(private $timeout: ng.ITimeoutService,
                     private NotificationFactory: openmaths.NotificationFactory) {
