@@ -23,16 +23,6 @@ module openmaths {
 
             this.triggerBoard = (uriFriendlyTitle: string) => {
                 $state.go('explore.board', {uriFriendlyTitle: uriFriendlyTitle});
-
-                //new openmaths.Umi(Api);
-
-
-                //this.Api.get('title/set-membership-infix-notation').then(d => {
-                //    let response = openmaths.Api.response(d);
-                //    this.umi = response.data;
-                //
-                //    console.log(this.umi);
-                //});
             };
         }
 

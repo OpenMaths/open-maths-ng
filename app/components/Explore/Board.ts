@@ -68,7 +68,7 @@ module openmaths {
 
             // @TODO
             // remove after testing
-            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'set-intersections');
+            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'set-intersection');
         }
 
         initGrid(): Array<Array<openmaths.Umi>> {

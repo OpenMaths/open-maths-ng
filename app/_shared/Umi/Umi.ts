@@ -52,6 +52,8 @@ module openmaths {
             return _.isEmpty(this.id) || _.isEmpty(this.uriFriendlyTitle);
         }
 
+        // @TODO
+        // remove after the API has reflected latest Interface updates
         static umiTempFormatter(initObject: any): IUmi {
             let umi = initObject.umi;
             let title = initObject.umi.title;
