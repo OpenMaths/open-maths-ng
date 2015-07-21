@@ -1,3 +1,4 @@
-<!--Add ng-click once decided how to manage it-->
-<i ng-repeat="direction in directions" class="expand expand-{{ direction }}"></i>
-{{ label }}
+<i ng-repeat="direction in directions"
+   ng-click="ExploreCtr.Board.expandInto(1, 2, 'id', expandId)"
+   class="expand expand-{{ direction }}"></i>
+{{ expandLabel }}
