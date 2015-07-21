@@ -9,6 +9,10 @@ module openmaths {
         Column, Row
     }
 
+    export enum GetUmiBy {
+        Id, Title
+    }
+
     interface IBoard {
         columns: {
             current: number;
@@ -42,7 +46,7 @@ module openmaths {
         grid: Array<Array<openmaths.Umi>>;
         state: string;
 
-        constructor() {
+        constructor(public Api?: openmaths.Api) {
             this.columns = {
                 current: 3,
                 max: 6,
@@ -95,6 +99,7 @@ module openmaths {
 
                     this.columns.current = current - 1;
 
+                    // @TODO
                     // It should not be possible to remove a column if something is in there
                     _.forEach(this.grid, row => {
                         row.pop();
@@ -125,6 +130,7 @@ module openmaths {
 
                     this.rows.current = current - 1;
 
+                    // @TODO
                     // It should not be possible to remove a column if something is in there
                     this.grid.pop();
 
@@ -132,6 +138,17 @@ module openmaths {
             }
 
             this.rows.uiClass = 'rows-' + this.rows.current;
+        }
+
+        expandInto(row: number, column: number, getBy: GetUmiBy, value: string) {
+            let apiRoutes = openmaths.Config.getApiRoutes();
+
+            let getUmiPromise = (getBy == GetUmiBy.Id)
+                ? this.getUmiPromise(apiRoutes.getUmiById) : this.getUmiPromise(apiRoutes.getUmiByTitle);
+        }
+
+        getUmiPromise(url): ng.IHttpPromise<void> {
+            return this.Api.get(url);
         }
     }
 }

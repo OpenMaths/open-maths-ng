@@ -9,6 +9,8 @@ module openmaths {
 
     export interface IApiRoutes {
         search: string;
+        getUmiById: string;
+        getUmiByTitle: string;
     }
 
     export interface IUiConfig {
@@ -29,7 +31,9 @@ module openmaths {
         test: 'http://api.om.dev/'
     };
     let apiRoutes: IApiRoutes = {
-        search: 'search/'
+        search: 'search/',
+        getUmiById: 'id/',
+        getUmiByTitle: 'title/',
     };
     let productionHost: string = 'openmaths.io';
     let testHost: string = 'localhost:8087';

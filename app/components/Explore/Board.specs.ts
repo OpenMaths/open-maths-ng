@@ -2,10 +2,20 @@ module openmaths.specs {
     'use strict';
 
     describe('Board model', () => {
-        let model: openmaths.Board;
+        beforeEach(module('openmaths'));
 
-        beforeEach(() => {
-            model = new openmaths.Board();
+        let model: openmaths.Board;
+        let $httpBackend;
+
+        beforeEach(inject((Api: openmaths.Api,
+                           _$httpBackend_: ng.IHttpBackendService) => {
+            model = new openmaths.Board(Api);
+            $httpBackend = _$httpBackend_;
+        }));
+
+        afterEach(function () {
+            $httpBackend.verifyNoOutstandingExpectation();
+            $httpBackend.verifyNoOutstandingRequest();
         });
 
         it('should have the correct state set', () => {
@@ -102,6 +112,22 @@ module openmaths.specs {
 
             expect(update).toEqual(false);
             expect(model.rows.current).toEqual(model.rows.min);
+        });
+
+        it('should have expandInto method attached to it', () => {
+            expect(model.expandInto).toBeDefined();
+        });
+
+        it('should return a a promise when getUmiPromise() is called', () => {
+            $httpBackend.expectGET(openmaths.Config.getApiUrl() + 'id/0').respond(200, {});
+
+            let promise = model.getUmiPromise('id/0');
+
+            promise.then(result => {
+                expect(result.data).toEqual({});
+            });
+
+            $httpBackend.flush();
         });
     });
 }

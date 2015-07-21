@@ -44,7 +44,7 @@ module openmaths.specs {
         });
 
         it('should be able to return a search promise', () => {
-            $httpBackend.expectGET('http://api.om.dev/search/hello').respond(200, searchResult.data);
+            $httpBackend.expectGET(openmaths.Config.getApiUrl() + 'search/hello').respond(200, searchResult.data);
 
             let promise = controller.searchPromise('hello');
 
