@@ -1,7 +1,7 @@
 module openmaths {
     'use strict';
 
-    let hideNotificationAfter: number = 2500;
+    let hideNotificationAfter: number = 4500;
     let allowedTypes: Array<string> = ['info', 'warning', 'error', 'success'];
 
     export interface INotificationData {
@@ -22,9 +22,7 @@ module openmaths {
                 type: _.contains(allowedTypes, type) ? type : _.first(allowedTypes)
             };
 
-            if(stackTrace) {
-                openmaths.Logger.info(stackTrace);
-            }
+            if (stackTrace) openmaths.Logger.info(stackTrace);
 
             _.forEach(this.subscriptions, (callback) => {
                 callback(notificationData);

@@ -1,3 +1,5 @@
 <div class="notification" ng-class="{active : act, info : notification.type == 'info', warning : notification.type == 'warning', error : notification.type == 'error', success : notification.type == 'success'}">
-    {{ notification.message }}
+    <span class="close" ng-click="act = false">&times;</span>
+    <small ng-click="act = false">Click to dismiss</small>
+    <p>{{ notification.message }}</p>
 </div>

@@ -9,12 +9,13 @@ module openmaths.specs {
         let $state: ng.ui.IStateService;
 
         beforeEach(inject((Api: openmaths.Api,
+                           NotificationFactory: openmaths.NotificationFactory,
                            _$rootScope_: ng.IRootScopeService,
                            _$state_: ng.ui.IStateService) => {
             $state = _$state_;
             $rootScope = _$rootScope_;
 
-            controller = new openmaths.ExploreController(Api, $rootScope, $state);
+            controller = new openmaths.ExploreController(Api, NotificationFactory, $rootScope, $state);
         }));
     });
 }

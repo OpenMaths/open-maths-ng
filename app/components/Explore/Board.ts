@@ -46,17 +46,21 @@ module openmaths {
         grid: Array<Array<openmaths.Umi>>;
         state: string;
 
-        constructor(public Api?: openmaths.Api) {
+        constructor(public Api?: openmaths.Api, public NotificationFactory?: openmaths.NotificationFactory) {
             this.columns = {
                 current: 3,
                 max: 6,
                 min: 1,
+                // @TODO
+                // make so that it takes this.columns.current
                 uiClass: 'columns-' + 3,
             };
             this.rows = {
                 current: 3,
                 max: 6,
                 min: 1,
+                // @TODO
+                // make so that it takes this.rows.current
                 uiClass: 'rows-' + 3,
             };
             this.state = 'explore.board';
@@ -64,7 +68,7 @@ module openmaths {
 
             // @TODO
             // remove after testing
-            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'set-intersection');
+            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'set-intersections');
         }
 
         initGrid(): Array<Array<openmaths.Umi>> {
@@ -154,26 +158,15 @@ module openmaths {
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .subscribe((d: IApiResponse) => {
-                    let response: IUmi = d.data;
+                    // @TODO get rid of formatter after the API has been refactored
+                    let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
                     response.where = [row, column];
 
-                    //this.grid[row][column] = new openmaths.Umi(response);
+                    this.grid[row][column] = new openmaths.Umi(response);
 
-                    console.log(new openmaths.Umi(response));
                     openmaths.Logger.debug('UMI ' + getBy + ' => ' + value + ' loaded.');
-
-                    //data.umi.umiType = data.umi.umiType  == "Special" ? "" : data.umi.umiType;
-
-                    //if (classes) {
-                    //    data.targetClasses = classes;
-                    //}
-                    //data.where = where;
-
-                    //$scope.grid[where.row][where.column] = data;
-                    // TODO this does not work on expanding??
-                    //$timeout(fadeInUmi, magicForBoard.fadeUmiTimeout);
-                }, function (errorData) {
-                    //notification.generate("There was an error loading requested contribution.", "error", errorData);
+                }, errorData => {
+                    this.NotificationFactory.generate('Requested contribution has not been found.', 'error', errorData);
                 });
         }
 

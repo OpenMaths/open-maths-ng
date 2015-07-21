@@ -51,5 +51,17 @@ module openmaths {
         isEmpty() {
             return _.isEmpty(this.id) || _.isEmpty(this.uriFriendlyTitle);
         }
+
+        static umiTempFormatter(initObject: any): IUmi {
+            let umi = initObject.umi;
+            let title = initObject.umi.title;
+
+            _.forEach(umi, (value: any, key: string) => initObject[key] = value);
+            _.forEach(title, (value: any, key: string) => initObject[key] = value);
+
+            delete initObject.umi;
+
+            return initObject;
+        }
     }
 }

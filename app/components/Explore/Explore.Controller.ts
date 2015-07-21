@@ -8,8 +8,11 @@ module openmaths {
         view: string;
         triggerBoard: (uriFriendlyTitle: string) => void;
 
-        constructor(Api: openmaths.Api, $rootScope: ng.IScope, $state: ng.ui.IStateService) {
-            this.Board = new openmaths.Board(Api);
+        constructor(Api: openmaths.Api,
+                    NotificationFactory: openmaths.NotificationFactory,
+                    $rootScope: ng.IScope,
+                    $state: ng.ui.IStateService) {
+            this.Board = new openmaths.Board(Api, NotificationFactory);
             this.Dive = new openmaths.Dive();
 
             this.updateState($state.current.name);
