@@ -22,7 +22,7 @@ module openmaths {
         ts: number;
         umiType: string;
         uriFriendlyTitle: string;
-        where?: number[];
+        where: number[];
     }
 
     export class Umi implements IUmi {
@@ -39,6 +39,7 @@ module openmaths {
         ts = 0;
         umiType = 'Default UMI Type';
         uriFriendlyTitle = '';
+        where = [];
 
         empty: boolean;
 

@@ -13,19 +13,16 @@ module openmaths {
         Id, Title
     }
 
+    export interface IGridPartConfig {
+        current: number;
+        max: number;
+        min: number;
+        uiClass: string;
+    }
+
     interface IBoard {
-        columns: {
-            current: number;
-            max: number;
-            min: number;
-            uiClass: string;
-        };
-        rows: {
-            current: number;
-            max: number;
-            min: number;
-            uiClass: string;
-        };
+        columns: IGridPartConfig;
+        rows: IGridPartConfig;
         grid: Array<Array<openmaths.Umi>>;
         state: string;
     }
@@ -46,7 +43,8 @@ module openmaths {
         grid: Array<Array<openmaths.Umi>>;
         state: string;
 
-        constructor(public Api?: openmaths.Api, public NotificationFactory?: openmaths.NotificationFactory) {
+        constructor(public Api?: openmaths.Api,
+                    public NotificationFactory?: openmaths.NotificationFactory) {
             this.columns = {
                 current: 3,
                 max: 6,
@@ -64,6 +62,7 @@ module openmaths {
                 uiClass: 'rows-' + 3,
             };
             this.state = 'explore.board';
+
             this.grid = this.initGrid();
 
             // @TODO

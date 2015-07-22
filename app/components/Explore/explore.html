@@ -24,7 +24,8 @@
 <div class="board" ng-class="[ExploreCtr.Board.columns.uiClass, ExploreCtr.Board.rows.uiClass]">
     <div class="row" ng-repeat="row in ExploreCtr.Board.grid track by $index">
         <div class="column" ng-repeat="umi in row track by $index">
-            <div class="umi" ng-class="{'is-hidden': umi.empty}">
+            <div class="umi"ng-class="{'is-hidden': umi.empty}"
+                 ng-init="rows = ExploreCtr.Board.rows; columns = ExploreCtr.Board.columns">
                 <div class="controls-holder top">
                     <div class="controls details">
                         <i class="icon list white" size="2"></i>
