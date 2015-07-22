@@ -8,8 +8,10 @@ module openmaths {
         constructor() {
             this.link = (scope, ele) => {
                 ele.bind('contextmenu', e => {
-                    alert('You\'ve tried to open context menu');
                     e.preventDefault();
+
+                    console.log('X coordinate: ' + e.pageX);
+                    console.log('Y coordinate: ' + e.pageY);
                 });
             };
         }
