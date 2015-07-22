@@ -43,7 +43,7 @@ module openmaths.specs {
         });
 
         it('should set the correct values if initObject has been provided', () => {
-            let modelWithInitObject = new openmaths.Umi(initObject);
+            let modelWithInitObject = new openmaths.Umi(initObject, [1, 1]);
 
             _.forEach(initObject, (value: any, key: string) => {
                 expect(modelWithInitObject[key]).toEqual(value);

@@ -155,9 +155,8 @@ module openmaths {
                 .subscribe((d: IApiResponse) => {
                     // @TODO get rid of formatter after the API has been refactored
                     let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
-                    response.where = [row, column];
 
-                    this.grid[row][column] = new openmaths.Umi(response);
+                    this.grid[row][column] = new openmaths.Umi(response, [row, column]);
 
                     openmaths.Logger.debug('UMI ' + getBy + ' => ' + value + ' loaded.');
                 }, errorData => {

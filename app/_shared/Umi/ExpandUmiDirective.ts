@@ -3,7 +3,7 @@ module openmaths {
 
     interface IExpandUmiDirectiveScope extends ng.IScope {
         columns: IGridPartConfig;
-        directions: string[];
+        directions: Array<IExpandUmiDirection>;
         expandId: string;
         expandLabel: string;
         rows: IGridPartConfig;
@@ -38,16 +38,14 @@ module openmaths {
                 scope.$watch('umi.htmlContent', () => {
                     if (scope.umi.empty) return false;
 
-                    scope.expandId = attr.expandId;
-                    scope.expandLabel = attr.expandLabel;
-                    scope.directions = ['top', 'right', 'bottom', 'left'];
-
                     let gridConfig = {
                         columns: scope.columns,
                         rows: scope.rows
                     };
 
-                    //console.log(openmaths.ExpandUmiDirective.renderDirections(scope.umi.where, gridConfig));
+                    scope.expandId = attr.expandId;
+                    scope.expandLabel = attr.expandLabel;
+                    scope.directions = openmaths.ExpandUmiDirective.renderDirections(scope.umi.where, gridConfig);
                 });
             };
         }

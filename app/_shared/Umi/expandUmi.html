@@ -1,4 +1,4 @@
 <i ng-repeat="direction in directions"
-   ng-click="ExploreCtr.Board.expandInto(1, 2, 'id', expandId)"
-   class="expand expand-{{ direction }}"></i>
+   ng-click="ExploreCtr.Board.expandInto(direction.toRow, direction.toColumn, 0, expandId)"
+   class="expand expand-{{ direction.direction }}">{{direction.direction}}</i>
 {{ expandLabel }}
