@@ -14,6 +14,9 @@ select yn in "Yes" "No"; do
 			cp app/dist/app.js dist/app/dist && cp app/dist/vendor.js dist/app/dist
 			cp index.html dist/index.html
 
+			tar -v -cf open-maths-ng.tar.gz app/ .gitignore bower.json gulpfile.js index.html package.json
+            mv open-maths-ng.tar.gz dist/open-maths-ng.tar.gz
+
 #			divshot push staging
 
 #			printf "\n\n\nSuccessfully released to staging\n\n"
