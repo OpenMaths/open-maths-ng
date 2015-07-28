@@ -9,5 +9,4 @@ Thumbs.db
 node_modules
 bower_components
 
-push.sh
-dump.ts
+/dist
