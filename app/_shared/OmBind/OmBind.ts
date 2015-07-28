@@ -9,9 +9,7 @@ module openmaths {
         link;
         restrict = 'A';
         replace = true;
-        scope = {
-            umi: '='
-        };
+        scope = false;
 
         constructor($compile: ng.ICompileService) {
             this.link = (scope: IOmBindDirectiveScope, ele) => {

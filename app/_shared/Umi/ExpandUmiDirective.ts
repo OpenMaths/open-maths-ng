@@ -30,14 +30,14 @@ module openmaths {
     export class ExpandUmiDirective implements ng.IDirective {
         link;
         restrict = 'A';
-        scope = false;
+        scope = true;
         templateUrl = 'app/_shared/Umi/expandUmi.html';
 
         constructor() {
             this.link = (scope: IExpandUmiDirectiveScope, ele, attr: IExpandUmiAttr) => {
-                scope.$watch('umi.htmlContent', () => {
-                    if (scope.umi.empty) return false;
+                if (scope.umi.empty) return false;
 
+                scope.$watch('umi.htmlContent', () => {
                     let gridConfig = {
                         columns: scope.columns,
                         rows: scope.rows

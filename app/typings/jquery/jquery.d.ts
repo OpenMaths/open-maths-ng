@@ -1145,6 +1145,12 @@ interface JQueryStatic {
  */
 interface JQuery {
 	/**
+	 * Initialise the perfectScrollbar plugin
+	 *
+	 * @param boolean
+	 */
+	perfectScrollbar({suppressScrollX: boolean}): void;
+	/**
 	 * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
 	 *
 	 * @param handler The function to be invoked.

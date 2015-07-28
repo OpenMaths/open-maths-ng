@@ -67,7 +67,7 @@ module openmaths {
 
             // @TODO
             // remove after testing
-            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'set-intersection');
+            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'how-to-add-formal-content');
         }
 
         initGrid(): Array<Array<openmaths.Umi>> {
@@ -153,7 +153,8 @@ module openmaths {
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .subscribe((d: IApiResponse) => {
-                    // @TODO get rid of formatter after the API has been refactored
+                    // @TODO
+                    // get rid of formatter after the API has been refactored
                     let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
 
                     this.grid[row][column] = new openmaths.Umi(response, [row, column]);
