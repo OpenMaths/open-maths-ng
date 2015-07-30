@@ -20,3 +20,4 @@ api.* should run on 8080
 
 use jscs jshint in gulp
 traverse
+Font: https://github.com/andreberg/Meslo-Font
