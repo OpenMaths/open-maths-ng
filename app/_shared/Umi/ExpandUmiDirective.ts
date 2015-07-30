@@ -37,6 +37,8 @@ module openmaths {
             this.link = (scope: IExpandUmiDirectiveScope, ele, attr: IExpandUmiAttr) => {
                 if (scope.umi.empty) return false;
 
+                ele.addClass('expand-umi');
+
                 scope.$watch('umi.htmlContent', () => {
                     let gridConfig = {
                         columns: scope.columns,

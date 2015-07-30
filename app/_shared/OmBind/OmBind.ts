@@ -21,7 +21,7 @@ module openmaths {
 
                     // @TODO
                     // implement MathJax
-                    //MathJax.Hub.Queue(["Typeset", MathJax.Hub, ele[0]]);
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, ele[0]]);
                 });
             };
         }
