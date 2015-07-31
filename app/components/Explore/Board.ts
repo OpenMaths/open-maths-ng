@@ -161,7 +161,7 @@ module openmaths {
 
                     openmaths.Logger.debug('UMI ' + getBy + ' => ' + value + ' loaded.');
                 }, errorData => {
-                    this.NotificationFactory.generate('Requested contribution has not been found.', 'error', errorData);
+                    this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
                 });
         }
 

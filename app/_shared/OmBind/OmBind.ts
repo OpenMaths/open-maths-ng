@@ -19,17 +19,13 @@ module openmaths {
                     ele.html(htmlContent);
                     $compile(ele.contents())(scope);
 
-                    // @TODO
-                    // implement MathJax
                     MathJax.Hub.Queue(["Typeset", MathJax.Hub, ele[0]]);
                 });
             };
         }
 
         static init(): ng.IDirectiveFactory {
-            return ($compile: ng.ICompileService) => {
-                return new OmBindDirective($compile);
-            };
+            return ($compile: ng.ICompileService) => new OmBindDirective($compile);
         }
     }
 

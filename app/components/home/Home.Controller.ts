@@ -6,7 +6,7 @@ module openmaths {
         changeName: (name: string) => void;
 
         constructor(private NotificationFactory: openmaths.NotificationFactory) {
-            NotificationFactory.generate('Hello World!', 'info');
+            NotificationFactory.generate('Hello World!', NotificationType.Info);
 
             this.name = 'Test';
 

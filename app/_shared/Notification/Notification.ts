@@ -2,7 +2,11 @@ module openmaths {
     'use strict';
 
     let hideNotificationAfter: number = 4500;
-    let allowedTypes: Array<string> = ['info', 'warning', 'error', 'success'];
+    //let allowedTypes: Array<string> = ['info', 'warning', 'error', 'success'];
+
+    export enum NotificationType {
+        Info, Warning, Error, Success
+    }
 
     export interface INotificationData {
         message: string;
@@ -10,21 +14,41 @@ module openmaths {
     }
 
     export class NotificationFactory {
-        subscriptions = [];
+        subscriptions: Array<Function> = [];
 
-        subscribe(callback: any) {
+        subscribe(callback: Function) {
             this.subscriptions.push(callback);
         }
 
-        generate(message: string, type: string, stackTrace?: any) {
+        generate(message: string, notificationType: NotificationType, stackTrace?: any) {
+            let type: string;
+
+            switch (notificationType) {
+                case NotificationType.Success:
+                    type = 'success';
+                    break;
+                case NotificationType.Warning:
+                    type = 'warning';
+                    break;
+                case NotificationType.Error:
+                    type = 'error';
+                    break;
+                //case NotificationType.Info:
+                //    type = 'info';
+                //    break;
+                default:
+                    type = 'info';
+                    break;
+            }
+
             let notificationData: INotificationData = {
                 message: message,
-                type: _.contains(allowedTypes, type) ? type : _.first(allowedTypes)
+                type: type
             };
 
             if (stackTrace) openmaths.Logger.info(stackTrace);
 
-            _.forEach(this.subscriptions, (callback) => {
+            _.forEach(this.subscriptions, callback => {
                 callback(notificationData);
             });
         }
@@ -49,7 +73,7 @@ module openmaths {
         constructor(private $timeout: ng.ITimeoutService,
                     private NotificationFactory: openmaths.NotificationFactory) {
             this.link = (scope: INotificationDirectiveScope) => {
-                NotificationFactory.subscribe((notificationData) => {
+                NotificationFactory.subscribe((notificationData: INotificationData) => {
                     scope.notification = notificationData;
                     scope.act = true;
 
@@ -61,9 +85,8 @@ module openmaths {
         }
 
         static init(): ng.IDirectiveFactory {
-            return ($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) => {
-                return new NotificationDirective($timeout, NotificationFactory);
-            };
+            return ($timeout: ng.ITimeoutService, NotificationFactory: openmaths.NotificationFactory) =>
+                new NotificationDirective($timeout, NotificationFactory);
         }
     }
 

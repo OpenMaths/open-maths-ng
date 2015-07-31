@@ -62,7 +62,7 @@ module openmaths {
         }
 
         userLoggedInCallback(userInfo: IGApiUserInfoResponse) {
-            this.NotificationFactory.generate('Callback OK!', 'success', userInfo);
+            this.NotificationFactory.generate('Callback OK!', NotificationType.Info, userInfo);
         }
 
         googleApiPromise(accessToken: string) {

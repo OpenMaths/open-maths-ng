@@ -30,42 +30,55 @@ module openmaths.specs {
             $scope.$digest();
         }));
 
-        it ('should put one callback of type function into DirectiveFactory subscriptions array', () => {
+        it('should put one callback of type function into DirectiveFactory subscriptions array', () => {
             let subscriptions = NotificationFactory.subscriptions;
 
             expect(subscriptions.length).toEqual(1);
             expect(typeof(_.first(subscriptions))).toEqual('function');
         });
 
-        it('should replace the element with the appropriate content', () => {
-            let allowedTypes = ['info', 'warning', 'error', 'success'];
+        it('should replace the element with the appropriate content when calling "info" notification', () => {
+            NotificationFactory.generate('Hello World Info', NotificationType.Info);
 
-            _.forEach(allowedTypes, (type) => {
-                NotificationFactory.generate('Hello World', type);
+            $compile(element)($scope);
+            $scope.$digest();
 
-                $compile(element)($scope);
-                $scope.$digest();
-
-                expect(element.hasClass(type)).toBe(true);
-                expect(element.hasClass('active')).toBe(true);
-                expect(element.html()).toEqual('Hello World');
-            });
+            expect(element.hasClass('info')).toBe(true);
+            expect(element.hasClass('active')).toBe(true);
+            expect(element.html()).toEqual('Hello World Info');
         });
 
-        it('should not add inappropriate classes if invalid data are provided', () => {
-            let invalidTypes = ['foo', 'bar'];
+        it('should replace the element with the appropriate content when calling "warning" notification', () => {
+            NotificationFactory.generate('Hello World Warning', NotificationType.Warning);
 
-            _.forEach(invalidTypes, (type) => {
-                NotificationFactory.generate('Foo Bar', type);
+            $compile(element)($scope);
+            $scope.$digest();
 
-                $compile(element)($scope);
-                $scope.$digest();
+            expect(element.hasClass('warning')).toBe(true);
+            expect(element.hasClass('active')).toBe(true);
+            expect(element.html()).toEqual('Hello World Warning');
+        });
 
-                expect(element.hasClass(type)).toBe(false);
-                expect(element.hasClass('info')).toBe(true);
-                expect(element.hasClass('active')).toBe(true);
-                expect(element.html()).toEqual('Foo Bar');
-            });
+        it('should replace the element with the appropriate content when calling "error" notification', () => {
+            NotificationFactory.generate('Hello World Error', NotificationType.Error);
+
+            $compile(element)($scope);
+            $scope.$digest();
+
+            expect(element.hasClass('error')).toBe(true);
+            expect(element.hasClass('active')).toBe(true);
+            expect(element.html()).toEqual('Hello World Error');
+        });
+
+        it('should replace the element with the appropriate content when calling "success" notification', () => {
+            NotificationFactory.generate('Hello World Success', NotificationType.Success);
+
+            $compile(element)($scope);
+            $scope.$digest();
+
+            expect(element.hasClass('success')).toBe(true);
+            expect(element.hasClass('active')).toBe(true);
+            expect(element.html()).toEqual('Hello World Success');
         });
     });
 }
