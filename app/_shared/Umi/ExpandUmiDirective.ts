@@ -53,12 +53,12 @@ module openmaths {
         }
 
         static renderDirections(currentPosition: number[], gridConfig: IGridConfig): Array<IExpandUmiDirection> {
-            let directions: string[] = ['top', 'right', 'bottom', 'left'],
+            let directions: string[] = ['up', 'right', 'down', 'left'],
                 row: number = _.first(currentPosition),
                 column: number = _.last(currentPosition);
 
             return _.map(directions, direction => {
-                let vertical = direction == 'top' || direction == 'bottom',
+                let vertical = direction == 'up' || direction == 'down',
                     horizontal = direction == 'right' || direction == 'left',
                     maxRow = gridConfig.rows.current - 1,
                     maxColumn = gridConfig.columns.current - 1,
@@ -68,7 +68,7 @@ module openmaths {
                 return {
                     direction: direction,
                     toRow: vertical
-                        ? (direction == 'top'
+                        ? (direction == 'up'
                         ? (row == minRow ? row : row - 1) : (row == maxRow ? row : row + 1)) : row,
                     toColumn: horizontal
                         ? (direction == 'right'

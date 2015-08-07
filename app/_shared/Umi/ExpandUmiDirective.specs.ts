@@ -24,12 +24,12 @@ module openmaths.specs {
         };
 
         let scenarios = [
-            {original: [1, 1], expected: [['top', 0, 1], ['right', 1, 2], ['bottom', 2, 1], ['left', 1, 0]]},
-            {original: [0, 1], expected: [['top', 0, 1], ['right', 0, 2], ['bottom', 1, 1], ['left', 0, 0]]},
-            {original: [1, 2], expected: [['top', 0, 2], ['right', 1, 2], ['bottom', 2, 2], ['left', 1, 1]]},
-            {original: [2, 1], expected: [['top', 1, 1], ['right', 2, 2], ['bottom', 2, 1], ['left', 2, 0]]},
-            {original: [1, 0], expected: [['top', 0, 0], ['right', 1, 1], ['bottom', 2, 0], ['left', 1, 0]]},
-            {original: [0, 2], expected: [['top', 0, 2], ['right', 0, 2], ['bottom', 1, 2], ['left', 0, 1]]}
+            {original: [1, 1], expected: [['up', 0, 1], ['right', 1, 2], ['down', 2, 1], ['left', 1, 0]]},
+            {original: [0, 1], expected: [['up', 0, 1], ['right', 0, 2], ['down', 1, 1], ['left', 0, 0]]},
+            {original: [1, 2], expected: [['up', 0, 2], ['right', 1, 2], ['down', 2, 2], ['left', 1, 1]]},
+            {original: [2, 1], expected: [['up', 1, 1], ['right', 2, 2], ['down', 2, 1], ['left', 2, 0]]},
+            {original: [1, 0], expected: [['up', 0, 0], ['right', 1, 1], ['down', 2, 0], ['left', 1, 0]]},
+            {original: [0, 2], expected: [['up', 0, 2], ['right', 0, 2], ['down', 1, 2], ['left', 0, 1]]}
         ];
 
         _.forEach(scenarios, scenario => {
