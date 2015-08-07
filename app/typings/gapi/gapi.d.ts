@@ -1,4 +1,4 @@
-// Type definitions for Google API Client
+﻿// Type definitions for Google API Client
 // Project: https://code.google.com/p/google-api-javascript-client/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -108,16 +108,16 @@ declare module gapi.auth {
 
 declare module gapi.client {
     /**
-     * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
-     * @param name The name of the API to load.
-     * @param version The version of the API to load
-     * @param callback the function that is called once the API interface is loaded
-     */
+    * Loads the client library interface to a particular API. The new API interface will be in the form gapi.client.api.collection.method.
+    * @param name The name of the API to load.
+    * @param version The version of the API to load
+    * @param callback the function that is called once the API interface is loaded
+    */
     export function load(name: string, version: string, callback?: () => any): void;
     /**
-     * Creates a HTTP request for making RESTful requests.
-     * An object encapsulating the various arguments for this method.
-     */
+    * Creates a HTTP request for making RESTful requests.
+    * An object encapsulating the various arguments for this method.
+    */
     export function request(args: {
         /**
          * The URL to handle the request
@@ -145,16 +145,16 @@ declare module gapi.client {
         callback?: () => any;
     }): HttpRequest<any>;
     /**
-     * Creates an RPC Request directly. The method name and version identify the method to be executed and the RPC params are provided upon RPC creation.
-     * @param method The method to be executed.
-     * @param version The version of the API which defines the method to be executed. Defaults to v1
-     * @param rpcParams A key-value pair of the params to supply to this RPC
-     */
+    * Creates an RPC Request directly. The method name and version identify the method to be executed and the RPC params are provided upon RPC creation.
+    * @param method The method to be executed.
+    * @param version The version of the API which defines the method to be executed. Defaults to v1
+    * @param rpcParams A key-value pair of the params to supply to this RPC
+    */
     export function rpcRequest(method: string, version?: string, rpcParams?: any): RpcRequest;
     /**
-     * Sets the API key for the application.
-     * @param apiKey The API key to set
-     */
+    * Sets the API key for the application.
+    * @param apiKey The API key to set
+    */
     export function setApiKey(apiKey: string): void;
 
     /**
@@ -179,24 +179,24 @@ declare module gapi.client {
                 status: number;
                 statusText: string;
             }
-        ) => any):void;
-        /**
+            ) => any):void;
+            /**
          * HttpRequest supports promises.
          */
         then(success:(response:{
-            result:T;
-            body:string;
-            headers?: any[];
-            status?: number;
-            statusText?: string
-        })=>void,
-             failure:(response:{
-                 result:T;
-                 body:string;
-                 headers?: any[];
-                 status?: number;
-                 statusText?: string
-             })=>void): void;
+                result:T;
+                body:string;
+                headers?: any[];
+                status?: number;
+                statusText?: string
+            })=>void,
+            failure:(response:{
+                result:T;
+                body:string;
+                headers?: any[];
+                status?: number;
+                statusText?: string
+            })=>void): void;
     }
     /**
      * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
@@ -213,14 +213,14 @@ declare module gapi.client {
              */
             id: string;
             callback: (
-                /**
-                 * is the response for this request only. Its format is defined by the API method being called.
-                 */
-                individualResponse: any,
-                /**
-                 * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
-                 */
-                rawBatchResponse: any
+            /**
+             * is the response for this request only. Its format is defined by the API method being called.
+             */
+            individualResponse: any,
+            /**
+             * is the raw batch ID-response map as a string. It contains all responses to all requests in the batch.
+             */
+            rawBatchResponse: any
             ) => any
         }):void;
         /**
@@ -236,7 +236,7 @@ declare module gapi.client {
              * is the same response, but as an unparsed JSON-string.
              */
             rawBatchResponse: string
-        ) => any):void;
+            ) => any):void;
     }
 
     /**
@@ -257,7 +257,7 @@ declare module gapi.client {
              * is the same as jsonResp, except it is a raw string that has not been parsed. It is typically used when the response is not JSON.
              */
             rawResp: string
-        ) => void ):void;
+            ) => void ):void;
     }
 
 }

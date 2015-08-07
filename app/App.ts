@@ -1,4 +1,4 @@
-/// <reference path='_ref.ts' />
+/// <reference path='typings/tsd.d.ts' />
 
 module openmaths {
     'use strict';

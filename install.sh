@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-sudo npm install gulp -g
+sudo npm install gulp tsd typescript -g
 
 sudo npm install
 bower install
 
-gulp concatVendor typescript
+tsd install
+
+gulp concatVendor compile-tsc compile-tsc-tests

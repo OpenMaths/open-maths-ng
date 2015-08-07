@@ -5,7 +5,7 @@ module.exports = function (config) {
 		files: [
 			'../dist/vendor.js',
 			'../../bower_components/angular-mocks/angular-mocks.js',
-			'all.js'
+			'app+specs.js'
 		],
 		exclude: [],
 		port: 8087,
@@ -13,6 +13,8 @@ module.exports = function (config) {
 		autoWatch: false,
 		colors: true,
 		browsers: ['PhantomJS'],
-		singleRun: true
+		singleRun: true,
+		reportSlowerThan: 500,
+		reporters: ['spec']
 	});
 };

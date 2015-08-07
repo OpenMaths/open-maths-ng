@@ -1,4 +1,3 @@
-// Dependencies
 var concat = require('gulp-concat'),
     express = require('express'),
     gulp = require('gulp'),
@@ -26,7 +25,7 @@ gulp.task('staticServer', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('app/**/*.ts', ['typescript']);
+    gulp.watch('app/**/*.ts', ['compile-tsc', 'compile-tsc-tests']);
     gulp.watch('app/test/*.js', ['test']);
 });
 
@@ -38,7 +37,8 @@ gulp.task('concatVendor', function () {
         'bower_components/angular-loading-bar/build/loading-bar.min.js',
         'bower_components/lodash/lodash.min.js',
         'bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
-        'bower_components/rxjs/dist/rx.all.min.js'
+        'bower_components/rxjs/dist/rx.min.js',
+        'bower_components/rxjs/dist/rx.time.min.js'
     ])
         .pipe(plumber({errorHandler: onError}))
         .pipe(concat('vendor.js'))
@@ -52,51 +52,49 @@ gulp.task('test', function (done) {
     }, done);
 });
 
-gulp.task('typescript', function () {
-    tsc('app');
+gulp.task('compile-tsc', function () {
+    tsc('app', 'app');
 });
 
-function tsc(path) {
-    gulp.src([
-        path + '/**/*.ts',
+gulp.task('compile-tsc-tests', function () {
+    tsc('app', 'tests');
+});
 
-        // Ignore specs, dist, and typings
-        '!' + path + '/**/*.specs.ts',
-        '!' + path + '/dist/**/*',
-        '!' + path + '/typings/**/*'
-    ], {base: path})
-        .pipe(plumber({errorHandler: onError}))
-        .pipe(typescript({
-            target: 'ES5',
-            sortOutput: true,
-            sourceMap: false,
-            removeComments: true
-        }))
-        .pipe(concat('app.js'))
-        .pipe(gulp.dest(path + '/dist'))
-        .pipe(notify('Typescript compiled'));
+function tsc(path, type) {
+    if (type == 'tests' || type == 'app') {
+        var tscSrc = {
+            app: [
+                path + '/**/*.ts',
 
-    tscTest(path);
-}
+                // Ignore specs, dist, and typings
+                '!' + path + '/**/*.specs.ts',
+                '!' + path + '/dist/**/*',
+                '!' + path + '/typings/**/*'
+            ],
+            tests: [
+                path + '/**/*.ts',
 
-function tscTest(path) {
-    gulp.src([
-        path + '/**/*.ts',
+                // Ignore dist and typings
+                '!' + path + '/dist/**/*',
+                '!' + path + '/typings/**/*'
+            ]
+        };
 
-        // Ignore dist and typings
-        '!' + path + '/dist/**/*',
-        '!' + path + '/typings/**/*'
-    ], {base: path})
-        .pipe(plumber({errorHandler: onError}))
-        .pipe(typescript({
-            target: 'ES5',
-            sortOutput: true,
-            sourceMap: false,
-            removeComments: true
-        }))
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest(path + '/test'))
-        .pipe(notify('Tests compiled'))
+        gulp.src(tscSrc[type], {base: path})
+            .pipe(plumber({errorHandler: onError}))
+            .pipe(typescript({
+                target: 'ES5',
+                sortOutput: true,
+                sourceMap: false,
+                removeComments: true
+            }))
+            .pipe(concat((type == 'tests' ? 'app+specs.js' : 'app.js')))
+            .pipe(gulp.dest(path + (type == 'tests' ? '/test' : '/dist')))
+            .pipe(notify(type.charAt(0).toUpperCase() + type.slice(1) + ' compiled'));
+    } else {
+        console.log('tsc parameter type needs to be "tests" or "app"');
+        return false;
+    }
 }
 
 function onError(err) {
