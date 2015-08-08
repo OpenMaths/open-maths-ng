@@ -1,45 +1,50 @@
 module openmaths {
     'use strict';
 
-    interface IFocusInputDirectiveAttributes extends ng.IAttributes {
+    interface IOnClickFocusDirectiveAttributes extends ng.IAttributes {
         focus: boolean;
+        onClickFocus: string;
     }
 
-    export class FocusInputDirective implements ng.IDirective {
+    export class OnClickFocusDirective implements ng.IDirective {
         link;
+        scope = true;
         restrict = 'A';
 
         constructor() {
-            this.link = (scope, ele, attr: IFocusInputDirectiveAttributes) => {
-                let input = $(ele).find('input'),
-                    textarea = $(ele).find('textarea');
+            this.link = (scope, ele, attr: IOnClickFocusDirectiveAttributes) => {
+                let inputSelector = 'input, textarea, select',
+                    inputElement = $(ele).find(inputSelector);
 
-                if (attr.focus) {
-                    openmaths.FocusInputDirective.focus(input, textarea);
-                }
+                if (attr.focus) inputElement.attr('focus', 'true').focus();
 
-                ele.click(e => openmaths.FocusInputDirective.focus(input, textarea));
+                ele.bind('click focus', (e) => {
+                    _.forEach($(ele).siblings(), sibling => $(sibling).find(inputSelector).removeAttr('focus'));
+
+                    inputElement = $(ele).find(inputSelector);
+
+                    if (inputElement.attr('focus') == 'true' && e.type !== 'click') {
+                        inputElement.removeAttr('focus');
+                        $(ele).prev().focus();
+                        return false;
+                    }
+
+                    scope.$eval(attr.onClickFocus);
+                    scope.$apply();
+
+                    inputElement.attr('focus', 'true').focus();
+                });
             };
-        }
-
-        private static focus(input: JQuery, textarea: JQuery) {
-            if (input.length > 0) {
-                input.focus();
-            } else {
-                if (textarea.length > 0) {
-                    textarea.focus();
-                }
-            }
         }
 
         static init(): ng.IDirectiveFactory {
             return () => {
-                return new FocusInputDirective();
+                return new OnClickFocusDirective();
             };
         }
     }
 
     angular
         .module('openmaths')
-        .directive('focusInput', FocusInputDirective.init());
+        .directive('onClickFocus', OnClickFocusDirective.init());
 }

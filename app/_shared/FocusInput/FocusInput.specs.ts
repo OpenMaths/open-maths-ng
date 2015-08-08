@@ -3,7 +3,7 @@ module openmaths.specs {
 
     describe('FocusInput directive', () => {
         it('should have the directive constructor', () => {
-            expect(openmaths.FocusInputDirective.init).toBeDefined();
+            expect(openmaths.OnClickFocusDirective.init).toBeDefined();
         });
     });
 }

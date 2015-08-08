@@ -1,63 +1,70 @@
 <main id="ide">
     <div id="editor">
         <form action="">
-            <div class="form-control" focus-input focus="true"
+            <div class="form-control" focus="true" tabindex="1"
                  ng-class="{open: ContributeCtr.MutationForm.title.active}"
-                 ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.title.active = true">
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.title.active = true">
                 <label>
                     <i class="fa fa-header fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.title.label}}</span>
                 </label>
 
                 <div class="input-holder">
-                    <input type="text" ng-model="ContributeCtr.MutationForm.title.value"
+                    <input type="text" ng-model="ContributeCtr.MutationForm.title.value" tabindex="1"
                            placeholder="{{ContributeCtr.MutationForm.title.description}}"/>
                 </div>
             </div>
 
-            <div class="form-control"
+            <div class="form-control" tabindex="1"
                  ng-class="{open: ContributeCtr.MutationForm.umiType.active}"
-                 ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.umiType.active = true">
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.umiType.active = true">
                 <label>
                     <i class="fa fa-map-signs fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.umiType.label}}</span>
                 </label>
 
                 <div class="input-holder">
-                    <select name="">
+                    <select name="" tabindex="1">
                         <option value="">{{ContributeCtr.MutationForm.umiType.description}}</option>
                         <option value="">Choose 2</option>
                     </select>
                 </div>
             </div>
 
-            <div class="form-control content" focus-input ng-click="ContributeCtr.MutationForm.resetActive()">
+            <div class="form-control content" tabindex="1"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive()">
                 <label>
                     <i class="fa fa-file-text-o fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.content.label}}</span>
                 </label>
 
-                <textarea name="" id="" cols="30" rows="10" ng-model="ContributeCtr.MutationForm.content.value"
+                <textarea name="" id="" cols="30" rows="10" tabindex="1"
+                          ng-model="ContributeCtr.MutationForm.content.value"
                           placeholder="{{ContributeCtr.MutationForm.content.description}}"></textarea>
             </div>
 
-            <div class="form-control" focus-input
+            <div class="form-control" tabindex="1"
                  ng-controller="SearchController as SearchCtr"
                  ng-class="{open: ContributeCtr.MutationForm.prerequisiteDefinitionIds.active}"
-                 ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true">
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true">
                 <label>
                     <i class="fa fa-code-fork fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.label}}</span>
                 </label>
 
                 <div class="input-holder">
-                    <input type="text"
+                    <input type="text" tabindex="1"
                            ng-model="SearchCtr.term"
+                           ng-focus="ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true"
                            ng-keydown="SearchCtr.trigger($event, ContributeCtr.MutationForm.prerequisiteDefinitionIds.update)"
                            placeholder="{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.description}}"/>
                 </div>
 
-                <ul class="is-hidden search-results">
+                <ul class="search-results"
+                    ng-class="{'show':
+                    ContributeCtr.MutationForm.prerequisiteDefinitionIds.active
+                    && SearchCtr.term.length > 0
+                    && SearchCtr.searchResults.data.length > 0}">
                     <li ng-repeat="result in SearchCtr.searchResults.data"
                         ng-class="{active: $index == SearchCtr.searchResults.selected}">
                         <strong>{{result.title}}</strong>
@@ -67,22 +74,27 @@
                 </ul>
             </div>
 
-            <div class="form-control" focus-input
+            <div class="form-control" tabindex="1"
                  ng-controller="SearchController as SearchCtr"
                  ng-class="{open: ContributeCtr.MutationForm.seeAlsoIds.active}"
-                 ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true">
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true">
                 <label>
                     <i class="fa fa-code-fork fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.seeAlsoIds.label}}</span>
                 </label>
 
                 <div class="input-holder">
-                    <input ng-model="SearchCtr.term"
+                    <input type="text" tabindex="1"
+                           ng-model="SearchCtr.term" ng-focus="ContributeCtr.MutationForm.seeAlsoIds.active = true"
                            ng-keydown="SearchCtr.trigger($event, ContributeCtr.MutationForm.seeAlsoIds.update)"
-                           type="text" placeholder="{{ContributeCtr.MutationForm.seeAlsoIds.description}}"/>
+                           placeholder="{{ContributeCtr.MutationForm.seeAlsoIds.description}}"/>
                 </div>
 
-                <ul class="is-hidden search-results">
+                <ul class="search-results"
+                    ng-class="{'show':
+                    ContributeCtr.MutationForm.seeAlsoIds.active
+                    && SearchCtr.term.length > 0
+                    && SearchCtr.searchResults.data.length > 0}">
                     <li ng-repeat="result in SearchCtr.searchResults.data"
                         ng-class="{active: $index == SearchCtr.searchResults.selected}">
                         <strong>{{result.title}}</strong>
@@ -92,17 +104,16 @@
                 </ul>
             </div>
 
-            <div class="form-control" focus-input
-                 ng-class="{open: ContributeCtr.MutationForm.tags.active}"
-                 ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.tags.active = true">
+            <div class="form-control" tabindex="1"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.tags.active = true"
+                 ng-class="{open: ContributeCtr.MutationForm.tags.active}">
                 <label>
                     <i class="fa fa-tag fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.tags.label}}</span>
                 </label>
 
                 <div class="input-holder">
-                    <input type="text"
-                           data-ng-model="value"
+                    <input type="text" ng-model="value" tabindex="1"
                            ng-change="ContributeCtr.MutationForm.tags.parseCsv(value)"
                            placeholder="{{ContributeCtr.MutationForm.tags.description}}"/>
                 </div>
