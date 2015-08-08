@@ -39,6 +39,18 @@ module openmaths {
                 controller: 'DiveController',
                 controllerAs: 'DiveCtr',
             })
+            .state('contribute', {
+                url: '/contribute',
+                templateUrl: 'app/components/Contribute/contribute.html',
+                controller: 'ContributeController',
+                controllerAs: 'ContributeCtr',
+                uiConfig: {
+                    navigation: {
+                        hiding: false,
+                        transparent: false
+                    }
+                }
+            })
             .state('explore', {
                 url: '/explore',
                 templateUrl: 'app/components/Explore/explore.html',
