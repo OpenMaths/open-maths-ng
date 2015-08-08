@@ -42,6 +42,7 @@
             </div>
 
             <div class="form-control" focus-input
+                 ng-controller="SearchController as SearchCtr"
                  ng-class="{open: ContributeCtr.MutationForm.prerequisiteDefinitionIds.active}"
                  ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true">
                 <label>
@@ -51,35 +52,23 @@
 
                 <div class="input-holder">
                     <input type="text"
-                           placeholder="{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.description}}"
-                           value="Contr"/>
+                           ng-model="SearchCtr.term"
+                           ng-keydown="SearchCtr.trigger($event, ContributeCtr.MutationForm.prerequisiteDefinitionIds.update)"
+                           placeholder="{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.description}}"/>
                 </div>
 
                 <ul class="is-hidden search-results">
-                    <li class="active">
-                        <strong>
-                            <!--<i class="fa fa-fw fa-plus-circle"></i>-->
-                            <em>Contr</em>ibution Title
-                        </strong>
-                        <!--<span class="details">-->
-                        <small class="label">Definition</small>
+                    <li ng-repeat="result in SearchCtr.searchResults.data"
+                        ng-class="{active: $index == SearchCtr.searchResults.selected}">
+                        <strong>{{result.title}}</strong>
+                        <small class="label">{{result.umiType}}</small>
                         <i class="fa fa-eye"></i>
-                        <!--</span>-->
-                    </li>
-                    <li>
-                        <strong>
-                            <!--<i class="fa fa-fw fa-plus-circle"></i>-->
-                            Title of <em>Contr</em>ibution
-                        </strong>
-                        <!--<span class="details">-->
-                        <small class="label">Definition</small>
-                        <i class="fa fa-eye"></i>
-                        <!--</span>-->
                     </li>
                 </ul>
             </div>
 
             <div class="form-control" focus-input
+                 ng-controller="SearchController as SearchCtr"
                  ng-class="{open: ContributeCtr.MutationForm.seeAlsoIds.active}"
                  ng-click="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true">
                 <label>
@@ -88,9 +77,19 @@
                 </label>
 
                 <div class="input-holder">
-                    <input type="text" placeholder="{{ContributeCtr.MutationForm.seeAlsoIds.description}}"
-                           value="Contr"/>
+                    <input ng-model="SearchCtr.term"
+                           ng-keydown="SearchCtr.trigger($event, ContributeCtr.MutationForm.seeAlsoIds.update)"
+                           type="text" placeholder="{{ContributeCtr.MutationForm.seeAlsoIds.description}}"/>
                 </div>
+
+                <ul class="is-hidden search-results">
+                    <li ng-repeat="result in SearchCtr.searchResults.data"
+                        ng-class="{active: $index == SearchCtr.searchResults.selected}">
+                        <strong>{{result.title}}</strong>
+                        <small class="label">{{result.umiType}}</small>
+                        <i class="fa fa-eye"></i>
+                    </li>
+                </ul>
             </div>
 
             <div class="form-control" focus-input
@@ -111,7 +110,10 @@
 
         </div>
     </div>
-    <div id="preview">
+    <div id="preview" style="white-space: pre-line">
+        Title: {{ContributeCtr.MutationForm.title.value}}
+        Category: {{ContributeCtr.MutationForm.umiType.value}}
+        Content: {{ContributeCtr.MutationForm.content.value}}
 
     </div>
 </main>

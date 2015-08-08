@@ -27,16 +27,16 @@ module openmaths {
         [id: string]: ISearchResult;
     }
 
-    let navigationKeys: INavigationKeys = {
-        keyArrowDown: 40,
-        keyArrowUp: 38,
-        keyReturn: 13
-    };
+    export enum NavigationKeys {
+        keyArrowDown = 40,
+        keyArrowUp = 38,
+        keyReturn = 13
+    }
 
     export class SearchController {
         private Api: openmaths.Api;
 
-        trigger: (event: IKeyboardEvent) => void;
+        trigger: (event: IKeyboardEvent, onReturn?: Function) => void;
         searchResults: ISearchResults;
         autocompleteData: IAutocompleteData;
 
@@ -50,18 +50,17 @@ module openmaths {
 
             this.autocompleteData = {};
 
-            this.trigger = event => {
+            this.trigger = (event, onReturn) => {
                 switch (event.keyCode) {
-                    case navigationKeys.keyReturn:
-                        // Trigger Callback with current model
+                    case NavigationKeys.keyReturn:
                         event.preventDefault();
-                        this.updateAutocomplete('add');
+                        onReturn ? onReturn(this.searchResults.data[this.searchResults.selected]) : this.updateAutocomplete('add');
                         break;
-                    case navigationKeys.keyArrowDown:
+                    case NavigationKeys.keyArrowDown:
                         event.preventDefault();
                         this.navigate('down');
                         break;
-                    case navigationKeys.keyArrowUp:
+                    case NavigationKeys.keyArrowUp:
                         event.preventDefault();
                         this.navigate('up');
                         break;

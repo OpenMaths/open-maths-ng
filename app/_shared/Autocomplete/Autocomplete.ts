@@ -3,7 +3,7 @@ module openmaths {
 
     export class AutocompleteDirective implements ng.IDirective {
         restrict = 'E';
-        templateUrl = 'app/shared/Autocomplete/autocomplete.html';
+        templateUrl = 'app/_shared/Autocomplete/autocomplete.html';
         scope = true;
         replace = true;
 

@@ -13,8 +13,11 @@ module openmaths {
         active: boolean;
         description: string;
         label: string;
+        register?: Function,
         value: string;
     }
+
+    enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
 
     export class MutationForm {
         content: IMutationFormObject;
@@ -37,6 +40,7 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of valid dependency Titles',
                 label: 'Prerequisite Definitions',
+                update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
                 value: ''
             };
 
@@ -44,6 +48,7 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of valid Titles which may be related',
                 label: 'See Also',
+                update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
                 value: ''
             };
 
@@ -81,6 +86,11 @@ module openmaths {
             _.forEach(this, (formObject: IMutationFormObject) => {
                 if (formObject.active) formObject.active = false;
             });
+        }
+
+        private updateValues(selector: UpdateValues, resolveObject: ISearchResult) {
+            console.log(selector);
+            console.log(resolveObject);
         }
     }
 

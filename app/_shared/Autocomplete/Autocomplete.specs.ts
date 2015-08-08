@@ -33,7 +33,7 @@ module openmaths.specs {
                 autocompleteData: autocompleteData
             };
 
-            $templateCache.put('app/shared/Autocomplete/autocomplete.html', '<ul><li ng-repeat="tag in SearchCtr.autocompleteData">{{tag}}</li></ul>');
+            $templateCache.put('app/_shared/Autocomplete/autocomplete.html', '<ul><li ng-repeat="tag in SearchCtr.autocompleteData">{{tag}}</li></ul>');
 
             element = angular.element('<autocomplete></autocomplete>');
 
