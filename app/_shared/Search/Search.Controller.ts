@@ -1,12 +1,6 @@
 module openmaths {
     'use strict';
 
-    interface INavigationKeys {
-        keyArrowDown: number;
-        keyArrowUp: number;
-        keyReturn: number;
-    }
-
     interface IKeyboardEvent extends ng.IAngularEvent {
         keyCode: number;
     }

@@ -37,7 +37,7 @@
                     <span>{{ContributeCtr.MutationForm.content.label}}</span>
                 </label>
 
-                <textarea name="" id="" cols="30" rows="10"
+                <textarea name="" id="" cols="30" rows="10" ng-model="ContributeCtr.MutationForm.content.value"
                           placeholder="{{ContributeCtr.MutationForm.content.description}}"></textarea>
             </div>
 
@@ -101,7 +101,10 @@
                 </label>
 
                 <div class="input-holder">
-                    <input type="text" placeholder="{{ContributeCtr.MutationForm.tags.description}}"/>
+                    <input type="text"
+                           data-ng-model="value"
+                           ng-change="ContributeCtr.MutationForm.tags.parseCsv(value)"
+                           placeholder="{{ContributeCtr.MutationForm.tags.description}}"/>
                 </div>
             </div>
         </form>
@@ -112,9 +115,20 @@
     </div>
     <div id="preview" style="white-space: pre-line">
         Title: {{ContributeCtr.MutationForm.title.value}}
+
         Category: {{ContributeCtr.MutationForm.umiType.value}}
+
         Content: {{ContributeCtr.MutationForm.content.value}}
 
+        PrerequisiteDefinitions:
+        <span style="display: block;"
+              ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">{{title}}</span>
+
+        See Also:
+        <span style="display: block;"
+              ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">{{title}}</span>
+
+        Tags: {{ContributeCtr.MutationForm.tags.value}}
     </div>
 </main>
 

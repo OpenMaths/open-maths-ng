@@ -13,11 +13,12 @@ module openmaths {
         active: boolean;
         description: string;
         label: string;
-        register?: Function,
-        value: string;
+        update?: Function;
+        parseCsv?: Function;
+        value: any;
     }
 
-    enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
+    export enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
 
     export class MutationForm {
         content: IMutationFormObject;
@@ -41,7 +42,7 @@ module openmaths {
                 description: 'Comma-separated list of valid dependency Titles',
                 label: 'Prerequisite Definitions',
                 update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
-                value: ''
+                value: {}
             };
 
             this.seeAlsoIds = {
@@ -49,13 +50,14 @@ module openmaths {
                 description: 'Comma-separated list of valid Titles which may be related',
                 label: 'See Also',
                 update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
-                value: ''
+                value: {}
             };
 
             this.tags = {
                 active: false,
                 description: 'Comma-separated list of tags to help users find your contribution.',
                 label: 'Tags',
+                parseCsv: (data) => this.tags.value = openmaths.CsvParser.parse(data),
                 value: ''
             };
 
@@ -88,9 +90,15 @@ module openmaths {
             });
         }
 
-        private updateValues(selector: UpdateValues, resolveObject: ISearchResult) {
-            console.log(selector);
-            console.log(resolveObject);
+        updateValues(selector: UpdateValues, resolveObject: ISearchResult) {
+            switch (selector) {
+                case UpdateValues.PrerequisiteDefinitions:
+                    this.prerequisiteDefinitionIds.value[resolveObject.id] = resolveObject.title;
+                    break;
+                case UpdateValues.SeeAlso:
+                    this.seeAlsoIds.value[resolveObject.id] = resolveObject.title;
+                    break;
+            }
         }
     }
 
