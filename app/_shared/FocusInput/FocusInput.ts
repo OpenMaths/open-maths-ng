@@ -4,6 +4,7 @@ module openmaths {
     interface IOnClickFocusDirectiveAttributes extends ng.IAttributes {
         focus: boolean;
         onClickFocus: string;
+        selectOnFocus: boolean;
     }
 
     export class OnClickFocusDirective implements ng.IDirective {
@@ -31,6 +32,8 @@ module openmaths {
 
                     scope.$eval(attr.onClickFocus);
                     scope.$apply();
+
+                    if (attr.selectOnFocus) inputElement.select();
 
                     inputElement.attr('focus', 'true').focus();
                 });

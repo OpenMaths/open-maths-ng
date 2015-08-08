@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="form-control content" tabindex="1"
+            <div class="form-control content" tabindex="1" select-on-focus="true"
                  on-click-focus="ContributeCtr.MutationForm.resetActive()">
                 <label>
                     <i class="fa fa-file-text-o fa-fw"></i>
@@ -79,7 +79,7 @@
                  ng-class="{open: ContributeCtr.MutationForm.seeAlsoIds.active}"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true">
                 <label>
-                    <i class="fa fa-code-fork fa-fw"></i>
+                    <i class="fa fa-book fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.seeAlsoIds.label}}</span>
                 </label>
 
@@ -124,22 +124,74 @@
 
         </div>
     </div>
-    <div id="preview" style="white-space: pre-line">
-        Title: {{ContributeCtr.MutationForm.title.value}}
+    <div id="preview">
+        <div class="umi">
+            <!--<div class="controls-holder top">-->
+            <!--<div class="controls details">-->
+            <!--<i class="fa fa-info-circle"></i>-->
+            <!--<span class="icon-label">Details</span>-->
+            <!--</div>-->
+            <!--<div class="controls expand">-->
+            <!--<i class="fa fa-expand"></i>-->
+            <!--<span class="icon-label">Full-Screen</span>-->
+            <!--</div>-->
+            <!--</div>-->
 
-        Category: {{ContributeCtr.MutationForm.umiType.value}}
+            <!--<div class="controls-holder left top">-->
+            <!--<div class="controls upvote">-->
+            <!--<i class="fa fa-thumbs-o-up"></i>-->
+            <!--<span class="icon-label">Upvote</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="controls-holder left bottom">-->
+            <!--<div class="controls downvote">-->
+            <!--<i class="fa fa-thumbs-o-down"></i>-->
+            <!--<span class="icon-label">Downvote</span>-->
+            <!--</div>-->
+            <!--</div>-->
 
-        Content: {{ContributeCtr.MutationForm.content.value}}
+            <div class="content" scroll>
+                <article class="flex center-vertically">
+                    <div class="wrapper">
+                        <small class="label">
+                            {{ContributeCtr.MutationForm.umiType.value || 'Contribution Category'}}
+                        </small>
+                        <strong class="heading block">
+                            {{ContributeCtr.MutationForm.title.value || 'Contribution Title'}}
+                        </strong>
 
-        PrerequisiteDefinitions:
-        <span style="display: block;"
-              ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">{{title}}</span>
+                        <main om-bind="ContributeCtr.MutationForm.content.value"></main>
 
-        See Also:
-        <span style="display: block;"
-              ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">{{title}}</span>
-
-        Tags: {{ContributeCtr.MutationForm.tags.value}}
+                        <div class="additional-info">
+                            <div class="info-unit">
+                                <header>
+                                    <i class="fa fa-code-fork fa-fw"></i>
+                                    Prerequisite Definitions
+                                </header>
+                                <span class="label"
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">{{title}}</span>
+                            </div>
+                            <div class="info-unit">
+                                <header>
+                                    <i class="fa fa-book fa-fw"></i>
+                                    See Also
+                                </header>
+                                <span class="label"
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">{{title}}</span>
+                            </div>
+                            <div class="info-unit">
+                                <header>
+                                    <i class="fa fa-tag fa-fw"></i>
+                                    Tags
+                                </header>
+                                <span class="label"
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.tags.value">{{title}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
     </div>
 </main>
 

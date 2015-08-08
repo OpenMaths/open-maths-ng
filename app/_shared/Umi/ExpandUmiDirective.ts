@@ -30,7 +30,6 @@ module openmaths {
     export class ExpandUmiDirective implements ng.IDirective {
         link;
         restrict = 'A';
-        scope = true;
         templateUrl = 'app/_shared/Umi/expandUmi.html';
 
         constructor() {

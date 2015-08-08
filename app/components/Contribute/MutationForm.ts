@@ -34,7 +34,7 @@ module openmaths {
                 active: false,
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
                 label: 'Content',
-                value: ''
+                value: 'C\'mon! Write some LaTeX to see me work! :-)'
             };
 
             this.prerequisiteDefinitionIds = {
