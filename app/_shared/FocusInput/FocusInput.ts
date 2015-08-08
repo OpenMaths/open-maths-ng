@@ -1,18 +1,35 @@
 module openmaths {
     'use strict';
 
+    interface IFocusInputDirectiveAttributes extends ng.IAttributes {
+        focus: boolean;
+    }
+
     export class FocusInputDirective implements ng.IDirective {
         link;
         restrict = 'A';
 
         constructor() {
-            this.link = (scope, ele) => {
-                ele.click(e => {
-                    let input = $(e.currentTarget).find('input');
+            this.link = (scope, ele, attr: IFocusInputDirectiveAttributes) => {
+                let input = $(ele).find('input'),
+                    textarea = $(ele).find('textarea');
 
-                    input.focus();
-                });
+                if (attr.focus) {
+                    openmaths.FocusInputDirective.focus(input, textarea);
+                }
+
+                ele.click(e => openmaths.FocusInputDirective.focus(input, textarea));
             };
+        }
+
+        private static focus(input: JQuery, textarea: JQuery) {
+            if (input.length > 0) {
+                input.focus();
+            } else {
+                if (textarea.length > 0) {
+                    textarea.focus();
+                }
+            }
         }
 
         static init(): ng.IDirectiveFactory {

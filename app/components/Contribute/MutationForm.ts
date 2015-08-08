@@ -12,6 +12,7 @@ module openmaths {
     export interface IMutationFormObject {
         active: boolean;
         description: string;
+        label: string;
         value: string;
     }
 
@@ -28,30 +29,35 @@ module openmaths {
             this.content = {
                 active: false,
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
+                label: 'Content',
                 value: ''
             };
 
             this.prerequisiteDefinitionIds = {
                 active: false,
                 description: 'Comma-separated list of valid dependency Titles',
+                label: 'Prerequisite Definitions',
                 value: ''
             };
 
             this.seeAlsoIds = {
                 active: false,
                 description: 'Comma-separated list of valid Titles which may be related',
+                label: 'See Also',
                 value: ''
             };
 
             this.tags = {
                 active: false,
                 description: 'Comma-separated list of tags to help users find your contribution.',
+                label: 'Tags',
                 value: ''
             };
 
             this.title = {
-                active: false,
+                active: true,
                 description: 'Users will be able to search your contribution',
+                label: 'Contribution Title',
                 value: ''
             };
 
@@ -59,12 +65,14 @@ module openmaths {
             this.titleSynonyms = {
                 active: false,
                 description: 'Comma-separated list of alternative names.',
+                label: 'Title Synonyms',
                 value: ''
             };
 
             this.umiType = {
                 active: false,
                 description: 'What category of information?',
+                label: 'Contribution Category',
                 value: ''
             };
         }
