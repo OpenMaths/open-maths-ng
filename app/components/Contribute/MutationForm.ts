@@ -4,6 +4,7 @@ module openmaths {
     export interface IMutationFormObject {
         active: boolean;
         description: string;
+        error?: boolean;
         label: string;
         options?: any;
         remove?: Function;
@@ -11,6 +12,7 @@ module openmaths {
         parseCsv?: Function;
         value: any;
         valueMeta?: any;
+        valueParsed?: string;
     }
 
     export enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
@@ -28,8 +30,10 @@ module openmaths {
             this.content = {
                 active: false,
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
+                error: false,
                 label: 'Content',
-                value: 'C\'mon! Write some LaTeX to see me work! :-)'
+                value: 'C\'mon - Write some LaTeX to see me work! :-)',
+                valueParsed: ''
             };
 
             this.prerequisiteDefinitionIds = {

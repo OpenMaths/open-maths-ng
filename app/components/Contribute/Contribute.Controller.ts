@@ -24,16 +24,26 @@ module openmaths {
                         .do(() => {
                             openmaths.Logger.debug('LaTeX to HTML translation in progress');
 
+                            // @TODO if does not work move up a level
                             this.parsingInProgress = true;
                         })
-                        .catch(e => {
-                            openmaths.Logger.error(e);
+                        .catch(error => {
+                            let response = openmaths.Api.response(error);
+
+                            openmaths.Logger.error(response);
+
+                            this.MutationForm.content.error = true;
+                            this.MutationForm.content.valueParsed = response.data;
 
                             return Rx.Observable.empty();
                         })
-                        .map(result => openmaths.Api.response(result))
                         .subscribe(result => {
-                            console.log(result);
+                            let response = openmaths.Api.response(result);
+
+                            openmaths.Logger.info(response);
+
+                            this.MutationForm.content.error = false;
+                            this.MutationForm.content.valueParsed = response.data;
 
                             this.parsingInProgress = false;
                         });
