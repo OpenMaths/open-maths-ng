@@ -50,4 +50,53 @@ module openmaths.specs {
             expect(model.seeAlsoIds.value['toBeRemoved']).toBeUndefined();
         });
     });
+
+    describe('SubmitMutation model', () => {
+        beforeEach(module('openmaths'));
+
+        let Api: openmaths.Api;
+        let $httpBackend: ng.IHttpBackendService;
+        let model: openmaths.SubmitMutation;
+
+        beforeEach(inject((_Api_: openmaths.Api,
+                           _$httpBackend_: ng.IHttpBackendService) => {
+            Api = _Api_;
+            $httpBackend = _$httpBackend_;
+
+            model = new openmaths.SubmitMutation(Api);
+        }));
+
+        afterEach(function () {
+            $httpBackend.verifyNoOutstandingExpectation();
+            $httpBackend.verifyNoOutstandingRequest();
+        });
+
+        it('should be able to return a latexToHtml promise', () => {
+            let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().latexToHtml,
+                payload = {
+                    auth: {
+                        accessToken: '',
+                        gPlusId: ''
+                    },
+                    s: 'htmlContent'
+                };
+
+            $httpBackend.expectPOST(addr).respond(200, 'htmlContent');
+
+            model.latexToHtmlPromise(payload).then(result => expect(result.data).toEqual('htmlContent'));
+
+            $httpBackend.flush();
+        });
+
+        it('should be able to return a createUmi promise', () => {
+            let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().createUmi,
+                payload = new openmaths.Mutation(new openmaths.MutationForm());
+
+            $httpBackend.expectPOST(addr).respond(200, 'success');
+
+            model.createUmiPromise(payload).then(result => expect(result.data).toEqual('success'));
+
+            $httpBackend.flush();
+        });
+    });
 }

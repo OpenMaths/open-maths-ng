@@ -7,20 +7,22 @@ module openmaths {
 
         parsingInProgress: boolean;
 
-        constructor($scope: ng.IScope, $http: ng.IHttpService) {
+        constructor($scope: ng.IScope, public $http: ng.IHttpService) {
             this.MutationForm = new openmaths.MutationForm;
-            this.SubmitMutation = new openmaths.SubmitMutation(new openmaths.Api($http));
+            this.SubmitMutation = new openmaths.SubmitMutation(new openmaths.Api(this.$http));
+
+            this.parsingInProgress = false;
 
             openmaths.ReactiveX.watchModel($scope, 'ContributeCtr.MutationForm.content.value')
                 .throttle(500)
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .subscribe((d: string) => {
-                    let data = {
+                    let payload = {
                         auth: openmaths.SessionStorage.get('omUser'),
                         s: d
                     };
 
-                    Rx.Observable.fromPromise(this.SubmitMutation.latexToHtmlPromise(data))
+                    Rx.Observable.fromPromise(this.SubmitMutation.latexToHtmlPromise(payload))
                         .do(() => {
                             openmaths.Logger.debug('LaTeX to HTML translation in progress');
 
@@ -48,6 +50,10 @@ module openmaths {
                             this.parsingInProgress = false;
                         });
                 });
+        }
+
+        createUmi() {
+            console.log(new openmaths.Mutation(this.MutationForm));
         }
     }
 

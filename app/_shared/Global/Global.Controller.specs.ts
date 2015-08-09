@@ -33,6 +33,10 @@ module openmaths.specs {
             controller = new openmaths.GlobalController(Authentication, $rootScope, $window);
         }));
 
+        afterEach(() => {
+            openmaths.SessionStorage.remove('omUser');
+        });
+
         it('should create a new controller', () => {
             expect(controller).toBeDefined();
         });
@@ -73,6 +77,21 @@ module openmaths.specs {
             $window.gApiInitialised();
 
             expect(controller.gApiInitialised).toBe(true);
+        });
+
+        it('should have the signIn method attached to its scope', () => {
+            expect(controller.signIn).toBeDefined();
+        });
+
+        it('should correctly evaluate whether a user is signed in', () => {
+            expect(openmaths.GlobalController.isSignedIn()).toEqual(false);
+
+            openmaths.SessionStorage.set('omUser', {
+                accessToken: 'accessToken_test',
+                gPlusId: 'gPlusId_test'
+            });
+
+            expect(openmaths.GlobalController.isSignedIn()).toEqual(true);
         });
     });
 }

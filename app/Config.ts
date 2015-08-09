@@ -8,9 +8,10 @@ module openmaths {
     }
 
     export interface IApiRoutes {
-        search: string;
+        createUmi: string;
         getUmiById: string;
         getUmiByTitle: string;
+        search: string;
         latexToHtml: string;
     }
 
@@ -32,10 +33,11 @@ module openmaths {
         test: 'http://api.om.dev/'
     };
     let apiRoutes: IApiRoutes = {
-        search: 'search/',
+        createUmi: 'add',
         getUmiById: 'id/',
         getUmiByTitle: 'title/',
-        latexToHtml: 'latex-to-html'
+        latexToHtml: 'latex-to-html',
+        search: 'search/'
     };
     let productionHost: string = 'openmaths.io';
     let testHost: string = 'localhost:8087';

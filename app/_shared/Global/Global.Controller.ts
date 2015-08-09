@@ -32,15 +32,22 @@ module openmaths {
             });
         }
 
+        // @TODO abstract into a util or sth..
         static isSignedIn(): boolean {
+            // @TODO abstract into a util or sth..
             let omUser = openmaths.SessionStorage.get('omUser');
 
-            return omUser.gPlusId && omUser.accessToken;
+            return !_.isEmpty(omUser.gPlusId) && !_.isEmpty(omUser.accessToken);
         }
 
         signIn() {
             if (this.gApiInitialised && !openmaths.GlobalController.isSignedIn()) this.Authentication.gApiLogin();
         }
+
+        // @TODO implement
+        //signOut() {
+        //    if (this.gApiInitialised && openmaths.GlobalController.isSignedIn()) this.Authentication.gApiLogout();
+        //}
     }
 
     angular

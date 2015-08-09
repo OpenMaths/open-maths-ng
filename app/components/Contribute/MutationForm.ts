@@ -130,26 +130,46 @@ module openmaths {
     }
 
     export class SubmitMutation {
-        auth: {
-            accessToken: string;
-            gPlusId: string;
-        };
-        // Initialise UMI
-        message: string;
-        umiType: string;
-        title: string;
-        titleSynonyms: string[];
-        content: string;
-        prerequisiteDefinitionIds: string[];
-        seeAlsoIds: string[];
-        tags: string[];
-
         constructor(public Api: openmaths.Api) {
-
         }
 
         latexToHtmlPromise(content: ILatexToHtmlPromisePayload): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().latexToHtml, content);
+        }
+
+        createUmiPromise(payload: openmaths.Mutation) {
+            return this.Api.post(openmaths.Config.getApiRoutes().createUmi, payload);
+        }
+    }
+
+    export class Mutation {
+        auth: IAuth;
+        content: string;
+        message: string;
+        prerequisiteDefinitionIds: string[];
+        seeAlsoIds: string[];
+        tags: string[];
+        title: string;
+        titleSynonyms: string[];
+        umiType: string;
+
+        constructor(MutationForm: openmaths.MutationForm) {
+            // @TODO abstract into a util or sth..
+            let omUser = openmaths.SessionStorage.get('omUser');
+
+            this.auth = {
+                // @TODO refactor cruft
+                accessToken: omUser.accessToken ? omUser.accessToken : '',
+                gPlusId: omUser.gPlusId ? omUser.accessToken : ''
+            };
+            this.content = MutationForm.content.value;
+            this.message = 'Initialise UMI';
+            this.prerequisiteDefinitionIds = _.keys(MutationForm.prerequisiteDefinitionIds.value);
+            this.seeAlsoIds = _.keys(MutationForm.seeAlsoIds.value);
+            this.tags = MutationForm.tags.value;
+            this.title = MutationForm.title.value;
+            this.titleSynonyms = MutationForm.titleSynonyms.value;
+            this.umiType = MutationForm.umiType.value;
         }
     }
 }

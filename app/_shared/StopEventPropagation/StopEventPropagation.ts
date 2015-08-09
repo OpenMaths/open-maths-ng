@@ -3,7 +3,6 @@ module openmaths {
 
     export class StopEventPropagationDirective implements ng.IDirective {
         link;
-        scope = true;
         restrict = 'A';
 
         constructor() {

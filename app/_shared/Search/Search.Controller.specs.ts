@@ -4,9 +4,9 @@ module openmaths.specs {
     describe('SearchController', () => {
         beforeEach(module('openmaths'));
 
-        let Api;
+        let Api: openmaths.Api;
         let controller: openmaths.SearchController;
-        let $httpBackend;
+        let $httpBackend: ng.IHttpBackendService;
         let $rootScope: ng.IRootScopeService;
         let searchResult: ISearchResults;
 
@@ -46,9 +46,7 @@ module openmaths.specs {
         it('should be able to return a search promise', () => {
             $httpBackend.expectGET(openmaths.Config.getApiUrl() + 'search/hello').respond(200, searchResult.data);
 
-            let promise = controller.searchPromise('hello');
-
-            promise.then(result => {
+            controller.searchPromise('hello').then(result => {
                 expect(result.data).toEqual(searchResult.data);
             });
 
