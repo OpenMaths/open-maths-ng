@@ -17,6 +17,7 @@ module openmaths {
         update?: Function;
         parseCsv?: Function;
         value: any;
+        valueMeta?: any;
     }
 
     export enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
@@ -60,8 +61,10 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of tags to help users find your contribution.',
                 label: 'Tags',
-                parseCsv: (data) => this.tags.value = openmaths.CsvParser.parse(data),
-                value: ''
+                parseCsv: () => this.tags.value = openmaths.CsvParser.parse(this.tags.valueMeta),
+                remove: (label: string) => this.removeTag(label),
+                value: [],
+                valueMeta: ''
             };
 
             this.title = {
@@ -113,6 +116,13 @@ module openmaths {
                     delete this.seeAlsoIds.value[id];
                     break;
             }
+        }
+
+        removeTag(label) {
+            let newCsvData = openmaths.CsvParser.removeFromList(this.tags.value, label);
+
+            this.tags.value = newCsvData.list;
+            this.tags.valueMeta = newCsvData.value;
         }
     }
 

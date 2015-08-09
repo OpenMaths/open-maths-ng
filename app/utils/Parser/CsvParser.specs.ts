@@ -12,9 +12,16 @@ module openmaths.specs {
 
     describe('CsvParser module', () => {
         _.forEach(scenarios, scenario => {
-            it ('should correctly parse csv into an array', () => {
+            it('should correctly parse csv into an array', () => {
                 expect(openmaths.CsvParser.parse(scenario.value)).toEqual(scenario.expected);
             });
         });
+
+        it('should correctly remove an element from a list', () => {
+            expect(openmaths.CsvParser.removeFromList(['a', 'b', 'c'], 'b')).toEqual({
+                list: ['a', 'c'],
+                value: 'a, c'
+            });
+        })
     });
 }

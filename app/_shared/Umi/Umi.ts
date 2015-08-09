@@ -67,4 +67,66 @@ module openmaths {
             return initObject;
         }
     }
+
+    export interface IUmiType {
+        label: string;
+        formal?: boolean;
+        meta?: boolean;
+    }
+
+    export class UmiTypes {
+        Axiom: IUmiType = {
+            label: 'Axiom',
+            formal: true
+        };
+        AxiomScheme: IUmiType = {
+            label: 'Axiom Scheme',
+            formal: true
+        };
+        Conjecture: IUmiType = {
+            label: 'Conjecture',
+        };
+        Corollary: IUmiType = {
+            label: 'Corollary',
+        };
+        Definition: IUmiType = {
+            label: 'Definition',
+            formal: true,
+            meta: true
+        };
+        Diagram: IUmiType = {
+            label: 'Diagram',
+        };
+        Documentation: IUmiType = {
+            label: 'Documentation',
+        };
+        Example: IUmiType = {
+            label: 'Example',
+        };
+        HistoricalNote: IUmiType = {
+            label: 'Historical Note',
+        };
+        Lemma: IUmiType = {
+            label: 'Lemma',
+        };
+        Notation: IUmiType = {
+            label: 'Notation',
+            formal: true
+        };
+        PartialTheorem: IUmiType = {
+            label: 'Partial Theorem',
+        };
+        PhilosophicalJustification: IUmiType = {
+            label: 'Philosophical Justification',
+        };
+        Proof: IUmiType = {
+            label: 'Proof',
+        };
+        Special: IUmiType = {
+            label: 'Special',
+        };
+        Theorem: IUmiType = {
+            label: 'Theorem',
+        };
+    }
 }

@@ -117,8 +117,8 @@
                 </label>
 
                 <div class="input-holder">
-                    <input type="text" ng-model="value" tabindex="1"
-                           ng-change="ContributeCtr.MutationForm.tags.parseCsv(value)"
+                    <input type="text" ng-model="ContributeCtr.MutationForm.tags.valueMeta" tabindex="1"
+                           ng-change="ContributeCtr.MutationForm.tags.parseCsv()"
                            placeholder="{{ContributeCtr.MutationForm.tags.description}}"/>
                 </div>
             </div>
@@ -197,10 +197,10 @@
                                     Tags
                                 </header>
                                 <span class="label"
-                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.tags.value">
-                                    {{title}}
+                                      ng-repeat="label in ContributeCtr.MutationForm.tags.value">
+                                    {{label}}
                                     <i class="link"
-                                       ng-click="ContributeCtr.MutationForm.tags.remove(id)">&times;</i>
+                                       ng-click="ContributeCtr.MutationForm.tags.remove(label)">&times;</i>
                                 </span>
                             </div>
                         </div>
