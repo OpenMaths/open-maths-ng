@@ -227,17 +227,18 @@
             <span class="icon-label">Locked</span>
         </div>
 
-        <div class="indicator parsed active">
+        <div class="indicator parsed hidden" ng-class="{show: !ContributeCtr.MutationForm.content.error}">
             <i class="fa fa-check"></i>
             <span class="icon-label">Parsed</span>
         </div>
-        <div class="indicator error-parsing is-hidden">
+
+        <div class="indicator error-parsing hidden" ng-class="{show: ContributeCtr.MutationForm.content.error}">
             <i class="fa fa-times"></i>
             <span class="icon-label">Error Parsing</span>
         </div>
     </div>
 
-    <div class="save">
+    <div class="save" ng-class="{disabled: ContributeCtr.MutationForm.content.error}">
         <span class="icon-label">Submit</span>
         <i class="fa fa-angle-right"></i>
     </div>

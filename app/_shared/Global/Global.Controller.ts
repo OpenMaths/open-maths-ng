@@ -11,21 +11,11 @@ module openmaths {
         gApiInitialised: boolean = false;
         uiConfig: IUiConfig;
 
-        constructor(private Authentication: openmaths.Authentication,
+        constructor(public Authentication: openmaths.Authentication,
                     private $rootScope: ng.IRootScopeService,
                     private $window: IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
                 this.gApiInitialised = true;
-
-                // @TODO
-                // different location for this after development
-                let omUser = openmaths.SessionStorage.get('omUser');
-
-                if (omUser.gPlusId && omUser.accessToken) {
-                    console.log(omUser);
-                } else {
-                    Authentication.gApiLogin();
-                }
 
                 openmaths.Logger.debug('gApi successfully initialised');
             };
@@ -40,6 +30,16 @@ module openmaths {
                 this.uiConfig = openmaths.Config.getUiConfig();
                 this.uiConfig.currentState = toState.uiConfig;
             });
+        }
+
+        static isSignedIn(): boolean {
+            let omUser = openmaths.SessionStorage.get('omUser');
+
+            return omUser.gPlusId && omUser.accessToken;
+        }
+
+        signIn() {
+            if (this.gApiInitialised && !openmaths.GlobalController.isSignedIn()) this.Authentication.gApiLogin();
         }
     }
 

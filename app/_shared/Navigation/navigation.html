@@ -1,5 +1,5 @@
 <nav id="primary"
-     ng-class="{'transparent': config.currentState.navigation.transparent, 'hidden': config.currentState.navigation.hiding}">
+     ng-class="{'transparent': GlobalCtr.uiConfig.currentState.navigation.transparent, 'hidden': GlobalCtr.uiConfig.currentState.navigation.hiding}">
     <ul>
         <li ui-sref-active="active">
             <a href ui-sref="explore">
@@ -33,7 +33,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a ng-click="GlobalCtr.signIn()">
                 <i class="fa fa-sign-in"></i>
                 <span class="icon-label">Sign In with Google</span>
             </a>

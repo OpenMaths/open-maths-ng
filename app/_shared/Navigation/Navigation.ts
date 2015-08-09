@@ -5,7 +5,7 @@ module openmaths {
     }
 
     export interface INavigationDirectiveScope extends ng.IScope {
-        config: IUiConfig;
+        GlobalCtr: openmaths.GlobalController;
     }
 
     angular
@@ -16,9 +16,6 @@ module openmaths {
         link;
         restrict = 'E';
         replace = true;
-        scope = {
-            config: '='
-        };
         templateUrl = 'app/_shared/Navigation/navigation.html';
 
         constructor(private NavigationFactory: openmaths.NavigationFactory) {
