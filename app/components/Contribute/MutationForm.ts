@@ -13,6 +13,7 @@ module openmaths {
         active: boolean;
         description: string;
         label: string;
+        remove?: Function;
         update?: Function;
         parseCsv?: Function;
         value: any;
@@ -41,6 +42,7 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of valid dependency Titles',
                 label: 'Prerequisite Definitions',
+                remove: (id: string) => this.removeValues(UpdateValues.PrerequisiteDefinitions, id),
                 update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
                 value: {}
             };
@@ -49,6 +51,7 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of valid Titles which may be related',
                 label: 'See Also',
+                remove: (id: string) => this.removeValues(UpdateValues.SeeAlso, id),
                 update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
                 value: {}
             };
@@ -97,6 +100,17 @@ module openmaths {
                     break;
                 case UpdateValues.SeeAlso:
                     this.seeAlsoIds.value[resolveObject.id] = resolveObject.title;
+                    break;
+            }
+        }
+
+        removeValues(selector: UpdateValues, id: string) {
+            switch (selector) {
+                case UpdateValues.PrerequisiteDefinitions:
+                    delete this.prerequisiteDefinitionIds.value[id];
+                    break;
+                case UpdateValues.SeeAlso:
+                    delete this.seeAlsoIds.value[id];
                     break;
             }
         }

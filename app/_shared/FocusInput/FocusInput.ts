@@ -5,6 +5,7 @@ module openmaths {
         focus: boolean;
         onClickFocus: string;
         selectOnFocus: boolean;
+        stopIf: boolean;
     }
 
     export class OnClickFocusDirective implements ng.IDirective {
@@ -12,6 +13,7 @@ module openmaths {
         scope = true;
         restrict = 'A';
 
+        // @TODO clean cruft and test
         constructor() {
             this.link = (scope, ele, attr: IOnClickFocusDirectiveAttributes) => {
                 let inputSelector = 'input, textarea, select',
@@ -24,18 +26,23 @@ module openmaths {
 
                     inputElement = $(ele).find(inputSelector);
 
-                    if (inputElement.attr('focus') == 'true' && e.type !== 'click') {
+                    if (inputElement.attr('focus') == 'true' && e.type == 'focus') {
+                        if (scope.$eval(attr.stopIf)) return false;
+
                         inputElement.removeAttr('focus');
                         $(ele).prev().focus();
-                        return false;
+                    } else {
+                        scope.$eval(attr.onClickFocus);
+                        scope.$apply();
+
+                        if (attr.selectOnFocus) inputElement.select();
+
+                        inputElement.attr('focus', 'true').focus();
                     }
+                });
 
-                    scope.$eval(attr.onClickFocus);
-                    scope.$apply();
-
-                    if (attr.selectOnFocus) inputElement.select();
-
-                    inputElement.attr('focus', 'true').focus();
+                scope.$on('$destroy', () => {
+                    scope.$on('$destroy', () => ele.unbind());
                 });
             };
         }

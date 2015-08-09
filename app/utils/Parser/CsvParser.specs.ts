@@ -4,6 +4,8 @@ module openmaths.specs {
     let scenarios = [
         {value: '', expected: []},
         {value: ' test ', expected: ['test']},
+        {value: ' test,test', expected: ['test']},
+        {value: ' test,test,', expected: ['test']},
         {value: 'test1, test 2', expected: ['test1', 'test 2']},
         {value: '  test 1 , test  2,test 3, test4', expected: ['test 1', 'test  2', 'test 3', 'test4']}
     ];

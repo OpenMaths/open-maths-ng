@@ -34,11 +34,20 @@ module openmaths.specs {
             });
         });
 
-        // @TODO execute for more scenarios
+        // @TODO test with more diverse scenarios
         it('should correctly update seeAlso values when instructed', () => {
             model.updateValues(UpdateValues.SeeAlso, testSearchResult);
 
             expect(model.seeAlsoIds.value['testId']).toEqual('testTitle');
+        });
+
+        // @TODO test with more diverse scenarios
+        it('should correctly remove seeAlso value when instructed', () => {
+            model.seeAlsoIds.value['toBeRemoved'] = 'value';
+
+            model.removeValues(UpdateValues.SeeAlso, 'toBeRemoved');
+
+            expect(model.seeAlsoIds.value['toBeRemoved']).toBeUndefined();
         });
     });
 }

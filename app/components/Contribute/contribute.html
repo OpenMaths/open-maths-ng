@@ -46,7 +46,8 @@
             <div class="form-control" tabindex="1"
                  ng-controller="SearchController as SearchCtr"
                  ng-class="{open: ContributeCtr.MutationForm.prerequisiteDefinitionIds.active}"
-                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true">
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true"
+                 stop-if="SearchCtr.searchResults.data.length > 0 && SearchCtr.term.length > 0">
                 <label>
                     <i class="fa fa-code-fork fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.label}}</span>
@@ -60,13 +61,14 @@
                            placeholder="{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.description}}"/>
                 </div>
 
-                <ul class="search-results"
+                <ul class="search-results" stop-event-propagation
                     ng-class="{'show':
                     ContributeCtr.MutationForm.prerequisiteDefinitionIds.active
                     && SearchCtr.term.length > 0
                     && SearchCtr.searchResults.data.length > 0}">
                     <li ng-repeat="result in SearchCtr.searchResults.data"
-                        ng-class="{active: $index == SearchCtr.searchResults.selected}">
+                        ng-class="{active: $index == SearchCtr.searchResults.selected}"
+                        ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.update(result)">
                         <strong>{{result.title}}</strong>
                         <small class="label">{{result.umiType}}</small>
                         <i class="fa fa-eye"></i>
@@ -77,7 +79,8 @@
             <div class="form-control" tabindex="1"
                  ng-controller="SearchController as SearchCtr"
                  ng-class="{open: ContributeCtr.MutationForm.seeAlsoIds.active}"
-                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true">
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true"
+                 stop-if="SearchCtr.searchResults.data.length > 0 && SearchCtr.term.length > 0">
                 <label>
                     <i class="fa fa-book fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.seeAlsoIds.label}}</span>
@@ -90,13 +93,14 @@
                            placeholder="{{ContributeCtr.MutationForm.seeAlsoIds.description}}"/>
                 </div>
 
-                <ul class="search-results"
+                <ul class="search-results" stop-event-propagation
                     ng-class="{'show':
                     ContributeCtr.MutationForm.seeAlsoIds.active
                     && SearchCtr.term.length > 0
                     && SearchCtr.searchResults.data.length > 0}">
                     <li ng-repeat="result in SearchCtr.searchResults.data"
-                        ng-class="{active: $index == SearchCtr.searchResults.selected}">
+                        ng-class="{active: $index == SearchCtr.searchResults.selected}"
+                        ng-click="ContributeCtr.MutationForm.seeAlsoIds.update(result)">
                         <strong>{{result.title}}</strong>
                         <small class="label">{{result.umiType}}</small>
                         <i class="fa fa-eye"></i>
@@ -169,7 +173,11 @@
                                     Prerequisite Definitions
                                 </header>
                                 <span class="label"
-                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">{{title}}</span>
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">
+                                    {{title}}
+                                    <i class="link"
+                                       ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.remove(id)">&times;</i>
+                                </span>
                             </div>
                             <div class="info-unit">
                                 <header>
@@ -177,7 +185,11 @@
                                     See Also
                                 </header>
                                 <span class="label"
-                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">{{title}}</span>
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">
+                                    {{title}}
+                                    <i class="link"
+                                       ng-click="ContributeCtr.MutationForm.seeAlsoIds.remove(id)">&times;</i>
+                                </span>
                             </div>
                             <div class="info-unit">
                                 <header>
@@ -185,7 +197,11 @@
                                     Tags
                                 </header>
                                 <span class="label"
-                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.tags.value">{{title}}</span>
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.tags.value">
+                                    {{title}}
+                                    <i class="link"
+                                       ng-click="ContributeCtr.MutationForm.tags.remove(id)">&times;</i>
+                                </span>
                             </div>
                         </div>
                     </div>
