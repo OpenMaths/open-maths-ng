@@ -11,6 +11,7 @@ module openmaths {
         search: string;
         getUmiById: string;
         getUmiByTitle: string;
+        latexToHtml: string;
     }
 
     export interface IUiConfig {
@@ -34,6 +35,7 @@ module openmaths {
         search: 'search/',
         getUmiById: 'id/',
         getUmiByTitle: 'title/',
+        latexToHtml: 'latex-to-html'
     };
     let productionHost: string = 'openmaths.io';
     let testHost: string = 'localhost:8087';

@@ -24,9 +24,13 @@
                 </label>
 
                 <div class="input-holder">
-                    <select name="" tabindex="1">
+                    <select name="" tabindex="1" ng-model="ContributeCtr.MutationForm.umiType.value"
+                            ng-options="key as value.label for (key , value) in ContributeCtr.MutationForm.umiType.options">
                         <option value="">{{ContributeCtr.MutationForm.umiType.description}}</option>
-                        <option value="">Choose 2</option>
+
+                        <!--<option ng-repeat="(value, option) in ContributeCtr.MutationForm.umiType.valueMeta"-->
+                        <!--value="{{value}}">{{option.label}}-->
+                        <!--</option>-->
                     </select>
                 </div>
             </div>
@@ -158,10 +162,10 @@
                 <article class="flex center-vertically">
                     <div class="wrapper">
                         <small class="label">
-                            {{ContributeCtr.MutationForm.umiType.value || 'Contribution Category'}}
+                            {{ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].label || 'Contribution Category'}}
                         </small>
                         <strong class="heading block">
-                            {{ContributeCtr.MutationForm.title.value || 'Contribution Title'}}
+                            {{ContributeCtr.MutationForm.title.value || 'Contribution Title'}} {{ContributeCtr.parsingInProgress}}
                         </strong>
 
                         <main om-bind="ContributeCtr.MutationForm.content.value"></main>
@@ -213,7 +217,7 @@
 
 <nav id="contribute-controls">
     <div class="status">
-        <div class="indicator parsing">
+        <div class="indicator parsing" ng-show="ContributeCtr.parsingInProgress == true">
             <i class="fa fa-refresh fa-spin"></i>
             <span class="icon-label">Parsing</span>
         </div>

@@ -1,6 +1,11 @@
 module openmaths {
     'use strict';
 
+    export interface IAuth {
+        accessToken: string;
+        gPlusId: string;
+    }
+
     export interface IGApiAuthResponse {
         access_token: string;
         code: string;
@@ -61,8 +66,14 @@ module openmaths {
             });
         }
 
-        userLoggedInCallback(userInfo: IGApiUserInfoResponse) {
-            this.NotificationFactory.generate('Callback OK!', NotificationType.Info, userInfo);
+        userLoggedInCallback(loginResponse: ILoginResponseData, gApiAuthResponse: IGApiAuthResponse) {
+            // @TODO export interface
+            openmaths.SessionStorage.set('omUser', {
+                accessToken: gApiAuthResponse.access_token,
+                gPlusId: loginResponse.userInfo.id
+            });
+
+            this.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
         }
 
         googleApiPromise(accessToken: string) {
@@ -77,23 +88,22 @@ module openmaths {
             return this.Api.post('login', loginData);
         }
 
-        login(gApiAuthResult: IGApiAuthResponse) {
+        login(gApiAuthResponse: IGApiAuthResponse) {
             // @TODO
             // Think about gapi error handling here
 
             // gApiUserData stream
-            Rx.Observable.fromPromise(this.googleApiPromise(gApiAuthResult.access_token))
+            Rx.Observable.fromPromise(this.googleApiPromise(gApiAuthResponse.access_token))
                 .map((d) => {
                     let response = openmaths.Api.response(d, true),
                         userInfo: IGApiUserInfoResponse = response.data;
 
                     // ARFT Stream
                     return Rx.Observable.fromPromise(this.arftPromise(userInfo.id))
-                        .map((d) => {
-                            let response = openmaths.Api.response(d),
-                                arftResponse: string = response.data;
+                        .map(d => {
+                            let response = openmaths.Api.response(d);
 
-                            return arftResponse;
+                            return response.data;
                         })
                         .where(Rx.helpers.identity)
                         .map((arftResponse): IArftResponseData => {
@@ -109,18 +119,17 @@ module openmaths {
                         userInfo = d.userInfo,
                         loginData: ILoginData = {
                             arfToken: arftResponse,
-                            code: gApiAuthResult.code,
+                            code: gApiAuthResponse.code,
                             gmail: userInfo.email,
                             gPlusId: userInfo.id
                         };
 
                     // Login stream
                     return Rx.Observable.fromPromise(this.loginPromise(loginData))
-                        .map((d) => {
-                            let response = openmaths.Api.response(d),
-                                loginResponse: string = response.data;
+                        .map(d => {
+                            let response = openmaths.Api.response(d);
 
-                            return loginResponse;
+                            return response.data;
                         })
                         .where(Rx.helpers.identity)
                         .map((loginResponse): ILoginResponseData => {
@@ -134,8 +143,8 @@ module openmaths {
                 .subscribe((d: ILoginResponseData) => {
                     openmaths.Logger.info(d);
 
-                    this.userLoggedInCallback(d.userInfo);
-                }, (d) => {
+                    this.userLoggedInCallback(d, gApiAuthResponse);
+                }, d => {
                     openmaths.Logger.error(d);
                 });
         }

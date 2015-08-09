@@ -19,7 +19,13 @@ module openmaths {
 
                 // @TODO
                 // different location for this after development
-                //Authentication.gApiLogin();
+                let omUser = openmaths.SessionStorage.get('omUser');
+
+                if (omUser.gPlusId && omUser.accessToken) {
+                    console.log(omUser);
+                } else {
+                    Authentication.gApiLogin();
+                }
 
                 openmaths.Logger.debug('gApi successfully initialised');
             };

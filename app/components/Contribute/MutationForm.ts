@@ -1,18 +1,11 @@
 module openmaths {
     'use strict';
 
-    //export enum UMIType {
-    //    Definition, Axiom, AxiomScheme,
-    //    Notation, Theorem, Lemma,
-    //    Corollary, Conjecture, Proof,
-    //    HistoricalNote, PhilosophicalJustification,
-    //    Diagram, Example, Special, PartialTheorem
-    //}
-
     export interface IMutationFormObject {
         active: boolean;
         description: string;
         label: string;
+        options?: any;
         remove?: Function;
         update?: Function;
         parseCsv?: Function;
@@ -86,6 +79,7 @@ module openmaths {
                 active: false,
                 description: 'What category of information?',
                 label: 'Contribution Category',
+                options: new openmaths.UmiTypes,
                 value: ''
             };
         }
@@ -126,7 +120,12 @@ module openmaths {
         }
     }
 
-    class Mutation {
+    export interface ILatexToHtmlPromisePayload {
+        auth: IAuth;
+        s: string
+    }
+
+    export class SubmitMutation {
         auth: {
             accessToken: string;
             gPlusId: string;
@@ -140,5 +139,13 @@ module openmaths {
         prerequisiteDefinitionIds: string[];
         seeAlsoIds: string[];
         tags: string[];
+
+        constructor(public Api: openmaths.Api) {
+
+        }
+
+        latexToHtmlPromise(content: ILatexToHtmlPromisePayload): ng.IHttpPromise<void> {
+            return this.Api.post(openmaths.Config.getApiRoutes().latexToHtml, content);
+        }
     }
 }

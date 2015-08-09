@@ -67,9 +67,7 @@ module openmaths {
             // potentially think about whether inheritance from another controller is going to affect the model
             // targeting. Should it only be something like SearchCtr.term?
             openmaths.ReactiveX.watchModel($scope, 'SearchCtr.term')
-                .map((e: IReactiveXWatchModelCallbackArgs) => {
-                    return e.newValue;
-                })
+                .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .where(Rx.helpers.identity)
                 // @TODO
                 // abstract into magic vars
