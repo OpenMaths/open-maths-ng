@@ -47,9 +47,11 @@ gulp.task('concatVendor', function () {
 });
 
 gulp.task('test', function (done) {
-    karma.server.start({
+    var server = new karma.Server({
         configFile: process.cwd() + '/app/test/karma.conf.js'
     }, done);
+
+    server.start();
 });
 
 gulp.task('compile-tsc', function () {

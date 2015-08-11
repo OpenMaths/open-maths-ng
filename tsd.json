@@ -6,34 +6,34 @@
   "bundle": "app/typings/tsd.d.ts",
   "installed": {
     "angularjs/angular.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "jquery/jquery.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "lodash/lodash.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "gapi/gapi.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "jasmine/jasmine.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "mathjax/mathjax.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "rx/rx.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "rx/rx-lite.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "angularjs/angular-mocks.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     },
     "angular-ui-router/angular-ui-router.d.ts": {
-      "commit": "e00e15e433711c54a86dbf75242e1700b15d00c1"
+      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
     }
   }
 }
