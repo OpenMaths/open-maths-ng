@@ -16,43 +16,49 @@ module openmaths {
             openmaths.ReactiveX.watchModel($scope, 'ContributeCtr.MutationForm.content.value')
                 .throttle(500)
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
-                .subscribe((d: string) => {
-                    let payload = {
-                        auth: openmaths.SessionStorage.get('omUser'),
-                        s: d
-                    };
+                .subscribe((expression: string) => {
+                    this.latexToHtml(expression);
+                });
+        }
 
-                    Rx.Observable.fromPromise(this.SubmitMutation.latexToHtmlPromise(payload))
-                        .do(() => {
-                            openmaths.Logger.debug('LaTeX to HTML translation in progress');
+        // @TODO implement withChecking => will take a different promise
+        latexToHtml(expression: string, withChecking?: boolean): void {
+            let payload = {
+                auth: openmaths.SessionStorage.get('omUser'),
+                s: expression
+            };
 
-                            // @TODO if does not work move up a level
-                            this.parsingInProgress = true;
-                        })
-                        .catch(error => {
-                            let response = openmaths.Api.response(error);
+            Rx.Observable.fromPromise(this.SubmitMutation.latexToHtmlPromise(payload))
+                .do(() => {
+                    openmaths.Logger.debug('LaTeX to HTML translation in progress');
 
-                            openmaths.Logger.error(response);
+                    // @TODO if does not work move up a level
+                    this.parsingInProgress = true;
+                })
+                .catch(error => {
+                    let response = openmaths.Api.response(error);
 
-                            this.MutationForm.content.error = true;
-                            this.MutationForm.content.valueParsed = response.data;
+                    openmaths.Logger.error(response);
 
-                            return Rx.Observable.empty();
-                        })
-                        .subscribe(result => {
-                            let response = openmaths.Api.response(result);
+                    this.MutationForm.content.error = true;
+                    this.MutationForm.content.valueParsed = response.data;
 
-                            openmaths.Logger.info(response);
+                    return Rx.Observable.empty();
+                })
+                .subscribe(result => {
+                    let response = openmaths.Api.response(result);
 
-                            this.MutationForm.content.error = false;
-                            this.MutationForm.content.valueParsed = response.data;
+                    openmaths.Logger.info(response);
 
-                            this.parsingInProgress = false;
-                        });
+                    this.MutationForm.content.error = false;
+                    this.MutationForm.content.valueParsed = response.data;
+
+                    this.parsingInProgress = false;
                 });
         }
 
         createUmi() {
+            // OMG
             console.log(new openmaths.Mutation(this.MutationForm));
         }
     }

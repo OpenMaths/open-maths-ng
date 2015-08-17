@@ -160,7 +160,7 @@ module openmaths {
             this.auth = {
                 // @TODO refactor cruft
                 accessToken: omUser.accessToken ? omUser.accessToken : '',
-                gPlusId: omUser.gPlusId ? omUser.accessToken : ''
+                gPlusId: omUser.gPlusId ? omUser.gPlusId : ''
             };
             this.content = MutationForm.content.value;
             this.message = 'Initialise UMI';
