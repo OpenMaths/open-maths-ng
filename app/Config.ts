@@ -7,7 +7,9 @@ module openmaths {
         test: string;
     }
 
+    // @TODO is this needed?
     export interface IApiRoutes {
+        check: string;
         createUmi: string;
         getUmiById: string;
         getUmiByTitle: string;
@@ -33,6 +35,7 @@ module openmaths {
         test: 'http://api.om.dev/'
     };
     let apiRoutes: IApiRoutes = {
+        check: 'check',
         createUmi: 'add',
         getUmiById: 'id/',
         getUmiByTitle: 'title/',

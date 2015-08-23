@@ -126,7 +126,7 @@ module openmaths {
 
     export interface ILatexToHtmlPromisePayload {
         auth: IAuth;
-        s: string
+        s: string;
     }
 
     export class SubmitMutation {
@@ -135,6 +135,10 @@ module openmaths {
 
         latexToHtmlPromise(content: ILatexToHtmlPromisePayload): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().latexToHtml, content);
+        }
+
+        checkContentPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+            return this.Api.post(openmaths.Config.getApiRoutes().check, payload);
         }
 
         createUmiPromise(payload: openmaths.Mutation) {

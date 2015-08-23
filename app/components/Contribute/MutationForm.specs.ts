@@ -88,6 +88,17 @@ module openmaths.specs {
             $httpBackend.flush();
         });
 
+        it('should be able to return a checkContent promise', () => {
+            let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().check,
+                payload = new openmaths.Mutation(new openmaths.MutationForm());
+
+            $httpBackend.expectPOST(addr).respond(200, 'success');
+
+            model.checkContentPromise(payload).then(result => expect(result.data).toEqual('success'));
+
+            $httpBackend.flush();
+        });
+
         it('should be able to return a createUmi promise', () => {
             let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().createUmi,
                 payload = new openmaths.Mutation(new openmaths.MutationForm());

@@ -19,7 +19,7 @@
                  ng-class="{open: ContributeCtr.MutationForm.umiType.active}"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.umiType.active = true">
                 <label>
-                    <i class="fa fa-map-signs fa-fw"></i>
+                    <i class="fa fa-folder-open-o fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.umiType.label}}</span>
                 </label>
 
@@ -27,10 +27,6 @@
                     <select name="" tabindex="1" ng-model="ContributeCtr.MutationForm.umiType.value"
                             ng-options="key as value.label for (key , value) in ContributeCtr.MutationForm.umiType.options">
                         <option value="">{{ContributeCtr.MutationForm.umiType.description}}</option>
-
-                        <!--<option ng-repeat="(value, option) in ContributeCtr.MutationForm.umiType.valueMeta"-->
-                        <!--value="{{value}}">{{option.label}}-->
-                        <!--</option>-->
                     </select>
                 </div>
             </div>
@@ -86,7 +82,7 @@
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true"
                  stop-if="SearchCtr.searchResults.data.length > 0 && SearchCtr.term.length > 0">
                 <label>
-                    <i class="fa fa-book fa-fw"></i>
+                    <i class="fa fa-compass fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.seeAlsoIds.label}}</span>
                 </label>
 
@@ -116,7 +112,7 @@
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.tags.active = true"
                  ng-class="{open: ContributeCtr.MutationForm.tags.active}">
                 <label>
-                    <i class="fa fa-tag fa-fw"></i>
+                    <i class="fa fa-tags fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.tags.label}}</span>
                 </label>
 
@@ -134,30 +130,6 @@
     </div>
     <div id="preview">
         <div class="umi">
-            <!--<div class="controls-holder top">-->
-            <!--<div class="controls details">-->
-            <!--<i class="fa fa-info-circle"></i>-->
-            <!--<span class="icon-label">Details</span>-->
-            <!--</div>-->
-            <!--<div class="controls expand">-->
-            <!--<i class="fa fa-expand"></i>-->
-            <!--<span class="icon-label">Full-Screen</span>-->
-            <!--</div>-->
-            <!--</div>-->
-
-            <!--<div class="controls-holder left top">-->
-            <!--<div class="controls upvote">-->
-            <!--<i class="fa fa-thumbs-o-up"></i>-->
-            <!--<span class="icon-label">Upvote</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="controls-holder left bottom">-->
-            <!--<div class="controls downvote">-->
-            <!--<i class="fa fa-thumbs-o-down"></i>-->
-            <!--<span class="icon-label">Downvote</span>-->
-            <!--</div>-->
-            <!--</div>-->
-
             <div class="content" ng-class="{error: ContributeCtr.MutationForm.content.error}" scroll>
                 <article>
                     <div class="wrapper">

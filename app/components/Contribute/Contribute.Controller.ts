@@ -32,6 +32,7 @@ module openmaths {
                 .do(() => {
                     openmaths.Logger.debug('LaTeX to HTML translation in progress');
 
+                    
                     // @TODO if does not work move up a level
                     this.parsingInProgress = true;
                 })
