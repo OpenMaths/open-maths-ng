@@ -18,6 +18,7 @@ module openmaths {
     export enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
 
     export class MutationForm {
+        advancedTypeOptions: IMutationFormObject;
         content: IMutationFormObject;
         prerequisiteDefinitionIds: IMutationFormObject;
         seeAlsoIds: IMutationFormObject;
@@ -27,6 +28,16 @@ module openmaths {
         umiType: IMutationFormObject;
 
         constructor() {
+            this.advancedTypeOptions = {
+                active: false,
+                description: 'Advanced Type Options',
+                label: 'Advanced Type Options',
+                value: {
+                    formal: false,
+                    meta: false
+                }
+            };
+
             this.content = {
                 active: false,
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
@@ -166,7 +177,15 @@ module openmaths {
             this.tags = MutationForm.tags.value;
             this.title = MutationForm.title.value;
             this.titleSynonyms = MutationForm.titleSynonyms.value;
-            this.umiType = MutationForm.umiType.value;
+            this.umiType = new UmiType(MutationForm.umiType.value, MutationForm.advancedTypeOptions.value).value;
+        }
+    }
+
+    class UmiType {
+        value: string;
+
+        constructor(strippedValue: string, advancedTypeOptions: {formal: boolean, meta: boolean}) {
+            this.value = (advancedTypeOptions.formal ? 'Formal' : '') + strippedValue + (advancedTypeOptions.meta ? 'Meta' : '');
         }
     }
 }

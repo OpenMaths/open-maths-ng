@@ -2,7 +2,7 @@
     <div id="editor">
         <form action="">
             <div class="form-control" focus="true" tabindex="1"
-                 ng-class="{open: ContributeCtr.MutationForm.title.active}"
+                 ng-class="{open: ContributeCtr.MutationForm.title.active || ContributeCtr.MutationForm.title.value}"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.title.active = true">
                 <label>
                     <i class="fa fa-header fa-fw"></i>
@@ -16,7 +16,7 @@
             </div>
 
             <div class="form-control" tabindex="1"
-                 ng-class="{open: ContributeCtr.MutationForm.umiType.active}"
+                 ng-class="{open: ContributeCtr.MutationForm.umiType.active || ContributeCtr.MutationForm.umiType.value}"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.umiType.active = true">
                 <label>
                     <i class="fa fa-sitemap fa-fw"></i>
@@ -28,6 +28,34 @@
                             ng-options="key as value.label for (key , value) in ContributeCtr.MutationForm.umiType.options">
                         <option value="">{{ContributeCtr.MutationForm.umiType.description}}</option>
                     </select>
+                </div>
+            </div>
+
+            <div class="form-control open" tabindex="1"
+                 ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].formal
+                 || ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].meta"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.advancedTypeOptions.active = true">
+                <label>
+                    <i class="fa fa-sliders fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.advancedTypeOptions.label}}</span>
+                </label>
+
+                <div class="input-holder formal-meta">
+                    <div class="toggle-holder"
+                         ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].formal"
+                         ng-click="ContributeCtr.MutationForm.advancedTypeOptions.value.formal = !ContributeCtr.MutationForm.advancedTypeOptions.value.formal">
+                        <div class="toggle"
+                             ng-class="{active: ContributeCtr.MutationForm.advancedTypeOptions.value.formal}"></div>
+                        <small>Formal Contribution</small>
+                    </div>
+
+                    <div class="toggle-holder"
+                         ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].meta"
+                         ng-click="ContributeCtr.MutationForm.advancedTypeOptions.value.meta = !ContributeCtr.MutationForm.advancedTypeOptions.value.meta">
+                        <div class="toggle"
+                             ng-class="{active: ContributeCtr.MutationForm.advancedTypeOptions.value.meta}"></div>
+                        <small>Meta Contribution</small>
+                    </div>
                 </div>
             </div>
 
@@ -110,7 +138,7 @@
 
             <div class="form-control" tabindex="1"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.tags.active = true"
-                 ng-class="{open: ContributeCtr.MutationForm.tags.active}">
+                 ng-class="{open: ContributeCtr.MutationForm.tags.active || ContributeCtr.MutationForm.tags.valueMeta}">
                 <label>
                     <i class="fa fa-tags fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.tags.label}}</span>
@@ -123,13 +151,6 @@
                 </div>
             </div>
         </form>
-
-        <div class="editor">
-            <div class="toggle-holder">
-                <div class="toggle"></div>
-                <small>Formal Definition</small>
-            </div>
-        </div>
     </div>
     <div id="preview">
         <div class="umi">
