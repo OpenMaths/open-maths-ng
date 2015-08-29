@@ -3,13 +3,13 @@ module openmaths {
 
     export class ContributeController {
         MutationForm: openmaths.MutationForm;
-        SubmitMutation: openmaths.SubmitMutation;
+        MutationApi: openmaths.MutationApi;
 
         parsingInProgress: boolean;
 
         constructor($scope: ng.IScope, public $http: ng.IHttpService) {
             this.MutationForm = new openmaths.MutationForm;
-            this.SubmitMutation = new openmaths.SubmitMutation(new openmaths.Api(this.$http));
+            this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http));
 
             this.parsingInProgress = false;
 
@@ -17,22 +17,15 @@ module openmaths {
                 .throttle(500)
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .subscribe((expression: string) => {
-                    this.latexToHtml(expression);
+                    this.parseContent();
                 });
         }
 
-        // @TODO implement withChecking => will take a different promise
-        latexToHtml(expression: string, withChecking?: boolean): void {
-            let payload = {
-                auth: openmaths.User.getAuthData(),
-                s: expression
-            };
-
-            Rx.Observable.fromPromise(this.SubmitMutation.latexToHtmlPromise(payload))
+        parseContent(): void {
+            Rx.Observable.fromPromise(this.MutationApi.parseContent(this.MutationForm))
                 .do(() => {
                     openmaths.Logger.debug('LaTeX to HTML translation in progress');
 
-                    
                     // @TODO if does not work move up a level
                     this.parsingInProgress = true;
                 })
@@ -58,9 +51,8 @@ module openmaths {
                 });
         }
 
-        createUmi() {
-            // OMG
-            console.log(new openmaths.Mutation(this.MutationForm));
+        createContent() {
+            //this.MutationApi.createContent(this.MutationForm);
         }
     }
 

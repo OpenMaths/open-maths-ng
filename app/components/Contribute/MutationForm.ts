@@ -140,7 +140,7 @@ module openmaths {
         s: string;
     }
 
-    export class SubmitMutation {
+    export class MutationApi {
         constructor(public Api: openmaths.Api) {
         }
 
@@ -152,8 +152,36 @@ module openmaths {
             return this.Api.post(openmaths.Config.getApiRoutes().check, payload);
         }
 
-        createUmiPromise(payload: openmaths.Mutation) {
+        createUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().createUmi, payload);
+        }
+
+        parseContent(MutationForm: openmaths.MutationForm): ng.IHttpPromise<void> {
+            let Mutation = new openmaths.Mutation(MutationForm),
+                Promise;
+
+            switch (MutationForm.advancedTypeOptions.value.formal) {
+                case true:
+                    Promise = this.checkContentPromise(Mutation);
+                    break;
+                default:
+                    Promise = this.latexToHtmlPromise({
+                        auth: Mutation.auth,
+                        s: Mutation.content
+                    });
+                    break;
+            }
+
+            return Promise;
+        }
+
+        createContent(MutationForm: openmaths.MutationForm): ng.IHttpPromise<void> {
+            let Mutation = new openmaths.Mutation(MutationForm);
+
+            return this.createUmiPromise(Mutation);
+        }
+
+        update(MutationForm: openmaths.MutationForm) {
         }
     }
 
@@ -177,15 +205,27 @@ module openmaths {
             this.tags = MutationForm.tags.value;
             this.title = MutationForm.title.value;
             this.titleSynonyms = MutationForm.titleSynonyms.value;
-            this.umiType = new UmiType(MutationForm.umiType.value, MutationForm.advancedTypeOptions.value).value;
+            this.umiType = new UmiType(MutationForm.umiType, MutationForm.advancedTypeOptions.value).value;
         }
     }
 
     class UmiType {
         value: string;
 
-        constructor(strippedValue: string, advancedTypeOptions: {formal: boolean, meta: boolean}) {
-            this.value = (advancedTypeOptions.formal ? 'Formal' : '') + strippedValue + (advancedTypeOptions.meta ? 'Meta' : '');
+        private prepend: string;
+        private append: string;
+
+        constructor(umiType: IMutationFormObject, advancedTypeOptions: {formal: boolean, meta: boolean}) {
+            this.prepend = '';
+            this.append = '';
+
+            if (umiType.options[umiType.value]) {
+                this.prepend = umiType.options[umiType.value].formal && advancedTypeOptions.formal ? 'Formal' : '';
+                this.append = umiType.options[umiType.value].meta && advancedTypeOptions.meta ? 'Meta' : '';
+            }
+
+            this.value = this.prepend + umiType.value + this.append;
+
         }
     }
 }

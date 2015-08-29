@@ -51,19 +51,19 @@ module openmaths.specs {
         });
     });
 
-    describe('SubmitMutation model', () => {
+    describe('MutationApi model', () => {
         beforeEach(module('openmaths'));
 
         let Api: openmaths.Api;
         let $httpBackend: ng.IHttpBackendService;
-        let model: openmaths.SubmitMutation;
+        let model: openmaths.MutationApi;
 
         beforeEach(inject((_Api_: openmaths.Api,
                            _$httpBackend_: ng.IHttpBackendService) => {
             Api = _Api_;
             $httpBackend = _$httpBackend_;
 
-            model = new openmaths.SubmitMutation(Api);
+            model = new openmaths.MutationApi(Api);
         }));
 
         afterEach(function () {
@@ -108,6 +108,56 @@ module openmaths.specs {
             model.createUmiPromise(payload).then(result => expect(result.data).toEqual('success'));
 
             $httpBackend.flush();
+        });
+
+        it('should have a parse() method responsible for UMI content parsing', () => {
+            expect(model.parseContent).toBeDefined();
+        });
+
+        it('should have a create() method responsible for UMI creation', () => {
+            expect(model.createContent).toBeDefined();
+        });
+
+        it('should have a update() method responsible for UMI edits / updates', () => {
+            expect(model.update).toBeDefined();
+        });
+    });
+
+    describe('Mutation model', () => {
+        let MutationForm: openmaths.MutationForm;
+        let UmiTypes: openmaths.UmiTypes = new openmaths.UmiTypes;
+
+        beforeEach(() => {
+            MutationForm = new openmaths.MutationForm();
+        });
+
+        it('should correctly assign Formal prefix when valid', () => {
+            MutationForm.umiType.value = 'Definition';
+            MutationForm.advancedTypeOptions.value.formal = true;
+
+            let Mutation = new openmaths.Mutation(MutationForm);
+
+            expect(Mutation.umiType).toEqual('Formal' + UmiTypes.Definition.label);
+        });
+
+        it('should correctly assign Formal prefix and Meta appendix when valid', () => {
+            MutationForm.umiType.value = 'Definition';
+            MutationForm.advancedTypeOptions.value.formal = true;
+            MutationForm.advancedTypeOptions.value.meta = true;
+
+            let Mutation = new openmaths.Mutation(MutationForm);
+
+            expect(Mutation.umiType).toEqual('Formal' + UmiTypes.Definition.label + 'Meta');
+        });
+
+        it('should correctly NOT assign Formal prefix and Meta appendix when invalid', () => {
+            MutationForm.umiType.value = 'Example';
+            MutationForm.advancedTypeOptions.value.formal = true;
+            MutationForm.advancedTypeOptions.value.meta = true;
+
+            let Mutation = new openmaths.Mutation(MutationForm);
+
+            expect(Mutation.umiType).toEqual(UmiTypes.Example.label);
         });
     });
 }
