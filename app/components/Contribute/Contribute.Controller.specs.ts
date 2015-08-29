@@ -2,7 +2,7 @@ module openmaths.specs {
     'use strict';
 
     describe('ContributeController', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         let controller: openmaths.ContributeController;
         let $rootScope: ng.IRootScopeService;

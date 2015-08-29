@@ -32,7 +32,7 @@ module openmaths {
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
                 error: false,
                 label: 'Content',
-                value: 'C\'mon - Write some LaTeX to see me work! :-)',
+                value: 'C\'mon - Write some $LaTeX$ to see me work! :-)',
                 valueParsed: ''
             };
 
@@ -82,7 +82,7 @@ module openmaths {
             this.umiType = {
                 active: false,
                 description: 'What category of information?',
-                label: 'Contribution Category',
+                label: 'Contribution Type',
                 options: new openmaths.UmiTypes,
                 value: ''
             };
@@ -125,7 +125,7 @@ module openmaths {
     }
 
     export interface ILatexToHtmlPromisePayload {
-        auth: IAuth;
+        auth: openmaths.Auth;
         s: string;
     }
 
@@ -147,7 +147,7 @@ module openmaths {
     }
 
     export class Mutation {
-        auth: IAuth;
+        auth: openmaths.Auth;
         content: string;
         message: string;
         prerequisiteDefinitionIds: string[];
@@ -158,14 +158,7 @@ module openmaths {
         umiType: string;
 
         constructor(MutationForm: openmaths.MutationForm) {
-            // @TODO abstract into a util or sth..
-            let omUser = openmaths.SessionStorage.get('omUser');
-
-            this.auth = {
-                // @TODO refactor cruft
-                accessToken: omUser.accessToken ? omUser.accessToken : '',
-                gPlusId: omUser.gPlusId ? omUser.gPlusId : ''
-            };
+            this.auth = openmaths.User.getAuthData();
             this.content = MutationForm.content.value;
             this.message = 'Initialise UMI';
             this.prerequisiteDefinitionIds = _.keys(MutationForm.prerequisiteDefinitionIds.value);

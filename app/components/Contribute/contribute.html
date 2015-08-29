@@ -19,7 +19,7 @@
                  ng-class="{open: ContributeCtr.MutationForm.umiType.active}"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.umiType.active = true">
                 <label>
-                    <i class="fa fa-folder-open-o fa-fw"></i>
+                    <i class="fa fa-sitemap fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.umiType.label}}</span>
                 </label>
 
@@ -125,7 +125,10 @@
         </form>
 
         <div class="editor">
-
+            <div class="toggle-holder">
+                <div class="toggle"></div>
+                <small>Formal Definition</small>
+            </div>
         </div>
     </div>
     <div id="preview">
@@ -135,7 +138,7 @@
                     <div class="wrapper">
                         <small class="label">
                             {{ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].label
-                            || 'Contribution Category'}}
+                            || 'Contribution Type'}}
                         </small>
                         <strong class="heading block">
                             {{ContributeCtr.MutationForm.title.value || 'Contribution Title'}}
@@ -158,7 +161,7 @@
                             </div>
                             <div class="info-unit">
                                 <header>
-                                    <i class="fa fa-book fa-fw"></i>
+                                    <i class="fa fa-compass fa-fw"></i>
                                     See Also
                                 </header>
                                 <span class="label"
@@ -170,7 +173,7 @@
                             </div>
                             <div class="info-unit">
                                 <header>
-                                    <i class="fa fa-tag fa-fw"></i>
+                                    <i class="fa fa-tags fa-fw"></i>
                                     Tags
                                 </header>
                                 <span class="label"

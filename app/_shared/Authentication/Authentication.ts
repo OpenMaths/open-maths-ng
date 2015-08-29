@@ -1,11 +1,6 @@
 module openmaths {
     'use strict';
 
-    export interface IAuth {
-        accessToken: string;
-        gPlusId: string;
-    }
-
     export interface IGApiAuthResponse {
         access_token: string;
         code: string;
@@ -67,11 +62,7 @@ module openmaths {
         }
 
         userLoggedInCallback(loginResponse: ILoginResponseData, gApiAuthResponse: IGApiAuthResponse) {
-            // @TODO export interface
-            openmaths.SessionStorage.set('omUser', {
-                accessToken: gApiAuthResponse.access_token,
-                gPlusId: loginResponse.userInfo.id
-            });
+            new openmaths.User(gApiAuthResponse, loginResponse.userInfo);
 
             this.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
         }

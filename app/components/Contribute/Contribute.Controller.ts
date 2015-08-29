@@ -24,7 +24,7 @@ module openmaths {
         // @TODO implement withChecking => will take a different promise
         latexToHtml(expression: string, withChecking?: boolean): void {
             let payload = {
-                auth: openmaths.SessionStorage.get('omUser'),
+                auth: openmaths.User.getAuthData(),
                 s: expression
             };
 
