@@ -2,7 +2,7 @@ module openmaths.specs {
     'use strict';
 
     describe('SearchUtils model', () => {
-        let wrapper = openmaths.Search.Utils.wrapper;
+        let wrapper = 'mark';
 
         let useCases = [{
             term: 'ax', searchResult: 'axiom',

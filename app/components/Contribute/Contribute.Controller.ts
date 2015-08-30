@@ -2,6 +2,8 @@ module openmaths {
     'use strict';
 
     export class ContributeController {
+        private static keyStrokeThrottle = 1500;
+
         MutationForm: openmaths.MutationForm;
         MutationApi: openmaths.MutationApi;
 
@@ -14,9 +16,12 @@ module openmaths {
             this.parsingInProgress = false;
 
             openmaths.ReactiveX.watchModel($scope, 'ContributeCtr.MutationForm.content.value')
-                .throttle(500)
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .where(Rx.helpers.identity)
+                .do(tempTerm => {
+                    this.MutationForm.content.valueParsed = tempTerm;
+                })
+                .throttle(ContributeController.keyStrokeThrottle)
                 .subscribe((expression: string) => {
                     this.parseContent();
                 });
@@ -29,11 +34,14 @@ module openmaths {
         toggleFormal() {
             this.MutationForm.advancedTypeOptions.value.formal = !this.MutationForm.advancedTypeOptions.value.formal;
 
+            if (!this.MutationForm.advancedTypeOptions.value.formal) this.MutationForm.advancedTypeOptions.value.meta = false;
+
             this.parseContent();
         }
 
         toggleMeta() {
             this.MutationForm.advancedTypeOptions.value.meta = !this.MutationForm.advancedTypeOptions.value.meta;
+            this.MutationForm.advancedTypeOptions.value.formal = this.MutationForm.advancedTypeOptions.value.meta;
 
             this.parseContent();
         }

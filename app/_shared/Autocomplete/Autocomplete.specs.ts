@@ -11,8 +11,8 @@ module openmaths.specs {
         beforeEach(angular.mock.module('openmaths'));
 
         let autocompleteData: IAutocompleteData = {
-            a1: {id: 'a1', title: 'Hello World a1', uriFriendlyTitle: 'hello-world-a1', umiType: 'test'},
-            f3: {id: 'f3', title: 'Hello World f3', uriFriendlyTitle: 'hello-world-f3', umiType: 'test'}
+            a1: {id: 'a1', title: 'Hello World a1', titleFormatted: 'Hello World a1', uriFriendlyTitle: 'hello-world-a1', umiType: 'test'},
+            f3: {id: 'f3', title: 'Hello World f3', titleFormatted: 'Hello World f3', uriFriendlyTitle: 'hello-world-f3', umiType: 'test'}
         };
 
         let $compile: ng.ICompileService;

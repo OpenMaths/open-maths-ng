@@ -21,11 +21,41 @@ module openmaths.specs {
             searchResult = {
                 selected: 2,
                 data: [
-                    {id: '2', title: 'Hello World 2', uriFriendlyTitle: 'hello-world-2', umiType: 'test'},
-                    {id: '1', title: 'Hello World 1', uriFriendlyTitle: 'hello-world-1', umiType: 'test'},
-                    {id: 'a1', title: 'Hello World a1', uriFriendlyTitle: 'hello-world-a1', umiType: 'test'},
-                    {id: '3', title: 'Hello World 3', uriFriendlyTitle: 'hello-world-3', umiType: 'test'},
-                    {id: 'f3', title: 'Hello World f3', uriFriendlyTitle: 'hello-world-f3', umiType: 'test'}
+                    {
+                        id: '2',
+                        title: 'Hello World 2',
+                        titleFormatted: 'Hello World 2',
+                        uriFriendlyTitle: 'hello-world-2',
+                        umiType: 'test'
+                    },
+                    {
+                        id: '1',
+                        title: 'Hello World 1',
+                        titleFormatted: 'Hello World 1',
+                        uriFriendlyTitle: 'hello-world-1',
+                        umiType: 'test'
+                    },
+                    {
+                        id: 'a1',
+                        title: 'Hello World a1',
+                        titleFormatted: 'Hello World a1',
+                        uriFriendlyTitle: 'hello-world-a1',
+                        umiType: 'test'
+                    },
+                    {
+                        id: '3',
+                        title: 'Hello World 3',
+                        titleFormatted: 'Hello World 3',
+                        uriFriendlyTitle: 'hello-world-3',
+                        umiType: 'test'
+                    },
+                    {
+                        id: 'f3',
+                        title: 'Hello World f3',
+                        titleFormatted: 'Hello World f3',
+                        uriFriendlyTitle: 'hello-world-f3',
+                        umiType: 'test'
+                    }
                 ]
             };
         }));

@@ -23,18 +23,23 @@ module openmaths {
     export class SearchResult {
         id: string;
         title: string;
+        titleFormatted: string;
         uriFriendlyTitle: string;
         umiType: string;
 
         constructor(result, term?: string) {
             this.id = result.id;
-            this.title = term ? openmaths.Search.Utils.highlightSearchTerm(term, result.title) : result.title;
+            this.title = result.title;
+            this.titleFormatted = term ? openmaths.Search.Utils.highlightSearchTerm(term, result.title) : result.title;
             this.uriFriendlyTitle = result.uriFriendlyTitle;
             this.umiType = result.umiType;
         }
     }
 
     export class SearchController {
+        private static keyStrokeThrottle = 250;
+        private static retryConnection = 3;
+
         private Api: openmaths.Api;
 
         autocompleteData: IAutocompleteData;
@@ -74,9 +79,7 @@ module openmaths {
             openmaths.ReactiveX.watchModel($scope, 'SearchCtr.term')
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .where(Rx.helpers.identity)
-                // @TODO
-                // abstract into magic vars
-                .throttle(250)
+                .throttle(SearchController.keyStrokeThrottle)
                 .map(term => {
                     this.term = term;
 
@@ -94,9 +97,7 @@ module openmaths {
                 .map(data => {
                     return openmaths.Api.response(data);
                 })
-                // @TODO
-                // abstract into magic vars
-                .retry(3)
+                .retry(SearchController.retryConnection)
                 .subscribe(results => {
                     openmaths.Logger.info(results);
 

@@ -98,9 +98,8 @@
                     <li ng-repeat="result in SearchCtr.searchResults.data"
                         ng-class="{active: $index == SearchCtr.searchResults.selected}"
                         ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.update(result)">
-                        <strong ng-bind-html="result.title"></strong>
+                        <strong ng-bind-html="result.titleFormatted"></strong>
                         <small class="label">{{result.umiType}}</small>
-                        <i class="fa fa-eye"></i>
                     </li>
                 </ul>
             </div>
@@ -130,9 +129,8 @@
                     <li ng-repeat="result in SearchCtr.searchResults.data"
                         ng-class="{active: $index == SearchCtr.searchResults.selected}"
                         ng-click="ContributeCtr.MutationForm.seeAlsoIds.update(result)">
-                        <strong ng-bind-html="result.title"></strong>
+                        <strong ng-bind-html="result.titleFormatted"></strong>
                         <small class="label">{{result.umiType}}</small>
-                        <i class="fa fa-eye"></i>
                     </li>
                 </ul>
             </div>
@@ -224,12 +222,12 @@
             <span class="icon-label">Locked</span>
         </div>
 
-        <div class="indicator parsed hidden" ng-class="{show: !ContributeCtr.MutationForm.content.error}">
+        <div class="indicator parsed active hidden" ng-class="{show: !ContributeCtr.MutationForm.content.error}">
             <i class="fa fa-check"></i>
             <span class="icon-label">Parsed</span>
         </div>
 
-        <div class="indicator error-parsing hidden" ng-class="{show: ContributeCtr.MutationForm.content.error}">
+        <div class="indicator error-parsing active hidden" ng-class="{show: ContributeCtr.MutationForm.content.error}">
             <i class="fa fa-times"></i>
             <span class="icon-label">Error Parsing</span>
         </div>
