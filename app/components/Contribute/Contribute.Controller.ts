@@ -19,6 +19,22 @@ module openmaths {
                 .subscribe((expression: string) => {
                     this.parseContent();
                 });
+
+            $scope.$watch('ContributeCtr.MutationForm.prerequisiteDefinitionIds.value', (newValues: Object) => {
+                if (_.keys(newValues).length > 0) this.parseContent();
+            }, true);
+        }
+
+        toggleFormal() {
+            this.MutationForm.advancedTypeOptions.value.formal = !this.MutationForm.advancedTypeOptions.value.formal;
+
+            this.parseContent();
+        }
+
+        toggleMeta() {
+            this.MutationForm.advancedTypeOptions.value.meta = !this.MutationForm.advancedTypeOptions.value.meta;
+
+            this.parseContent();
         }
 
         parseContent(): void {

@@ -43,7 +43,7 @@
                 <div class="input-holder formal-meta">
                     <div class="toggle-holder"
                          ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].formal"
-                         ng-click="ContributeCtr.MutationForm.advancedTypeOptions.value.formal = !ContributeCtr.MutationForm.advancedTypeOptions.value.formal">
+                         ng-click="ContributeCtr.toggleFormal()">
                         <div class="toggle"
                              ng-class="{active: ContributeCtr.MutationForm.advancedTypeOptions.value.formal}"></div>
                         <small>Formal Contribution</small>
@@ -51,7 +51,7 @@
 
                     <div class="toggle-holder"
                          ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].meta"
-                         ng-click="ContributeCtr.MutationForm.advancedTypeOptions.value.meta = !ContributeCtr.MutationForm.advancedTypeOptions.value.meta">
+                         ng-click="ContributeCtr.toggleMeta()">
                         <div class="toggle"
                              ng-class="{active: ContributeCtr.MutationForm.advancedTypeOptions.value.meta}"></div>
                         <small>Meta Contribution</small>

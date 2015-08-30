@@ -82,12 +82,13 @@ module openmaths {
                 value: ''
             };
 
-            // Possibly redundant?
+            // @TODO discuss redundancy?
             this.titleSynonyms = {
                 active: false,
                 description: 'Comma-separated list of alternative names.',
                 label: 'Title Synonyms',
-                value: ''
+                value: [],
+                valueMeta: ''
             };
 
             this.umiType = {
@@ -144,14 +145,17 @@ module openmaths {
         constructor(public Api: openmaths.Api) {
         }
 
+        // @TODO private?
         latexToHtmlPromise(content: ILatexToHtmlPromisePayload): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().latexToHtml, content);
         }
 
+        // @TODO private?
         checkContentPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().check, payload);
         }
 
+        // @TODO private?
         createUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().createUmi, payload);
         }
@@ -160,6 +164,7 @@ module openmaths {
             let Mutation = new openmaths.Mutation(MutationForm),
                 Promise;
 
+            // @TODO discuss unification on the Back-End
             switch (MutationForm.advancedTypeOptions.value.formal) {
                 case true:
                     Promise = this.checkContentPromise(Mutation);
