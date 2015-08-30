@@ -25,32 +25,57 @@ module openmaths {
     }
 
     export class Umi implements IUmi {
-        creator = '';
-        htmlContent = 'Default UMI Content';
-        id = '';
-        latexContent = '';
-        latexContentId = '';
-        prerequisiteDefinitions = [];
-        seeAlso = [];
-        tags = [];
-        title = 'Default UMI Title';
-        titleSynonyms = [];
-        ts = 0;
-        umiType = 'Default UMI Type';
-        uriFriendlyTitle = '';
-        where = [];
+        creator: string;
+        formal: boolean;
+        htmlContent: string;
+        id: string;
+        latexContent: string;
+        latexContentId: string;
+        meta: boolean;
+        prerequisiteDefinitions: Array<IUmiDetails>;
+        seeAlso: Array<IUmiDetails>;
+        tags: Array<string>;
+        title: string;
+        titleSynonyms: Array<string>;
+        ts: number;
+        umiType: string;
+        uriFriendlyTitle: string;
 
+        where: number[];
         empty: boolean;
 
         constructor(initObject?: IUmi, where?: number[]) {
-            if (initObject) _.forEach(initObject, (value: any, key: string) => this[key] = value);
+            this.creator = initObject && initObject.creator ? initObject.creator : undefined;
+            this.formal = false;
+            this.htmlContent = initObject && initObject.htmlContent ? initObject.htmlContent : undefined;
+            this.id = initObject && initObject.id ? initObject.id : undefined;
+            this.latexContent = initObject && initObject.latexContent ? initObject.latexContent : undefined;
+            this.meta = false;
+            this.prerequisiteDefinitions = initObject && initObject.prerequisiteDefinitions ? initObject.prerequisiteDefinitions : undefined;
+            this.seeAlso = initObject && initObject.seeAlso ? initObject.seeAlso : undefined;
+            this.tags = initObject && initObject.tags ? initObject.tags : undefined;
+            this.title = initObject && initObject.title ? initObject.title : undefined;
+            this.titleSynonyms = initObject && initObject.titleSynonyms ? initObject.titleSynonyms : undefined;
+            this.ts = initObject && initObject.ts ? initObject.ts : undefined;
+            this.umiType = initObject && initObject.umiType ? this.parseUmiType(initObject.umiType) : undefined;
+            this.uriFriendlyTitle = initObject && initObject.uriFriendlyTitle ? initObject.uriFriendlyTitle : undefined;
 
-            this.where = where ? where : [];
+            this.where = where ? where : undefined;
             this.empty = this.isEmpty();
         }
 
         isEmpty() {
             return _.isEmpty(this.id) || _.isEmpty(this.uriFriendlyTitle);
+        }
+
+        private parseUmiType(umiTypeRaw: string): string {
+            let matchFormal = umiTypeRaw.match(new RegExp('Formal', 'g')),
+                matchMeta = umiTypeRaw.match(new RegExp('Meta', 'g'));
+
+            this.formal = _.isArray(matchFormal) && matchFormal.length > 0;
+            this.meta = _.isArray(matchMeta) && matchMeta.length > 0;
+
+            return umiTypeRaw;
         }
 
         // @TODO

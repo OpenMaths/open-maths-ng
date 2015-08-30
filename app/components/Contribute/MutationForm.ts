@@ -28,6 +28,8 @@ module openmaths {
         umiType: IMutationFormObject;
 
         constructor(Umi?: openmaths.Umi) {
+            console.log(Umi);
+
             this.advancedTypeOptions = {
                 active: false,
                 description: 'Advanced Type Options',
@@ -43,7 +45,7 @@ module openmaths {
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
                 error: false,
                 label: 'Content',
-                value: 'C\'mon - Write some $LaTeX$ to see me work! :-)',
+                value: Umi && Umi.latexContent ? Umi.latexContent : 'C\'mon - Write some $LaTeX$ to see me work! :-)',
                 valueParsed: ''
             };
 

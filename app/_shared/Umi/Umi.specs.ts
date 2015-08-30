@@ -46,8 +46,33 @@ module openmaths.specs {
             let modelWithInitObject = new openmaths.Umi(initObject, [1, 1]);
 
             _.forEach(initObject, (value: any, key: string) => {
-                expect(modelWithInitObject[key]).toEqual(value);
+                if (modelWithInitObject[key]) {
+                    expect(modelWithInitObject[key]).toEqual(value);
+                }
             });
+
+            expect(modelWithInitObject.formal).toEqual(false);
+            expect(modelWithInitObject.meta).toEqual(false);
+        });
+
+        it('should correctly evaluate whether a umiType is Formal', () => {
+            let initObjectWithFormal = _.clone(initObject);
+            initObjectWithFormal.umiType = 'FormalDefinition';
+
+            let modelWithInitObject = new openmaths.Umi(initObjectWithFormal);
+
+            expect(modelWithInitObject.formal).toEqual(true);
+            expect(modelWithInitObject.meta).toEqual(false);
+        });
+
+        it('should correctly evaluate whether a umiType is FormalMeta', () => {
+            let initObjectWithFormalMeta = _.clone(initObject);
+            initObjectWithFormalMeta.umiType = 'FormalDefinitionMeta';
+
+            let modelWithInitObject = new openmaths.Umi(initObjectWithFormalMeta);
+
+            expect(modelWithInitObject.formal).toEqual(true);
+            expect(modelWithInitObject.meta).toEqual(true);
         });
     });
 }

@@ -15,12 +15,13 @@ module openmaths {
         parsingInProgress: boolean;
 
         constructor($scope: ng.IScope, public $http: ng.IHttpService, private $stateParams?: IContributeControllerParams) {
+            this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http));
+            this.MutationForm = new openmaths.MutationForm;
             this.UpdateUmi = new openmaths.UpdateUmi(this.$stateParams, this.$http);
 
-            this.MutationForm = new openmaths.MutationForm;
-            this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http));
-
             this.parsingInProgress = false;
+
+            if (this.UpdateUmi.updateUriFriendlyTitle) this.populateMutationForm();
 
             openmaths.ReactiveX.watchModel($scope, 'ContributeCtr.MutationForm.content.value')
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
@@ -87,27 +88,24 @@ module openmaths {
             //this.MutationApi.createContent(this.MutationForm);
         }
 
-        //private isUpdate(params: IContributeControllerParams) {
-        //    return if (params.uriFriendlyTitle && !_.isEmpty(params.uriFriendlyTitle)) {
-        //        //let apiRoutes = openmaths.Config.getApiRoutes();
-        //        //
-        //        //Rx.Observable.fromPromise(this.MutationApi.getUmiPromise(apiRoutes.getUmiByTitle + params.uriFriendlyTitle))
-        //        //    .map(d => openmaths.Api.response(d))
-        //        //    .where(Rx.helpers.identity)
-        //        //    .subscribe((d: IApiResponse) => {
-        //        //        let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
-        //        //
-        //        //        this.updateId = response.id;
-        //        //        this.MutationForm = new openmaths.MutationForm(new openmaths.Umi(response));
-        //        //
-        //        //        openmaths.Logger.debug('UMI id => ' + response.id + ' loaded.');
-        //        //    }, errorData => {
-        //        //        //this.MutationForm = new openmaths.MutationForm;
-        //        //        openmaths.Logger.error(errorData);
-        //        //        //this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
-        //        //    });
-        //    }
-        //}
+        private populateMutationForm() {
+            Rx.Observable
+                .fromPromise(this.UpdateUmi.getUmiByTitlePromise())
+                .map(d => openmaths.Api.response(d))
+                .where(Rx.helpers.identity)
+                .subscribe((d: IApiResponse) => {
+                    let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
+
+                    this.MutationForm = new openmaths.MutationForm(new openmaths.Umi(response));
+                    this.UpdateUmi.updateId = response.id;
+
+                    openmaths.Logger.debug('UMI id => ' + response.id + ' loaded.');
+                }, errorData => {
+                    //this.MutationForm = new openmaths.MutationForm;
+                    openmaths.Logger.error(errorData);
+                    //this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
+                });
+        }
     }
 
     angular
