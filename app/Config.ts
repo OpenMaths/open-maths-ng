@@ -1,69 +1,73 @@
 module openmaths {
     'use strict';
 
-    export interface IApiUrls {
-        production: string;
-        development: string;
-        test: string;
-    }
-
-    // @TODO is this needed?
-    export interface IApiRoutes {
-        check: string;
-        createUmi: string;
-        getUmiById: string;
-        getUmiByTitle: string;
-        search: string;
-        latexToHtml: string;
-    }
-
     export interface IUiConfig {
         theme: string;
         font: string;
         currentState: ng.ui.ICurrentStateUiConfig;
     }
 
-    let uiConfig: IUiConfig = {
-        theme: 'light',
-        font: 'modern',
-        currentState: {}
-    };
+    interface IApiUrls {
+        production: string;
+        development: string;
+        test: string;
+    }
 
-    let apiUrls: IApiUrls = {
-        production: 'https://api.openmaths.io/',
-        development: 'http://api.om.dev/',
-        test: 'http://api.om.dev/'
-    };
-    let apiRoutes: IApiRoutes = {
-        check: 'check',
-        createUmi: 'add',
-        getUmiById: 'id/',
-        getUmiByTitle: 'title/',
-        latexToHtml: 'latex-to-html',
-        search: 'search/'
-    };
-    let productionHost: string = 'openmaths.io';
-    let testHost: string = 'localhost:8087';
+    // @TODO is this needed?
+    interface IApiRoutes {
+        check: string;
+        createUmi: string;
+        getUmiById: string;
+        getUmiByTitle: string;
+        latexToHtml: string;
+        search: string;
+        update: string;
+    }
 
     export class Config {
+        private static productionHost: string = 'openmaths.io';
+        private static testHost: string = 'localhost:8087';
+
+        private static apiRoutes: IApiRoutes = {
+            check: 'check',
+            createUmi: 'add',
+            getUmiById: 'id/',
+            getUmiByTitle: 'title/',
+            latexToHtml: 'latex-to-html',
+            search: 'search/',
+            update: 'update'
+        };
+
+        private static apiUrls: IApiUrls = {
+            production: 'https://api.openmaths.io/',
+            development: 'http://api.om.dev/',
+            test: 'http://api.om.dev/'
+        };
+
+        private static uiConfig: IUiConfig = {
+            theme: 'light',
+            font: 'modern',
+            currentState: {}
+        };
+
         static getApiUrl(): string {
-            return apiUrls[openmaths.Debug.getEnvironment()];
+            return Config.apiUrls[openmaths.Debug.getEnvironment()];
         }
 
         static getProductionHost(): string {
-            return productionHost;
+            return Config.productionHost;
         }
 
         static getTestHost(): string {
-            return testHost;
+            return Config.testHost;
         }
 
         static getApiRoutes(): IApiRoutes {
-            return apiRoutes;
+            return Config.apiRoutes;
         }
 
         static getUiConfig(): IUiConfig {
-            return uiConfig;
+            return Config.uiConfig;
         }
     }
 }

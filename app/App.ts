@@ -8,7 +8,7 @@ module openmaths {
         .run(run);
 
     function config($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, cfpLoadingBarProvider) {
-        $urlRouterProvider.otherwise('/dive');
+        $urlRouterProvider.otherwise('/explore');
 
         $stateProvider
             .state('home', {
@@ -45,6 +45,20 @@ module openmaths {
                 controller: 'ContributeController',
                 controllerAs: 'ContributeCtr',
                 uiConfig: {
+                    bodyClass: 'page-contribute',
+                    navigation: {
+                        hiding: false,
+                        transparent: false
+                    }
+                }
+            })
+            .state('update', {
+                url: '/update/:uriFriendlyTitle',
+                templateUrl: 'app/components/Contribute/contribute.html',
+                controller: 'ContributeController',
+                controllerAs: 'ContributeCtr',
+                uiConfig: {
+                    bodyClass: 'page-contribute',
                     navigation: {
                         hiding: false,
                         transparent: false
@@ -57,6 +71,7 @@ module openmaths {
                 controller: 'ExploreController',
                 controllerAs: 'ExploreCtr',
                 uiConfig: {
+                    bodyClass: 'page-explore',
                     navigation: {
                         hiding: false,
                         transparent: true
@@ -70,6 +85,7 @@ module openmaths {
                 //controllerAs: 'ExploreCtr',
                 //params: ['uriFriendlyTitle'],
                 uiConfig: {
+                    bodyClass: 'page-explore',
                     navigation: {
                         hiding: true,
                         transparent: false

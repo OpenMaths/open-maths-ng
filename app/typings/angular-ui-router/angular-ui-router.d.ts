@@ -19,6 +19,7 @@ declare module angular.ui {
     }
 
     interface ICurrentStateUiConfig {
+        bodyClass?: string;
         navigation?: ICurrentStateUiNavigationConfig;
     }
 

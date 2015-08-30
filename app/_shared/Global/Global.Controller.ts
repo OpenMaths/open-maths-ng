@@ -7,7 +7,6 @@ module openmaths {
 
     export class GlobalController {
         bodyClass: string;
-        currentBaseState: string;
         gApiInitialised: boolean = false;
         uiConfig: IUiConfig;
 
@@ -21,14 +20,10 @@ module openmaths {
             };
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
-                // The type of states needs to be declared
-                let states: Array<string> = toState.name.split('.');
-
-                this.currentBaseState = _.first(states);
-                this.bodyClass = 'page-' + this.currentBaseState;
-
+                //console.log(toState);
                 this.uiConfig = openmaths.Config.getUiConfig();
                 this.uiConfig.currentState = toState.uiConfig;
+                this.bodyClass = this.uiConfig.currentState.bodyClass;
             });
         }
 

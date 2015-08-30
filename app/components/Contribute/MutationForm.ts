@@ -27,7 +27,7 @@ module openmaths {
         titleSynonyms: IMutationFormObject;
         umiType: IMutationFormObject;
 
-        constructor() {
+        constructor(Umi?: openmaths.Umi) {
             this.advancedTypeOptions = {
                 active: false,
                 description: 'Advanced Type Options',
@@ -142,7 +142,7 @@ module openmaths {
     }
 
     export class MutationApi {
-        constructor(public Api: openmaths.Api) {
+        constructor(private Api: openmaths.Api) {
         }
 
         // @TODO private?

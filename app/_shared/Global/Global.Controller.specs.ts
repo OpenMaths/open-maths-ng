@@ -10,8 +10,8 @@ module openmaths.specs {
         let $templateCache: ng.ITemplateCacheService;
         let $window: IGlobalControllerWindow;
 
-        let testStates = ['home', 'dive', 'dive.list'];
-        let testStatesWithUiConfig = ['home', 'dive'];
+        let testStates = ['explore'];
+        let testStatesWithUiConfig = ['explore'];
 
         // @TODO
         // Authentication to be removed after development
@@ -26,9 +26,8 @@ module openmaths.specs {
             $templateCache = _$templateCache_;
             $window = _$window_;
 
-            $templateCache.put('app/components/Home/home.html', '');
-            $templateCache.put('app/components/Dive/dive.html', '');
-            $templateCache.put('app/components/Dive/dive.list.html', '');
+            $templateCache.put('app/components/Explore/explore.html', '');
+
 
             controller = new openmaths.GlobalController(Authentication, $rootScope, $window);
         }));
@@ -58,14 +57,10 @@ module openmaths.specs {
                 $state.go(state);
                 $rootScope.$digest();
 
-                let newState: ng.ui.IState = $state.current,
-                    newStates: Array<string> = newState.name.split('.'),
-                    currentBaseState: string = controller.currentBaseState,
-                    bodyClass: string = controller.bodyClass;
+                let bodyClass: string = controller.bodyClass;
 
 
-                expect(currentBaseState).toEqual(_.first(newStates));
-                expect(bodyClass).toEqual('page-' + currentBaseState);
+                expect(bodyClass).toEqual('page-explore');
             });
         });
 
