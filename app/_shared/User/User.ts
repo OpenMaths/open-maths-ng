@@ -28,7 +28,6 @@ module openmaths {
             this.gPlusId = userInfo.id;
             this.name = userInfo.name;
             this.picture = userInfo.picture;
-            // @TODO test
             this.surname = userInfo.family_name;
             this.verified = userInfo.verified_email;
 
@@ -48,6 +47,7 @@ module openmaths {
             openmaths.SessionStorage.remove('omUser');
         }
 
+        // @TODO Needs to know if this is a false?
         static getData(): openmaths.User {
             return openmaths.SessionStorage.get('omUser');
         }

@@ -20,6 +20,7 @@ module openmaths {
     export class MutationForm {
         advancedTypeOptions: IMutationFormObject;
         content: IMutationFormObject;
+        id: IMutationFormObject;
         prerequisiteDefinitionIds: IMutationFormObject;
         seeAlsoIds: IMutationFormObject;
         tags: IMutationFormObject;
@@ -28,15 +29,13 @@ module openmaths {
         umiType: IMutationFormObject;
 
         constructor(Umi?: openmaths.Umi) {
-            console.log(Umi);
-
             this.advancedTypeOptions = {
                 active: false,
                 description: 'Advanced Type Options',
                 label: 'Advanced Type Options',
                 value: {
-                    formal: false,
-                    meta: false
+                    formal: Umi && Umi.formal ? Umi.formal : false,
+                    meta: Umi && Umi.meta ? Umi.meta : false,
                 }
             };
 
@@ -45,8 +44,16 @@ module openmaths {
                 description: 'The actual content. You are free to use LaTeX (including text-mode macros!!)',
                 error: false,
                 label: 'Content',
-                value: Umi && Umi.latexContent ? Umi.latexContent : 'C\'mon - Write some $LaTeX$ to see me work! :-)',
+                value: Umi && Umi.latexContent
+                    ? Umi.latexContent : 'C\'mon - Write some $LaTeX$ to see me work! :-)',
                 valueParsed: ''
+            };
+
+            this.id = {
+                active: true,
+                description: '',
+                label: '',
+                value: Umi && Umi.id ? Umi.id : undefined
             };
 
             this.prerequisiteDefinitionIds = {
@@ -55,7 +62,8 @@ module openmaths {
                 label: 'Prerequisite Definitions',
                 remove: (id: string) => this.removeValues(UpdateValues.PrerequisiteDefinitions, id),
                 update: (resolveObject: SearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
-                value: {}
+                value: Umi && Umi.prerequisiteDefinitions
+                    ? MutationForm.resolveUmiDetails(Umi.prerequisiteDefinitions) : {}
             };
 
             this.seeAlsoIds = {
@@ -64,7 +72,8 @@ module openmaths {
                 label: 'See Also',
                 remove: (id: string) => this.removeValues(UpdateValues.SeeAlso, id),
                 update: (resolveObject: SearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
-                value: {}
+                value: Umi && Umi.seeAlso
+                    ? MutationForm.resolveUmiDetails(Umi.seeAlso) : {}
             };
 
             this.tags = {
@@ -73,15 +82,16 @@ module openmaths {
                 label: 'Tags',
                 parseCsv: () => this.tags.value = openmaths.CsvParser.parse(this.tags.valueMeta),
                 remove: (label: string) => this.removeTag(label),
-                value: [],
-                valueMeta: ''
+                value: Umi && Umi.tags ? Umi.tags : [],
+                valueMeta: Umi && Umi.tags ? Umi.tags.join(', ') : ''
             };
 
             this.title = {
                 active: true,
                 description: 'Users will be able to search your contribution',
                 label: 'Contribution Title',
-                value: ''
+                value: Umi && Umi.title
+                    ? Umi.title : ''
             };
 
             // @TODO discuss redundancy?
@@ -89,8 +99,8 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of alternative names.',
                 label: 'Title Synonyms',
-                value: [],
-                valueMeta: ''
+                value: Umi && Umi.titleSynonyms ? Umi.titleSynonyms : [],
+                valueMeta: Umi && Umi.titleSynonyms ? Umi.titleSynonyms.join(', ') : ''
             };
 
             this.umiType = {
@@ -98,7 +108,7 @@ module openmaths {
                 description: 'What category of information?',
                 label: 'Contribution Type',
                 options: new openmaths.UmiTypes,
-                value: ''
+                value: Umi && Umi.umiType ? Umi.umiType : ''
             };
         }
 
@@ -136,6 +146,16 @@ module openmaths {
             this.tags.value = newCsvData.list;
             this.tags.valueMeta = newCsvData.value;
         }
+
+        private static resolveUmiDetails(umiDetailsList: Array<IUmiDetails>): Object {
+            let finalObject = {};
+
+            _.forEach(umiDetailsList, (umiDetails: IUmiDetails) => {
+                finalObject[umiDetails.id] = umiDetails.title;
+            });
+
+            return finalObject;
+        }
     }
 
     export interface ILatexToHtmlPromisePayload {
@@ -158,18 +178,24 @@ module openmaths {
         }
 
         // @TODO private?
+        checkUpdateContentPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+            return this.Api.post(openmaths.Config.getApiRoutes().checkUpdate, payload);
+        }
+
+        // @TODO private?
         createUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().createUmi, payload);
         }
 
-        parseContent(MutationForm: openmaths.MutationForm): ng.IHttpPromise<void> {
+        parseContent(MutationForm: openmaths.MutationForm, isUpdate: boolean): ng.IHttpPromise<void> {
             let Mutation = new openmaths.Mutation(MutationForm),
                 Promise;
 
             // @TODO discuss unification on the Back-End
             switch (MutationForm.advancedTypeOptions.value.formal) {
                 case true:
-                    Promise = this.checkContentPromise(Mutation);
+                    Promise = isUpdate
+                        ? this.checkUpdateContentPromise(Mutation) : this.checkContentPromise(Mutation);
                     break;
                 default:
                     Promise = this.latexToHtmlPromise({
@@ -195,6 +221,7 @@ module openmaths {
     export class Mutation {
         auth: openmaths.Auth;
         content: string;
+        id: string;
         message: string;
         prerequisiteDefinitionIds: string[];
         seeAlsoIds: string[];
@@ -206,6 +233,7 @@ module openmaths {
         constructor(MutationForm: openmaths.MutationForm) {
             this.auth = openmaths.User.getAuthData();
             this.content = MutationForm.content.value;
+            this.id = MutationForm.id.value;
             this.message = 'Initialise UMI';
             this.prerequisiteDefinitionIds = _.keys(MutationForm.prerequisiteDefinitionIds.value);
             this.seeAlsoIds = _.keys(MutationForm.seeAlsoIds.value);

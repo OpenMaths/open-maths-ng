@@ -63,6 +63,7 @@ module openmaths.specs {
 
             expect(modelWithInitObject.formal).toEqual(true);
             expect(modelWithInitObject.meta).toEqual(false);
+            expect(modelWithInitObject.umiType).toEqual('Definition');
         });
 
         it('should correctly evaluate whether a umiType is FormalMeta', () => {
@@ -73,6 +74,7 @@ module openmaths.specs {
 
             expect(modelWithInitObject.formal).toEqual(true);
             expect(modelWithInitObject.meta).toEqual(true);
+            expect(modelWithInitObject.umiType).toEqual('Definition');
         });
     });
 }

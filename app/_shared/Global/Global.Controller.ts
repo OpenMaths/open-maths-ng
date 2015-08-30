@@ -36,7 +36,7 @@ module openmaths {
         }
 
         signIn() {
-            if (this.gApiInitialised && !openmaths.GlobalController.isSignedIn()) this.Authentication.gApiLogin();
+            if (this.gApiInitialised && !openmaths.User.getData()) this.Authentication.gApiLogin();
         }
 
         // @TODO implement

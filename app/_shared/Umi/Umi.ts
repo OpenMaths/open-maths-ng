@@ -69,13 +69,15 @@ module openmaths {
         }
 
         private parseUmiType(umiTypeRaw: string): string {
-            let matchFormal = umiTypeRaw.match(new RegExp('Formal', 'g')),
-                matchMeta = umiTypeRaw.match(new RegExp('Meta', 'g'));
+            let regexFormal = new RegExp('Formal', 'g'),
+                regexMeta = new RegExp('Meta', 'g'),
+                matchFormal = umiTypeRaw.match(regexFormal),
+                matchMeta = umiTypeRaw.match(regexMeta);
 
             this.formal = _.isArray(matchFormal) && matchFormal.length > 0;
             this.meta = _.isArray(matchMeta) && matchMeta.length > 0;
 
-            return umiTypeRaw;
+            return umiTypeRaw.replace(regexFormal, '').replace(regexMeta, '');
         }
 
         // @TODO

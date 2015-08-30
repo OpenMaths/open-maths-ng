@@ -1,9 +1,10 @@
 module openmaths.specs {
     'use strict';
 
-    let testSearchResult: SearchResult = new SearchResult({
+    let testSearchResult: openmaths.SearchResult = new SearchResult({
         id: 'testId',
         title: 'testTitle',
+        titleFormatted: 'testTitle',
         uriFriendlyTitle: 'testUriFriendlyTitle',
         umiType: 'testUmiType'
     });
@@ -95,6 +96,17 @@ module openmaths.specs {
             $httpBackend.expectPOST(addr).respond(200, 'success');
 
             model.checkContentPromise(payload).then(result => expect(result.data).toEqual('success'));
+
+            $httpBackend.flush();
+        });
+
+        it('should be able to return a checkUpdateContent promise', () => {
+            let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().checkUpdate,
+                payload = new openmaths.Mutation(new openmaths.MutationForm());
+
+            $httpBackend.expectPOST(addr).respond(200, 'success');
+
+            model.checkUpdateContentPromise(payload).then(result => expect(result.data).toEqual('success'));
 
             $httpBackend.flush();
         });

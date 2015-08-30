@@ -55,7 +55,8 @@ module openmaths {
         }
 
         parseContent(): void {
-            Rx.Observable.fromPromise(this.MutationApi.parseContent(this.MutationForm))
+            Rx.Observable
+                .fromPromise(this.MutationApi.parseContent(this.MutationForm, !_.isUndefined(this.UpdateUmi.updateUriFriendlyTitle)))
                 .do(() => {
                     openmaths.Logger.debug('LaTeX to HTML translation in progress');
 

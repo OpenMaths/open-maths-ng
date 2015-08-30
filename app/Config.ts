@@ -16,6 +16,7 @@ module openmaths {
     // @TODO is this needed?
     interface IApiRoutes {
         check: string;
+        checkUpdate: string;
         createUmi: string;
         getUmiById: string;
         getUmiByTitle: string;
@@ -30,6 +31,7 @@ module openmaths {
 
         private static apiRoutes: IApiRoutes = {
             check: 'check',
+            checkUpdate: 'check-update',
             createUmi: 'add',
             getUmiById: 'id/',
             getUmiByTitle: 'title/',
