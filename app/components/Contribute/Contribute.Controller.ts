@@ -20,8 +20,8 @@ module openmaths {
                     this.parseContent();
                 });
 
-            $scope.$watch('ContributeCtr.MutationForm.prerequisiteDefinitionIds.value', (newValues: Object) => {
-                if (_.keys(newValues).length > 0) this.parseContent();
+            $scope.$watch('ContributeCtr.MutationForm.prerequisiteDefinitionIds.value', (newValues: Object, oldValues: Object) => {
+                if (_.keys(newValues).length > 0 || _.keys(oldValues).length > 0) this.parseContent();
             }, true);
         }
 
