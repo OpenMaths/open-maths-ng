@@ -2,7 +2,7 @@ module openmaths.specs {
     'use strict';
 
     describe('Board model', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         let model: openmaths.Board;
         let $httpBackend;

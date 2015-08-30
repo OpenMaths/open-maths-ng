@@ -2,7 +2,7 @@ module openmaths.specs {
     'use strict';
 
     describe('SearchController', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         let Api: openmaths.Api;
         let controller: openmaths.SearchController;

@@ -6,40 +6,40 @@
   "bundle": "app/typings/tsd.d.ts",
   "installed": {
     "angularjs/angular.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "jquery/jquery.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "lodash/lodash.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "gapi/gapi.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "jasmine/jasmine.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "mathjax/mathjax.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "rx/rx.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "rx/rx-lite.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "angularjs/angular-mocks.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "angular-ui-router/angular-ui-router.d.ts": {
-      "commit": "f68689ee7df85970dd1026fb2e44b34e9f628bed"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "rx/rx.time.d.ts": {
-      "commit": "60aaf721a4a39f297a6aa83b0cc2d333d8f404a9"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     },
     "rx/rx.time-lite.d.ts": {
-      "commit": "60aaf721a4a39f297a6aa83b0cc2d333d8f404a9"
+      "commit": "2600d6df178577a0fc930726abb51c481b0976b0"
     }
   }
 }

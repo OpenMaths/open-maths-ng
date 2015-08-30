@@ -52,7 +52,7 @@ module openmaths {
                 description: 'Comma-separated list of valid dependency Titles',
                 label: 'Prerequisite Definitions',
                 remove: (id: string) => this.removeValues(UpdateValues.PrerequisiteDefinitions, id),
-                update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
+                update: (resolveObject: SearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
                 value: {}
             };
 
@@ -61,7 +61,7 @@ module openmaths {
                 description: 'Comma-separated list of valid Titles which may be related',
                 label: 'See Also',
                 remove: (id: string) => this.removeValues(UpdateValues.SeeAlso, id),
-                update: (resolveObject: ISearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
+                update: (resolveObject: SearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
                 value: {}
             };
 
@@ -106,7 +106,7 @@ module openmaths {
             });
         }
 
-        updateValues(selector: UpdateValues, resolveObject: ISearchResult) {
+        updateValues(selector: UpdateValues, resolveObject: SearchResult) {
             switch (selector) {
                 case UpdateValues.PrerequisiteDefinitions:
                     this.prerequisiteDefinitionIds.value[resolveObject.id] = resolveObject.title;

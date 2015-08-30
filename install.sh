@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo npm install gulp npm-check-updates tsd typescript -g
+sudo npm install bower gulp npm-check-updates tsd typescript -g
 
 sudo ncu -ua
 sudo npm install

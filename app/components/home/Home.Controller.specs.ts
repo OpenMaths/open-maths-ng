@@ -2,7 +2,7 @@ module openmaths.specs {
     'use strict';
 
     describe('HomeController', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         let controller: openmaths.HomeController;
         let NotificationFactory: openmaths.NotificationFactory;

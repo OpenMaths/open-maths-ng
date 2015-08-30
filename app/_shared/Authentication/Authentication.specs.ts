@@ -30,7 +30,7 @@ module openmaths.specs {
     let loginResponse: string = '';
 
     describe('Authentication', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         beforeEach(inject((_Authentication_: openmaths.Authentication,
                            _$httpBackend_: ng.IHttpBackendService) => {

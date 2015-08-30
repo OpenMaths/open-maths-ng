@@ -59,8 +59,9 @@
                 </div>
             </div>
 
-            <div class="form-control content" tabindex="1" select-on-focus="true"
-                 on-click-focus="ContributeCtr.MutationForm.resetActive()">
+            <div class="form-control content" tabindex="1"
+                 ng-class="{open: ContributeCtr.MutationForm.content.active || ContributeCtr.MutationForm.content.value}"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.content.active = true">
                 <label>
                     <i class="fa fa-file-text-o fa-fw"></i>
                     <span>{{ContributeCtr.MutationForm.content.label}}</span>
@@ -97,7 +98,7 @@
                     <li ng-repeat="result in SearchCtr.searchResults.data"
                         ng-class="{active: $index == SearchCtr.searchResults.selected}"
                         ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.update(result)">
-                        <strong>{{result.title}}</strong>
+                        <strong ng-bind-html="result.title"></strong>
                         <small class="label">{{result.umiType}}</small>
                         <i class="fa fa-eye"></i>
                     </li>
@@ -129,7 +130,7 @@
                     <li ng-repeat="result in SearchCtr.searchResults.data"
                         ng-class="{active: $index == SearchCtr.searchResults.selected}"
                         ng-click="ContributeCtr.MutationForm.seeAlsoIds.update(result)">
-                        <strong>{{result.title}}</strong>
+                        <strong ng-bind-html="result.title"></strong>
                         <small class="label">{{result.umiType}}</small>
                         <i class="fa fa-eye"></i>
                     </li>

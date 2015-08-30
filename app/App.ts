@@ -3,7 +3,7 @@
 module openmaths {
     'use strict';
 
-    angular.module('openmaths', ['ui.router', 'angular-loading-bar'])
+    angular.module('openmaths', ['ngSanitize', 'ui.router', 'angular-loading-bar'])
         .config(config)
         .run(run);
 

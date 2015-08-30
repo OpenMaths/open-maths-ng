@@ -5,20 +5,13 @@ module openmaths {
         keyCode: number;
     }
 
-    export interface ISearchResult {
-        id: string;
-        title: string;
-        uriFriendlyTitle: string;
-        umiType: string;
-    }
-
     export interface ISearchResults {
         selected: number;
-        data: Array<ISearchResult>;
+        data: Array<SearchResult>;
     }
 
     export interface IAutocompleteData {
-        [id: string]: ISearchResult;
+        [id: string]: SearchResult;
     }
 
     export enum NavigationKeys {
@@ -27,12 +20,27 @@ module openmaths {
         keyReturn = 13
     }
 
+    export class SearchResult {
+        id: string;
+        title: string;
+        uriFriendlyTitle: string;
+        umiType: string;
+
+        constructor(result, term?: string) {
+            this.id = result.id;
+            this.title = term ? openmaths.Search.Utils.highlightSearchTerm(term, result.title) : result.title;
+            this.uriFriendlyTitle = result.uriFriendlyTitle;
+            this.umiType = result.umiType;
+        }
+    }
+
     export class SearchController {
         private Api: openmaths.Api;
 
-        trigger: (event: IKeyboardEvent, onReturn?: Function) => void;
-        searchResults: ISearchResults;
         autocompleteData: IAutocompleteData;
+        searchResults: ISearchResults;
+        term: string;
+        trigger: (event: IKeyboardEvent, onReturn?: Function) => void;
 
         constructor(private _Api_: openmaths.Api, private $scope: ng.IScope) {
             this.Api = _Api_;
@@ -63,9 +71,6 @@ module openmaths {
                 }
             };
 
-            // @TODO
-            // potentially think about whether inheritance from another controller is going to affect the model
-            // targeting. Should it only be something like SearchCtr.term?
             openmaths.ReactiveX.watchModel($scope, 'SearchCtr.term')
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .where(Rx.helpers.identity)
@@ -73,6 +78,8 @@ module openmaths {
                 // abstract into magic vars
                 .throttle(250)
                 .map(term => {
+                    this.term = term;
+
                     return Rx.Observable.fromPromise(this.searchPromise(term))
                         .do(() => {
                             openmaths.Logger.debug('Listing results for ' + term);
@@ -95,7 +102,7 @@ module openmaths {
 
                     this.searchResults = {
                         selected: 0,
-                        data: results.data
+                        data: _.map(results.data, result => new SearchResult(result, this.term))
                     }
                 }, errorData => {
                     openmaths.Logger.error(errorData);

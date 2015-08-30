@@ -1,12 +1,12 @@
 module openmaths.specs {
     'use strict';
 
-    let testSearchResult: ISearchResult = {
+    let testSearchResult: SearchResult = new SearchResult({
         id: 'testId',
         title: 'testTitle',
         uriFriendlyTitle: 'testUriFriendlyTitle',
         umiType: 'testUmiType'
-    };
+    });
 
     describe('MutationForm model', () => {
         let model: openmaths.MutationForm;
@@ -52,7 +52,7 @@ module openmaths.specs {
     });
 
     describe('MutationApi model', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         let Api: openmaths.Api;
         let $httpBackend: ng.IHttpBackendService;

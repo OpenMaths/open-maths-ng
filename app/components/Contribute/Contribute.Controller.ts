@@ -16,6 +16,7 @@ module openmaths {
             openmaths.ReactiveX.watchModel($scope, 'ContributeCtr.MutationForm.content.value')
                 .throttle(500)
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
+                .where(Rx.helpers.identity)
                 .subscribe((expression: string) => {
                     this.parseContent();
                 });

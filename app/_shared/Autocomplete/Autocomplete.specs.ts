@@ -8,7 +8,7 @@ module openmaths.specs {
     }
 
     describe('Autocomplete', () => {
-        beforeEach(module('openmaths'));
+        beforeEach(angular.mock.module('openmaths'));
 
         let autocompleteData: IAutocompleteData = {
             a1: {id: 'a1', title: 'Hello World a1', uriFriendlyTitle: 'hello-world-a1', umiType: 'test'},

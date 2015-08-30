@@ -2,7 +2,7 @@ module openmaths.specs {
 	'use strict';
 
 	describe('DiveController', () => {
-		beforeEach(module('openmaths'));
+		beforeEach(angular.mock.module('openmaths'));
 
 		let controller: openmaths.DiveController;
 		let $state;
