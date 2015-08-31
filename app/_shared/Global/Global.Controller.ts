@@ -10,6 +10,7 @@ module openmaths {
         private static signedOutNotificationMessage = 'You have been signed out';
 
         bodyClass: string;
+        staticUrl: string;
         gApiInitialised: boolean = false;
         uiConfig: IUiConfig;
 
@@ -33,6 +34,8 @@ module openmaths {
             });
 
             if (openmaths.User.isSignedIn()) this.User = openmaths.User.getData();
+
+            this.staticUrl = openmaths.Config.getStaticUrl();
         }
 
         signIn() {

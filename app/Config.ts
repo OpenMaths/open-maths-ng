@@ -54,6 +54,12 @@ module openmaths {
             test: 'http://api.om.dev/'
         };
 
+        private static staticUrls: IApiUrls = {
+            production: 'https://static.openmaths.io/',
+            development: 'http://static.om.dev/',
+            test: 'http://static.om.dev/'
+        };
+
         private static uiConfig: IUiConfig = {
             theme: 'light',
             font: 'modern',
@@ -62,6 +68,10 @@ module openmaths {
 
         static getApiUrl(): string {
             return Config.apiUrls[openmaths.Debug.getEnvironment()];
+        }
+
+        static getStaticUrl(): string {
+            return Config.staticUrls[openmaths.Debug.getEnvironment()];
         }
 
         static getProductionHost(): string {

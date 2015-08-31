@@ -69,6 +69,10 @@ module openmaths.specs {
             expect(controller.gApiInitialised).toBe(false);
         });
 
+        it('should have the correct staticUrl model attached to its scope', () => {
+            expect(controller.staticUrl).toBe(openmaths.Config.getStaticUrl());
+        });
+
         it('should make gApiInitialised true after window.gApiInitialised() has been called', () => {
             $window.gApiInitialised();
 
