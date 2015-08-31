@@ -34,7 +34,7 @@ module openmaths {
     }
 
     export class Config {
-        private static productionHost: string = 'openmaths.io';
+        private static productionHost: string = 'app.openmaths.io';
         private static testHost: string = 'localhost:8087';
 
         private static apiRoutes: IApiRoutes = {
