@@ -7,6 +7,7 @@ module openmaths {
 
     export class ContributeController {
         private static keyStrokeThrottle = 1500;
+        private static retryConnection = 3;
 
         MutationForm: openmaths.MutationForm;
         MutationApi: openmaths.MutationApi;
@@ -73,6 +74,7 @@ module openmaths {
 
                     return Rx.Observable.empty();
                 })
+                .retry(ContributeController.retryConnection)
                 .subscribe(result => {
                     let response = openmaths.Api.response(result);
 
@@ -94,6 +96,7 @@ module openmaths {
                 .fromPromise(this.UpdateUmi.getUmiByTitlePromise())
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
+                .retry(ContributeController.retryConnection)
                 .subscribe((d: IApiResponse) => {
                     let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
 
@@ -102,7 +105,6 @@ module openmaths {
 
                     openmaths.Logger.debug('UMI id => ' + response.id + ' loaded.');
                 }, errorData => {
-                    //this.MutationForm = new openmaths.MutationForm;
                     openmaths.Logger.error(errorData);
                     //this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
                 });

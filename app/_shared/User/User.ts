@@ -57,5 +57,11 @@ module openmaths {
 
             return new Auth(userData.accessToken, userData.gPlusId);
         }
+
+        static isSignedIn(): boolean {
+            let auth = User.getAuthData();
+
+            return !_.isEmpty(auth.accessToken) && !_.isEmpty(auth.gPlusId);
+        }
     }
 }

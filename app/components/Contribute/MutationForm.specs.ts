@@ -4,7 +4,6 @@ module openmaths.specs {
     let testSearchResult: openmaths.SearchResult = new SearchResult({
         id: 'testId',
         title: 'testTitle',
-        titleFormatted: 'testTitle',
         uriFriendlyTitle: 'testUriFriendlyTitle',
         umiType: 'testUmiType'
     });

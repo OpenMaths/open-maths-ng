@@ -128,5 +128,16 @@ module openmaths.specs {
             expect(openmaths.User.getAuthData().accessToken).toEqual('testToken');
             expect(openmaths.User.getAuthData().gPlusId).toEqual('testId');
         });
+
+        it('should be able to tell whether a user is signed in', () => {
+            let User = new openmaths.User(gApiAuthResponse, userInfo);
+
+            expect(openmaths.User.isSignedIn()).toEqual(true);
+
+            User.signOut();
+
+            expect(openmaths.User.isSignedIn()).toEqual(false);
+
+        });
     });
 }

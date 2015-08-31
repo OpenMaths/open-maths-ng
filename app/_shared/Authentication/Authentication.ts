@@ -43,6 +43,10 @@ module openmaths {
     }
 
     export class Authentication {
+        private static retryConnection = 3;
+
+        private User: openmaths.User;
+
         constructor(public Api: openmaths.Api,
                     public NotificationFactory: openmaths.NotificationFactory) {
         }
@@ -61,22 +65,41 @@ module openmaths {
             });
         }
 
+        gApiLogout() {
+            gapi.auth.signOut();
+
+            this.logout();
+        }
+
         userLoggedInCallback(loginResponse: ILoginResponseData, gApiAuthResponse: IGApiAuthResponse) {
-            new openmaths.User(gApiAuthResponse, loginResponse.userInfo);
+            this.User = new openmaths.User(gApiAuthResponse, loginResponse.userInfo);
 
             this.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
+        }
+
+        userLoggedOutCallback() {
+            this.User.signOut();
+
+            //this.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
         }
 
         googleApiPromise(accessToken: string) {
             return this.Api.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + accessToken, true);
         }
 
+        // @TODO API config?
         arftPromise(gPlusId: string) {
             return this.Api.post('arft', gPlusId);
         }
 
-        loginPromise(loginData) {
-            return this.Api.post('login', loginData);
+        // @TODO API config?
+        loginPromise(payload) {
+            return this.Api.post('login', payload);
+        }
+
+        // @TODO API config?
+        logoutPromise(payload: openmaths.Auth) {
+            return this.Api.post('logout', payload);
         }
 
         login(gApiAuthResponse: IGApiAuthResponse) {
@@ -97,6 +120,7 @@ module openmaths {
                             return response.data;
                         })
                         .where(Rx.helpers.identity)
+                        .retry(Authentication.retryConnection)
                         .map((arftResponse): IArftResponseData => {
                             return {
                                 arftResponse: arftResponse,
@@ -123,6 +147,7 @@ module openmaths {
                             return response.data;
                         })
                         .where(Rx.helpers.identity)
+                        .retry(Authentication.retryConnection)
                         .map((loginResponse): ILoginResponseData => {
                             return {
                                 loginResponse: loginResponse,
@@ -131,12 +156,31 @@ module openmaths {
                         });
                 })
                 .switch()
+                .retry(Authentication.retryConnection)
                 .subscribe((d: ILoginResponseData) => {
                     openmaths.Logger.info(d);
 
                     this.userLoggedInCallback(d, gApiAuthResponse);
-                }, d => {
-                    openmaths.Logger.error(d);
+                }, errorData => {
+                    openmaths.Logger.error(errorData);
+                });
+        }
+
+        logout() {
+            Rx.Observable.fromPromise(this.logoutPromise(openmaths.User.getAuthData()))
+                .map(d => {
+                    let response = openmaths.Api.response(d);
+
+                    return response.data;
+                })
+                .where(Rx.helpers.identity)
+                .retry(Authentication.retryConnection)
+                .subscribe((d) => {
+                    openmaths.Logger.info(d);
+
+                    this.userLoggedOutCallback();
+                }, errorData => {
+                    openmaths.Logger.error(errorData);
                 });
         }
     }

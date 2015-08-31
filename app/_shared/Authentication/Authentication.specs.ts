@@ -27,7 +27,13 @@ module openmaths.specs {
         gmail: '',
         gPlusId: ''
     };
-    let loginResponse: string = '';
+    let loginResponse: string = 'OK';
+
+    let logoutData: openmaths.Auth = {
+        accessToken: '',
+        gPlusId: ''
+    };
+    let logoutResponse: string = 'OK';
 
     describe('Authentication', () => {
         beforeEach(angular.mock.module('openmaths'));
@@ -42,12 +48,24 @@ module openmaths.specs {
             expect(Authentication.gApiLogin).toBeDefined();
         });
 
+        it('should have the gApiLogout method', () => {
+            expect(Authentication.gApiLogout).toBeDefined();
+        });
+
         it('should have the login method', () => {
             expect(Authentication.login).toBeDefined();
         });
 
+        it('should have the logout method', () => {
+            expect(Authentication.logout).toBeDefined();
+        });
+
         it('should have the userLoggedInCallback method', () => {
             expect(Authentication.userLoggedInCallback).toBeDefined();
+        });
+
+        it('should have the userLoggedOutCallback method', () => {
+            expect(Authentication.userLoggedOutCallback).toBeDefined();
         });
 
         it('should be able to return Google API promise', () => {
@@ -84,6 +102,19 @@ module openmaths.specs {
 
             promise.then((result) => {
                 expect(result.data).toEqual(loginResponse);
+            });
+
+            $httpBackend.flush();
+        });
+
+        it('should be able to return Logout promise', () => {
+            $httpBackend.expectPOST('http://api.om.dev/logout', logoutData)
+                .respond(200, logoutResponse);
+
+            let promise = Authentication.logoutPromise(logoutData);
+
+            promise.then((result) => {
+                expect(result.data).toEqual(logoutResponse);
             });
 
             $httpBackend.flush();

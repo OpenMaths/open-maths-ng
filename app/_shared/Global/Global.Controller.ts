@@ -20,29 +20,20 @@ module openmaths {
             };
 
             $rootScope.$on('$stateChangeSuccess', (e, toState) => {
-                //console.log(toState);
                 this.uiConfig = openmaths.Config.getUiConfig();
                 this.uiConfig.currentState = toState.uiConfig;
+
                 this.bodyClass = this.uiConfig.currentState.bodyClass;
             });
         }
 
-        // @TODO abstract into a util or sth..
-        static isSignedIn(): boolean {
-            // @TODO abstract into a util or sth..
-            let omUser = openmaths.SessionStorage.get('omUser');
-
-            return !_.isEmpty(omUser.gPlusId) && !_.isEmpty(omUser.accessToken);
-        }
-
         signIn() {
-            if (this.gApiInitialised && !openmaths.User.getData()) this.Authentication.gApiLogin();
+            if (this.gApiInitialised && !openmaths.User.isSignedIn()) this.Authentication.gApiLogin();
         }
 
-        // @TODO implement
-        //signOut() {
-        //    if (this.gApiInitialised && openmaths.GlobalController.isSignedIn()) this.Authentication.gApiLogout();
-        //}
+        signOut() {
+            if (openmaths.User.isSignedIn()) this.Authentication.gApiLogout();
+        }
     }
 
     angular

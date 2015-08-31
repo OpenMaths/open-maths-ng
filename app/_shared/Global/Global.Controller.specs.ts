@@ -78,15 +78,8 @@ module openmaths.specs {
             expect(controller.signIn).toBeDefined();
         });
 
-        it('should correctly evaluate whether a user is signed in', () => {
-            expect(openmaths.GlobalController.isSignedIn()).toEqual(false);
-
-            openmaths.SessionStorage.set('omUser', {
-                accessToken: 'accessToken_test',
-                gPlusId: 'gPlusId_test'
-            });
-
-            expect(openmaths.GlobalController.isSignedIn()).toEqual(true);
+        it('should have the signIn method attached to its scope', () => {
+            expect(controller.signOut).toBeDefined();
         });
     });
 }

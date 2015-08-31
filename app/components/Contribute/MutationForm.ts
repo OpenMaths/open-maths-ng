@@ -150,9 +150,7 @@ module openmaths {
         private static resolveUmiDetails(umiDetailsList: Array<IUmiDetails>): Object {
             let finalObject = {};
 
-            _.forEach(umiDetailsList, (umiDetails: IUmiDetails) => {
-                finalObject[umiDetails.id] = umiDetails.title;
-            });
+            _.forEach(umiDetailsList, (umiDetails: IUmiDetails) => finalObject[umiDetails.id] = umiDetails.title);
 
             return finalObject;
         }
