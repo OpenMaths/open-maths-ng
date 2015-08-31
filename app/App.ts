@@ -11,49 +11,8 @@ module openmaths {
         $urlRouterProvider.otherwise('/explore');
 
         $stateProvider
-            .state('home', {
-                url: '',
-                templateUrl: 'app/components/Home/home.html',
-                controller: 'HomeController',
-                controllerAs: 'HomeCtr',
-                uiConfig: {
-                    navigation: {
-                        hiding: false,
-                        transparent: true
-                    }
-                }
-            })
-            .state('dive', {
-                url: '/dive',
-                templateUrl: 'app/components/Dive/dive.html',
-                uiConfig: {
-                    navigation: {
-                        hiding: false,
-                        transparent: false
-                    }
-                }
-            })
-            .state('dive.list', {
-                url: '/list',
-                templateUrl: 'app/components/Dive/dive.list.html',
-                controller: 'DiveController',
-                controllerAs: 'DiveCtr',
-            })
-            .state('contribute', {
-                url: '/contribute',
-                templateUrl: 'app/components/Contribute/contribute.html',
-                controller: 'ContributeController',
-                controllerAs: 'ContributeCtr',
-                uiConfig: {
-                    bodyClass: 'page-contribute',
-                    navigation: {
-                        hiding: false,
-                        transparent: false
-                    }
-                }
-            })
-            .state('update', {
-                url: '/update/:uriFriendlyTitle',
+            .state('editor', {
+                url: '/editor/:uriFriendlyTitle',
                 templateUrl: 'app/components/Contribute/contribute.html',
                 controller: 'ContributeController',
                 controllerAs: 'ContributeCtr',
@@ -80,10 +39,6 @@ module openmaths {
             })
             .state('explore.board', {
                 url: '/:uriFriendlyTitle',
-                //templateUrl: 'app/components/Explore/explore.html',
-                //controller: 'ExploreController',
-                //controllerAs: 'ExploreCtr',
-                //params: ['uriFriendlyTitle'],
                 uiConfig: {
                     bodyClass: 'page-explore',
                     navigation: {

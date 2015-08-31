@@ -9,9 +9,8 @@ module openmaths.specs {
 
         beforeEach(inject((Api: openmaths.Api,
                            NotificationFactory: openmaths.NotificationFactory,
-                           $stateParams: IContributeControllerParams,
                            _$httpBackend_: ng.IHttpBackendService) => {
-            model = new openmaths.Board(Api, NotificationFactory, $stateParams);
+            model = new openmaths.Board(Api, NotificationFactory);
             $httpBackend = _$httpBackend_;
 
             spyOn(Rx.Observable, 'fromPromise').and.callFake(e => Rx.Observable.empty());

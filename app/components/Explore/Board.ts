@@ -49,8 +49,7 @@ module openmaths {
         state: string;
 
         constructor(public Api?: openmaths.Api,
-                    public NotificationFactory?: openmaths.NotificationFactory,
-                    $stateParams?: IBoardParams) {
+                    public NotificationFactory?: openmaths.NotificationFactory) {
             this.columns = {
                 current: 3,
                 max: 6,

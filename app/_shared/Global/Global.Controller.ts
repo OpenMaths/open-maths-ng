@@ -6,6 +6,9 @@ module openmaths {
     }
 
     export class GlobalController {
+        private static signedInNotificationMessage = 'You have been successfully signed in to OpenMaths';
+        private static signedOutNotificationMessage = 'You have been signed out';
+
         bodyClass: string;
         gApiInitialised: boolean = false;
         uiConfig: IUiConfig;
@@ -41,7 +44,7 @@ module openmaths {
             let self = this;
 
             self.User = new openmaths.User(accessToken, loginResponse.userInfo);
-            self.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
+            self.NotificationFactory.generate(GlobalController.signedInNotificationMessage, NotificationType.Info);
         }
 
         signOut() {
@@ -53,7 +56,7 @@ module openmaths {
             let self = this;
 
             self.User.signOut();
-            //this.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
+            this.NotificationFactory.generate(GlobalController.signedOutNotificationMessage, NotificationType.Info);
         }
     }
 

@@ -7,11 +7,11 @@
                    ng-model="SearchCtr.term" ng-keydown="SearchCtr.trigger($event, ExploreCtr.openBoard)"/>
         </form>
 
-        <ul class="search-results">
+        <ul class="search-results" scroll>
             <li ng-repeat="result in SearchCtr.searchResults.data"
                 ng-click="ExploreCtr.openBoard(result)"
                 ng-class="{active: $index == SearchCtr.searchResults.selected}">
-                <strong>{{result.title}}</strong>
+                <strong ng-bind-html="result.titleFormatted"></strong>
                 <span class="details">
                     <small class="label">{{result.umiType}}</small>
                     <em class="label">@TODO Author ID</em>
