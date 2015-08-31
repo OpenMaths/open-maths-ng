@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="openmaths" ng-controller="GlobalController as GlobalCtr">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="google-signin-clientid"
+          content="693383674780-7vfp55jhpmrd34703elu601li2e36r3r.apps.googleusercontent.com"/>
+    <meta name="google-signin-scope" content="email"/>
+    <meta name="google-signin-cookiepolicy" content="single_host_origin"/>
+    <title>openmaths</title>
+    <link rel="stylesheet" href="{{GlobalCtr.staticUrl}}/css/app.min.css"/>
+</head>
+<body ng-class="GlobalCtr.bodyClass">
+
+<notification></notification>
+
+<navigation config="GlobalCtr.uiConfig"></navigation>
+
+<div ui-view></div>
+
+<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			extensions: ["tex2jax.js"],
+			jax: ["input/TeX", "output/HTML-CSS"],
+			tex2jax: {
+				inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+				displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+				processEscapes: true
+			},
+			"HTML-CSS": { availableFonts: ["TeX"] }
+		});
+</script>
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+<script src="/app/dist/vendor.js"></script>
+<script src="/app/dist/app.js"></script>
+
+<script src="//apis.google.com/js/client.js?onload=gApiAsync"></script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<main id="ide">
+    <div id="editor">
+        <form action="">
+            <div class="form-control" focus="true" tabindex="1"
+                 ng-class="{open: ContributeCtr.MutationForm.title.active || ContributeCtr.MutationForm.title.value}"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.title.active = true">
+                <label>
+                    <i class="fa fa-header fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.title.label}}</span>
+                </label>
+
+                <div class="input-holder">
+                    <input type="text" ng-model="ContributeCtr.MutationForm.title.value" tabindex="1"
+                           placeholder="{{ContributeCtr.MutationForm.title.description}}"/>
+                </div>
+            </div>
+
+            <div class="form-control" tabindex="1"
+                 ng-class="{open: ContributeCtr.MutationForm.umiType.active || ContributeCtr.MutationForm.umiType.value}"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.umiType.active = true">
+                <label>
+                    <i class="fa fa-sitemap fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.umiType.label}}</span>
+                </label>
+
+                <div class="input-holder">
+                    <select name="" tabindex="1" ng-model="ContributeCtr.MutationForm.umiType.value"
+                            ng-options="key as value.label for (key , value) in ContributeCtr.MutationForm.umiType.options">
+                        <option value="">{{ContributeCtr.MutationForm.umiType.description}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-control open" tabindex="1"
+                 ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].formal
+                 || ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].meta"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.advancedTypeOptions.active = true">
+                <label>
+                    <i class="fa fa-sliders fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.advancedTypeOptions.label}}</span>
+                </label>
+
+                <div class="input-holder formal-meta">
+                    <div class="toggle-holder"
+                         ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].formal"
+                         ng-click="ContributeCtr.toggleFormal()">
+                        <div class="toggle"
+                             ng-class="{active: ContributeCtr.MutationForm.advancedTypeOptions.value.formal}"></div>
+                        <small>Formal Contribution</small>
+                    </div>
+
+                    <div class="toggle-holder"
+                         ng-show="ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].meta"
+                         ng-click="ContributeCtr.toggleMeta()">
+                        <div class="toggle"
+                             ng-class="{active: ContributeCtr.MutationForm.advancedTypeOptions.value.meta}"></div>
+                        <small>Meta Contribution</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control content" tabindex="1"
+                 ng-class="{open: ContributeCtr.MutationForm.content.active || ContributeCtr.MutationForm.content.value}"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.content.active = true">
+                <label>
+                    <i class="fa fa-file-text-o fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.content.label}}</span>
+                </label>
+
+                <textarea name="" id="" cols="30" rows="10" tabindex="1"
+                          ng-model="ContributeCtr.MutationForm.content.value"
+                          placeholder="{{ContributeCtr.MutationForm.content.description}}"></textarea>
+            </div>
+
+            <div class="form-control" tabindex="1"
+                 ng-controller="SearchController as SearchCtr"
+                 ng-class="{open: ContributeCtr.MutationForm.prerequisiteDefinitionIds.active}"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true"
+                 stop-if="SearchCtr.searchResults.data.length > 0 && SearchCtr.term.length > 0">
+                <label>
+                    <i class="fa fa-code-fork fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.label}}</span>
+                </label>
+
+                <div class="input-holder">
+                    <input type="text" tabindex="1"
+                           ng-model="SearchCtr.term"
+                           ng-focus="ContributeCtr.MutationForm.prerequisiteDefinitionIds.active = true"
+                           ng-keydown="SearchCtr.trigger($event, ContributeCtr.MutationForm.prerequisiteDefinitionIds.update)"
+                           placeholder="{{ContributeCtr.MutationForm.prerequisiteDefinitionIds.description}}"/>
+                </div>
+
+                <ul class="search-results" stop-event-propagation
+                    ng-class="{'show':
+                    ContributeCtr.MutationForm.prerequisiteDefinitionIds.active
+                    && SearchCtr.term.length > 0
+                    && SearchCtr.searchResults.data.length > 0}">
+                    <li ng-repeat="result in SearchCtr.searchResults.data"
+                        ng-class="{active: $index == SearchCtr.searchResults.selected}"
+                        ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.update(result)">
+                        <strong ng-bind-html="result.titleFormatted"></strong>
+                        <small class="label">{{result.umiType}}</small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-control" tabindex="1"
+                 ng-controller="SearchController as SearchCtr"
+                 ng-class="{open: ContributeCtr.MutationForm.seeAlsoIds.active}"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.seeAlsoIds.active = true"
+                 stop-if="SearchCtr.searchResults.data.length > 0 && SearchCtr.term.length > 0">
+                <label>
+                    <i class="fa fa-compass fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.seeAlsoIds.label}}</span>
+                </label>
+
+                <div class="input-holder">
+                    <input type="text" tabindex="1"
+                           ng-model="SearchCtr.term" ng-focus="ContributeCtr.MutationForm.seeAlsoIds.active = true"
+                           ng-keydown="SearchCtr.trigger($event, ContributeCtr.MutationForm.seeAlsoIds.update)"
+                           placeholder="{{ContributeCtr.MutationForm.seeAlsoIds.description}}"/>
+                </div>
+
+                <ul class="search-results" stop-event-propagation
+                    ng-class="{'show':
+                    ContributeCtr.MutationForm.seeAlsoIds.active
+                    && SearchCtr.term.length > 0
+                    && SearchCtr.searchResults.data.length > 0}">
+                    <li ng-repeat="result in SearchCtr.searchResults.data"
+                        ng-class="{active: $index == SearchCtr.searchResults.selected}"
+                        ng-click="ContributeCtr.MutationForm.seeAlsoIds.update(result)">
+                        <strong ng-bind-html="result.titleFormatted"></strong>
+                        <small class="label">{{result.umiType}}</small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-control" tabindex="1"
+                 on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.tags.active = true"
+                 ng-class="{open: ContributeCtr.MutationForm.tags.active || ContributeCtr.MutationForm.tags.valueMeta}">
+                <label>
+                    <i class="fa fa-tags fa-fw"></i>
+                    <span>{{ContributeCtr.MutationForm.tags.label}}</span>
+                </label>
+
+                <div class="input-holder">
+                    <input type="text" ng-model="ContributeCtr.MutationForm.tags.valueMeta" tabindex="1"
+                           ng-change="ContributeCtr.MutationForm.tags.parseCsv()"
+                           placeholder="{{ContributeCtr.MutationForm.tags.description}}"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="preview">
+        <div class="umi">
+            <div class="content" ng-class="{error: ContributeCtr.MutationForm.content.error}" scroll>
+                <article>
+                    <div class="wrapper">
+                        <small class="label">
+                            {{ContributeCtr.MutationForm.umiType.options[ContributeCtr.MutationForm.umiType.value].label
+                            || 'Contribution Type'}}
+                        </small>
+                        <strong class="heading block">
+                            {{ContributeCtr.MutationForm.title.value || 'Contribution Title'}}
+                        </strong>
+
+                        <!--@TODO On error, we want to show both the LaTeX and error-->
+                        <main om-bind="ContributeCtr.MutationForm.content.valueParsed"></main>
+
+                        <div class="additional-info">
+                            <div class="info-unit">
+                                <header>
+                                    <i class="fa fa-code-fork fa-fw"></i>
+                                    Prerequisite Definitions
+                                </header>
+                                <span class="label"
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">
+                                    {{title}}
+                                    <i class="link"
+                                       ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.remove(id)">&times;</i>
+                                </span>
+                            </div>
+                            <div class="info-unit">
+                                <header>
+                                    <i class="fa fa-compass fa-fw"></i>
+                                    See Also
+                                </header>
+                                <span class="label"
+                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">
+                                    {{title}}
+                                    <i class="link"
+                                       ng-click="ContributeCtr.MutationForm.seeAlsoIds.remove(id)">&times;</i>
+                                </span>
+                            </div>
+                            <div class="info-unit">
+                                <header>
+                                    <i class="fa fa-tags fa-fw"></i>
+                                    Tags
+                                </header>
+                                <span class="label"
+                                      ng-repeat="label in ContributeCtr.MutationForm.tags.value">
+                                    {{label}}
+                                    <i class="link"
+                                       ng-click="ContributeCtr.MutationForm.tags.remove(label)">&times;</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+
+<nav id="contribute-controls">
+    <div class="status">
+        <div class="indicator parsing" ng-show="ContributeCtr.parsingInProgress == true">
+            <i class="fa fa-refresh fa-spin"></i>
+            <span class="icon-label">Parsing</span>
+        </div>
+        <div class="indicator lock">
+            <i class="fa fa-lock"></i>
+            <span class="icon-label">Locked</span>
+        </div>
+
+        <div class="indicator parsed active hidden" ng-class="{show: !ContributeCtr.MutationForm.content.error}">
+            <i class="fa fa-check"></i>
+            <span class="icon-label">Parsed</span>
+        </div>
+
+        <div class="indicator error-parsing active hidden" ng-class="{show: ContributeCtr.MutationForm.content.error}">
+            <i class="fa fa-times"></i>
+            <span class="icon-label">Error Parsing</span>
+        </div>
+    </div>
+
+    <div class="save" ng-class="{disabled: ContributeCtr.MutationForm.content.error}"
+         ng-click="ContributeCtr.submitMutation()">
+        <span class="icon-label">{{ContributeCtr.UpdateUmi.updateUriFriendlyTitle ? 'Update' : 'Submit'}}</span>
+        <i class="fa fa-angle-right"></i>
+    </div>
+</nav>

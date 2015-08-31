@@ -1,0 +1,62 @@
+<nav id="primary"
+     ng-class="{'transparent': GlobalCtr.uiConfig.currentState.navigation.transparent, 'hidden': GlobalCtr.uiConfig.currentState.navigation.hiding}">
+    <ul>
+        <li ui-sref-active="active">
+            <a href ui-sref="explore">
+                <!--<i class="fa fa-globe"></i>-->
+                <!--<i class="fa fa-map-signs"></i>-->
+                <!--<i class="fa fa-code-fork"></i>-->
+                <i class="fa fa-location-arrow"></i>
+                Explore
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a href ui-sref="editor">
+                <i class="fa fa-terminal"></i>
+                <!--<i class="fa fa-code"></i>-->
+                Editor
+            </a>
+        </li>
+    </ul>
+
+    <a href ui-sref="explore" class="logo">
+        <strong>openmaths</strong>
+    </a>
+
+    <ul class="actions">
+        <li>
+            <a href="#">
+                <i class="fa fa-font"></i>
+                <span class="icon-label">Traditional Definitions</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fa fa-moon-o"></i>
+                <span class="icon-label">Dark Theme</span>
+            </a>
+        </li>
+        <li ng-hide="GlobalCtr.User.isSignedIn()">
+            <a ng-click="GlobalCtr.signIn()">
+                <i class="fa fa-sign-in"></i>
+                <span class="icon-label">Sign In with Google</span>
+            </a>
+        </li>
+        <li ng-show="GlobalCtr.User.isSignedIn()">
+            <a ng-click="GlobalCtr.signOut()">
+                <i class="fa fa-sign-out"></i>
+                <span class="icon-label">Sign Out</span>
+            </a>
+        </li>
+        <li ng-show="GlobalCtr.User.isSignedIn()" class="user">
+            <span>{{GlobalCtr.User.firstName}}</span>
+        </li>
+    </ul>
+
+    <div class="ui-show-nav">
+        <!--If someone finds this name and is wondering "WTF?" - send me an email, I will explain :)-->
+        <div class="ui-jalousie">
+            <i></i><i></i><i></i>
+        </div>
+    </div>
+</nav>

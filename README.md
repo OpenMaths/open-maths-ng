@@ -1,9 +1,23 @@
-[![Stack Share](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](http://stackshare.io/openmaths/openmaths)
+# openmaths
 
-# OpenMaths
+World's first mathematical IDE
 
-World's first Mathematical IDE
+## Installation
 
-## Security
+```bash install.sh```
 
-When visiting our website, please ensure the cryptographic certificate says **openmaths.io** or **sni26604.cloudflaressl.com**.
+### Running
+
+Server runs on port 8088
+
+Tests run on port 8087
+
+static.* should run on 8089
+
+api.* should run on 8080
+
+### Random TODOs
+
+use jscs jshint in gulp
+traverse
+Font: https://github.com/andreberg/Meslo-Font

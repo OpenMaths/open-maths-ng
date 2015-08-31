@@ -1,0 +1,38 @@
+{
+  "name": "openmaths.io",
+  "version": "0.0.1",
+  "authors": [
+    "Slavomir Vojacek <slavomirvojacek@gmail.com>"
+  ],
+  "description": "World's first mathematical IDE",
+  "keywords": [
+    "openmaths"
+  ],
+  "license": "GNU",
+  "homepage": "openmaths.io",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-loading-bar": "~0.8.0",
+    "angular-mocks": "~1.4.5",
+    "angular-sanitize": "~1.4.5",
+    "angular-ui-router": "~0.2.14",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "perfect-scrollbar": "~0.6.4",
+    "rxjs": "~3.1.1"
+  },
+  "resolutions": {
+    "rxjs": "~3.1.1",
+    "lodash": "~3.10.1",
+    "angular": "~1.4.5",
+    "angular-mocks": "~1.4.5",
+    "angular-loading-bar": "~0.8.0"
+  }
+}

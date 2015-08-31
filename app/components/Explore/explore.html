@@ -1,0 +1,65 @@
+<div class="dive-view-port" ng-class="{inactive: ExploreCtr.view == 'board'}">
+    <div class="ui-diver"></div>
+
+    <div class="dive-actions" ng-controller="SearchController as SearchCtr">
+        <form action="">
+            <input class="unstyled" type="text" autofocus placeholder="Type here to dive in..."
+                   ng-model="SearchCtr.term" ng-keydown="SearchCtr.trigger($event, ExploreCtr.openBoard)"/>
+        </form>
+
+        <ul class="search-results" scroll>
+            <li ng-repeat="result in SearchCtr.searchResults.data"
+                ng-click="ExploreCtr.openBoard(result)"
+                ng-class="{active: $index == SearchCtr.searchResults.selected}">
+                <strong ng-bind-html="result.titleFormatted"></strong>
+                <span class="details">
+                    <small class="label">{{result.umiType}}</small>
+                    <em class="label">@TODO Author ID</em>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="board" ng-class="[ExploreCtr.Board.columns.uiClass, ExploreCtr.Board.rows.uiClass]">
+    <div class="row" ng-repeat="row in ExploreCtr.Board.grid track by $index">
+        <div class="column" ng-repeat="umi in row track by $index">
+            <div class="umi" ng-class="{'is-hidden': umi.empty}"
+                 ng-init="rows = ExploreCtr.Board.rows; columns = ExploreCtr.Board.columns">
+                <div class="controls-holder top">
+                    <div class="controls details">
+                        <i class="fa fa-info-circle"></i>
+                        <span class="icon-label">Details</span>
+                    </div>
+                    <div class="controls expand">
+                        <i class="fa fa-expand"></i>
+                        <span class="icon-label">Full-Screen</span>
+                    </div>
+                </div>
+
+                <div class="controls-holder left top">
+                    <div class="controls upvote">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        <span class="icon-label">Upvote</span>
+                    </div>
+                </div>
+                <div class="controls-holder left bottom">
+                    <div class="controls downvote">
+                        <i class="fa fa-thumbs-o-down"></i>
+                        <span class="icon-label">Downvote</span>
+                    </div>
+                </div>
+
+                <div class="content" scroll>
+                    <article class="flex center-vertically">
+                        <div class="wrapper">
+                            <small class="label">{{umi.umiType}}</small>
+                            <strong class="heading block">{{umi.title}}</strong>
+                            <main om-bind="umi.htmlContent" umi="umi"></main>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

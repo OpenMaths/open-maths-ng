@@ -1,9 +1,47 @@
-# Copy the www folder over to dist
-cp -a www/. dist/
+#!/usr/bin/env bash
+printf "\n\n\nDo you wish to release to staging?\n\n"
 
-# Get rid of redundant files in a hack
-mv -v dist/app/om.js dist && mv -v dist/app/sections dist && rm -r dist/app && mkdir dist/app && mv -v dist/om.js dist/app/om.js && mv -v dist/sections dist/app/sections
-mv -v dist/assets/css/screen.min.css dist/assets && rm -r dist/assets/css && mkdir dist/assets/css && mv -v dist/assets/screen.min.css dist/assets/css/screen.min.css
+select yn in "Yes" "No"; do
+	case $yn in
+		Yes )
+			gulp concatVendor typescript && gulp test
 
-# Make sure we are logged in
-divshot push staging
+#			divshot login
+
+			rm -r dist
+			mkdir dist && mkdir dist/app && mkdir dist/app/dist
+
+			cp app/dist/app.js dist/app/dist && cp app/dist/vendor.js dist/app/dist
+			cp index.html dist/index.html
+
+			tar -v -cf open-maths-ng.tar.gz app/ .gitignore bower.json gulpfile.js index.html package.json
+            mv open-maths-ng.tar.gz dist/open-maths-ng.tar.gz
+
+#			divshot push staging
+
+#			printf "\n\n\nSuccessfully released to staging\n\n"
+            printf "\n\n\nThis step has been temporarily skipped\n\n"
+
+			break;;
+		No )
+			printf "\n\n\nOk, maybe next time :-)\n\n"
+			break;;
+	esac
+done
+
+printf "\n\n\nDo you wish to update production with latest staging release?\n\n"
+
+select yn in "Yes" "No"; do
+	case $yn in
+		Yes )
+#			divshot promote staging production
+
+#			printf "\n\n\nSuccessfully released to production\n\n"
+			printf "\n\n\nThis step has been temporarily skipped\n\n"
+
+			break;;
+		No )
+			printf "\n\n\nOk, maybe next time :-)\n\n"
+			exit;;
+	esac
+done
