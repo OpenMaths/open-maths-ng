@@ -4,12 +4,12 @@
     <div class="dive-actions" ng-controller="SearchController as SearchCtr">
         <form action="">
             <input class="unstyled" type="text" autofocus placeholder="Type here to dive in..."
-                   ng-model="SearchCtr.term" ng-keydown="SearchCtr.trigger($event)"/>
+                   ng-model="SearchCtr.term" ng-keydown="SearchCtr.trigger($event, ExploreCtr.openBoard)"/>
         </form>
 
         <ul class="search-results">
             <li ng-repeat="result in SearchCtr.searchResults.data"
-                ng-click="ExploreCtr.triggerBoard(result.uriFriendlyTitle)"
+                ng-click="ExploreCtr.openBoard(result)"
                 ng-class="{active: $index == SearchCtr.searchResults.selected}">
                 <strong>{{result.title}}</strong>
                 <span class="details">

@@ -83,15 +83,15 @@ module openmaths {
         // @TODO
         // remove after the API has reflected latest Interface updates
         static umiTempFormatter(initObject: any): IUmi {
-            let umi = initObject.umi;
-            let title = initObject.umi.title;
+            let formatted = _.clone(initObject);
 
-            _.forEach(umi, (value: any, key: string) => initObject[key] = value);
-            _.forEach(title, (value: any, key: string) => initObject[key] = value);
+            _.forEach(formatted.umi, (value: any, key: string) => formatted[key] = value);
+            _.forEach(formatted.umi.title, (value: any, key: string) => formatted[key] = value);
 
-            delete initObject.umi;
+            formatted.umi = undefined;
+            formatted.id = initObject.umi.id;
 
-            return initObject;
+            return formatted;
         }
     }
 

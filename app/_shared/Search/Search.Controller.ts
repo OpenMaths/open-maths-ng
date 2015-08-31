@@ -57,7 +57,7 @@ module openmaths {
 
             this.autocompleteData = {};
 
-            this.trigger = (event, onReturn) => {
+            this.trigger = (event, onReturn: Function) => {
                 switch (event.keyCode) {
                     case NavigationKeys.keyReturn:
                         event.preventDefault();

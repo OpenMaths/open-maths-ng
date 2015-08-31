@@ -48,10 +48,8 @@
                 <span class="icon-label">Sign Out</span>
             </a>
         </li>
-        <li>
-            <a href="">
-                Signed in as {{GlobalCtr.User.firstName}}
-            </a>
+        <li ng-show="GlobalCtr.User.isSignedIn()" class="user">
+            <span>{{GlobalCtr.User.firstName}}</span>
         </li>
     </ul>
 

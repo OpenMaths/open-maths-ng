@@ -13,6 +13,10 @@ module openmaths {
         Id, Title
     }
 
+    export interface IBoardParams extends angular.ui.IStateParamsService {
+        uriFriendlyTitle: string;
+    }
+
     export interface IGridPartConfig {
         current: number;
         max: number;
@@ -40,11 +44,13 @@ module openmaths {
             min: number;
             uiClass: string;
         };
+
         grid: Array<Array<openmaths.Umi>>;
         state: string;
 
         constructor(public Api?: openmaths.Api,
-                    public NotificationFactory?: openmaths.NotificationFactory) {
+                    public NotificationFactory?: openmaths.NotificationFactory,
+                    $stateParams?: IBoardParams) {
             this.columns = {
                 current: 3,
                 max: 6,
@@ -61,13 +67,9 @@ module openmaths {
                 // make so that it takes this.rows.current
                 uiClass: 'rows-' + 3,
             };
+
             this.state = 'explore.board';
-
             this.grid = this.initGrid();
-
-            // @TODO
-            // remove after testing
-            if (openmaths.Debug.getEnvironment() == 'development') this.expandInto(1, 1, GetUmiBy.Title, 'how-to-add-formal-content');
         }
 
         initGrid(): Array<Array<openmaths.Umi>> {
@@ -153,8 +155,6 @@ module openmaths {
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .subscribe((d: IApiResponse) => {
-                    // @TODO
-                    // get rid of formatter after the API has been refactored
                     let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
 
                     this.grid[row][column] = new openmaths.Umi(response, [row, column]);

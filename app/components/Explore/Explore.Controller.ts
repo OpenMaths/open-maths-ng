@@ -6,11 +6,11 @@ module openmaths {
         Dive: openmaths.Dive;
 
         view: string;
-        triggerBoard: (uriFriendlyTitle: string) => void;
+        openBoard: (searchReult: openmaths.SearchResult) => void;
 
         constructor(Api: openmaths.Api,
                     NotificationFactory: openmaths.NotificationFactory,
-                    $rootScope: ng.IScope,
+                    private $rootScope: ng.IScope,
                     $state: ng.ui.IStateService) {
             this.Board = new openmaths.Board(Api, NotificationFactory);
             this.Dive = new openmaths.Dive();
@@ -21,9 +21,12 @@ module openmaths {
                 this.updateState(toState.name);
             });
 
-            this.triggerBoard = (uriFriendlyTitle: string) => {
-                $state.go('explore.board', {uriFriendlyTitle: uriFriendlyTitle});
-            };
+            // @NOTE this is because we want to be able to call this method as a callback in SearchController
+            this.openBoard = (searchResult: openmaths.SearchResult) => {
+                this.Board.expandInto(1, 1, GetUmiBy.Title, searchResult.uriFriendlyTitle);
+
+                $state.go('explore.board', {uriFriendlyTitle: searchResult.uriFriendlyTitle});
+            }
         }
 
         updateState(toState: string) {
