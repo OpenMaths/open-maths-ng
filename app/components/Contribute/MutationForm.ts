@@ -162,7 +162,13 @@ module openmaths {
     }
 
     export class MutationApi {
-        constructor(private Api: openmaths.Api) {
+        private static createUmiErrorNotificationMessage = 'There has been an error submitting your contribution';
+        private static createUmiSuccessNotificationMessage = 'Your contribution has been successfully submitted';
+        private static updateUmiErrorNotificationMessage = 'There has been an error updating this contribution';
+        private static updateUmiSuccessNotificationMessage = 'This contribution has been successfully updated';
+        private static retryConnection = 3;
+
+        constructor(private Api: openmaths.Api, private NotificationFactory?: openmaths.NotificationFactory) {
         }
 
         // @TODO private?
@@ -183,6 +189,11 @@ module openmaths {
         // @TODO private?
         createUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().createUmi, payload);
+        }
+
+        // @TODO private?
+        updateUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+            return this.Api.put(openmaths.Config.getApiRoutes().update, payload);
         }
 
         parseContent(MutationForm: openmaths.MutationForm, isUpdate: boolean): ng.IHttpPromise<void> {
@@ -206,13 +217,50 @@ module openmaths {
             return Promise;
         }
 
-        createContent(MutationForm: openmaths.MutationForm): ng.IHttpPromise<void> {
+        createContent(MutationForm: openmaths.MutationForm) {
             let Mutation = new openmaths.Mutation(MutationForm);
 
-            return this.createUmiPromise(Mutation);
+            Rx.Observable.fromPromise(this.createUmiPromise(Mutation))
+                .map(d => openmaths.Api.response(d))
+                .where(Rx.helpers.identity)
+                .retry(MutationApi.retryConnection)
+                .subscribe((response: IApiResponse) => {
+                    this.NotificationFactory.generate(MutationApi.createUmiSuccessNotificationMessage, NotificationType.Success, response.data);
+                }, errorData => {
+                    let message;
+
+                    if (errorData.data) {
+                        message = errorData.data.error
+                            ? errorData.data.error : MutationApi.createUmiErrorNotificationMessage;
+                    } else {
+                        message = MutationApi.createUmiErrorNotificationMessage;
+                    }
+
+                    this.NotificationFactory.generate(message, NotificationType.Error, errorData);
+                });
         }
 
-        update(MutationForm: openmaths.MutationForm) {
+        updateContent(MutationForm: openmaths.MutationForm) {
+            let Mutation = new openmaths.Mutation(MutationForm);
+
+            Rx.Observable.fromPromise(this.updateUmiPromise(Mutation))
+                .map(d => openmaths.Api.response(d))
+                .where(Rx.helpers.identity)
+                .retry(MutationApi.retryConnection)
+                .subscribe((response: IApiResponse) => {
+                    this.NotificationFactory.generate(MutationApi.updateUmiSuccessNotificationMessage, NotificationType.Success, response.data);
+                }, errorData => {
+                    let message;
+
+                    if (errorData.data) {
+                        message = errorData.data.error
+                            ? errorData.data.error : MutationApi.updateUmiErrorNotificationMessage;
+                    } else {
+                        message = MutationApi.updateUmiErrorNotificationMessage;
+                    }
+
+                    this.NotificationFactory.generate(message, NotificationType.Error, errorData);
+                });
         }
     }
 

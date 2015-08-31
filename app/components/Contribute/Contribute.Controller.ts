@@ -15,8 +15,11 @@ module openmaths {
 
         parsingInProgress: boolean;
 
-        constructor($scope: ng.IScope, public $http: ng.IHttpService, private $stateParams?: IContributeControllerParams) {
-            this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http));
+        constructor($scope: ng.IScope,
+                    public $http: ng.IHttpService,
+                    private NotificationFactory: openmaths.NotificationFactory,
+                    private $stateParams?: IContributeControllerParams) {
+            this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http), NotificationFactory);
             this.MutationForm = new openmaths.MutationForm;
             this.UpdateUmi = new openmaths.UpdateUmi(this.$stateParams, this.$http);
 
@@ -87,8 +90,9 @@ module openmaths {
                 });
         }
 
-        createContent() {
-            //this.MutationApi.createContent(this.MutationForm);
+        submitMutation() {
+            _.isUndefined(this.UpdateUmi.updateUriFriendlyTitle) ?
+                this.MutationApi.createContent(this.MutationForm) : this.MutationApi.updateContent(this.MutationForm);
         }
 
         private populateMutationForm() {

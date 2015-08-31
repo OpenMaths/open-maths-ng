@@ -121,6 +121,17 @@ module openmaths.specs {
             $httpBackend.flush();
         });
 
+        it('should be able to return a updateUmi promise', () => {
+            let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().update,
+                payload = new openmaths.Mutation(new openmaths.MutationForm());
+
+            $httpBackend.expectPUT(addr).respond(200, 'success');
+
+            model.updateUmiPromise(payload).then(result => expect(result.data).toEqual('success'));
+
+            $httpBackend.flush();
+        });
+
         it('should have a parse() method responsible for UMI content parsing', () => {
             expect(model.parseContent).toBeDefined();
         });
@@ -130,7 +141,7 @@ module openmaths.specs {
         });
 
         it('should have a update() method responsible for UMI edits / updates', () => {
-            expect(model.update).toBeDefined();
+            expect(model.updateContent).toBeDefined();
         });
     });
 

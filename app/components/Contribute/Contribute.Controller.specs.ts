@@ -7,11 +7,12 @@ module openmaths.specs {
         let controller: openmaths.ContributeController;
         let $rootScope: ng.IRootScopeService;
 
-        beforeEach(inject((_$rootScope_: ng.IScope,
+        beforeEach(inject((NotificationFactory: openmaths.NotificationFactory,
+                           _$rootScope_: ng.IScope,
                            $http: ng.IHttpService) => {
             $rootScope = _$rootScope_;
 
-            controller = new openmaths.ContributeController($rootScope.$new(), $http);
+            controller = new openmaths.ContributeController($rootScope.$new(), $http, NotificationFactory);
         }));
 
         it('should create a new controller with MutationForm model attached to it', () => {
@@ -20,7 +21,7 @@ module openmaths.specs {
         });
 
         it('should have a false-y parsingInProgress model attached to its scope', () => {
-           expect(controller.parsingInProgress).toEqual(false);
+            expect(controller.parsingInProgress).toEqual(false);
         });
     });
 }

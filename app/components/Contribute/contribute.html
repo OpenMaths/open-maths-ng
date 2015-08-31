@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="form-control content" tabindex="1" select-on-focus="true"
+            <div class="form-control content" tabindex="1"
                  ng-class="{open: ContributeCtr.MutationForm.content.active || ContributeCtr.MutationForm.content.value}"
                  on-click-focus="ContributeCtr.MutationForm.resetActive(); ContributeCtr.MutationForm.content.active = true">
                 <label>
@@ -235,7 +235,7 @@
     </div>
 
     <div class="save" ng-class="{disabled: ContributeCtr.MutationForm.content.error}"
-         ng-click="ContributeCtr.createUmi()">
+         ng-click="ContributeCtr.submitMutation()">
         <span class="icon-label">{{ContributeCtr.UpdateUmi.updateUriFriendlyTitle ? 'Update' : 'Submit'}}</span>
         <i class="fa fa-angle-right"></i>
     </div>
