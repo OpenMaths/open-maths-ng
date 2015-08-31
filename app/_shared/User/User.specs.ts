@@ -31,7 +31,7 @@ module openmaths.specs {
         });
 
         it('should be able to sign user in', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(User.accessToken).toEqual('testToken');
             expect(User.email).toEqual('test@email.com');
@@ -44,7 +44,7 @@ module openmaths.specs {
         });
 
         it('should save data into session storage upon sign in', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             let fromSessionStorage = openmaths.SessionStorage.get('omUser');
 
@@ -59,7 +59,7 @@ module openmaths.specs {
         });
 
         it('should be able to sign user out', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(User.accessToken).toEqual('testToken');
             expect(User.gPlusId).toEqual('testId');
@@ -71,7 +71,7 @@ module openmaths.specs {
         });
 
         it('should save data into session storage upon sign in', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(User.accessToken).toEqual('testToken');
             expect(User.gPlusId).toEqual('testId');
@@ -85,7 +85,7 @@ module openmaths.specs {
         });
 
         it('should be able to get information about a user if a user is signed in', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(User.accessToken).toEqual('testToken');
             expect(User.gPlusId).toEqual('testId');
@@ -103,7 +103,7 @@ module openmaths.specs {
         });
 
         it('should not be able to get information about a user if a user is not signed in', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(User.accessToken).toEqual('testToken');
             expect(User.gPlusId).toEqual('testId');
@@ -123,21 +123,22 @@ module openmaths.specs {
         });
 
         it('should be able to return a User Auth object given a user is signed in', () => {
-            new openmaths.User(gApiAuthResponse, userInfo);
+            new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(openmaths.User.getAuthData().accessToken).toEqual('testToken');
             expect(openmaths.User.getAuthData().gPlusId).toEqual('testId');
         });
 
         it('should be able to tell whether a user is signed in', () => {
-            let User = new openmaths.User(gApiAuthResponse, userInfo);
+            let User = new openmaths.User(gApiAuthResponse.access_token, userInfo);
 
             expect(openmaths.User.isSignedIn()).toEqual(true);
+            expect(User.isSignedIn()).toEqual(true);
 
             User.signOut();
 
             expect(openmaths.User.isSignedIn()).toEqual(false);
-
+            expect(User.isSignedIn()).toEqual(false);
         });
     });
 }

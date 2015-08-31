@@ -60,13 +60,13 @@ module openmaths.specs {
             expect(Authentication.logout).toBeDefined();
         });
 
-        it('should have the userLoggedInCallback method', () => {
-            expect(Authentication.userLoggedInCallback).toBeDefined();
-        });
-
-        it('should have the userLoggedOutCallback method', () => {
-            expect(Authentication.userLoggedOutCallback).toBeDefined();
-        });
+        //it('should have the userLoggedInCallback method', () => {
+        //    expect(Authentication.userLoggedInCallback).toBeDefined();
+        //});
+        //
+        //it('should have the userLoggedOutCallback method', () => {
+        //    expect(Authentication.userLoggedOutCallback).toBeDefined();
+        //});
 
         it('should be able to return Google API promise', () => {
             $httpBackend.expectGET('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + googleApiToken)

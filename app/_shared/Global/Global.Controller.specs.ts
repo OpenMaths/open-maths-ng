@@ -17,6 +17,7 @@ module openmaths.specs {
         // Authentication to be removed after development
 
         beforeEach(inject((Authentication: openmaths.Authentication,
+                           NotificationFactory: openmaths.NotificationFactory,
                            _$rootScope_: ng.IRootScopeService,
                            _$state_: ng.ui.IStateProvider,
                            _$templateCache_: ng.ITemplateCacheService,
@@ -29,7 +30,7 @@ module openmaths.specs {
             $templateCache.put('app/components/Explore/explore.html', '');
 
 
-            controller = new openmaths.GlobalController(Authentication, $rootScope, $window);
+            controller = new openmaths.GlobalController(Authentication, NotificationFactory, $rootScope, $window);
         }));
 
         afterEach(() => {

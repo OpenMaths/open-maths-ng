@@ -10,7 +10,10 @@ module openmaths {
         gApiInitialised: boolean = false;
         uiConfig: IUiConfig;
 
+        User: openmaths.User;
+
         constructor(public Authentication: openmaths.Authentication,
+                    private NotificationFactory: openmaths.NotificationFactory,
                     private $rootScope: ng.IRootScopeService,
                     private $window: IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
@@ -25,14 +28,32 @@ module openmaths {
 
                 this.bodyClass = this.uiConfig.currentState.bodyClass;
             });
+
+            if (openmaths.User.isSignedIn()) this.User = openmaths.User.getData();
         }
 
         signIn() {
-            if (this.gApiInitialised && !openmaths.User.isSignedIn()) this.Authentication.gApiLogin();
+            if (this.gApiInitialised && !openmaths.User.isSignedIn())
+                this.Authentication.gApiLogin(this.signInCallback.bind(this));
+        }
+
+        signInCallback(accessToken: string, loginResponse: ILoginResponseData): void {
+            let self = this;
+
+            self.User = new openmaths.User(accessToken, loginResponse.userInfo);
+            self.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
         }
 
         signOut() {
-            if (openmaths.User.isSignedIn()) this.Authentication.gApiLogout();
+            if (openmaths.User.isSignedIn())
+                this.Authentication.gApiLogout(this.signOutCallback.bind(this));
+        }
+
+        signOutCallback(): void {
+            let self = this;
+
+            self.User.signOut();
+            //this.NotificationFactory.generate(loginResponse.loginResponse, NotificationType.Info);
         }
     }
 

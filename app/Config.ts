@@ -1,3 +1,11 @@
+interface Window {
+    gApiInitialised: () => void;
+}
+
+let gApiAsync = () => {
+    window.gApiInitialised();
+};
+
 module openmaths {
     'use strict';
 
@@ -73,11 +81,3 @@ module openmaths {
         }
     }
 }
-
-interface Window {
-    gApiInitialised: () => void;
-}
-
-let gApiAsync = () => {
-    window.gApiInitialised();
-};

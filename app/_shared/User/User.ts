@@ -21,17 +21,19 @@ module openmaths {
         surname: string;
         verified: boolean;
 
-        constructor(gApiAuthResponse: IGApiAuthResponse, userInfo: IGApiUserInfoResponse) {
-            this.accessToken = gApiAuthResponse.access_token;
-            this.email = userInfo.email;
-            this.firstName = userInfo.given_name;
-            this.gPlusId = userInfo.id;
-            this.name = userInfo.name;
-            this.picture = userInfo.picture;
-            this.surname = userInfo.family_name;
-            this.verified = userInfo.verified_email;
+        constructor(accessToken: string, userInfo?: IGApiUserInfoResponse) {
+            this.accessToken = accessToken;
+            this.email = userInfo ? userInfo.email : undefined;
+            this.firstName = userInfo ? userInfo.given_name : undefined;
+            this.gPlusId = userInfo ? userInfo.id : undefined;
+            this.name = userInfo ? userInfo.name : undefined;
+            this.picture = userInfo ? userInfo.picture : undefined;
+            this.surname = userInfo ? userInfo.family_name : undefined;
+            this.verified = userInfo ? userInfo.verified_email : undefined;
 
-            openmaths.SessionStorage.set('omUser', this);
+            let self = this;
+
+            openmaths.SessionStorage.set('omUser', self);
         }
 
         signOut() {
@@ -47,13 +49,31 @@ module openmaths {
             openmaths.SessionStorage.remove('omUser');
         }
 
+        isSignedIn(): boolean {
+            return !_.isUndefined(this.accessToken) && !_.isUndefined(this.gPlusId);
+        }
+
         // @TODO Needs to know if this is a false?
         static getData(): openmaths.User {
-            return openmaths.SessionStorage.get('omUser');
+            let sessionData = openmaths.SessionStorage.get('omUser');
+
+            let User = new openmaths.User(sessionData.accessToken);
+
+            User.email = sessionData.email;
+            User.firstName = sessionData.firstName;
+            User.gPlusId = sessionData.gPlusId;
+            User.name = sessionData.name;
+            User.picture = sessionData.picture;
+            User.surname = sessionData.surname;
+            User.verified = sessionData.verified;
+
+            openmaths.SessionStorage.set('omUser', User);
+
+            return User;
         }
 
         static getAuthData(): openmaths.Auth {
-            let userData = openmaths.SessionStorage.get('omUser');
+            let userData = openmaths.User.getData();
 
             return new Auth(userData.accessToken, userData.gPlusId);
         }
