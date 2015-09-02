@@ -11,7 +11,6 @@ module openmaths {
 
         bodyClass: string;
         staticUrl: string;
-        gApiInitialised: boolean = false;
         uiConfig: IUiConfig;
 
         User: openmaths.User;
@@ -21,8 +20,7 @@ module openmaths {
                     private $rootScope: ng.IRootScopeService,
                     private $window: IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
-                this.gApiInitialised = true;
-
+                openmaths.SessionStorage.set('gApiInitialised', true);
                 openmaths.Logger.debug('gApi successfully initialised');
             };
 
@@ -39,7 +37,7 @@ module openmaths {
         }
 
         signIn() {
-            if (this.gApiInitialised && !openmaths.User.isSignedIn())
+            if (openmaths.SessionStorage.get('gApiInitialised') && !openmaths.User.isSignedIn())
                 this.Authentication.gApiLogin(this.signInCallback.bind(this));
         }
 

@@ -35,6 +35,7 @@ module openmaths.specs {
 
         afterEach(() => {
             openmaths.SessionStorage.remove('omUser');
+            openmaths.SessionStorage.remove('gApiInitialised');
         });
 
         it('should create a new controller', () => {
@@ -65,10 +66,6 @@ module openmaths.specs {
             });
         });
 
-        it('should have a "false-y" gApiInitialised model attached to its scope', () => {
-            expect(controller.gApiInitialised).toBe(false);
-        });
-
         it('should have the correct staticUrl model attached to its scope', () => {
             expect(controller.staticUrl).toBe(openmaths.Config.getStaticUrl());
         });
@@ -76,7 +73,7 @@ module openmaths.specs {
         it('should make gApiInitialised true after window.gApiInitialised() has been called', () => {
             $window.gApiInitialised();
 
-            expect(controller.gApiInitialised).toBe(true);
+            expect(openmaths.SessionStorage.get('gApiInitialised')).toBe(true);
         });
 
         it('should have the signIn method attached to its scope', () => {

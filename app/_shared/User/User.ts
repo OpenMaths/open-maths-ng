@@ -33,6 +33,7 @@ module openmaths {
 
             let self = this;
 
+            // @TODO 'omUser' string should be in a static config
             openmaths.SessionStorage.set('omUser', self);
         }
 
