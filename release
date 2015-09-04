@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
 printf "\n\n\nDo you wish to release to staging?\n\n"
 
 select yn in "Yes" "No"; do
@@ -18,8 +19,8 @@ select yn in "Yes" "No"; do
 			cp -r app/components dist/app
 			cp -r app/utils dist/app
 
-			tar -v -cf open-maths-ng.tar.gz app/ .gitignore bower.json gulpfile.js index.html package.json
-            mv open-maths-ng.tar.gz dist/open-maths-ng.tar.gz
+			tar -v -cf openmaths-app.tar app/* .gitignore bower.json gulpfile.js index.html package.json
+            mv openmaths-app.tar dist/openmaths-app.tar
 
 			divshot push staging
 
