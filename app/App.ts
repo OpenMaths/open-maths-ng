@@ -8,7 +8,7 @@ module openmaths {
         .run(run);
 
     function config($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, cfpLoadingBarProvider) {
-        $urlRouterProvider.otherwise('/explore');
+        $urlRouterProvider.otherwise('/e/');
 
         $stateProvider
             .state('editor', {
@@ -25,7 +25,7 @@ module openmaths {
                 }
             })
             .state('explore', {
-                url: '/explore',
+                url: '/e/:uriFriendlyTitle',
                 templateUrl: 'app/components/Explore/explore.html',
                 controller: 'ExploreController',
                 controllerAs: 'ExploreCtr',
@@ -38,7 +38,6 @@ module openmaths {
                 }
             })
             .state('explore.board', {
-                url: '/:uriFriendlyTitle',
                 uiConfig: {
                     bodyClass: 'page-explore',
                     navigation: {

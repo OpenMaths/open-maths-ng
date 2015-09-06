@@ -11,7 +11,8 @@ module openmaths {
         constructor(Api: openmaths.Api,
                     NotificationFactory: openmaths.NotificationFactory,
                     private $rootScope: ng.IScope,
-                    $state: ng.ui.IStateService) {
+                    $state: ng.ui.IStateService,
+                    private $stateParams?: IContributeControllerParams) {
             this.Board = new openmaths.Board(Api, NotificationFactory);
             this.Dive = new openmaths.Dive();
 
@@ -26,6 +27,11 @@ module openmaths {
                 this.Board.expandInto(1, 1, GetUmiBy.Title, searchResult.uriFriendlyTitle);
 
                 $state.go('explore.board', {uriFriendlyTitle: searchResult.uriFriendlyTitle});
+            };
+
+            if (!_.isEmpty(this.$stateParams.uriFriendlyTitle)) {
+                this.Board.expandInto(1, 1, GetUmiBy.Title, this.$stateParams.uriFriendlyTitle);
+                $state.go('explore.board', {uriFriendlyTitle: this.$stateParams.uriFriendlyTitle});
             }
         }
 
