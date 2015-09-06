@@ -1,7 +1,7 @@
 module openmaths.specs {
     'use strict';
 
-    let initObject: IUmi = {
+    let initObjectData = {
         creator: 'testCreator',
         htmlContent: 'testContent',
         id: 'testId',
@@ -14,9 +14,10 @@ module openmaths.specs {
         titleSynonyms: [],
         ts: 1,
         umiType: 'testType',
-        uriFriendlyTitle: 'testUriFriendlyTitle',
-        where: [1, 1]
+        uriFriendlyTitle: 'testUriFriendlyTitle'
     };
+
+    let initObject = new openmaths.Umi(initObjectData, [1, 1]);
 
     describe('Umi model', () => {
         let model: openmaths.Umi;

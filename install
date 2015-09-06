@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo npm install bower gulp npm-check-updates tsd typescript -g
+sudo npm install bower@latest gulp@latest npm-check-updates@latest tsd@latest typescript@latest -g
 
 sudo ncu -ua
 sudo npm install
