@@ -49,7 +49,8 @@ module openmaths {
         state: string;
 
         constructor(public Api?: openmaths.Api,
-                    public NotificationFactory?: openmaths.NotificationFactory) {
+                    public NotificationFactory?: openmaths.NotificationFactory,
+                    private $stateParams?: IContributeControllerParams) {
             this.columns = {
                 current: 3,
                 max: 6,
@@ -69,6 +70,8 @@ module openmaths {
 
             this.state = 'explore.board';
             this.grid = this.initGrid();
+
+            if (this.$stateParams) this.expandInto(1, 1, GetUmiBy.Title, this.$stateParams.uriFriendlyTitle);
         }
 
         initGrid(): Array<Array<openmaths.Umi>> {
