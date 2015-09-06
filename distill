@@ -1,13 +1,11 @@
 #!/bin/bash
 
-printf "\n\n\nDo you wish to release to staging?\n\n"
+printf "\n\n\nDo you wish to distill openmaths-app?\n\n"
 
 select yn in "Yes" "No"; do
 	case $yn in
 		Yes )
 			gulp concatVendor compile-tsc compile-tsc-tests && gulp test
-
-			divshot login
 
 			rm -r dist
 			mkdir dist && mkdir dist/app && mkdir dist/app/dist
@@ -22,29 +20,11 @@ select yn in "Yes" "No"; do
 			tar -v -cf openmaths-app.tar app/* .gitignore bower.json gulpfile.js index.html package.json
             mv openmaths-app.tar dist/openmaths-app.tar
 
-			divshot push staging
-
-			printf "\n\n\nSuccessfully released to staging\n\n"
+			printf "\n\n\nopenmaths-app successfully distilled to /dist\n\n"
 
 			break;;
 		No )
 			printf "\n\n\nOk, maybe next time :-)\n\n"
 			break;;
-	esac
-done
-
-printf "\n\n\nDo you wish to update production with latest staging release?\n\n"
-
-select yn in "Yes" "No"; do
-	case $yn in
-		Yes )
-			divshot promote staging production
-
-			printf "\n\n\nSuccessfully released to production\n\n"
-
-			break;;
-		No )
-			printf "\n\n\nOk, maybe next time :-)\n\n"
-			exit;;
 	esac
 done
