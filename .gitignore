@@ -6,8 +6,10 @@ Thumbs.db
 .*-cache
 .idea
 
-node_modules
 bower_components
+node_modules
 typings
 
 /dist
+
+*.tar

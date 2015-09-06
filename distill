@@ -18,7 +18,6 @@ select yn in "Yes" "No"; do
 			cp -r app/utils dist/app
 
 			tar -v -cf openmaths-app.tar app/* .gitignore bower.json gulpfile.js index.html package.json
-            mv openmaths-app.tar dist/openmaths-app.tar
 
 			printf "\n\n\nopenmaths-app successfully distilled to /dist\n\n"
 
