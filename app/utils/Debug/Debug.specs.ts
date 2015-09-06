@@ -20,13 +20,13 @@ module openmaths.specs {
             expect(environment).toEqual('test');
         });
 
-        it('should be able to tell we are not in production environment when on non-production host', () => {
-            let devHosts = ['server', 'localhost:9000', 'om.dev', 'staging.openmaths.io', 'localhost'];
+        it('should be able to tell we are in neither local nor test environment when on non-production host', () => {
+            let devHosts = ['server', 'localhost:9000', 'static.om.dev', 'staging.openmaths.io', 'localhost'];
 
             _.forEach(devHosts, (host) => {
                 let environment = openmaths.Debug.getEnvironment(host);
 
-                expect(environment).toEqual('development');
+                expect(environment).toEqual('production');
             });
         });
 

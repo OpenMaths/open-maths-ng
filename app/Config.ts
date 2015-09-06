@@ -34,6 +34,7 @@ module openmaths {
     }
 
     export class Config {
+        private static localHost: string = 'om.dev';
         private static productionHost: string = 'app.openmaths.io';
         private static testHost: string = 'localhost:8087';
 
@@ -72,6 +73,10 @@ module openmaths {
 
         static getStaticUrl(): string {
             return Config.staticUrls[openmaths.Debug.getEnvironment()];
+        }
+
+        static getLocalHost(): string {
+            return Config.localHost;
         }
 
         static getProductionHost(): string {

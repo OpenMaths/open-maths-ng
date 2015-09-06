@@ -14,14 +14,14 @@ module openmaths {
             let host = givenHost ? givenHost : openmaths.Debug.getHost();
 
             switch (host) {
-                case Config.getProductionHost():
-                    return 'production';
+                case Config.getLocalHost():
+                    return 'development';
                     break;
                 case Config.getTestHost():
                     return 'test';
                     break;
                 default:
-                    return 'development';
+                    return 'production';
                     break;
             }
         }
