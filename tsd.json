@@ -6,40 +6,40 @@
   "bundle": "app/typings/tsd.d.ts",
   "installed": {
     "angularjs/angular.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "jquery/jquery.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "lodash/lodash.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "gapi/gapi.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "jasmine/jasmine.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "mathjax/mathjax.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "rx/rx.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "rx/rx-lite.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "angularjs/angular-mocks.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "angular-ui-router/angular-ui-router.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "rx/rx.time.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     },
     "rx/rx.time-lite.d.ts": {
-      "commit": "c63cd8f13007f8f6089b0d847fa066cc0f1a2f21"
+      "commit": "619329275fe88653c8d31d06ef41452208ab37c5"
     }
   }
 }
