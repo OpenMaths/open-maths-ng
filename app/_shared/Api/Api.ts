@@ -7,13 +7,22 @@
 module openmaths {
     'use strict';
 
-    export interface IApiResponse {
+    export class IApiResponse {
         headers: Object;
         method: string;
         url: string;
         statusCode: number;
         status: string;
         data: any;
+
+        constructor(response: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean) {
+            this.headers = response.headers;
+            this.method = response.config.method;
+            this.url = response.config.url;
+            this.statusCode = response.status;
+            this.status = ignoreOpenMathsApi ? response.statusText : _.first(_.keys(response.data));
+            this.data = ignoreOpenMathsApi ? response.data : _.first(_.values(response.data));
+        }
     }
 
     export class Api {
@@ -38,14 +47,7 @@ module openmaths {
         }
 
         static response(response: ng.IHttpPromiseCallbackArg<any>, ignoreOpenMathsApi?: boolean): IApiResponse {
-            return {
-                headers: response.config.headers,
-                method: response.config.method,
-                url: response.config.url,
-                statusCode: response.status,
-                status: ignoreOpenMathsApi ? response.statusText : _.first(_.keys(response.data)),
-                data: ignoreOpenMathsApi ? response.data : _.first(_.values(response.data))
-            };
+            return new IApiResponse(response, ignoreOpenMathsApi);
         }
     }
 

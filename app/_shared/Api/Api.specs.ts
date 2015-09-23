@@ -31,9 +31,6 @@ module openmaths.specs {
         it('should format Http response correctly', () => {
             let originalResponse = {
                 config: {
-                    headers: {
-                        Accept: 'application/json, text/plain, */*'
-                    },
                     method: 'GET',
                     url: 'http://api.om.dev/search/hello-world'
                 },
@@ -46,14 +43,7 @@ module openmaths.specs {
 
             let parsedResponse = openmaths.Api.response(originalResponse);
 
-            expect(parsedResponse).toEqual({
-                headers: originalResponse.config.headers,
-                method: originalResponse.config.method,
-                url: originalResponse.config.url,
-                statusCode: originalResponse.status,
-                status: _.first(_.keys(originalResponse.data)),
-                data: originalResponse.data.success
-            });
+            expect(parsedResponse).toEqual(new IApiResponse(originalResponse));
         });
     });
 }
