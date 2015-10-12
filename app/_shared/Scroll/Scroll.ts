@@ -8,7 +8,7 @@ module openmaths {
         constructor() {
             this.link = (scope, ele) => {
                 $(ele).perfectScrollbar({
-                    suppressScrollX: true
+                    suppressScrollX: false
                 });
             };
         }
