@@ -174,10 +174,11 @@
                                     Prerequisite Definitions
                                 </header>
                                 <span class="label"
-                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value">
-                                    {{title}}
+                                      ng-repeat="PrerequisiteDef in ContributeCtr.MutationForm.prerequisiteDefinitionIds.value"
+                                      ng-if="PrerequisiteDef.show">
+                                    {{PrerequisiteDef.title}}
                                     <i class="link"
-                                       ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.remove(id)">&times;</i>
+                                       ng-click="ContributeCtr.MutationForm.prerequisiteDefinitionIds.remove($index)">&times;</i>
                                 </span>
                             </div>
                             <div class="info-unit">
@@ -186,10 +187,11 @@
                                     See Also
                                 </header>
                                 <span class="label"
-                                      ng-repeat="(id, title) in ContributeCtr.MutationForm.seeAlsoIds.value">
-                                    {{title}}
+                                      ng-repeat="SeeAlso in ContributeCtr.MutationForm.seeAlsoIds.value"
+                                      ng-if="SeeAlso.show">
+                                    {{SeeAlso.title}}
                                     <i class="link"
-                                       ng-click="ContributeCtr.MutationForm.seeAlsoIds.remove(id)">&times;</i>
+                                       ng-click="ContributeCtr.MutationForm.seeAlsoIds.remove($index)">&times;</i>
                                 </span>
                             </div>
                             <div class="info-unit">

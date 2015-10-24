@@ -15,20 +15,26 @@ module openmaths {
         valueParsed?: string;
     }
 
+    interface IPrereqsSeeAlsosArr {
+        title: string;
+        id: string;
+        show: boolean;
+    }
+
     export enum UpdateValues {PrerequisiteDefinitions, SeeAlso}
 
     export class MutationForm {
-        advancedTypeOptions: IMutationFormObject;
-        content: IMutationFormObject;
-        id: IMutationFormObject;
-        prerequisiteDefinitionIds: IMutationFormObject;
-        seeAlsoIds: IMutationFormObject;
-        tags: IMutationFormObject;
-        title: IMutationFormObject;
-        titleSynonyms: IMutationFormObject;
-        umiType: IMutationFormObject;
+        advancedTypeOptions:IMutationFormObject;
+        content:IMutationFormObject;
+        id:IMutationFormObject;
+        prerequisiteDefinitionIds:IMutationFormObject;
+        seeAlsoIds:IMutationFormObject;
+        tags:IMutationFormObject;
+        title:IMutationFormObject;
+        titleSynonyms:IMutationFormObject;
+        umiType:IMutationFormObject;
 
-        constructor(Umi?: openmaths.Umi) {
+        constructor(Umi?:openmaths.Umi) {
             this.advancedTypeOptions = {
                 active: false,
                 description: 'Advanced Type Options',
@@ -60,20 +66,20 @@ module openmaths {
                 active: false,
                 description: 'Comma-separated list of valid dependency Titles',
                 label: 'Prerequisite Definitions',
-                remove: (id: string) => this.removeValues(UpdateValues.PrerequisiteDefinitions, id),
-                update: (resolveObject: SearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
+                remove: (id:number) => this.removeValues(UpdateValues.PrerequisiteDefinitions, id),
+                update: (resolveObject:SearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
                 value: Umi && Umi.prerequisiteDefinitions
-                    ? MutationForm.resolveUmiDetails(Umi.prerequisiteDefinitions) : {}
+                    ? MutationForm.resolveUmiDetails(Umi.prerequisiteDefinitions) : []
             };
 
             this.seeAlsoIds = {
                 active: false,
                 description: 'Comma-separated list of valid Titles which may be related',
                 label: 'See Also',
-                remove: (id: string) => this.removeValues(UpdateValues.SeeAlso, id),
-                update: (resolveObject: SearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
+                remove: (id:number) => this.removeValues(UpdateValues.SeeAlso, id),
+                update: (resolveObject:SearchResult) => this.updateValues(UpdateValues.SeeAlso, resolveObject),
                 value: Umi && Umi.seeAlso
-                    ? MutationForm.resolveUmiDetails(Umi.seeAlso) : {}
+                    ? MutationForm.resolveUmiDetails(Umi.seeAlso) : []
             };
 
             this.tags = {
@@ -81,7 +87,7 @@ module openmaths {
                 description: 'Comma-separated list of tags to help users find your contribution.',
                 label: 'Tags',
                 parseCsv: () => this.tags.value = openmaths.CsvParser.parse(this.tags.valueMeta),
-                remove: (label: string) => this.removeTag(label),
+                remove: (label:string) => this.removeTag(label),
                 value: Umi && Umi.tags ? Umi.tags : [],
                 valueMeta: Umi && Umi.tags ? Umi.tags.join(', ') : ''
             };
@@ -112,30 +118,34 @@ module openmaths {
             };
         }
 
-        resetActive(): void {
-            _.forEach(this, (formObject: IMutationFormObject) => {
+        resetActive():void {
+            _.forEach(this, (formObject:IMutationFormObject) => {
                 if (formObject.active) formObject.active = false;
             });
         }
 
-        updateValues(selector: UpdateValues, resolveObject: SearchResult) {
+        updateValues(selector:UpdateValues, resolveObject:SearchResult) {
             switch (selector) {
                 case UpdateValues.PrerequisiteDefinitions:
-                    this.prerequisiteDefinitionIds.value[resolveObject.id] = resolveObject.title;
+                    this.prerequisiteDefinitionIds.value.push({
+                        id: resolveObject.id, show: true, title: resolveObject.title
+                    });
                     break;
                 case UpdateValues.SeeAlso:
-                    this.seeAlsoIds.value[resolveObject.id] = resolveObject.title;
+                    this.seeAlsoIds.value.push({
+                        id: resolveObject.id, show: true, title: resolveObject.title
+                    });
                     break;
             }
         }
 
-        removeValues(selector: UpdateValues, id: string) {
+        removeValues(selector:UpdateValues, id:number) {
             switch (selector) {
                 case UpdateValues.PrerequisiteDefinitions:
-                    delete this.prerequisiteDefinitionIds.value[id];
+                    this.prerequisiteDefinitionIds.value[id].show = false;
                     break;
                 case UpdateValues.SeeAlso:
-                    delete this.seeAlsoIds.value[id];
+                    this.seeAlsoIds.value[id].show = false;
                     break;
             }
         }
@@ -147,12 +157,10 @@ module openmaths {
             this.tags.valueMeta = newCsvData.value;
         }
 
-        private static resolveUmiDetails(umiDetailsList: Array<IUmiDetails>): Object {
-            let finalObject = {};
-
-            _.forEach(umiDetailsList, (umiDetails: IUmiDetails) => finalObject[umiDetails.id] = umiDetails.title);
-
-            return finalObject;
+        private static resolveUmiDetails(umiDetailsList:Array<IUmiDetails>):Object {
+            return _.map(umiDetailsList, (umiDetails:IUmiDetails) => {
+                return {id: umiDetails.id, show: true, title: umiDetails.title};
+            });
         }
     }
 
@@ -168,35 +176,35 @@ module openmaths {
         private static updateUmiSuccessNotificationMessage = 'This contribution has been successfully updated';
         private static retryConnection = 3;
 
-        constructor(private Api: openmaths.Api, private NotificationFactory?: openmaths.NotificationFactory) {
+        constructor(private Api:openmaths.Api, private NotificationFactory?:openmaths.NotificationFactory) {
         }
 
         // @TODO private?
-        latexToHtmlPromise(content: ILatexToHtmlPromisePayload): ng.IHttpPromise<void> {
+        latexToHtmlPromise(content:ILatexToHtmlPromisePayload):ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().latexToHtml, content);
         }
 
         // @TODO private?
-        checkContentPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+        checkContentPromise(payload:openmaths.Mutation):ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().check, payload);
         }
 
         // @TODO private?
-        checkUpdateContentPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+        checkUpdateContentPromise(payload:openmaths.Mutation):ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().checkUpdate, payload);
         }
 
         // @TODO private?
-        createUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+        createUmiPromise(payload:openmaths.Mutation):ng.IHttpPromise<void> {
             return this.Api.post(openmaths.Config.getApiRoutes().createUmi, payload);
         }
 
         // @TODO private?
-        updateUmiPromise(payload: openmaths.Mutation): ng.IHttpPromise<void> {
+        updateUmiPromise(payload:openmaths.Mutation):ng.IHttpPromise<void> {
             return this.Api.put(openmaths.Config.getApiRoutes().update, payload);
         }
 
-        parseContent(MutationForm: openmaths.MutationForm, isUpdate: boolean): ng.IHttpPromise<void> {
+        parseContent(MutationForm:openmaths.MutationForm, isUpdate:boolean):ng.IHttpPromise<void> {
             let Mutation = new openmaths.Mutation(MutationForm),
                 Promise;
 
@@ -217,14 +225,14 @@ module openmaths {
             return Promise;
         }
 
-        createContent(MutationForm: openmaths.MutationForm) {
+        createContent(MutationForm:openmaths.MutationForm) {
             let Mutation = new openmaths.Mutation(MutationForm);
 
             Rx.Observable.fromPromise(this.createUmiPromise(Mutation))
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .retry(MutationApi.retryConnection)
-                .subscribe((response: IApiResponse) => {
+                .subscribe((response:IApiResponse) => {
                     this.NotificationFactory.generate(MutationApi.createUmiSuccessNotificationMessage, NotificationType.Success, response.data);
                 }, errorData => {
                     let message;
@@ -240,14 +248,14 @@ module openmaths {
                 });
         }
 
-        updateContent(MutationForm: openmaths.MutationForm) {
+        updateContent(MutationForm:openmaths.MutationForm) {
             let Mutation = new openmaths.Mutation(MutationForm);
 
             Rx.Observable.fromPromise(this.updateUmiPromise(Mutation))
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .retry(MutationApi.retryConnection)
-                .subscribe((response: IApiResponse) => {
+                .subscribe((response:IApiResponse) => {
                     this.NotificationFactory.generate(MutationApi.updateUmiSuccessNotificationMessage, NotificationType.Success, response.data);
                 }, errorData => {
                     let message;
@@ -265,24 +273,26 @@ module openmaths {
     }
 
     export class Mutation {
-        auth: openmaths.Auth;
-        content: string;
-        id: string;
-        message: string;
-        prerequisiteDefinitionIds: string[];
-        seeAlsoIds: string[];
-        tags: string[];
-        title: string;
-        titleSynonyms: string[];
-        umiType: string;
+        auth:openmaths.Auth;
+        content:string;
+        id:string;
+        message:string;
+        prerequisiteDefinitionIds:string[];
+        seeAlsoIds:string[];
+        tags:string[];
+        title:string;
+        titleSynonyms:string[];
+        umiType:string;
 
-        constructor(MutationForm: openmaths.MutationForm) {
+        constructor(MutationForm:openmaths.MutationForm) {
             this.auth = openmaths.User.getAuthData();
             this.content = MutationForm.content.value;
             this.id = MutationForm.id.value;
             this.message = 'Initialise UMI';
-            this.prerequisiteDefinitionIds = _.keys(MutationForm.prerequisiteDefinitionIds.value);
-            this.seeAlsoIds = _.keys(MutationForm.seeAlsoIds.value);
+            this.prerequisiteDefinitionIds = _.map(_.where(MutationForm.prerequisiteDefinitionIds.value, {show: true}),
+                (Obj:IPrereqsSeeAlsosArr) => Obj.id);
+            this.seeAlsoIds = _.map(_.where(MutationForm.seeAlsoIds.value, {show: true}),
+                (Obj:IPrereqsSeeAlsosArr) => Obj.id);
             this.tags = MutationForm.tags.value;
             this.title = MutationForm.title.value;
             this.titleSynonyms = MutationForm.titleSynonyms.value;
@@ -291,12 +301,12 @@ module openmaths {
     }
 
     class UmiType {
-        value: string;
+        value:string;
 
-        private prepend: string;
-        private append: string;
+        private prepend:string;
+        private append:string;
 
-        constructor(umiType: IMutationFormObject, advancedTypeOptions: {formal: boolean, meta: boolean}) {
+        constructor(umiType:IMutationFormObject, advancedTypeOptions:{formal: boolean, meta: boolean}) {
             this.prepend = '';
             this.append = '';
 

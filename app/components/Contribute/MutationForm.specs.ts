@@ -1,7 +1,7 @@
 module openmaths.specs {
     'use strict';
 
-    let testSearchResult: openmaths.SearchResult = new SearchResult({
+    let testSearchResult:openmaths.SearchResult = new SearchResult({
         id: 'testId',
         title: 'testTitle',
         uriFriendlyTitle: 'testUriFriendlyTitle',
@@ -9,7 +9,7 @@ module openmaths.specs {
     });
 
     describe('MutationForm model', () => {
-        let model: openmaths.MutationForm;
+        let model:openmaths.MutationForm;
 
         beforeEach(() => {
             model = new openmaths.MutationForm();
@@ -29,7 +29,7 @@ module openmaths.specs {
 
             model.resetActive();
 
-            _.forEach(model, (entry: IMutationFormObject) => {
+            _.forEach(model, (entry:IMutationFormObject) => {
                 if (entry.description) expect(entry.active).toEqual(false);
             });
         });
@@ -38,28 +38,32 @@ module openmaths.specs {
         it('should correctly update seeAlso values when instructed', () => {
             model.updateValues(UpdateValues.SeeAlso, testSearchResult);
 
-            expect(model.seeAlsoIds.value['testId']).toEqual('testTitle');
+            expect(model.seeAlsoIds.value[0]).toEqual({
+                id: 'testId',
+                show: true,
+                title: 'testTitle'
+            });
         });
 
         // @TODO test with more diverse scenarios
         it('should correctly remove seeAlso value when instructed', () => {
-            model.seeAlsoIds.value['toBeRemoved'] = 'value';
+            model.seeAlsoIds.value[0] = {id: 1, title: 'testTitle', show: true};
 
-            model.removeValues(UpdateValues.SeeAlso, 'toBeRemoved');
+            model.removeValues(UpdateValues.SeeAlso, 0);
 
-            expect(model.seeAlsoIds.value['toBeRemoved']).toBeUndefined();
+            expect(model.seeAlsoIds.value[0].show).toEqual(false);
         });
     });
 
     describe('MutationApi model', () => {
         beforeEach(angular.mock.module('openmaths'));
 
-        let Api: openmaths.Api;
-        let $httpBackend: ng.IHttpBackendService;
-        let model: openmaths.MutationApi;
+        let Api:openmaths.Api;
+        let $httpBackend:ng.IHttpBackendService;
+        let model:openmaths.MutationApi;
 
-        beforeEach(inject((_Api_: openmaths.Api,
-                           _$httpBackend_: ng.IHttpBackendService) => {
+        beforeEach(inject((_Api_:openmaths.Api,
+                           _$httpBackend_:ng.IHttpBackendService) => {
             Api = _Api_;
             $httpBackend = _$httpBackend_;
 
@@ -146,8 +150,8 @@ module openmaths.specs {
     });
 
     describe('Mutation model', () => {
-        let MutationForm: openmaths.MutationForm;
-        let UmiTypes: openmaths.UmiTypes = new openmaths.UmiTypes;
+        let MutationForm:openmaths.MutationForm;
+        let UmiTypes:openmaths.UmiTypes = new openmaths.UmiTypes;
 
         beforeEach(() => {
             MutationForm = new openmaths.MutationForm();
