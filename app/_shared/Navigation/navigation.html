@@ -30,8 +30,8 @@
                 <span class="icon-label">Traditional Definitions</span>
             </a>
         </li>
-        <li>
-            <a href="#">
+        <li ng-class="{active: GlobalCtr.uiConfig.theme == 'dark'}">
+            <a ng-click="GlobalCtr.uiConfig.theme = (GlobalCtr.uiConfig.theme == 'dark' ? 'light' : 'dark')">
                 <i class="fa fa-moon-o"></i>
                 <span class="icon-label">Dark Theme</span>
             </a>
