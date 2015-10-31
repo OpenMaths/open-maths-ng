@@ -64,8 +64,8 @@ module openmaths {
 
             this.prerequisiteDefinitionIds = {
                 active: false,
-                description: 'Comma-separated list of valid dependency Titles',
-                label: 'Prerequisite Definitions',
+                description: 'Start typing the title then use arrows and enter to add',
+                label: 'Add Prerequisites',
                 remove: (id:number) => this.removeValues(UpdateValues.PrerequisiteDefinitions, id),
                 update: (resolveObject:SearchResult) => this.updateValues(UpdateValues.PrerequisiteDefinitions, resolveObject),
                 value: Umi && Umi.prerequisiteDefinitions
@@ -201,7 +201,7 @@ module openmaths {
 
         // @TODO private?
         updateUmiPromise(payload:openmaths.Mutation):ng.IHttpPromise<void> {
-            return this.Api.put(openmaths.Config.getApiRoutes().update, payload);
+            return this.Api.post(openmaths.Config.getApiRoutes().update, payload);
         }
 
         parseContent(MutationForm:openmaths.MutationForm, isUpdate:boolean):ng.IHttpPromise<void> {
@@ -215,6 +215,7 @@ module openmaths {
                         ? this.checkUpdateContentPromise(Mutation) : this.checkContentPromise(Mutation);
                     break;
                 default:
+                    console.log(Mutation.auth);
                     Promise = this.latexToHtmlPromise({
                         auth: Mutation.auth,
                         s: Mutation.content

@@ -129,7 +129,7 @@ module openmaths.specs {
             let addr = openmaths.Config.getApiUrl() + openmaths.Config.getApiRoutes().update,
                 payload = new openmaths.Mutation(new openmaths.MutationForm());
 
-            $httpBackend.expectPUT(addr).respond(200, 'success');
+            $httpBackend.expectPOST(addr).respond(200, 'success');
 
             model.updateUmiPromise(payload).then(result => expect(result.data).toEqual('success'));
 

@@ -69,7 +69,7 @@ module openmaths {
         }
 
         private parseUmiType(umiTypeRaw:string):string {
-            let regexFormal = new RegExp('Formal', 'g'),
+            const regexFormal = new RegExp('Formal', 'g'),
                 regexMeta = new RegExp('Meta', 'g'),
                 matchFormal = umiTypeRaw.match(regexFormal),
                 matchMeta = umiTypeRaw.match(regexMeta);
@@ -80,8 +80,7 @@ module openmaths {
             return umiTypeRaw.replace(regexFormal, '').replace(regexMeta, '');
         }
 
-        // @TODO
-        // remove after the API has reflected latest Interface updates
+        // @TODO remove after the API has reflected latest Interface updates
         static umiTempFormatter(initObject:any):IUmi {
             let formatted = _.clone(initObject);
 

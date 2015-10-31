@@ -6,8 +6,8 @@ module openmaths {
         gPlusId: string;
 
         constructor(accessToken: string, gPlusId: string) {
-            this.accessToken = accessToken;
-            this.gPlusId = gPlusId;
+            this.accessToken = accessToken ? accessToken : '';
+            this.gPlusId = gPlusId ? gPlusId : '';
         }
     }
 
