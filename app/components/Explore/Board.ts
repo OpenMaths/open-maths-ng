@@ -32,24 +32,24 @@ module openmaths {
     }
 
     export class Board implements IBoard {
-        columns: {
+        columns:{
             current: number;
             max: number;
             min: number;
             uiClass: string;
         };
-        rows: {
+        rows:{
             current: number;
             max: number;
             min: number;
             uiClass: string;
         };
 
-        grid: Array<Array<openmaths.Umi>>;
-        state: string;
+        grid:Array<Array<openmaths.Umi>>;
+        state:string;
 
-        constructor(public Api?: openmaths.Api,
-                    public NotificationFactory?: openmaths.NotificationFactory) {
+        constructor(public Api?:openmaths.Api,
+                    public NotificationFactory?:openmaths.NotificationFactory) {
             this.columns = {
                 current: 3,
                 max: 6,
@@ -71,11 +71,11 @@ module openmaths {
             this.grid = this.initGrid();
         }
 
-        initGrid(): Array<Array<openmaths.Umi>> {
+        initGrid():Array<Array<openmaths.Umi>> {
             return _.map(_.range(this.rows.current), row => _.map(_.range(this.columns.current), box => new openmaths.Umi()));
         }
 
-        updateGrid(section: GridSection, action: UpdateGridOperator) {
+        updateGrid(section:GridSection, action:UpdateGridOperator) {
             switch (section) {
                 case GridSection.Column:
                     this.updateColumn(action);
@@ -86,7 +86,7 @@ module openmaths {
             }
         }
 
-        updateColumn(action: UpdateGridOperator) {
+        updateColumn(action:UpdateGridOperator) {
             let current = this.columns.current;
 
             switch (action) {
@@ -115,7 +115,7 @@ module openmaths {
             this.columns.uiClass = 'columns-' + this.columns.current;
         }
 
-        updateRow(action: UpdateGridOperator) {
+        updateRow(action:UpdateGridOperator) {
             let current = this.rows.current;
 
             switch (action) {
@@ -144,7 +144,7 @@ module openmaths {
             this.rows.uiClass = 'rows-' + this.rows.current;
         }
 
-        expandInto(row: number, column: number, getBy: GetUmiBy, value: string) {
+        expandInto(row:number, column:number, getBy:GetUmiBy, value:string) {
             let apiRoutes = openmaths.Config.getApiRoutes();
 
             let getUmiPromise = (getBy == GetUmiBy.Id)
@@ -153,8 +153,8 @@ module openmaths {
             Rx.Observable.fromPromise(getUmiPromise)
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
-                .subscribe((d: IApiResponse) => {
-                    let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
+                .subscribe((d:IApiResponse) => {
+                    let response:IUmi = openmaths.Umi.umiTempFormatter(d.data);
 
                     this.grid[row][column] = new openmaths.Umi(response, [row, column]);
 
@@ -164,7 +164,7 @@ module openmaths {
                 });
         }
 
-        getUmiPromise(url): ng.IHttpPromise<void> {
+        getUmiPromise(url):ng.IHttpPromise<void> {
             return this.Api.get(url);
         }
     }

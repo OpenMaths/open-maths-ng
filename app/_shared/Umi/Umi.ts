@@ -25,26 +25,26 @@ module openmaths {
     }
 
     export class Umi implements IUmi {
-        creator: string;
-        formal: boolean;
-        htmlContent: string;
-        id: string;
-        latexContent: string;
-        latexContentId: string;
-        meta: boolean;
-        prerequisiteDefinitions: Array<IUmiDetails>;
-        seeAlso: Array<IUmiDetails>;
-        tags: Array<string>;
-        title: string;
-        titleSynonyms: Array<string>;
-        ts: number;
-        umiType: string;
-        uriFriendlyTitle: string;
+        creator:string;
+        formal:boolean;
+        htmlContent:string;
+        id:string;
+        latexContent:string;
+        latexContentId:string;
+        meta:boolean;
+        prerequisiteDefinitions:Array<IUmiDetails>;
+        seeAlso:Array<IUmiDetails>;
+        tags:Array<string>;
+        title:string;
+        titleSynonyms:Array<string>;
+        ts:number;
+        umiType:string;
+        uriFriendlyTitle:string;
 
-        where: number[];
-        empty: boolean;
+        where:number[];
+        empty:boolean;
 
-        constructor(initObject?: IUmi, where?: number[]) {
+        constructor(initObject?:IUmi, where?:number[]) {
             this.creator = initObject && initObject.creator ? initObject.creator : undefined;
             this.formal = false;
             this.htmlContent = initObject && initObject.htmlContent ? initObject.htmlContent : undefined;
@@ -68,7 +68,7 @@ module openmaths {
             return _.isEmpty(this.id) || _.isEmpty(this.uriFriendlyTitle);
         }
 
-        private parseUmiType(umiTypeRaw: string): string {
+        private parseUmiType(umiTypeRaw:string):string {
             let regexFormal = new RegExp('Formal', 'g'),
                 regexMeta = new RegExp('Meta', 'g'),
                 matchFormal = umiTypeRaw.match(regexFormal),
@@ -82,14 +82,10 @@ module openmaths {
 
         // @TODO
         // remove after the API has reflected latest Interface updates
-        static umiTempFormatter(initObject: any): IUmi {
+        static umiTempFormatter(initObject:any):IUmi {
             let formatted = _.clone(initObject);
 
-            _.forEach(formatted.umi, (value: any, key: string) => formatted[key] = value);
-            _.forEach(formatted.umi.title, (value: any, key: string) => formatted[key] = value);
-
-            formatted.umi = undefined;
-            formatted.id = initObject.umi.id;
+            _.forEach(formatted.title, (value:any, key:string) => formatted[key] = value);
 
             return formatted;
         }
@@ -102,57 +98,57 @@ module openmaths {
     }
 
     export class UmiTypes {
-        Axiom: IUmiType = {
+        Axiom:IUmiType = {
             label: 'Axiom',
             formal: true
         };
-        AxiomScheme: IUmiType = {
+        AxiomScheme:IUmiType = {
             label: 'Axiom Scheme',
             formal: true
         };
-        Conjecture: IUmiType = {
+        Conjecture:IUmiType = {
             label: 'Conjecture',
         };
-        Corollary: IUmiType = {
+        Corollary:IUmiType = {
             label: 'Corollary',
         };
-        Definition: IUmiType = {
+        Definition:IUmiType = {
             label: 'Definition',
             formal: true,
             meta: true
         };
-        Diagram: IUmiType = {
+        Diagram:IUmiType = {
             label: 'Diagram',
         };
-        Documentation: IUmiType = {
+        Documentation:IUmiType = {
             label: 'Documentation',
         };
-        Example: IUmiType = {
+        Example:IUmiType = {
             label: 'Example',
         };
-        HistoricalNote: IUmiType = {
+        HistoricalNote:IUmiType = {
             label: 'Historical Note',
         };
-        Lemma: IUmiType = {
+        Lemma:IUmiType = {
             label: 'Lemma',
         };
-        Notation: IUmiType = {
+        Notation:IUmiType = {
             label: 'Notation',
             formal: true
         };
-        PartialTheorem: IUmiType = {
+        PartialTheorem:IUmiType = {
             label: 'Partial Theorem',
         };
-        PhilosophicalJustification: IUmiType = {
+        PhilosophicalJustification:IUmiType = {
             label: 'Philosophical Justification',
         };
-        Proof: IUmiType = {
+        Proof:IUmiType = {
             label: 'Proof',
         };
-        Special: IUmiType = {
+        Special:IUmiType = {
             label: 'Special',
         };
-        Theorem: IUmiType = {
+        Theorem:IUmiType = {
             label: 'Theorem',
         };
     }
