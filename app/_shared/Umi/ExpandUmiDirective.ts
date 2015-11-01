@@ -6,6 +6,7 @@ module openmaths {
         directions: Array<IExpandUmiDirection>;
         expandId: string;
         expandLabel: string;
+        ExploreCtr: ExploreController;
         rows: IGridPartConfig;
         umi: openmaths.Umi;
     }
@@ -33,8 +34,8 @@ module openmaths {
         scope = true;
         templateUrl = 'app/_shared/Umi/expandUmi.html';
 
-        constructor() {
-            this.link = (scope: IExpandUmiDirectiveScope, ele, attr: IExpandUmiAttr) => {
+        constructor($document:angular.IDocumentService) {
+            this.link = (scope:IExpandUmiDirectiveScope, ele, attr:IExpandUmiAttr) => {
                 if (scope.umi.empty) return false;
 
                 ele.addClass('expand-umi');
@@ -49,13 +50,37 @@ module openmaths {
                     scope.expandLabel = attr.expandLabel;
                     scope.directions = openmaths.ExpandUmiDirective.renderDirections(scope.umi.where, gridConfig);
                 });
+
+                let x, y;
+
+                ele.on('mousedown', event => {
+                    event.preventDefault();
+
+                    x = event.pageX;
+                    y = event.pageY;
+
+                    $document.on('mousemove', mousemove);
+                    $document.on('mouseup', mouseup);
+                });
+
+                function mousemove(event) {
+                    x = event.clientX;
+                    y = event.clientY;
+                }
+
+                function mouseup() {
+                    $document.off('mousemove', mousemove);
+                    $document.off('mouseup', mouseup);
+
+                    scope.ExploreCtr.Board.canExpand(x, y, scope.expandId, scope.umi.boundary);
+                }
             };
         }
 
-        static renderDirections(currentPosition: number[], gridConfig: IGridConfig): Array<IExpandUmiDirection> {
-            let directions: string[] = ['up', 'right', 'down', 'left'],
-                row: number = _.first(currentPosition),
-                column: number = _.last(currentPosition);
+        static renderDirections(currentPosition:number[], gridConfig:IGridConfig):Array<IExpandUmiDirection> {
+            let directions:string[] = ['up', 'right', 'down', 'left'],
+                row:number = _.first(currentPosition),
+                column:number = _.last(currentPosition);
 
             return _.map(directions, direction => {
                 let vertical = direction == 'up' || direction == 'down',
@@ -77,9 +102,9 @@ module openmaths {
             });
         }
 
-        static init(): ng.IDirectiveFactory {
-            return () => {
-                return new ExpandUmiDirective();
+        static init():ng.IDirectiveFactory {
+            return ($document:angular.IDocumentService) => {
+                return new ExpandUmiDirective($document);
             };
         }
     }

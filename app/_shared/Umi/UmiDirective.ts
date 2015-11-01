@@ -13,9 +13,10 @@ module openmaths {
         restrict = 'A';
         scope = true;
 
-        constructor($window:angular.IWindowService) {
+        constructor($window:angular.IWindowService, $timeout:angular.ITimeoutService) {
             this.link = (scope:IUmiDirectiveScope, ele, attr:IUmiAttr) => {
-                assignCorrectBoundaries();
+                // @TODO document why the fuck this fucking hack is needed
+                $timeout(assignCorrectBoundaries, 1000);
 
                 Rx.Observable.fromEvent($window, 'resize')
                     .debounce(1000)
@@ -35,8 +36,8 @@ module openmaths {
         }
 
         static init():ng.IDirectiveFactory {
-            return ($window:angular.IWindowService) => {
-                return new UmiPositionDirective($window);
+            return ($window:angular.IWindowService, $timeout:angular.ITimeoutService) => {
+                return new UmiPositionDirective($window, $timeout);
             };
         }
     }

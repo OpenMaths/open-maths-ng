@@ -144,6 +144,24 @@ module openmaths {
             this.rows.uiClass = 'rows-' + this.rows.current;
         }
 
+        canExpand(x:number, y:number, umiId:string, currentBoundary:UmiBoundary) {
+            if (_.inRange(x, _.first(currentBoundary.horizontal), _.last(currentBoundary.horizontal))
+                && _.inRange(y, _.first(currentBoundary.vertical), _.last(currentBoundary.vertical))) {
+                return false;
+            }
+
+            // @TODO look into _.find implementation
+            _.forEach(this.grid, (row:Array<Umi>, rowIndex:number) => {
+                _.forEach(row, (umi:Umi, columnIndex:number) => {
+                    if (_.inRange(x, _.first(umi.boundary.horizontal), _.last(umi.boundary.horizontal))
+                        && _.inRange(y, _.first(umi.boundary.vertical), _.last(umi.boundary.vertical))) {
+
+                        this.expandInto(rowIndex, columnIndex, GetUmiBy.Id, umiId);
+                    }
+                })
+            });
+        }
+
         expandInto(row:number, column:number, getBy:GetUmiBy, value:string) {
             let apiRoutes = openmaths.Config.getApiRoutes();
 
