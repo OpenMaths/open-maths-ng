@@ -31,16 +31,15 @@ gulp.task('watch', function () {
 
 gulp.task('concatVendor', function () {
     gulp.src([
-        'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/angular/angular.min.js',
-        'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-        'bower_components/angular-loading-bar/build/loading-bar.min.js',
-        'bower_components/angular-sanitize/angular-sanitize.min.js',
-        'bower_components/lodash/lodash.min.js',
-        'bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
-        'bower_components/rxjs/dist/rx.min.js',
-        'bower_components/rxjs/dist/rx.time.min.js'
-    ])
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/angular/angular.min.js',
+            'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+            'bower_components/angular-loading-bar/build/loading-bar.min.js',
+            'bower_components/angular-sanitize/angular-sanitize.min.js',
+            'bower_components/lodash/lodash.min.js',
+            'bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
+            'bower_components/rxjs/dist/rx.all.min.js'
+        ])
         .pipe(plumber({errorHandler: onError}))
         .pipe(concat('vendor.js'))
         .pipe(gulp.dest('app/dist'))

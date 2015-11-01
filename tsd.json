@@ -40,6 +40,48 @@
     },
     "rx/rx.time-lite.d.ts": {
       "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.async.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.async-lite.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.all.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.aggregates.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.binding-lite.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.binding.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.coincidence-lite.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.coincidence.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.experimental.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.joinpatterns.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.testing.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.backpressure.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.backpressure-lite.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "rx/rx.virtualtime.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
     }
   }
 }

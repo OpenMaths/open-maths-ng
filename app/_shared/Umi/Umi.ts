@@ -24,6 +24,16 @@ module openmaths {
         uriFriendlyTitle: string;
     }
 
+    export class UmiBoundary {
+        horizontal:number[];
+        vertical:number[];
+
+        constructor(widthBegin?:number, widthEnd?:number, heightBegin?:number, heightEnd?:number) {
+            this.horizontal = [widthBegin ? widthBegin : 0, widthEnd ? widthEnd : 0];
+            this.vertical = [heightBegin ? heightBegin : 0, heightEnd ? heightEnd : 0];
+        }
+    }
+
     export class Umi implements IUmi {
         creator:string;
         formal:boolean;
@@ -43,6 +53,7 @@ module openmaths {
 
         where:number[];
         empty:boolean;
+        boundary:UmiBoundary;
 
         constructor(initObject?:IUmi, where?:number[]) {
             this.creator = initObject && initObject.creator ? initObject.creator : undefined;
@@ -62,6 +73,7 @@ module openmaths {
 
             this.where = where ? where : undefined;
             this.empty = this.isEmpty();
+            this.boundary = new UmiBoundary;
         }
 
         isEmpty() {
