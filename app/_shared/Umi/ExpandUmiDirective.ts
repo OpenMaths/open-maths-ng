@@ -72,6 +72,7 @@ module openmaths {
                     $document.off('mousemove', mousemove);
                     $document.off('mouseup', mouseup);
 
+                    // @TODO investigate how best to inject this via selectively pulling in only the scope methods we need
                     scope.ExploreCtr.Board.canExpand(x, y, scope.expandId, scope.umi.boundary);
                 }
             };
