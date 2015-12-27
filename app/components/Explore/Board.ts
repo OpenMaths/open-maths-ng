@@ -143,7 +143,7 @@ module openmaths {
             this.rows.uiClass = 'rows-' + this.rows.current;
         }
 
-        showDetails(data:IUmi) {
+        showDetails(data:Umi) {
             this.ModalFactory.generate(new Modal(true, data.title));
         }
 
@@ -175,7 +175,7 @@ module openmaths {
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .subscribe((d:IApiResponse) => {
-                    let response:IUmi = openmaths.Umi.umiTempFormatter(d.data);
+                    let response:IUmi = d.data;
 
                     this.grid[row][column] = new openmaths.Umi(response, [row, column]);
 

@@ -9,16 +9,16 @@ module openmaths {
         private static keyStrokeThrottle = 1500;
         private static retryConnection = 3;
 
-        MutationForm: openmaths.MutationForm;
-        MutationApi: openmaths.MutationApi;
-        UpdateUmi: openmaths.UpdateUmi;
+        MutationForm:openmaths.MutationForm;
+        MutationApi:openmaths.MutationApi;
+        UpdateUmi:openmaths.UpdateUmi;
 
-        parsingInProgress: boolean;
+        parsingInProgress:boolean;
 
-        constructor($scope: ng.IScope,
-                    public $http: ng.IHttpService,
-                    private NotificationFactory: openmaths.NotificationFactory,
-                    private $stateParams?: IContributeControllerParams) {
+        constructor($scope:ng.IScope,
+                    public $http:ng.IHttpService,
+                    private NotificationFactory:openmaths.NotificationFactory,
+                    private $stateParams?:IContributeControllerParams) {
             this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http), NotificationFactory);
             this.MutationForm = new openmaths.MutationForm;
             this.UpdateUmi = new openmaths.UpdateUmi(this.$stateParams, this.$http);
@@ -28,17 +28,17 @@ module openmaths {
             if (this.UpdateUmi.updateUriFriendlyTitle) this.populateMutationForm();
 
             openmaths.ReactiveX.watchModel($scope, 'ContributeCtr.MutationForm.content.value')
-                .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
+                .map((e:IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .where(Rx.helpers.identity)
                 .do(tempTerm => {
                     this.MutationForm.content.valueParsed = tempTerm;
                 })
                 .throttle(ContributeController.keyStrokeThrottle)
-                .subscribe((expression: string) => {
+                .subscribe((expression:string) => {
                     this.parseContent();
                 });
 
-            $scope.$watch('ContributeCtr.MutationForm.prerequisiteDefinitionIds.value', (newValues: Object, oldValues: Object) => {
+            $scope.$watch('ContributeCtr.MutationForm.prerequisiteDefinitionIds.value', (newValues:Object, oldValues:Object) => {
                 if (_.keys(newValues).length > 0 || _.keys(oldValues).length > 0) this.parseContent();
             }, true);
         }
@@ -58,7 +58,7 @@ module openmaths {
             this.parseContent();
         }
 
-        parseContent(): void {
+        parseContent():void {
             Rx.Observable
                 .fromPromise(this.MutationApi.parseContent(this.MutationForm, !_.isUndefined(this.UpdateUmi.updateUriFriendlyTitle)))
                 .do(() => {
@@ -101,8 +101,8 @@ module openmaths {
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .retry(ContributeController.retryConnection)
-                .subscribe((d: IApiResponse) => {
-                    let response: IUmi = openmaths.Umi.umiTempFormatter(d.data);
+                .subscribe((d:IApiResponse) => {
+                    const response:IUmi = d.data;
 
                     this.MutationForm = new openmaths.MutationForm(new openmaths.Umi(response));
                     this.UpdateUmi.updateId = response.id;

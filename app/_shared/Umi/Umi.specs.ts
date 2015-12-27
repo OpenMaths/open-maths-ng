@@ -7,20 +7,25 @@ module openmaths.specs {
         id: 'testId',
         latexContent: 'testLatexContent',
         latexContentId: 'testLatexContentId',
+        meta: {
+            id: 'testId',
+            title: 'Test Title',
+            umiType: 'testUmiType',
+            uriFriendlyTitle: 'test-title',
+        },
         prerequisiteDefinitions: [],
         seeAlso: [],
         tags: [],
         title: 'testTitle',
         titleSynonyms: [],
         ts: 1,
-        umiType: 'testType',
-        uriFriendlyTitle: 'testUriFriendlyTitle'
+        umiType: 'testType'
     };
 
     let initObject = new openmaths.Umi(initObjectData, [1, 1]);
 
     describe('Umi model', () => {
-        let model: openmaths.Umi;
+        let model:openmaths.Umi;
 
         beforeEach(() => {
             model = new openmaths.Umi;
@@ -41,23 +46,13 @@ module openmaths.specs {
 
             model.id = '';
             expect(model.isEmpty()).toEqual(true);
-        });
 
-        it('should set the correct values if initObject has been provided', () => {
-            let modelWithInitObject = new openmaths.Umi(initObject, [1, 1]);
-
-            _.forEach(initObject, (value: any, key: string) => {
-                if (modelWithInitObject[key]) {
-                    expect(modelWithInitObject[key]).toEqual(value);
-                }
-            });
-
-            expect(modelWithInitObject.formal).toEqual(false);
-            expect(modelWithInitObject.meta).toEqual(false);
+            expect(model.formal).toEqual(false);
+            expect(model.meta).toEqual(false);
         });
 
         it('should correctly evaluate whether a umiType is Formal', () => {
-            let initObjectWithFormal = _.clone(initObject);
+            let initObjectWithFormal:IUmi = _.clone(initObjectData);
             initObjectWithFormal.umiType = 'FormalDefinition';
 
             let modelWithInitObject = new openmaths.Umi(initObjectWithFormal);
@@ -68,7 +63,7 @@ module openmaths.specs {
         });
 
         it('should correctly evaluate whether a umiType is FormalMeta', () => {
-            let initObjectWithFormalMeta = _.clone(initObject);
+            let initObjectWithFormalMeta = _.clone(initObjectData);
             initObjectWithFormalMeta.umiType = 'FormalDefinitionMeta';
 
             let modelWithInitObject = new openmaths.Umi(initObjectWithFormalMeta);

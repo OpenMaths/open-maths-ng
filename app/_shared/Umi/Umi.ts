@@ -4,7 +4,7 @@ module openmaths {
     export interface IUmiDetails {
         id: string;
         title: string;
-        type: string;
+        umiType: string;
         uriFriendlyTitle: string;
     }
 
@@ -14,14 +14,13 @@ module openmaths {
         id: string;
         latexContent: string;
         latexContentId: string;
+        meta: IUmiDetails;
         prerequisiteDefinitions: Array<IUmiDetails>;
         seeAlso: Array<IUmiDetails>;
         tags: Array<string>;
-        title: string;
         titleSynonyms: Array<string>;
         ts: number;
         umiType: string;
-        uriFriendlyTitle: string;
     }
 
     export class UmiBoundary {
@@ -34,7 +33,7 @@ module openmaths {
         }
     }
 
-    export class Umi implements IUmi {
+    export class Umi {
         creator:string;
         formal:boolean;
         htmlContent:string;
@@ -56,22 +55,25 @@ module openmaths {
         boundary:UmiBoundary;
 
         constructor(initObject?:IUmi, where?:number[]) {
-            this.creator = initObject && initObject.creator ? initObject.creator : undefined;
+            this.creator = initObject && initObject.creator ? initObject.creator : null;
+            // gotten from umiType
             this.formal = false;
-            this.htmlContent = initObject && initObject.htmlContent ? initObject.htmlContent : undefined;
-            this.id = initObject && initObject.id ? initObject.id : undefined;
-            this.latexContent = initObject && initObject.latexContent ? initObject.latexContent : undefined;
+            this.htmlContent = initObject && initObject.htmlContent ? initObject.htmlContent : null;
+            this.id = initObject && initObject.id ? initObject.id : null;
+            this.latexContent = initObject && initObject.latexContent ? initObject.latexContent : null;
+            this.latexContentId = initObject && initObject.latexContentId ? initObject.latexContentId : null;
+            // gotten from umiType
             this.meta = false;
-            this.prerequisiteDefinitions = initObject && initObject.prerequisiteDefinitions ? initObject.prerequisiteDefinitions : undefined;
-            this.seeAlso = initObject && initObject.seeAlso ? initObject.seeAlso : undefined;
-            this.tags = initObject && initObject.tags ? initObject.tags : undefined;
-            this.title = initObject && initObject.title ? initObject.title : undefined;
-            this.titleSynonyms = initObject && initObject.titleSynonyms ? initObject.titleSynonyms : undefined;
-            this.ts = initObject && initObject.ts ? initObject.ts : undefined;
-            this.umiType = initObject && initObject.umiType ? this.parseUmiType(initObject.umiType) : undefined;
-            this.uriFriendlyTitle = initObject && initObject.uriFriendlyTitle ? initObject.uriFriendlyTitle : undefined;
+            this.prerequisiteDefinitions = initObject && initObject.prerequisiteDefinitions ? initObject.prerequisiteDefinitions : null;
+            this.seeAlso = initObject && initObject.seeAlso ? initObject.seeAlso : null;
+            this.tags = initObject && initObject.tags ? initObject.tags : null;
+            this.title = initObject && initObject.meta.title ? initObject.meta.title : null;
+            this.titleSynonyms = initObject && initObject.titleSynonyms ? initObject.titleSynonyms : null;
+            this.ts = initObject && initObject.ts ? initObject.ts : null;
+            this.umiType = initObject && initObject.umiType ? this.parseUmiType(initObject.umiType) : null;
+            this.uriFriendlyTitle = initObject && initObject.meta.uriFriendlyTitle ? initObject.meta.uriFriendlyTitle : null;
 
-            this.where = where ? where : undefined;
+            this.where = where ? where : null;
             this.empty = this.isEmpty();
             this.boundary = new UmiBoundary;
         }
@@ -90,15 +92,6 @@ module openmaths {
             this.meta = _.isArray(matchMeta) && matchMeta.length > 0;
 
             return umiTypeRaw.replace(regexFormal, '').replace(regexMeta, '');
-        }
-
-        // @TODO remove after the API has reflected latest Interface updates
-        static umiTempFormatter(initObject:any):IUmi {
-            let formatted = _.clone(initObject);
-
-            _.forEach(formatted.title, (value:any, key:string) => formatted[key] = value);
-
-            return formatted;
         }
     }
 

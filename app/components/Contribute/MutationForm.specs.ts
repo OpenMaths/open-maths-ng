@@ -151,7 +151,7 @@ module openmaths.specs {
 
     describe('Mutation model', () => {
         let MutationForm:openmaths.MutationForm;
-        let UmiTypes:openmaths.UmiTypes = new openmaths.UmiTypes;
+        let UmiTypes:openmaths.UmiTypes = new openmaths.UmiTypes();
 
         beforeEach(() => {
             MutationForm = new openmaths.MutationForm();
