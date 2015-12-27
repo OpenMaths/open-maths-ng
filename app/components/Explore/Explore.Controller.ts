@@ -2,18 +2,20 @@ module openmaths {
     'use strict';
 
     export class ExploreController {
-        Board: openmaths.Board;
-        Dive: openmaths.Dive;
+        Board:openmaths.Board;
+        Dive:openmaths.Dive;
 
-        view: string;
-        openBoard: (searchReult: openmaths.SearchResult) => void;
+        view:string;
+        openBoard:(searchReult:openmaths.SearchResult) => void;
 
-        constructor(Api: openmaths.Api,
-                    NotificationFactory: openmaths.NotificationFactory,
-                    private $rootScope: ng.IScope,
-                    $state: ng.ui.IStateService,
-                    private $stateParams?: IContributeControllerParams) {
-            this.Board = new openmaths.Board(Api, NotificationFactory);
+        constructor(Api:openmaths.Api,
+                    NotificationFactory:openmaths.NotificationFactory,
+                    ModalFactory:openmaths.ModalFactory,
+                    private $scope:ng.IScope,
+                    private $rootScope:ng.IScope,
+                    private $state:ng.ui.IStateService,
+                    private $stateParams?:IContributeControllerParams) {
+            this.Board = new openmaths.Board(Api, NotificationFactory, ModalFactory);
             this.Dive = new openmaths.Dive();
 
             this.updateState($state.current.name);
@@ -23,7 +25,7 @@ module openmaths {
             });
 
             // @NOTE this is because we want to be able to call this method as a callback in SearchController
-            this.openBoard = (searchResult: openmaths.SearchResult) => {
+            this.openBoard = (searchResult:openmaths.SearchResult) => {
                 this.Board.expandInto(1, 1, GetUmiBy.Title, searchResult.uriFriendlyTitle);
 
                 $state.go('explore.board', {uriFriendlyTitle: searchResult.uriFriendlyTitle});
@@ -33,9 +35,27 @@ module openmaths {
                 this.Board.expandInto(1, 1, GetUmiBy.Title, this.$stateParams.uriFriendlyTitle);
                 $state.go('explore.board', {uriFriendlyTitle: this.$stateParams.uriFriendlyTitle});
             }
+
+            // @TODO make this work without having to focus into the HTML with a mouse
+            key('alt+right', () => {
+                this.Board.updateGrid(GridSection.Column, UpdateGridOperator.ADD);
+                $scope.$apply();
+            });
+            key('alt+left', () => {
+                this.Board.updateGrid(GridSection.Column, UpdateGridOperator.REMOVE);
+                $scope.$apply();
+            });
+            key('alt+down', () => {
+                this.Board.updateGrid(GridSection.Row, UpdateGridOperator.ADD);
+                $scope.$apply();
+            });
+            key('alt+up', () => {
+                this.Board.updateGrid(GridSection.Row, UpdateGridOperator.REMOVE);
+                $scope.$apply();
+            });
         }
 
-        updateState(toState: string) {
+        updateState(toState:string) {
             switch (toState) {
                 case this.Board.state:
                     this.view = 'board';

@@ -82,6 +82,9 @@
     },
     "rx/rx.virtualtime.d.ts": {
       "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+    },
+    "keymaster/keymaster.d.ts": {
+      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
     }
   }
 }

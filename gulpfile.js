@@ -38,7 +38,8 @@ gulp.task('concatVendor', function () {
             'bower_components/angular-sanitize/angular-sanitize.min.js',
             'bower_components/lodash/lodash.min.js',
             'bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js',
-            'bower_components/rxjs/dist/rx.all.min.js'
+            'bower_components/rxjs/dist/rx.all.min.js',
+            'bower_components/keymaster/keymaster.js'
         ])
         .pipe(plumber({errorHandler: onError}))
         .pipe(concat('vendor.js'))

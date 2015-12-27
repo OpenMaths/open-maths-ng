@@ -2,7 +2,6 @@ module openmaths {
     'use strict';
 
     let hideNotificationAfter: number = 4500;
-    //let allowedTypes: Array<string> = ['info', 'warning', 'error', 'success'];
 
     export enum NotificationType {
         Info, Warning, Error, Success

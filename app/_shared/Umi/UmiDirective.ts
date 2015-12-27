@@ -18,7 +18,7 @@ module openmaths {
                 // @TODO document why the fuck this fucking hack is needed
                 $timeout(assignCorrectBoundaries, 1000);
 
-                Rx.Observable.fromEvent($window, 'resize')
+                Rx.Observable.fromEvent(<any> $window, 'resize')
                     .debounce(1000)
                     .map(d => true)
                     .subscribe(() => {

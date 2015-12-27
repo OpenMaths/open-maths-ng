@@ -49,7 +49,9 @@ module openmaths {
         state:string;
 
         constructor(public Api?:openmaths.Api,
-                    public NotificationFactory?:openmaths.NotificationFactory) {
+                    public NotificationFactory?:openmaths.NotificationFactory,
+                    public ModalFactory?:openmaths.ModalFactory,
+                    public $scope?:ng.IScope) {
             this.columns = {
                 current: 3,
                 max: 6,
@@ -75,6 +77,7 @@ module openmaths {
             return _.map(_.range(this.rows.current), row => _.map(_.range(this.columns.current), box => new openmaths.Umi()));
         }
 
+        // @TODO add keymaster implementation (alt+arrows)
         updateGrid(section:GridSection, action:UpdateGridOperator) {
             switch (section) {
                 case GridSection.Column:
@@ -91,7 +94,6 @@ module openmaths {
 
             switch (action) {
                 case UpdateGridOperator.ADD:
-                    console.log('Adding a column to the grid');
                     if (current == this.columns.max) return false;
 
                     this.columns.current = current + 1;
@@ -100,7 +102,6 @@ module openmaths {
 
                     break;
                 case UpdateGridOperator.REMOVE:
-                    console.log('Removing a column from the grid');
                     if (current == this.columns.min) return false;
 
                     this.columns.current = current - 1;
@@ -120,7 +121,6 @@ module openmaths {
 
             switch (action) {
                 case UpdateGridOperator.ADD:
-                    console.log('Adding a row to the grid');
                     if (current == this.rows.max) return false;
 
                     this.rows.current = current + 1;
@@ -129,7 +129,6 @@ module openmaths {
 
                     break;
                 case UpdateGridOperator.REMOVE:
-                    console.log('Removing a row from the grid');
                     if (current == this.rows.min) return false;
 
                     this.rows.current = current - 1;
@@ -142,6 +141,10 @@ module openmaths {
             }
 
             this.rows.uiClass = 'rows-' + this.rows.current;
+        }
+
+        showDetails(data:IUmi) {
+            this.ModalFactory.generate(new Modal(true, data.title));
         }
 
         canExpand(x:number, y:number, umiId:string, currentBoundary:UmiBoundary) {

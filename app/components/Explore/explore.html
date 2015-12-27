@@ -27,14 +27,14 @@
             <div class="umi" ng-class="{'is-transparent': umi.empty}" umi-position
                  ng-init="rows = ExploreCtr.Board.rows; columns = ExploreCtr.Board.columns">
                 <div class="controls-holder top">
-                    <div class="controls details">
+                    <div class="controls details" ng-click="ExploreCtr.Board.showDetails(umi)">
                         <i class="fa fa-info-circle"></i>
                         <span class="icon-label">Details</span>
                     </div>
-                    <div class="controls expand">
-                        <i class="fa fa-expand"></i>
-                        <span class="icon-label">Full-Screen</span>
-                    </div>
+                    <!--<div class="controls expand" ng-click="ExploreCtr.Board.showDetails()">-->
+                        <!--<i class="fa fa-expand"></i>-->
+                        <!--<span class="icon-label">Full-Screen</span>-->
+                    <!--</div>-->
                 </div>
 
                 <div class="controls-holder left top">

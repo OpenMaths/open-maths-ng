@@ -24,3 +24,4 @@
 /// <reference path="rx/rx.joinpatterns.d.ts" />
 /// <reference path="rx/rx.testing.d.ts" />
 /// <reference path="rx/rx.virtualtime.d.ts" />
+/// <reference path="keymaster/keymaster.d.ts" />
