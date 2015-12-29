@@ -36,20 +36,17 @@ module openmaths {
 
         constructor($document:angular.IDocumentService) {
             this.link = (scope:IExpandUmiDirectiveScope, ele, attr:IExpandUmiAttr) => {
+                scope.expandId = attr.expandId;
+                scope.expandLabel = attr.expandLabel;
+
                 ele.addClass('expand-umi');
 
                 // @TODO in this case, if it's in a modal, it should expand into a new modal (replace the contents)
-                if (scope.disableExpansion) ele.addClass('disabled');
-
-                //if (scope.umi && scope.umi.empty) {
-                //    ele.addClass('non-expandable');
-                //    return false;
-                //}
-
-                scope.$watch('umi.htmlContent', () => {
-                    scope.expandId = attr.expandId;
-                    scope.expandLabel = attr.expandLabel;
-                });
+                if (scope.disableExpansion) {
+                    ele.addClass('disabled');
+                    // @TODO Has to be here now to prevent the dragging functionality
+                    return false;
+                }
 
                 let x, y;
 
