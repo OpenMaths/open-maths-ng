@@ -9,12 +9,12 @@ module openmaths {
         ExploreCtr: ExploreController;
         rows: IGridPartConfig;
         umi: openmaths.Umi;
+        disableExpansion: boolean;
     }
 
     interface IExpandUmiAttr extends ng.IAttributes {
         expandId: string;
         expandLabel: string;
-        umi: openmaths.Umi;
     }
 
     interface IExpandUmiDirection {
@@ -36,19 +36,19 @@ module openmaths {
 
         constructor($document:angular.IDocumentService) {
             this.link = (scope:IExpandUmiDirectiveScope, ele, attr:IExpandUmiAttr) => {
-                if (scope.umi.empty) return false;
-
                 ele.addClass('expand-umi');
 
-                scope.$watch('umi.htmlContent', () => {
-                    let gridConfig = {
-                        columns: scope.columns,
-                        rows: scope.rows
-                    };
+                // @TODO in this case, if it's in a modal, it should expand into a new modal (replace the contents)
+                if (scope.disableExpansion) ele.addClass('disabled');
 
+                //if (scope.umi && scope.umi.empty) {
+                //    ele.addClass('non-expandable');
+                //    return false;
+                //}
+
+                scope.$watch('umi.htmlContent', () => {
                     scope.expandId = attr.expandId;
                     scope.expandLabel = attr.expandLabel;
-                    scope.directions = openmaths.ExpandUmiDirective.renderDirections(scope.umi.where, gridConfig);
                 });
 
                 let x, y;
