@@ -1,10 +1,52 @@
 <div class="modal-backdrop" ng-class="{open: Modal.isOpen}">
     <div class="modal">
         <header>
-            {{Modal.title}}
+            <strong class="heading">{{Modal.title}}</strong>
             <div class="close" ng-click="Modal.isOpen = false">&times;</div>
         </header>
-        <main>Content</main>
+        <main id="umi-detail-controls" class="flex">
+            <div class="content flex-7">
+                <div class="umi">
+                    <div class="content" scroll>
+                        <article class="flex center-vertically">
+                            <div class="wrapper">
+                                <main om-bind="Modal.data.htmlContent" umi="Modal.data"></main>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+            <div class="controls flex-3">
+                <button class="black">Upvote</button>
+                <button>Downvote</button>
+            </div>
+        </main>
+
+        <div class="umi-additional-info no-controls">
+            <div class="info-unit">
+                <header>
+                    <i class="fa fa-code-fork fa-fw"></i>
+                    Prerequisite Definitions
+                </header>
+                                        <span class="label"
+                                              ng-repeat="PrerequisiteDef in Modal.data.prerequisiteDefinitions">{{PrerequisiteDef.title}}</span>
+            </div>
+            <div class="info-unit">
+                <header>
+                    <i class="fa fa-compass fa-fw"></i>
+                    See Also
+                </header>
+                                        <span class="label"
+                                              ng-repeat="SeeAlso in Modal.data.seeAlso">{{SeeAlso.title}}</span>
+            </div>
+            <div class="info-unit">
+                <header>
+                    <i class="fa fa-tags fa-fw"></i>
+                    Tags
+                </header>
+                <span class="label" ng-repeat="label in Modal.data.tags">{{label}}</span>
+            </div>
+        </div>
         <!--<footer>Foot</footer>-->
     </div>
 </div>

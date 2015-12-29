@@ -32,8 +32,8 @@
                         <span class="icon-label">Details</span>
                     </div>
                     <!--<div class="controls expand" ng-click="ExploreCtr.Board.showDetails()">-->
-                        <!--<i class="fa fa-expand"></i>-->
-                        <!--<span class="icon-label">Full-Screen</span>-->
+                    <!--<i class="fa fa-expand"></i>-->
+                    <!--<span class="icon-label">Full-Screen</span>-->
                     <!--</div>-->
                 </div>
 
@@ -56,6 +56,33 @@
                             <small class="label">{{umi.umiType}}</small>
                             <strong class="heading block">{{umi.title}}</strong>
                             <main om-bind="umi.htmlContent" umi="umi"></main>
+
+                            <div class="umi-additional-info no-controls">
+                                <div class="info-unit">
+                                    <header>
+                                        <i class="fa fa-code-fork fa-fw"></i>
+                                        Prerequisite Definitions
+                                    </header>
+                                    <span expand-umi expand-label="{{PrerequisiteDef.title}}"
+                                          expand-id="{{PrerequisiteDef.id}}" class="label"
+                                          ng-repeat="PrerequisiteDef in umi.prerequisiteDefinitions"></span>
+                                </div>
+                                <div class="info-unit">
+                                    <header>
+                                        <i class="fa fa-compass fa-fw"></i>
+                                        See Also
+                                    </header>
+                                        <span expand-umi expand-label="{{SeeAlso.title}}" expand-id="{{SeeAlso.id}}"
+                                              class="label" ng-repeat="SeeAlso in umi.seeAlso"></span>
+                                </div>
+                                <div class="info-unit">
+                                    <header>
+                                        <i class="fa fa-tags fa-fw"></i>
+                                        Tags
+                                    </header>
+                                    <span class="label" ng-repeat="label in umi.tags">{{label}}</span>
+                                </div>
+                            </div>
                         </div>
                     </article>
                 </div>

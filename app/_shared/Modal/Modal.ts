@@ -4,10 +4,12 @@ module openmaths {
     export class Modal {
         isOpen:boolean;
         title:string;
+        data:any;
 
-        constructor(open:boolean, title:string) {
+        constructor(open:boolean, title:string, data?:any) {
             this.isOpen = open;
             this.title = title ? title : 'Untitled';
+            this.data = data;
         }
     }
 

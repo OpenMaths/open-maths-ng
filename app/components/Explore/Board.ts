@@ -144,7 +144,7 @@ module openmaths {
         }
 
         showDetails(data:Umi) {
-            this.ModalFactory.generate(new Modal(true, data.title));
+            this.ModalFactory.generate(new Modal(true, data.title, data));
         }
 
         canExpand(x:number, y:number, umiId:string, currentBoundary:UmiBoundary) {
