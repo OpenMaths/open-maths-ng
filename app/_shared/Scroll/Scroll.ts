@@ -3,6 +3,7 @@ module openmaths {
 
     export class ScrollDirective implements ng.IDirective {
         link;
+        scope = {observe: '='};
         restrict = 'A';
 
         constructor() {
@@ -10,10 +11,15 @@ module openmaths {
                 $(ele).perfectScrollbar({
                     suppressScrollX: false
                 });
+
+                scope.$watch('observe', () => {
+                    ele.scrollTop = 0;
+                    $(ele).perfectScrollbar('update');
+                });
             };
         }
 
-        static init(): ng.IDirectiveFactory {
+        static init():ng.IDirectiveFactory {
             return () => {
                 return new ScrollDirective();
             };

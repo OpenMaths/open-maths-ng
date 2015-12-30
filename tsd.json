@@ -6,85 +6,85 @@
   "bundle": "app/typings/tsd.d.ts",
   "installed": {
     "angularjs/angular.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "jquery/jquery.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "lodash/lodash.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "gapi/gapi.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "jasmine/jasmine.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "mathjax/mathjax.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx-lite.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "angularjs/angular-mocks.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "angular-ui-router/angular-ui-router.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.time.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.time-lite.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.async.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.async-lite.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.all.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.aggregates.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.binding-lite.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.binding.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.coincidence-lite.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.coincidence.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.experimental.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.joinpatterns.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.testing.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.backpressure.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.backpressure-lite.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "rx/rx.virtualtime.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     },
     "keymaster/keymaster.d.ts": {
-      "commit": "060098c861dc9691b3e76b2eab372ede63688885"
+      "commit": "eaa41ccd0ec1e69e097742d6358a731e03616b7f"
     }
   }
 }

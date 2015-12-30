@@ -166,20 +166,25 @@ module openmaths {
         }
 
         expandInto(row:number, column:number, getBy:GetUmiBy, value:string) {
-            let apiRoutes = openmaths.Config.getApiRoutes();
+            const
+                apiRoutes = openmaths.Config.getApiRoutes(),
+                getUmiPromise = (getBy == GetUmiBy.Id)
+                    ? this.getUmiPromise(apiRoutes.getUmiById + value) : this.getUmiPromise(apiRoutes.getUmiByTitle + value);
 
-            let getUmiPromise = (getBy == GetUmiBy.Id)
-                ? this.getUmiPromise(apiRoutes.getUmiById + value) : this.getUmiPromise(apiRoutes.getUmiByTitle + value);
-
+            // @TODO retries should be hoisted magic vars
             Rx.Observable.fromPromise(getUmiPromise)
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
+                .retry(3)
                 .subscribe((d:IApiResponse) => {
-                    let response:IUmi = d.data;
+                    const response:IUmi = d.data;
 
-                    this.grid[row][column] = new openmaths.Umi(response, [row, column]);
-
-                    openmaths.Logger.debug('UMI ' + getBy + ' => ' + value + ' loaded.');
+                    if (d.status == 'error') {
+                        this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, response);
+                    } else {
+                        this.grid[row][column] = new openmaths.Umi(response, [row, column]);
+                        openmaths.Logger.debug('UMI ' + getBy + ' => ' + value + ' loaded.');
+                    }
                 }, errorData => {
                     this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
                 });

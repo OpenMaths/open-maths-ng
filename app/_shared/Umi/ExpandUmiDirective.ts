@@ -34,7 +34,10 @@ module openmaths {
         scope = true;
         templateUrl = 'app/_shared/Umi/expandUmi.html';
 
-        constructor($document:angular.IDocumentService) {
+        constructor($document:angular.IDocumentService,
+                    public ModalFactory:openmaths.ModalFactory,
+                    public Api:openmaths.Api,
+                    public NotificationFactory:openmaths.NotificationFactory) {
             this.link = (scope:IExpandUmiDirectiveScope, ele, attr:IExpandUmiAttr) => {
                 scope.expandId = attr.expandId;
                 scope.expandLabel = attr.expandLabel;
@@ -44,7 +47,34 @@ module openmaths {
                 // @TODO in this case, if it's in a modal, it should expand into a new modal (replace the contents)
                 if (scope.disableExpansion) {
                     ele.addClass('disabled');
+
                     // @TODO Has to be here now to prevent the dragging functionality
+                    ele.bind('click', (e) => {
+                        e.preventDefault();
+
+                        const promise = this.getUmiPromise(attr.expandId);
+
+                        Rx.Observable.fromPromise(promise)
+                            .map(d => openmaths.Api.response(d))
+                            .where(Rx.helpers.identity)
+                            .retry(3)
+                            .subscribe((d:IApiResponse) => {
+                                const
+                                    response:IUmi = d.data;
+
+                                if (d.status == 'error') {
+                                    this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, response);
+                                } else {
+                                    const Umi = new openmaths.Umi(response);
+
+                                    this.ModalFactory.generate(new Modal(true, Umi.title, Umi));
+                                    openmaths.Logger.debug('UMI id => ' + Umi.id + ' loaded.');
+                                }
+                            }, errorData => {
+                                this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
+                            });
+                    });
+
                     return false;
                 }
 
@@ -75,6 +105,12 @@ module openmaths {
             };
         }
 
+        getUmiPromise(id:string):ng.IHttpPromise<void> {
+            const apiRoutes = openmaths.Config.getApiRoutes();
+
+            return this.Api.get(apiRoutes.getUmiById + id);
+        }
+
         static renderDirections(currentPosition:number[], gridConfig:IGridConfig):Array<IExpandUmiDirection> {
             let directions:string[] = ['up', 'right', 'down', 'left'],
                 row:number = _.first(currentPosition),
@@ -101,8 +137,11 @@ module openmaths {
         }
 
         static init():ng.IDirectiveFactory {
-            return ($document:angular.IDocumentService) => {
-                return new ExpandUmiDirective($document);
+            return ($document:angular.IDocumentService,
+                    ModalFactory:openmaths.ModalFactory,
+                    Api:openmaths.Api,
+                    NotificationFactory:openmaths.NotificationFactory) => {
+                return new ExpandUmiDirective($document, ModalFactory, Api, NotificationFactory);
             };
         }
     }
