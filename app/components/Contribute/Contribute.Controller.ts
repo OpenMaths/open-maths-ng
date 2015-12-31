@@ -33,7 +33,7 @@ module openmaths {
                 .do(tempTerm => {
                     this.MutationForm.content.valueParsed = tempTerm;
                 })
-                .throttle(ContributeController.keyStrokeThrottle)
+                .debounce(ContributeController.keyStrokeThrottle)
                 .subscribe((expression:string) => {
                     this.parseContent();
                 });
