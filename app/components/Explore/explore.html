@@ -31,22 +31,18 @@
                         <i class="fa fa-info-circle"></i>
                         <span class="icon-label">Details</span>
                     </div>
-                    <!--<div class="controls expand" ng-click="ExploreCtr.Board.showDetails()">-->
-                    <!--<i class="fa fa-expand"></i>-->
-                    <!--<span class="icon-label">Full-Screen</span>-->
-                    <!--</div>-->
                 </div>
 
-                <div class="controls-holder left top">
+                <div class="controls-holder left top" ng-click="ExploreCtr.Board.vote('upvote', umi)">
                     <div class="controls upvote">
                         <i class="fa fa-thumbs-o-up"></i>
-                        <span class="icon-label">Upvote</span>
+                        <span class="icon-label">Helpful</span>
                     </div>
                 </div>
-                <div class="controls-holder left bottom">
+                <div class="controls-holder left bottom" ng-click="ExploreCtr.Board.vote('downvote', umi)">
                     <div class="controls downvote">
                         <i class="fa fa-thumbs-o-down"></i>
-                        <span class="icon-label">Downvote</span>
+                        <span class="icon-label">Needs Improving</span>
                     </div>
                 </div>
 

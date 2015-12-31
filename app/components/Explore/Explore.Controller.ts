@@ -37,19 +37,19 @@ module openmaths {
             }
 
             // @TODO make this work without having to focus into the HTML with a mouse
-            key('alt+right', () => {
+            key('shift+right', () => {
                 this.Board.updateGrid(GridSection.Column, UpdateGridOperator.ADD);
                 $scope.$apply();
             });
-            key('alt+left', () => {
+            key('shift+left', () => {
                 this.Board.updateGrid(GridSection.Column, UpdateGridOperator.REMOVE);
                 $scope.$apply();
             });
-            key('alt+down', () => {
+            key('shift+down', () => {
                 this.Board.updateGrid(GridSection.Row, UpdateGridOperator.ADD);
                 $scope.$apply();
             });
-            key('alt+up', () => {
+            key('shift+up', () => {
                 this.Board.updateGrid(GridSection.Row, UpdateGridOperator.REMOVE);
                 $scope.$apply();
             });

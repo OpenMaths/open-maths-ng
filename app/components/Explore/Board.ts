@@ -147,6 +147,24 @@ module openmaths {
             this.ModalFactory.generate(new Modal(true, data.title, data));
         }
 
+        vote(action:string, Umi:Umi) {
+            const promise = this.Api.post((action == 'upvote' ? 'upvote/' : 'downvote/') + Umi.id, User.getAuthData());
+
+            Rx.Observable.fromPromise(promise)
+                .map(d => openmaths.Api.response(d))
+                .where(Rx.helpers.identity)
+                .retry(3)
+                .subscribe((d:IApiResponse) => {
+                    if (d.status == 'error') {
+                        this.NotificationFactory.generate('There has been an error actioning this contribution.', NotificationType.Error, d.data);
+                    } else {
+                        this.NotificationFactory.generate('Successfully voted.', NotificationType.Success, d.data);
+                    }
+                }, errorData => {
+                    this.NotificationFactory.generate('There has been an error actioning this contribution.', NotificationType.Error, errorData);
+                });
+        }
+
         canExpand(x:number, y:number, umiId:string, currentBoundary:UmiBoundary) {
             if (_.inRange(x, _.first(currentBoundary.horizontal), _.last(currentBoundary.horizontal))
                 && _.inRange(y, _.first(currentBoundary.vertical), _.last(currentBoundary.vertical))) {
