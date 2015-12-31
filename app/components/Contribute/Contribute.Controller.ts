@@ -18,7 +18,15 @@ module openmaths {
         constructor($scope:ng.IScope,
                     public $http:ng.IHttpService,
                     private NotificationFactory:openmaths.NotificationFactory,
+                    private $state:ng.ui.IStateService,
                     private $stateParams?:IContributeControllerParams) {
+            if (!User.isSignedIn()) {
+                SessionStorage.set('redirectUrl', {name: $state.current.name, params: $stateParams});
+
+                $state.go('unauthorised');
+                //return false;
+            }
+
             this.MutationApi = new openmaths.MutationApi(new openmaths.Api(this.$http), NotificationFactory);
             this.MutationForm = new openmaths.MutationForm;
             this.UpdateUmi = new openmaths.UpdateUmi(this.$stateParams, this.$http);

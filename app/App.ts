@@ -7,7 +7,7 @@ module openmaths {
         .config(config)
         .run(run);
 
-    function config($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, cfpLoadingBarProvider) {
+    function config($stateProvider:ng.ui.IStateProvider, $urlRouterProvider:ng.ui.IUrlRouterProvider, cfpLoadingBarProvider) {
         $urlRouterProvider.otherwise('/e/');
 
         $stateProvider
@@ -45,7 +45,21 @@ module openmaths {
                         transparent: false
                     }
                 }
+            })
+            .state('unauthorised', {
+                url: '/unauthorised',
+                templateUrl: 'app/components/Unauthorised/unauthorised.html',
+                controller: 'UnauthorisedController',
+                controllerAs: 'UnauthorisedCtr',
+                uiConfig: {
+                    bodyClass: 'page-unauthorised',
+                    navigation: {
+                        hiding: false,
+                        transparent: true
+                    }
+                }
             });
+
 
         // @TODO
         // investigate whether it's not possible to set it somewhere in the module config

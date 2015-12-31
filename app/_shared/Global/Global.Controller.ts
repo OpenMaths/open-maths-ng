@@ -5,6 +5,13 @@ module openmaths {
         gApiInitialised: () => void;
     }
 
+    interface IRedirectUrl {
+        name:string;
+        params: {
+            uriFriendlyTitle:string;
+        }
+    }
+
     export class GlobalController {
         private static signedInNotificationMessage = 'You have been successfully signed in to OpenMaths';
         private static signedOutNotificationMessage = 'You have been signed out';
@@ -19,6 +26,7 @@ module openmaths {
                     private NotificationFactory:openmaths.NotificationFactory,
                     private ModalFactory:openmaths.ModalFactory,
                     private $rootScope:ng.IRootScopeService,
+                    private $state:ng.ui.IStateService,
                     private $window:IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
                 openmaths.SessionStorage.set('gApiInitialised', true);
@@ -52,11 +60,20 @@ module openmaths {
 
             self.User = new openmaths.User(accessToken, loginResponse.userInfo);
             self.NotificationFactory.generate(GlobalController.signedInNotificationMessage, NotificationType.Info);
+
+            const redirectUrl:IRedirectUrl = SessionStorage.get('redirectUrl');
+
+            if (redirectUrl) {
+                console.log(redirectUrl);
+                this.$state.go(redirectUrl.name, {uriFriendlyTitle: redirectUrl.params.uriFriendlyTitle});
+            }
         }
 
         signOut() {
             if (openmaths.User.isSignedIn())
                 this.Authentication.gApiLogout(this.signOutCallback.bind(this));
+
+            this.$state.go('explore');
         }
 
         signOutCallback():void {

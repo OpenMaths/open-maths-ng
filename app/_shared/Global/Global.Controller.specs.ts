@@ -31,7 +31,7 @@ module openmaths.specs {
             $templateCache.put('app/components/Explore/explore.html', '');
 
 
-            controller = new openmaths.GlobalController(Authentication, NotificationFactory, ModalFactory, $rootScope, $window);
+            controller = new openmaths.GlobalController(Authentication, NotificationFactory, ModalFactory, $rootScope, $state, $window);
         }));
 
         afterEach(() => {

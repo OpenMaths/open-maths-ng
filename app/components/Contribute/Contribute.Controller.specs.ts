@@ -4,15 +4,16 @@ module openmaths.specs {
     describe('ContributeController', () => {
         beforeEach(angular.mock.module('openmaths'));
 
-        let controller: openmaths.ContributeController;
-        let $rootScope: ng.IRootScopeService;
+        let controller:openmaths.ContributeController;
+        let $rootScope:ng.IRootScopeService;
 
-        beforeEach(inject((NotificationFactory: openmaths.NotificationFactory,
-                           _$rootScope_: ng.IScope,
-                           $http: ng.IHttpService) => {
+        beforeEach(inject((NotificationFactory:openmaths.NotificationFactory,
+                           _$rootScope_:ng.IScope,
+                           $http:ng.IHttpService,
+                           $state:ng.ui.IStateService) => {
             $rootScope = _$rootScope_;
 
-            controller = new openmaths.ContributeController($rootScope.$new(), $http, NotificationFactory);
+            controller = new openmaths.ContributeController($rootScope.$new(), $http, NotificationFactory, $state);
         }));
 
         it('should create a new controller with MutationForm model attached to it', () => {
