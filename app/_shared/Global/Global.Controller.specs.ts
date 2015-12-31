@@ -4,11 +4,11 @@ module openmaths.specs {
     describe('GlobalController', () => {
         beforeEach(angular.mock.module('openmaths'));
 
-        let controller: openmaths.GlobalController;
+        let controller:openmaths.GlobalController;
         let $rootScope;
         let $state;
-        let $templateCache: ng.ITemplateCacheService;
-        let $window: IGlobalControllerWindow;
+        let $templateCache:ng.ITemplateCacheService;
+        let $window:IGlobalControllerWindow;
 
         let testStates = ['explore'];
         let testStatesWithUiConfig = ['explore'];
@@ -16,12 +16,13 @@ module openmaths.specs {
         // @TODO
         // Authentication to be removed after development
 
-        beforeEach(inject((Authentication: openmaths.Authentication,
-                           NotificationFactory: openmaths.NotificationFactory,
-                           _$rootScope_: ng.IRootScopeService,
-                           _$state_: ng.ui.IStateProvider,
-                           _$templateCache_: ng.ITemplateCacheService,
-                           _$window_: IGlobalControllerWindow) => {
+        beforeEach(inject((Authentication:openmaths.Authentication,
+                           NotificationFactory:openmaths.NotificationFactory,
+                           ModalFactory:openmaths.ModalFactory,
+                           _$rootScope_:ng.IRootScopeService,
+                           _$state_:ng.ui.IStateProvider,
+                           _$templateCache_:ng.ITemplateCacheService,
+                           _$window_:IGlobalControllerWindow) => {
             $state = _$state_;
             $rootScope = _$rootScope_;
             $templateCache = _$templateCache_;
@@ -30,7 +31,7 @@ module openmaths.specs {
             $templateCache.put('app/components/Explore/explore.html', '');
 
 
-            controller = new openmaths.GlobalController(Authentication, NotificationFactory, $rootScope, $window);
+            controller = new openmaths.GlobalController(Authentication, NotificationFactory, ModalFactory, $rootScope, $window);
         }));
 
         afterEach(() => {
@@ -48,7 +49,7 @@ module openmaths.specs {
                 $state.go(state);
                 $rootScope.$digest();
 
-                let uiConfig: IUiConfig = controller.uiConfig;
+                let uiConfig:IUiConfig = controller.uiConfig;
 
                 expect(uiConfig).toBeDefined();
             });
@@ -59,7 +60,7 @@ module openmaths.specs {
                 $state.go(state);
                 $rootScope.$digest();
 
-                let bodyClass: string = controller.bodyClass;
+                let bodyClass:string = controller.bodyClass;
 
 
                 expect(bodyClass).toEqual('page-explore');

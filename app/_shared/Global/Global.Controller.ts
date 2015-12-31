@@ -9,16 +9,17 @@ module openmaths {
         private static signedInNotificationMessage = 'You have been successfully signed in to OpenMaths';
         private static signedOutNotificationMessage = 'You have been signed out';
 
-        bodyClass: string;
-        staticUrl: string;
-        uiConfig: IUiConfig;
+        bodyClass:string;
+        staticUrl:string;
+        uiConfig:IUiConfig;
 
-        User: openmaths.User;
+        User:openmaths.User;
 
-        constructor(public Authentication: openmaths.Authentication,
-                    private NotificationFactory: openmaths.NotificationFactory,
-                    private $rootScope: ng.IRootScopeService,
-                    private $window: IGlobalControllerWindow) {
+        constructor(public Authentication:openmaths.Authentication,
+                    private NotificationFactory:openmaths.NotificationFactory,
+                    private ModalFactory:openmaths.ModalFactory,
+                    private $rootScope:ng.IRootScopeService,
+                    private $window:IGlobalControllerWindow) {
             $window.gApiInitialised = () => {
                 openmaths.SessionStorage.set('gApiInitialised', true);
                 openmaths.Logger.debug('gApi successfully initialised');
@@ -34,6 +35,11 @@ module openmaths {
             if (openmaths.User.isSignedIn()) this.User = openmaths.User.getData();
 
             this.staticUrl = openmaths.Config.getStaticUrl();
+
+            key('escape', () => {
+                ModalFactory.generate(new Modal(false, ''));
+                $rootScope.$apply();
+            });
         }
 
         signIn() {
@@ -41,7 +47,7 @@ module openmaths {
                 this.Authentication.gApiLogin(this.signInCallback.bind(this));
         }
 
-        signInCallback(accessToken: string, loginResponse: ILoginResponseData): void {
+        signInCallback(accessToken:string, loginResponse:ILoginResponseData):void {
             let self = this;
 
             self.User = new openmaths.User(accessToken, loginResponse.userInfo);
@@ -53,11 +59,11 @@ module openmaths {
                 this.Authentication.gApiLogout(this.signOutCallback.bind(this));
         }
 
-        signOutCallback(): void {
+        signOutCallback():void {
             let self = this;
 
             self.User.signOut();
-            this.NotificationFactory.generate(GlobalController.signedOutNotificationMessage, NotificationType.Info);
+            self.NotificationFactory.generate(GlobalController.signedOutNotificationMessage, NotificationType.Info);
         }
     }
 
