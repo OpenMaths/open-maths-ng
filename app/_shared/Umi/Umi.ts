@@ -110,11 +110,13 @@ module openmaths {
             label: 'Axiom Scheme',
             formal: true
         };
-        Conjecture:IUmiType = {
-            label: 'Conjecture',
+        LogicalAxiom:IUmiType = {
+            label: 'Logical Axiom',
+            formal: true
         };
-        Corollary:IUmiType = {
-            label: 'Corollary',
+        LogicalAxiomScheme:IUmiType = {
+            label: 'Logical Axiom Scheme',
+            formal: true,
         };
         Definition:IUmiType = {
             label: 'Definition',
@@ -125,35 +127,34 @@ module openmaths {
             label: 'Diagram',
         };
         Documentation:IUmiType = {
-            label: 'Documentation',
+            label: 'Documentation'
         };
         Example:IUmiType = {
-            label: 'Example',
+            label: 'Example'
         };
         HistoricalNote:IUmiType = {
             label: 'Historical Note',
         };
-        Lemma:IUmiType = {
-            label: 'Lemma',
-        };
         Notation:IUmiType = {
             label: 'Notation',
-            formal: true
-        };
-        PartialTheorem:IUmiType = {
-            label: 'Partial Theorem',
+            formal: true,
+            meta: true
         };
         PhilosophicalJustification:IUmiType = {
-            label: 'Philosophical Justification',
+            label: 'Philosophical Justification'
         };
         Proof:IUmiType = {
             label: 'Proof',
+            formal: true,
+            meta: true
         };
         Special:IUmiType = {
-            label: 'Special',
+            label: 'Special'
         };
         Theorem:IUmiType = {
             label: 'Theorem',
+            formal: true,
+            meta: true
         };
     }
 }
