@@ -79,7 +79,7 @@ module openmaths {
             openmaths.ReactiveX.watchModel($scope, 'SearchCtr.term')
                 .map((e: IReactiveXWatchModelCallbackArgs) => e.newValue)
                 .where(Rx.helpers.identity)
-                .throttle(SearchController.keyStrokeThrottle)
+                .debounce(SearchController.keyStrokeThrottle)
                 .map(term => {
                     this.term = term;
 
