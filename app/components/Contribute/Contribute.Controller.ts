@@ -41,6 +41,10 @@ module openmaths {
             $scope.$watch('ContributeCtr.MutationForm.prerequisiteDefinitionIds.value', (newValues:Object, oldValues:Object) => {
                 if (_.keys(newValues).length > 0 || _.keys(oldValues).length > 0) this.parseContent();
             }, true);
+
+            $scope.$watch('ContributeCtr.MutationForm.umiType.value', (newType:string, oldType:string) => {
+                if (newType && newType !== oldType) this.parseContent();
+            }, true);
         }
 
         toggleFormal() {
