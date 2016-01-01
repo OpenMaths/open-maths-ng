@@ -64,7 +64,6 @@ module openmaths {
             const redirectUrl:IRedirectUrl = SessionStorage.get('redirectUrl');
 
             if (redirectUrl) {
-                console.log(redirectUrl);
                 this.$state.go(redirectUrl.name, {uriFriendlyTitle: redirectUrl.params.uriFriendlyTitle});
             }
         }

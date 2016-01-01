@@ -69,6 +69,13 @@ module openmaths {
                 uiClass: 'rows-' + 3,
             };
 
+            const gridSetting = openmaths.SessionStorage.get('gridSetting');
+
+            if (gridSetting) {
+                this.columns = gridSetting.columns;
+                this.rows = gridSetting.rows;
+            }
+
             this.state = 'explore.board';
             this.grid = this.initGrid();
         }
@@ -87,6 +94,8 @@ module openmaths {
                     this.updateRow(action);
                     break;
             }
+
+            openmaths.SessionStorage.set('gridSetting', {columns: this.columns, rows: this.rows});
         }
 
         updateColumn(action:UpdateGridOperator) {
@@ -184,6 +193,11 @@ module openmaths {
         }
 
         expandInto(row:number, column:number, getBy:GetUmiBy, value:string) {
+            if (this.columns.current !== 3 || this.rows.current !== 3) {
+                row = 0;
+                column = 0;
+            }
+
             const
                 apiRoutes = openmaths.Config.getApiRoutes(),
                 getUmiPromise = (getBy == GetUmiBy.Id)

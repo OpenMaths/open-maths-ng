@@ -32,6 +32,15 @@ module openmaths {
                     scope.umi.boundary = new UmiBoundary(offsetLeft, offsetLeft + width, offsetTop, offsetTop + height);
                     openmaths.Logger.debug('Setting new UMI boundary');
                 }
+
+                // @TODO temp hack
+                scope.$watch('columns.current', (newNumber, oldNumber) => {
+                    if (newNumber !== oldNumber) $timeout(assignCorrectBoundaries, 500);
+                });
+
+                scope.$watch('rows.current', (newNumber, oldNumber) => {
+                    if (newNumber !== oldNumber) $timeout(assignCorrectBoundaries, 500);
+                });
             };
         }
 

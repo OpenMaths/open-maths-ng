@@ -26,13 +26,13 @@ module openmaths {
 
             // @NOTE this is because we want to be able to call this method as a callback in SearchController
             this.openBoard = (searchResult:openmaths.SearchResult) => {
-                this.Board.expandInto(1, 1, GetUmiBy.Title, searchResult.uriFriendlyTitle);
+                this.Board.expandInto(1, 1, GetUmiBy.Id, searchResult.id);
 
-                $state.go('explore.board', {uriFriendlyTitle: searchResult.uriFriendlyTitle});
+                $state.go('explore.board', {uriFriendlyTitle: searchResult.id});
             };
 
             if (!_.isEmpty(this.$stateParams.uriFriendlyTitle)) {
-                this.Board.expandInto(1, 1, GetUmiBy.Title, this.$stateParams.uriFriendlyTitle);
+                this.Board.expandInto(1, 1, GetUmiBy.Id, this.$stateParams.uriFriendlyTitle);
                 $state.go('explore.board', {uriFriendlyTitle: this.$stateParams.uriFriendlyTitle});
             }
 

@@ -24,6 +24,7 @@ module openmaths {
                 SessionStorage.set('redirectUrl', {name: $state.current.name, params: $stateParams});
 
                 $state.go('unauthorised');
+                // @TODO resolve this so that it passes tests
                 //return false;
             }
 
