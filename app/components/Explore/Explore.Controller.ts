@@ -26,13 +26,13 @@ module openmaths {
 
             // @NOTE this is because we want to be able to call this method as a callback in SearchController
             this.openBoard = (searchResult:openmaths.SearchResult) => {
-                this.Board.expandInto(1, 1, GetUmiBy.Id, searchResult.id);
+                this.Board.expandInto(this.whereToExpand().row, this.whereToExpand().column, GetUmiBy.Id, searchResult.id);
 
                 $state.go('explore.board', {uriFriendlyTitle: searchResult.id});
             };
 
             if (!_.isEmpty(this.$stateParams.uriFriendlyTitle)) {
-                this.Board.expandInto(1, 1, GetUmiBy.Id, this.$stateParams.uriFriendlyTitle);
+                this.Board.expandInto(this.whereToExpand().row, this.whereToExpand().column, GetUmiBy.Id, this.$stateParams.uriFriendlyTitle);
                 $state.go('explore.board', {uriFriendlyTitle: this.$stateParams.uriFriendlyTitle});
             }
 
@@ -53,6 +53,13 @@ module openmaths {
                 this.Board.updateGrid(GridSection.Row, UpdateGridOperator.REMOVE);
                 $scope.$apply();
             });
+        }
+
+        whereToExpand():{row:number;column:number} {
+            return {
+                row: this.Board.columns.current !== 3 || this.Board.rows.current !== 3 ? 0 : 1,
+                column: this.Board.columns.current !== 3 || this.Board.rows.current !== 3 ? 0 : 1
+            }
         }
 
         updateState(toState:string) {

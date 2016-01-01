@@ -193,11 +193,6 @@ module openmaths {
         }
 
         expandInto(row:number, column:number, getBy:GetUmiBy, value:string) {
-            if (this.columns.current !== 3 || this.rows.current !== 3) {
-                row = 0;
-                column = 0;
-            }
-
             const
                 apiRoutes = openmaths.Config.getApiRoutes(),
                 getUmiPromise = (getBy == GetUmiBy.Id)
