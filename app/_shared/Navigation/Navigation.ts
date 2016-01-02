@@ -6,6 +6,7 @@ module openmaths {
 
     export interface INavigationDirectiveScope extends ng.IScope {
         GlobalCtr: openmaths.GlobalController;
+        visible: boolean;
     }
 
     angular
@@ -18,14 +19,28 @@ module openmaths {
         replace = true;
         templateUrl = 'app/_shared/Navigation/navigation.html';
 
-        constructor(private NavigationFactory: openmaths.NavigationFactory) {
-            this.link = (scope: INavigationDirectiveScope) => {
+        constructor(private $timeout:ng.ITimeoutService) {
+            this.link = (scope:INavigationDirectiveScope, ele) => {
+                let timer;
+
+                ele.bind('mouseover', () => {
+                    scope.visible = true;
+                    scope.$apply();
+
+                    $timeout.cancel(timer);
+                });
+
+                ele.bind('mouseout', () => {
+                    timer = $timeout(() => {
+                        scope.visible = false;
+                    }, 500);
+                });
             };
         }
 
-        static init(): ng.IDirectiveFactory {
-            return (NavigationFactory: openmaths.NavigationFactory) => {
-                return new NavigationDirective(NavigationFactory);
+        static init():ng.IDirectiveFactory {
+            return ($timeout:ng.ITimeoutService) => {
+                return new NavigationDirective($timeout);
             };
         }
     }
