@@ -127,25 +127,27 @@ module openmaths {
         updateValues(selector:UpdateValues, resolveObject:SearchResult) {
             switch (selector) {
                 case UpdateValues.PrerequisiteDefinitions:
-                    this.prerequisiteDefinitionIds.value.push({
-                        id: resolveObject.id, show: true, title: resolveObject.title
-                    });
+                    let prerequisiteDefinitions = _.clone(this.prerequisiteDefinitionIds.value);
+
+                    prerequisiteDefinitions.push({id: resolveObject.id, show: true, title: resolveObject.title});
+                    this.prerequisiteDefinitionIds.value = _.uniq(prerequisiteDefinitions, 'id');
                     break;
                 case UpdateValues.SeeAlso:
-                    this.seeAlsoIds.value.push({
-                        id: resolveObject.id, show: true, title: resolveObject.title
-                    });
+                    let seeAlso = _.clone(this.seeAlsoIds.value);
+
+                    seeAlso.push({id: resolveObject.id, show: true, title: resolveObject.title});
+                    this.seeAlsoIds.value = _.uniq(seeAlso, 'id');
                     break;
             }
         }
 
-        removeValues(selector:UpdateValues, id:number) {
+        removeValues(selector:UpdateValues, index:number) {
             switch (selector) {
                 case UpdateValues.PrerequisiteDefinitions:
-                    this.prerequisiteDefinitionIds.value[id].show = false;
+                    this.prerequisiteDefinitionIds.value[index].show = false;
                     break;
                 case UpdateValues.SeeAlso:
-                    this.seeAlsoIds.value[id].show = false;
+                    this.seeAlsoIds.value[index].show = false;
                     break;
             }
         }
@@ -157,7 +159,7 @@ module openmaths {
             this.tags.valueMeta = newCsvData.value;
         }
 
-        private static resolveUmiDetails(umiDetailsList:Array<IUmiDetails>):Object {
+        private static resolveUmiDetails(umiDetailsList:Array<IUmiDetails>):IPrereqsSeeAlsosArr[] {
             return _.map(umiDetailsList, (umiDetails:IUmiDetails) => {
                 return {id: umiDetails.id, show: true, title: umiDetails.title};
             });
