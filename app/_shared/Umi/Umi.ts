@@ -106,16 +106,16 @@ module openmaths {
             label: 'Axiom',
             formal: true
         };
-        AxiomScheme:IUmiType = {
-            label: 'Axiom Scheme',
+        AxiomSchema:IUmiType = {
+            label: 'Axiom Schema',
             formal: true
         };
         LogicalAxiom:IUmiType = {
             label: 'Logical Axiom',
             formal: true
         };
-        LogicalAxiomScheme:IUmiType = {
-            label: 'Logical Axiom Scheme',
+        LogicalAxiomSchema:IUmiType = {
+            label: 'Logical Axiom Schema',
             formal: true,
         };
         Definition:IUmiType = {

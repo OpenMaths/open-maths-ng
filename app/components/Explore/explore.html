@@ -28,14 +28,19 @@
             <div class="umi" ng-class="{'is-transparent': umi.empty}" umi-position
                  ng-init="rows = ExploreCtr.Board.rows; columns = ExploreCtr.Board.columns">
                 <!--<ul class="context-menu-container" ng-if="contextMenu.open">-->
-                    <!--<li>Split Horizontally</li>-->
-                    <!--<li>Split Vertically</li>-->
+                <!--<li>Split Horizontally</li>-->
+                <!--<li>Split Vertically</li>-->
                 <!--</ul>-->
 
                 <div class="controls-holder top">
                     <div class="controls details" ng-click="ExploreCtr.Board.showDetails(umi)">
                         <i class="fa fa-info-circle"></i>
                         <span class="icon-label">Details</span>
+                    </div>
+
+                    <div class="controls full-screen" ui-sref="editor({uriFriendlyTitle: umi.id})">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span class="icon-label">Edit</span>
                     </div>
                 </div>
 

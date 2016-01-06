@@ -110,20 +110,24 @@ module openmaths {
 
         private populateMutationForm() {
             Rx.Observable
-                .fromPromise(this.UpdateUmi.getUmiByTitlePromise())
+                .fromPromise(this.UpdateUmi.getUmiByIdPromise())
                 .map(d => openmaths.Api.response(d))
                 .where(Rx.helpers.identity)
                 .retry(ContributeController.retryConnection)
                 .subscribe((d:IApiResponse) => {
                     const response:IUmi = d.data;
 
-                    this.MutationForm = new openmaths.MutationForm(new openmaths.Umi(response));
-                    this.UpdateUmi.updateId = response.id;
+                    if (d.status == 'error') {
+                        this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, response);
+                    } else {
+                        this.MutationForm = new openmaths.MutationForm(new openmaths.Umi(response));
+                        this.UpdateUmi.updateId = response.id;
 
-                    openmaths.Logger.debug('UMI id => ' + response.id + ' loaded.');
+                        openmaths.Logger.debug('UMI id => ' + response.id + ' loaded.');
+                    }
                 }, errorData => {
                     openmaths.Logger.error(errorData);
-                    //this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
+                    this.NotificationFactory.generate('Requested contribution has not been found.', NotificationType.Error, errorData);
                 });
         }
     }

@@ -33,7 +33,8 @@ module openmaths {
                 ele.bind('mouseout', () => {
                     timer = $timeout(() => {
                         scope.visible = false;
-                    }, 500);
+                        // @TODO abstract into private magic var
+                    }, 900);
                 });
             };
         }

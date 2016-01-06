@@ -2,11 +2,12 @@ module openmaths.specs {
     'use strict';
 
     describe('UpdateUmi model', () => {
-        let $http: ng.IHttpService;
-        let model: openmaths.UpdateUmi;
+        let
+            $http:ng.IHttpService,
+            model:openmaths.UpdateUmi;
 
-        beforeEach(inject((_$http_: ng.IHttpService) => {
-            $http: _$http_;
+        beforeEach(inject((_$http_:ng.IHttpService) => {
+            $http = _$http_;
 
             model = new openmaths.UpdateUmi({
                 uriFriendlyTitle: 'alias-alias'
@@ -14,7 +15,7 @@ module openmaths.specs {
         }));
 
         it('should have getUmi promise attached', () => {
-            expect(model.getUmiByTitlePromise).toBeDefined();
+            expect(model.getUmiByIdPromise).toBeDefined();
         });
 
         it('should correctly evaluate updateUriFriendlyTitle', () => {

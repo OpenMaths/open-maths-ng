@@ -13,10 +13,10 @@ module openmaths {
             this.updateUriFriendlyTitle = params && params.uriFriendlyTitle ? params.uriFriendlyTitle : undefined;
         }
 
-        getUmiByTitlePromise(): ng.IHttpPromise<void> {
+        getUmiByIdPromise(): ng.IHttpPromise<void> {
             let apiRoutes = openmaths.Config.getApiRoutes();
 
-            return this.Api.get(apiRoutes.getUmiByTitle + this.updateUriFriendlyTitle);
+            return this.Api.get(apiRoutes.getUmiById + this.updateUriFriendlyTitle);
         }
     }
 }
