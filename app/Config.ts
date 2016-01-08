@@ -92,7 +92,7 @@ module openmaths {
         }
 
         static getUiConfig():IUiConfig {
-            const uiConfigCached:IUiConfig = SessionStorage.get('uiConfig');
+            const uiConfigCached:IUiConfig = LocalStorage.get('uiConfig');
 
             return {
                 theme: uiConfigCached && uiConfigCached.theme ? uiConfigCached.theme : Config.uiConfig.theme,

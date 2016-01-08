@@ -52,12 +52,12 @@ module openmaths {
 
         toggleFont() {
             this.uiConfig.font = (this.uiConfig.font == 'traditional' ? 'modern' : 'traditional');
-            SessionStorage.set('uiConfig', this.uiConfig);
+            LocalStorage.set('uiConfig', this.uiConfig);
         }
 
         toggleTheme() {
             this.uiConfig.theme = (this.uiConfig.theme == 'dark' ? 'light' : 'dark');
-            SessionStorage.set('uiConfig', this.uiConfig);
+            LocalStorage.set('uiConfig', this.uiConfig);
         }
 
         signIn() {
