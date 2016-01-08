@@ -34,11 +34,11 @@ module openmaths {
     }
 
     export class Config {
-        private static localHost: string = 'om.dev';
-        private static productionHost: string = 'app.openmaths.io';
-        private static testHost: string = 'localhost:8087';
+        private static localHost:string = 'om.dev';
+        private static productionHost:string = 'app.openmaths.io';
+        private static testHost:string = 'localhost:8087';
 
-        private static apiRoutes: IApiRoutes = {
+        private static apiRoutes:IApiRoutes = {
             check: 'check',
             checkUpdate: 'check-update',
             createUmi: 'add',
@@ -49,50 +49,56 @@ module openmaths {
             update: 'update'
         };
 
-        private static apiUrls: IApiUrls = {
+        private static apiUrls:IApiUrls = {
             production: 'https://api.openmaths.io/',
             development: 'http://api.om.dev/',
             test: 'http://api.om.dev/'
         };
 
-        private static staticUrls: IApiUrls = {
+        private static staticUrls:IApiUrls = {
             production: 'https://static.openmaths.io/',
             development: 'http://static.om.dev/',
             test: 'http://static.om.dev/'
         };
 
-        private static uiConfig: IUiConfig = {
+        private static uiConfig:IUiConfig = {
             theme: 'light',
             font: 'modern',
             currentState: {}
         };
 
-        static getApiUrl(): string {
+        static getApiUrl():string {
             return Config.apiUrls[openmaths.Debug.getEnvironment()];
         }
 
-        static getStaticUrl(): string {
+        static getStaticUrl():string {
             return Config.staticUrls[openmaths.Debug.getEnvironment()];
         }
 
-        static getLocalHost(): string {
+        static getLocalHost():string {
             return Config.localHost;
         }
 
-        static getProductionHost(): string {
+        static getProductionHost():string {
             return Config.productionHost;
         }
 
-        static getTestHost(): string {
+        static getTestHost():string {
             return Config.testHost;
         }
 
-        static getApiRoutes(): IApiRoutes {
+        static getApiRoutes():IApiRoutes {
             return Config.apiRoutes;
         }
 
-        static getUiConfig(): IUiConfig {
-            return Config.uiConfig;
+        static getUiConfig():IUiConfig {
+            const uiConfigCached:IUiConfig = SessionStorage.get('uiConfig');
+
+            return {
+                theme: uiConfigCached && uiConfigCached.theme ? uiConfigCached.theme : Config.uiConfig.theme,
+                font: uiConfigCached && uiConfigCached.font ? uiConfigCached.font : Config.uiConfig.font,
+                currentState: Config.uiConfig.currentState
+            };
         }
     }
 }

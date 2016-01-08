@@ -1,19 +1,19 @@
 <nav id="primary"
-     ng-class="{'transparent': GlobalCtr.uiConfig.currentState.navigation.transparent, 'hidden': GlobalCtr.uiConfig.currentState.navigation.hiding, 'visible': visible}">
+     ng-class="{'transparent': GlobalCtr.uiConfig.currentState.navigation.transparent,
+     'hidden': GlobalCtr.uiConfig.currentState.navigation.hiding,
+     'visible': visible}">
     <ul>
         <li ui-sref-active="active">
             <a href ui-sref="explore">
                 <!--<i class="fa fa-globe"></i>-->
-                <!--<i class="fa fa-map-signs"></i>-->
-                <!--<i class="fa fa-code-fork"></i>-->
                 <i class="fa fa-location-arrow"></i>
                 Explore
             </a>
         </li>
         <li ui-sref-active="active">
             <a href ui-sref="editor">
-                <i class="fa fa-terminal"></i>
                 <!--<i class="fa fa-code"></i>-->
+                <i class="fa fa-terminal"></i>
                 Editor
             </a>
         </li>
@@ -24,14 +24,14 @@
     </a>
 
     <ul class="actions">
-        <li>
-            <a href="#">
+        <li ng-class="{active: GlobalCtr.uiConfig.font == 'traditional'}">
+            <a ng-click="GlobalCtr.toggleFont()">
                 <i class="fa fa-font"></i>
                 <span class="icon-label">Traditional Definitions</span>
             </a>
         </li>
         <li ng-class="{active: GlobalCtr.uiConfig.theme == 'dark'}">
-            <a ng-click="GlobalCtr.uiConfig.theme = (GlobalCtr.uiConfig.theme == 'dark' ? 'light' : 'dark')">
+            <a ng-click="GlobalCtr.toggleTheme()">
                 <i class="fa fa-moon-o"></i>
                 <span class="icon-label">Dark Theme</span>
             </a>
