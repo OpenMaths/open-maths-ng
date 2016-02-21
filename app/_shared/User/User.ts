@@ -2,26 +2,26 @@ module openmaths {
     'use strict';
 
     export class Auth {
-        accessToken: string;
-        gPlusId: string;
+        accessToken:string;
+        gPlusId:string;
 
-        constructor(accessToken: string, gPlusId: string) {
-            this.accessToken = accessToken ? accessToken : '';
-            this.gPlusId = gPlusId ? gPlusId : '';
+        constructor(accessToken:string, gPlusId:string) {
+            this.accessToken = accessToken ? accessToken : null;
+            this.gPlusId = gPlusId ? gPlusId : null;
         }
     }
 
     export class User {
-        accessToken: string;
-        email: string;
-        firstName: string;
-        gPlusId: string;
-        name: string;
-        picture: string;
-        surname: string;
-        verified: boolean;
+        accessToken:string;
+        email:string;
+        firstName:string;
+        gPlusId:string;
+        name:string;
+        picture:string;
+        surname:string;
+        verified:boolean;
 
-        constructor(accessToken: string, userInfo?: IGApiUserInfoResponse) {
+        constructor(accessToken:string, userInfo?:IGApiUserInfoResponse) {
             this.accessToken = accessToken;
             this.email = userInfo ? userInfo.email : undefined;
             this.firstName = userInfo ? userInfo.given_name : undefined;
@@ -50,12 +50,12 @@ module openmaths {
             openmaths.SessionStorage.remove('omUser');
         }
 
-        isSignedIn(): boolean {
+        isSignedIn():boolean {
             return !_.isUndefined(this.accessToken) && !_.isUndefined(this.gPlusId);
         }
 
         // @TODO Needs to know if this is a false?
-        static getData(): openmaths.User {
+        static getData():openmaths.User {
             let sessionData = openmaths.SessionStorage.get('omUser');
 
             let User = new openmaths.User(sessionData.accessToken);
@@ -73,16 +73,16 @@ module openmaths {
             return User;
         }
 
-        static getAuthData(): openmaths.Auth {
+        static getAuthData():openmaths.Auth {
             let userData = openmaths.User.getData();
 
             return new Auth(userData.accessToken, userData.gPlusId);
         }
 
-        static isSignedIn(): boolean {
+        static isSignedIn():boolean {
             let auth = User.getAuthData();
 
-            return !_.isEmpty(auth.accessToken) && !_.isEmpty(auth.gPlusId);
+            return !_.isNull(auth.accessToken) && !_.isNull(auth.gPlusId);
         }
     }
 }

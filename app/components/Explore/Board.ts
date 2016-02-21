@@ -218,7 +218,12 @@ module openmaths {
         }
 
         getUmiPromise(url):ng.IHttpPromise<void> {
-            return this.Api.get(url);
+            const isSignedIn = openmaths.User.isSignedIn();
+
+            if (isSignedIn)
+                return this.Api.post(url, openmaths.User.getAuthData());
+            else
+                return this.Api.get(url);
         }
     }
 }
