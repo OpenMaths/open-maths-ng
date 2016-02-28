@@ -144,10 +144,18 @@ module openmaths {
         removeValues(selector:UpdateValues, index:number) {
             switch (selector) {
                 case UpdateValues.PrerequisiteDefinitions:
-                    this.prerequisiteDefinitionIds.value[index].show = false;
+                    let prerequisiteDefinitionIds = _.clone(this.prerequisiteDefinitionIds.value);
+
+                    delete prerequisiteDefinitionIds[index];
+
+                    this.prerequisiteDefinitionIds.value = _.filter(prerequisiteDefinitionIds, _ => _);
                     break;
                 case UpdateValues.SeeAlso:
-                    this.seeAlsoIds.value[index].show = false;
+                    let seeAlso = _.clone(this.seeAlsoIds.value);
+
+                    delete seeAlso[index];
+
+                    this.seeAlsoIds.value = _.filter(seeAlso, _ => _);
                     break;
             }
         }

@@ -51,7 +51,7 @@ module openmaths.specs {
 
             model.removeValues(UpdateValues.SeeAlso, 0);
 
-            expect(model.seeAlsoIds.value[0].show).toEqual(false);
+            expect(model.seeAlsoIds.value[0]).toBeUndefined();
         });
     });
 
