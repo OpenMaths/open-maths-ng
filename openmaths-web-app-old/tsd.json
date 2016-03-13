@@ -1,0 +1,90 @@
+{
+  "version": "v4",
+  "repo": "OpenMaths/DefinitelyTyped",
+  "ref": "master",
+  "path": "app/typings",
+  "bundle": "app/typings/tsd.d.ts",
+  "installed": {
+    "angularjs/angular.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "gapi/gapi.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "jasmine/jasmine.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "mathjax/mathjax.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx-lite.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "angularjs/angular-mocks.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "angular-ui-router/angular-ui-router.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.time.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.time-lite.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.async.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.async-lite.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.all.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.aggregates.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.binding-lite.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.binding.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.coincidence-lite.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.coincidence.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.experimental.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.joinpatterns.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.testing.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.backpressure.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.backpressure-lite.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "rx/rx.virtualtime.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    },
+    "keymaster/keymaster.d.ts": {
+      "commit": "730287e895db7e444839bde574c953ae147668ee"
+    }
+  }
+}

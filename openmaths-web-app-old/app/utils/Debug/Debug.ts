@@ -16,13 +16,10 @@ module openmaths {
             switch (host) {
                 case Config.getLocalHost():
                     return 'development';
-                    break;
                 case Config.getTestHost():
                     return 'test';
-                    break;
                 default:
                     return 'production';
-                    break;
             }
         }
     }

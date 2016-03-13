@@ -1,0 +1,37 @@
+{
+  "name": "openmaths-web-app-old",
+  "version": "0.0.1",
+  "description": "World's first mathematical IDE",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "",
+    "setup": "npm install bower gulp typescript typings -g && npm install && bower install --allow-root && tsd install && gulp concatVendor compile-tsc compile-tsc-tests",
+    "start": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:OpenMaths/open-maths-ng.git"
+  },
+  "keywords": [
+    "openmaths-web-app-old"
+  ],
+  "author": "Slavomir Vojacek <slavomirvojacek@gmail.com> http://slavo.london",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OpenMaths/open-maths-ng/issues"
+  },
+  "homepage": "https://github.com/OpenMaths/open-maths-ng",
+  "dependencies": {
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-tsc": "^1.1.5",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.24"
+  }
+}

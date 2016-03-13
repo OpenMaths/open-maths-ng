@@ -130,13 +130,13 @@ module openmaths {
                     let prerequisiteDefinitions = _.clone(this.prerequisiteDefinitionIds.value);
 
                     prerequisiteDefinitions.push({id: resolveObject.id, show: true, title: resolveObject.title});
-                    this.prerequisiteDefinitionIds.value = _.uniq(prerequisiteDefinitions, 'id');
+                    this.prerequisiteDefinitionIds.value = _.uniq(prerequisiteDefinitions);
                     break;
                 case UpdateValues.SeeAlso:
                     let seeAlso = _.clone(this.seeAlsoIds.value);
 
                     seeAlso.push({id: resolveObject.id, show: true, title: resolveObject.title});
-                    this.seeAlsoIds.value = _.uniq(seeAlso, 'id');
+                    this.seeAlsoIds.value = _.uniq(seeAlso);
                     break;
             }
         }
@@ -300,9 +300,9 @@ module openmaths {
             this.content = MutationForm.content.value;
             this.id = MutationForm.id.value;
             this.message = 'Initialise UMI';
-            this.prerequisiteDefinitionIds = _.map(_.where(MutationForm.prerequisiteDefinitionIds.value, {show: true}),
+            this.prerequisiteDefinitionIds = _.map(_.filter(MutationForm.prerequisiteDefinitionIds.value, {show: true}),
                 (Obj:IPrereqsSeeAlsosArr) => Obj.id);
-            this.seeAlsoIds = _.map(_.where(MutationForm.seeAlsoIds.value, {show: true}),
+            this.seeAlsoIds = _.map(_.filter(MutationForm.seeAlsoIds.value, {show: true}),
                 (Obj:IPrereqsSeeAlsosArr) => Obj.id);
             this.tags = MutationForm.tags.value;
             this.title = MutationForm.title.value;
